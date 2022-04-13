@@ -39,13 +39,6 @@ type Rational = Ratio Integer # Arbitrary-precision rational numbers
 data Word # A Word is an unsigned integral type, with the same size as Int.
 ```
 
-### Characters
-
-```
-data Char
-type String = [Char]
-```
-
 ### Tuples
 
 ```
@@ -58,6 +51,13 @@ uncurry :: (a -> b -> c) -> (a,b) -> c
 ### Lists
 
 See [Lists](Lists.md)
+
+### Characters
+
+```
+data Char
+type String = [Char]
+```
 
 ### Maybe and Either
 
