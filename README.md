@@ -12,6 +12,10 @@ Read [A History of Haskell: Being Lazy with Class](https://www.microsoft.com/en-
 From its abstract:
 `This paper describes the history of Haskell, including its genesis and principles, technical contributions, implementations and tools, and applications and impact.`
 
+## Purpose
+
+[What Haskell want to achieve and the path taken](https://www.youtube.com/watch?v=iSmkqocn0oQ)
+
 ## Prelude
 
 Basic types and clasess that are in scope by default in every Haskell file
