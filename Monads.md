@@ -71,6 +71,22 @@ class (Functor t, Foldable t) => Traversable t where
 ```
 
 ```
+null :: Foldable t => t a -> Bool
+length :: Foldable t => t a -> Int
+```
+
+## Special folds
+
+```
+and :: Foldable t => t Bool -> Bool
+or :: Foldable t => t Bool -> Bool
+any :: Foldable t => (a -> Bool) -> t a -> Bool
+all :: Foldable t => (a -> Bool) -> t a -> Bool
+concat :: Foldable t => t [a] -> [a]
+concatMap :: Foldable t => (a -> [b]) -> t a -> [b]
+```
+
+```
 mapM_ :: (Foldable t, Monad m) => (a -> m b) -> t a -> m () 
 sequence_ :: (Foldable t, Monad m) => t (m a) -> m () 
 (=<<) :: Monad m => (a -> m b) -> m a -> m b
