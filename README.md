@@ -1,10 +1,43 @@
 # [Haskell](http://www.haskell.org/), an advanced, purely functional programming language
 
-***A mixture of quick reference guide and Haskell tutorial***
+***A mixture of quick reference guide and Haskell tutorial*** [^1] [^2]
 
-Based on [GHC](https://www.haskell.org/ghc/) (The Glasgow Haskell Compiler), a state-of-the-art, open source, compiler and interactive environment for the functional language Haskell
+[^1]: Based on [GHC](https://www.haskell.org/ghc/) (The Glasgow Haskell Compiler), a state-of-the-art, open source, compiler and interactive environment for the functional language Haskell
 
-Using [version 9.2.2](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/index.html) of GHC
+[^2]: Using [version 9.2.2](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/index.html) of GHC
+
+## Preface
+
+`“Some half dozen persons have written technically on combinatory logic, and most of these, including ourselves, have published something erroneous. Since some of our fellow sinners are among the most careful and competent logicians on the contemporary scene, we regard this as evidence that the subject is refractory. Thus fullness of exposition is necessary for accuracy; and excessive condensation would be false economy here, even more than it is ordinarily.”`
+
+Haskell B. Curry and Robert Feys
+in the Preface to Combinatory Logic [3](https://www.haskell.org/onlinereport/haskell2010/haskellli3.html#Xcurry&feys:book), May 31, 1956
+
+[^3]: H.K. Curry and R. Feys. Combinatory Logic. North-Holland Pub. Co., Amsterdam, 1958
+
+## History
+Read [A History of Haskell: Being Lazy with Class](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf)
+
+From its abstract:
+`This paper describes the history of Haskell, including its genesis and principles, technical contributions, implementations and tools, and applications and impact.`
+
+## Goals
+
+In a meeting held at the conference on Functional Programming Languages and Computer Architecture (FPCA ’87) in Portland, Oregon in September of 1987, it was decided that a committee should be formed to design a much needed common language for a ***purely functional programming languages***
+
+The committee’s primary goal was to design a language that satisfied these constraints:
+
+- It should be suitable for teaching, research, and applications, including building large systems.
+- It should be completely described via the publication of a formal syntax and semantics.
+- It should be freely available. Anyone should be permitted to implement the language and distribute it to whomever they please.
+- It should be based on ideas that enjoy a wide consensus.
+- It should reduce unnecessary diversity in functional programming languages.
+
+[This documents](https://wiki.haskell.org/Language_and_library_specification) describes the results of that (and subsequent) committee’s efforts: a purely functional programming language called Haskell, named after the logician Haskell B. Curry whose work provides the logical basis for much of ours.
+
+## Purpose
+
+[What Haskell want to achieve and the path taken](https://www.youtube.com/watch?v=iSmkqocn0oQ)
 
 ## Main Features
 
@@ -31,16 +64,6 @@ Haskell lends itself well to concurrent programming due to its explicit handling
 ### Packages
 
 Open source contribution to Haskell is very active with a wide range of packages available on the public package servers.
-
-## Purpose
-
-[What Haskell want to achieve and the path taken](https://www.youtube.com/watch?v=iSmkqocn0oQ)
-
-## History
-Read [A History of Haskell: Being Lazy with Class](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf)
-
-From its abstract:
-`This paper describes the history of Haskell, including its genesis and principles, technical contributions, implementations and tools, and applications and impact.`
 
 ## Prelude
 
