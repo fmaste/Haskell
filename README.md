@@ -35,7 +35,7 @@ The committee’s primary goal was to design a language that satisfied these con
 - It should be based on ideas that enjoy a wide consensus.
 - It should reduce unnecessary diversity in functional programming languages.
 
-[This documents](https://wiki.haskell.org/Language_and_library_specification) describes the results of that (and subsequent) committee’s efforts: a purely functional programming language called Haskell, named after the logician Haskell B. Curry whose work provides the logical basis for much of ours.
+[This documents](https://wiki.haskell.org/Language_and_library_specification) describes the results of that (and subsequent) committee’s efforts: a purely functional programming language called Haskell, ***named after the logician Haskell B. Curry whose work provides the logical basis for much of ours***.
 
 ### Purpose
 
