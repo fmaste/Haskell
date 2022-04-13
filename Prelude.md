@@ -104,7 +104,7 @@ class Bounded a where
         minBound :: a
 ```
 
-### Tuples
+## Tuples
 
 ```
 fst :: (a,b) -> a
@@ -113,11 +113,11 @@ curry :: ((a,b) -> c) -> a -> b -> c
 uncurry :: (a -> b -> c) -> (a,b) -> c
 ```
 
-### Lists
+## Lists
 
 See [Lists](Lists.md) for list functions
 
-### Characters
+## Characters
 
 ```
 data Char
