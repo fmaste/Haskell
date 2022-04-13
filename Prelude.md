@@ -50,13 +50,16 @@ uncurry :: (a -> b -> c) -> (a,b) -> c
 
 ### Lists
 
-See [Lists](Lists.md)
+See [Lists](Lists.md) for list functions
 
 ### Characters
 
 ```
 data Char
 type String = [Char]
+
+See [Strings](Strings.md) for String functions
+
 ```
 
 ### Maybe and Either
