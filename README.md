@@ -73,7 +73,8 @@ Basic types and clasess that are in scope by default in every Haskell file
 
 See [Prelude](Prelude.md)
 
-TODO:
+## TODO
+
 seL4: Formal Verification of an OS Kernel
 https://www.sigops.org/s/conferences/sosp/2009/papers/klein-sosp09.pdf
 
