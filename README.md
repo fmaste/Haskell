@@ -23,7 +23,7 @@ From its abstract:
 
 Also [this video](https://www.youtube.com/watch?v=re96UgMk6GQ) from 2017 where Symon Peyton Jones discusses Haskell’s birth and evolution
 
-## Goals
+## Inception
 
 In a meeting held at the conference on Functional Programming Languages and Computer Architecture (FPCA ’87) in Portland, Oregon in September of 1987, it was decided that a committee should be formed to design a much needed common language for a ***purely functional programming languages***
 
