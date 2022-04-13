@@ -89,6 +89,8 @@ newtype Dual a = Dual {getDual :: a}
 "WorldHello"
 ```
 
+### Function wrapper
+
 ```
 newtype Endo a = Endo {appEndo :: a -> a}
 >>> let computation = Endo ("Hello, " ++) <> Endo (++ "!")
@@ -96,14 +98,15 @@ newtype Endo a = Endo {appEndo :: a -> a}
 "Hello, Haskell!"
 ```
 
-### Function wrapper
-
 ```Endo``` comes from an "Endomorphism" in category theory, means that functions with of type ```a -> a``` can be combined by composition, and the order of the application of composition doesn't matter much.
 
-## See more:
+## Further reading:
 
+- (https://wiki.haskell.org/Typeclassopedia#Further_reading_6)
 - (https://www.schoolofhaskell.com/user/mgsloan/monoids-tour)
 - (http://blog.sigfpe.com/2009/01/haskell-monoids-and-their-uses.html)
+- (https://apfelmus.nfshost.com/articles/monoid-fingertree.html)
+- (https://www.staff.city.ac.uk/~ross/papers/FingerTree.html)
 
 # Monads and functors
 
@@ -116,6 +119,10 @@ class Functor f where
 ```
 (<$>) :: Functor f => (a -> b) -> f a -> f b 
 ```
+
+## TODO
+- https://gitlab.haskell.org/ghc/ghc/-/wikis/recursive-do
+- https://gitlab.haskell.org/ghc/ghc/-/wikis/applicative-do
 
 ```
 class Functor f => Applicative f where
@@ -193,3 +200,7 @@ sequence_ :: (Foldable t, Monad m) => t (m a) -> m ()
 
 # TODO
 [Arrows, like Monads, are Monoids](https://homepages.inf.ed.ac.uk/cheunen/publications/2006/arrows/arrows.pdf)
+
+# TODO: Alternative
+
+A Alt turns any Alternative instance into a Monoid.

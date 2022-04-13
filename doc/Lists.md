@@ -58,3 +58,8 @@ zipWith3 :: (a -> b -> c -> d) -> [a] -> [b] -> [c] -> [d]
 unzip :: [(a, b)] -> ([a], [b])
 unzip3 :: [(a, b, c)] -> ([a], [b], [c])
 ```
+
+# TODO:
+- https://hackage.haskell.org/package/base-4.13.0.0/docs/Data-Ix.html#t:Ix
+```class Ord a => Ix a where```
+- https://hackage.haskell.org/package/array-0.5.4.0
