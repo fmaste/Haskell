@@ -1,6 +1,8 @@
 # [Prelude](https://hackage.haskell.org/package/base-4.16.1.0/docs/Prelude.html) from [base](https://hackage.haskell.org/package/base) version 4.16.1.0 
 
-## Bool
+## Builtin types
+
+### Bool
 
 ```
 data Bool = True | False
@@ -9,7 +11,51 @@ data Bool = True | False
 not :: Bool -> Bool -> Bool
 otherwise :: Bool
 ```
-## Maybe and Either
+
+### Natural numbers
+
+A fixed-precision integer type with at least the range [-2^29 .. 2^29-1]
+```
+data Int
+```
+The entire infinite range of integers
+```
+data Integer
+```
+Single-precision floating point numbers.
+```
+data Float
+```
+Double-precision floating point numbers.
+```
+data Double
+```
+
+### TODO
+
+```
+type Rational = Ratio Integer # Arbitrary-precision rational numbers
+
+data Word # A Word is an unsigned integral type, with the same size as Int.
+```
+
+### Characters
+
+```
+data Char
+type String = [Char]
+```
+
+### Tuples
+
+```
+fst :: (a,b) -> a
+snd :: (a,b) -> b
+curry :: ((a,b) -> c) -> a -> b -> c
+uncurry :: (a -> b -> c) -> (a,b) -> c
+```
+
+### Maybe and Either
 
 ```
 data Maybe a = Nothing | Just a
@@ -20,24 +66,21 @@ data Either a b = Left a | Right b
 either :: (a -> c) -> (b -> c) -> Either a b -> c
 ```
 
-## Tuples
+## Basic type classes
 
-```
-fst :: (a,b) -> a
-snd :: (a,b) -> b
-curry :: ((a,b) -> c) -> a -> b -> c
-uncurry :: (a -> b -> c) -> (a,b) -> c
-```
-
-## Compare
+### Compare
 
 ```
 data Ordering = LT | EQ | GT
+```
 
+```
 class Eq a where
         (==) :: a -> a -> Bool
         (/=) :: a -> a -> Bool
+```
 
+```
 class Eq a => Ord a where
         compare :: a -> a -> Ordering
         (<) :: a -> a -> Bool
@@ -48,30 +91,7 @@ class Eq a => Ord a where
         min :: a -> a -> a
 ```
 
-## Builtin types
-
-### Natural numbers
-
-```
-data Int
-data Integer
-data Float
-data Double
-```
-
-### TODO
-```
-type Rational = Ratio Integer
-
-data Word
-```
-
-## Characters
-
-```
-data Char
-type String = [Char]
-```
+### Order
 
 ```
 class Enum a where
@@ -91,3 +111,69 @@ class Bounded a where
         minBound :: a
 ```
 
+### Numeric type classes
+
+```
+class Num a where
+        (+) :: a -> a -> a
+        (-) :: a -> a -> a
+        (*) :: a -> a -> a
+        negate :: a -> a
+        abs :: a -> a
+        signum :: a -> a
+        fromInteger :: Integer -> a
+```
+
+```
+class (Num a, Ord a) => Real a where
+        toRational :: a -> Rational
+```
+
+```
+class (Real a, Enum a) => Integral a where
+        quot :: a -> a -> a
+        rem :: a -> a -> a
+        div :: a -> a -> a
+        mod :: a -> a -> a
+        quotRem :: a -> a -> (a, a) 
+        divMod :: a -> a -> (a, a) 
+        toInteger :: a -> Integer
+```
+
+```
+class Num a => Fractional a where
+        (/) :: a -> a -> a 
+        recip :: a -> a 
+        fromRational :: Rational -> a 
+```
+
+```
+class Fractional a => Floating a where
+        pi :: a 
+        exp :: a -> a 
+        log :: a -> a 
+        sqrt :: a -> a 
+        (**) :: a -> a -> a
+        logBase :: a -> a -> a 
+        sin :: a -> a 
+        cos :: a -> a 
+        tan :: a -> a 
+        asin :: a -> a 
+        acos :: a -> a 
+        atan :: a -> a 
+        sinh :: a -> a 
+        cosh :: a -> a 
+        tanh :: a -> a 
+        asinh :: a -> a 
+        acosh :: a -> a 
+        atanh :: a -> a 
+```
+
+```
+class (Real a, Fractional a) => RealFrac a where
+        properFraction :: Integral b => a -> (b, a) 
+        truncate :: Integral b => a -> b 
+        round :: Integral b => a -> b 
+        ceiling :: Integral b => a -> b 
+        floor :: Integral b => a -> b 
+```
