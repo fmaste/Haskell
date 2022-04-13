@@ -20,7 +20,7 @@ class Functor f where
         (<$) :: a -> f b -> f a 
 ```
 
-````
+```
 (<$>) :: Functor f => (a -> b) -> f a -> f b 
 ```
 
