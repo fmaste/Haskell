@@ -139,3 +139,7 @@ class (Real a, Enum a) => Integral a where
         divMod :: a -> a -> (a, a) 
         toInteger :: a -> Integer
 ```
+
+#### Fractional
+
+See [Fractional](NumbersFractional.md)
