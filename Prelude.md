@@ -55,6 +55,10 @@ curry :: ((a,b) -> c) -> a -> b -> c
 uncurry :: (a -> b -> c) -> (a,b) -> c
 ```
 
+### Lists
+
+See [Lists](Lists.md)
+
 ### Maybe and Either
 
 ```
@@ -80,6 +84,8 @@ class Eq a where
         (/=) :: a -> a -> Bool
 ```
 
+### Order
+
 ```
 class Eq a => Ord a where
         compare :: a -> a -> Ordering
@@ -90,8 +96,6 @@ class Eq a => Ord a where
         max :: a -> a -> a
         min :: a -> a -> a
 ```
-
-### Order
 
 ```
 class Enum a where
