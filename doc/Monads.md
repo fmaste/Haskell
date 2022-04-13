@@ -1,9 +1,24 @@
 # Semigroups and Monoids
 
+## [Semigroups](https://hackage.haskell.org/package/base-4.16.1.0/docs/Prelude.html#t:Semigroup)
+
+The class of types that have an associative binary operation.
+
 ```
 class Semigroup a where
         (<>) :: a -> a -> a
 ```
+
+Instances should satisfy the following:
+- Associativity: ```x <> (y <> z) = (x <> y) <> z```
+
+## [Monoids](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Monoid.html#t:Monoid)
+
+In Haskell a [Monoid](https://wiki.haskell.org/Monoid) (not to be confused with ```Monad```) is a Semigroup with the added requirement of a neutral element.
+
+ Is a class for types which have a single most natural operation for combining values, together with a value which doesn't do anything when you combine it with others (this is called the identity element).
+
+It is closely related to the ```Foldable``` class, and indeed you can think of a Monoid instance declaration for a type ```a``` as precisely what you need in order to fold up a list of values of m. 
 
 ```
 class Semigroup a => Monoid a where
@@ -11,6 +26,35 @@ class Semigroup a => Monoid a where
         mappend :: a -> a -> a
         mconcat :: [a] -> a
 ```
+
+Instances should satisfy the following:
+- Right identity: ```x <> mempty = x```
+- Left identity: ```mempty <> x = x```
+- Associativity: ```x <> (y <> z) = (x <> y) <> z``` (Semigroup law)
+- Concatenation: ```mconcat = foldr (<>) mempty```
+
+Some types can be viewed as a monoid in more than one way, e.g. both addition and multiplication on numbers. In such cases we often define newtypes and make those instances of Monoid, e.g. [Sum](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Semigroup.html#v:Sum) and [Product](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Semigroup.html#v:Product).
+
+See more:
+- (https://wiki.haskell.org/Monoid)
+- (http://blog.sigfpe.com/2009/01/haskell-monoids-and-their-uses.html)
+
+## Defining
+
+Example:
+
+```
+instance Semigroup [a] where
+        (<>) = (++)
+```
+
+```
+instance Monoid [a] where
+        mappend = (<>) -- From the Semigroup instance above.
+        mempty = []
+```
+
+The ```mconcat``` definition is derived from the other two if none is provided.
 
 # Monads and functors
 
