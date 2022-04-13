@@ -29,8 +29,8 @@ In a meeting held at the conference on Functional Programming Languages and Comp
 
 The committee’s primary goal was to design a language that satisfied these constraints:
 
-- It should be suitable for ***teaching, research, and applications, including building large systems***.
 - It should be completely described via the publication of a ***formal syntax and semantics***.
+- It should be suitable for ***teaching, research, and applications, including building large systems***.
 - It should be ***freely available***. Anyone should be permitted to implement the language and distribute it to whomever they please.
 - It should be based on ideas that enjoy a wide consensus.
 - It should reduce unnecessary diversity in functional programming languages.
