@@ -74,6 +74,8 @@ either :: (a -> c) -> (b -> c) -> Either a b -> c
 
 ### Compare
 
+As long as a type is an instance of class ```Eq```, you can apply operators ```==``` and ```/=``` to values of that type
+
 ```
 data Ordering = LT | EQ | GT
 ```
@@ -85,6 +87,8 @@ class Eq a where
 ```
 
 ### Order
+
+As long as a type is an instance of class ```Ord```, you can apply operators ```>```, ```>=```, ```<``` and ```<=``` to values of that type
 
 ```
 class Eq a => Ord a where
@@ -116,6 +120,8 @@ class Bounded a where
 ```
 
 ### Numeric type classes
+
+As long as a type is an instance of class ```Num```, you can apply operators ```+```, ```-``` and ```*```
 
 ```
 class Num a where
