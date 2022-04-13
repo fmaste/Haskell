@@ -37,10 +37,9 @@ Instances should satisfy the following:
 
 Emphasis on ***single*** because numbers also form a monoid under addition, with 0 the identity element, but they also form a monoid under multiplication, with 1 the identity element. Neither of these instances are really more natural than the other, so we use the newtypes [Sum](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Semigroup.html#v:Sum) and [Product](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Semigroup.html#v:Product) to distinguish between them.
 
-It is closely related to the ```Foldable``` class, and indeed you can think of a Monoid instance declaration for a type ```a``` as precisely what you need in order to fold up a list of values of m. 
+In general, if you're going to define an instance of monoid for your datatype, then the ***most straightforward and useful definition*** should be chosen.
 
-See more:
-- (http://blog.sigfpe.com/2009/01/haskell-monoids-and-their-uses.html)
+It is closely related to the ```Foldable``` class, and indeed you can think of a Monoid instance declaration for a type ```a``` as precisely what you need in order to fold up a list of values of m. 
 
 ## Defining
 
@@ -58,6 +57,53 @@ instance Monoid [a] where
 ```
 
 The ```mconcat``` definition is derived from the other two if none is provided.
+
+## Special ```Monoid``` types
+
+Like ```Sum``` and ```Product``` explained above there are other wrappers
+
+### Boolean wrappers
+
+```
+newtype All = All {getAll :: Bool}
+>>> getAll (All True <> mempty <> All False)
+False
+>>> getAll (mconcat (map (\x -> All (even x)) [2,4,6,7,8]))
+False
+```
+
+```
+newtype Any = Any {getAny :: Bool}
+>>> getAny (Any True <> mempty <> Any False)
+True
+>>> getAny (mconcat (map (\x -> Any (even x)) [2,4,6,7,8]))
+True
+```
+
+### Reverse wrapper
+
+```
+newtype Dual a = Dual {getDual :: a}
+
+>>> getDual (mappend (Dual "Hello") (Dual "World"))
+"WorldHello"
+```
+
+```
+newtype Endo a = Endo {appEndo :: a -> a}
+>>> let computation = Endo ("Hello, " ++) <> Endo (++ "!")
+>>> appEndo computation "Haskell"
+"Hello, Haskell!"
+```
+
+### Function wrapper
+
+```Endo``` comes from an "Endomorphism" in category theory, means that functions with of type ```a -> a``` can be combined by composition, and the order of the application of composition doesn't matter much.
+
+## See more:
+
+- (https://www.schoolofhaskell.com/user/mgsloan/monoids-tour)
+- (http://blog.sigfpe.com/2009/01/haskell-monoids-and-their-uses.html)
 
 # Monads and functors
 
@@ -144,3 +190,6 @@ mapM_ :: (Foldable t, Monad m) => (a -> m b) -> t a -> m ()
 sequence_ :: (Foldable t, Monad m) => t (m a) -> m () 
 (=<<) :: Monad m => (a -> m b) -> m a -> m b
 ```
+
+# TODO
+[Arrows, like Monads, are Monoids](https://homepages.inf.ed.ac.uk/cheunen/publications/2006/arrows/arrows.pdf)
