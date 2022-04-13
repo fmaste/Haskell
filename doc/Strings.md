@@ -9,6 +9,8 @@ unwords :: [String] -> String
 
 # Converting to and from String
 
+## Converting to String
+
 ```
 type ShowS = String -> String
 ```
@@ -27,7 +29,7 @@ showString :: String -> ShowS
 showParen :: Bool -> ShowS -> ShowS
 ```
 
-# Converting from String
+## Converting from String
 
 ```
 type ReadS a = String -> [(a, String)]
