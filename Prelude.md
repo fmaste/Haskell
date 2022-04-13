@@ -115,7 +115,7 @@ uncurry :: (a -> b -> c) -> (a,b) -> c
 
 ## Lists
 
-See [Lists](Lists.md) for list functions
+See [Lists](doc/Lists.md) for list functions
 
 ## Characters
 
@@ -124,7 +124,7 @@ data Char
 type String = [Char]
 ```
 
-See [Strings](Strings.md) for String functions
+See [Strings](doc/Strings.md) for String functions
 
 ## Numeric type classes
 
@@ -159,7 +159,7 @@ class (Real a, Enum a) => Integral a where
 
 #### Fractional
 
-See [Fractional](NumbersFractional.md)
+See [Fractional](doc/NumbersFractional.md)
 
 # Basic Input and output
 
