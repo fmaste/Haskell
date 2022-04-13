@@ -16,7 +16,7 @@ in the Preface to Combinatory Logic [3](https://www.haskell.org/onlinereport/has
 [^3]: H.K. Curry and R. Feys. Combinatory Logic. North-Holland Pub. Co., Amsterdam, 1958
 
 ## History
-Read [A History of Haskell: Being Lazy with Class](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf)
+Read [A History of Haskell: Being Lazy with Class](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf) from 2007
 
 From its abstract:
 `This paper describes the history of Haskell, including its genesis and principles, technical contributions, implementations and tools, and applications and impact.`
