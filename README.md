@@ -37,7 +37,7 @@ The committee’s primary goal was to design a language that satisfied these con
 
 ## Purpose
 
-10 years old [funny video](https://www.youtube.com/watch?v=iSmkqocn0oQ) of what Haskell wants to achieve and the path taken to achieve it
+A [+10 years old funny video](https://www.youtube.com/watch?v=iSmkqocn0oQ) of what Haskell wants to achieve and the path taken to achieve it
 
 ## Main Features
 
