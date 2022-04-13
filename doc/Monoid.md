@@ -102,8 +102,8 @@ newtype Endo a = Endo {appEndo :: a -> a}
 
 ## Further reading:
 
-- (https://wiki.haskell.org/Typeclassopedia#Further_reading_6)
-- (https://www.schoolofhaskell.com/user/mgsloan/monoids-tour)
-- (http://blog.sigfpe.com/2009/01/haskell-monoids-and-their-uses.html)
-- (https://apfelmus.nfshost.com/articles/monoid-fingertree.html)
-- (https://www.staff.city.ac.uk/~ross/papers/FingerTree.html)
+- https://wiki.haskell.org/Typeclassopedia#Further_reading_6
+- https://www.schoolofhaskell.com/user/mgsloan/monoids-tour
+- http://blog.sigfpe.com/2009/01/haskell-monoids-and-their-uses.html
+- https://apfelmus.nfshost.com/articles/monoid-fingertree.html
+- https://www.staff.city.ac.uk/~ross/papers/FingerTree.html
