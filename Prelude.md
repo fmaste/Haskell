@@ -41,10 +41,15 @@ data Word # A Word is an unsigned integral type, with the same size as Int.
 
 ### Maybe and Either
 
+How to represent a value that can be null?
+
 ```
 data Maybe a = Nothing | Just a
 maybe :: b -> (a -> b) -> Maybe a -> b
 ```
+
+How to represent a value that can be an error (```Left```)?
+
 ```
 data Either a b = Left a | Right b
 either :: (a -> c) -> (b -> c) -> Either a b -> c
