@@ -39,28 +39,6 @@ type Rational = Ratio Integer # Arbitrary-precision rational numbers
 data Word # A Word is an unsigned integral type, with the same size as Int.
 ```
 
-### Tuples
-
-```
-fst :: (a,b) -> a
-snd :: (a,b) -> b
-curry :: ((a,b) -> c) -> a -> b -> c
-uncurry :: (a -> b -> c) -> (a,b) -> c
-```
-
-### Lists
-
-See [Lists](Lists.md) for list functions
-
-### Characters
-
-```
-data Char
-type String = [Char]
-```
-
-See [Strings](Strings.md) for String functions
-
 ### Maybe and Either
 
 ```
@@ -121,7 +99,29 @@ class Bounded a where
         minBound :: a
 ```
 
-### Numeric type classes
+### Tuples
+
+```
+fst :: (a,b) -> a
+snd :: (a,b) -> b
+curry :: ((a,b) -> c) -> a -> b -> c
+uncurry :: (a -> b -> c) -> (a,b) -> c
+```
+
+### Lists
+
+See [Lists](Lists.md) for list functions
+
+### Characters
+
+```
+data Char
+type String = [Char]
+```
+
+See [Strings](Strings.md) for String functions
+
+## Numeric type classes
 
 As long as a type is an instance of class ```Num```, you can apply operators ```+```, ```-``` and ```*```
 
