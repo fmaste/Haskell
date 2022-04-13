@@ -57,10 +57,9 @@ See [Lists](Lists.md) for list functions
 ```
 data Char
 type String = [Char]
+```
 
 See [Strings](Strings.md) for String functions
-
-```
 
 ### Maybe and Either
 
