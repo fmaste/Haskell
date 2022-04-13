@@ -36,3 +36,30 @@ class (Real a, Fractional a) => RealFrac a where
         ceiling :: Integral b => a -> b 
         floor :: Integral b => a -> b 
 ```
+
+```
+class (RealFrac a, Floating a) => RealFloat a where
+        properFraction :: Integral b => a -> (b, a) 
+        truncate :: Integral b => a -> b 
+        round :: Integral b => a -> b 
+        ceiling :: Integral b => a -> b 
+        floor :: Integral b => a -> b 
+```
+
+```
+class (RealFrac a, Floating a) => RealFloat a where
+        floatRadix :: a -> Integer
+        floatDigits :: a -> Int
+        floatRange :: a -> (Int, Int) 
+        decodeFloat :: a -> (Integer, Int) 
+        encodeFloat :: Integer -> Int -> a 
+        exponent :: a -> Int
+        significand :: a -> a 
+        scaleFloat :: Int -> a -> a 
+        isNaN :: a -> Bool
+        isInfinite :: a -> Bool
+        isDenormalized :: a -> Bool
+        isNegativeZero :: a -> Bool
+        isIEEE :: a -> Bool
+        atan2 :: a -> a -> a 
+```
