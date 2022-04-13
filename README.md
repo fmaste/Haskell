@@ -21,7 +21,7 @@ Read [A History of Haskell: Being Lazy with Class](https://www.microsoft.com/en-
 From its abstract:
 `This paper describes the history of Haskell, including its genesis and principles, technical contributions, implementations and tools, and applications and impact.`
 
-Also [this video](https://www.youtube.com/watch?v=re96UgMk6GQ) from 2017 where Symon Peyton Jones discusses Haskell’s birth and evolution
+Also [this video](https://www.youtube.com/watch?v=re96UgMk6GQ) from 2017 where [Symon Peyton Jones](https://www.microsoft.com/en-us/research/people/simonpj/) discusses Haskell’s birth and evolution
 
 ### Inception
 
