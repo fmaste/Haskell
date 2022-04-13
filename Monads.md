@@ -32,6 +32,8 @@ class Functor f => Applicative f where
         (<*) :: f a -> f b -> f a
 ```
 
+For a long type ```Applicative``` was not a superclass of ```Monad``` but thankfully this was fixed with the [AMP proposal](https://wiki.haskell.org/Functor-Applicative-Monad_Proposal). If you see code not making use of this much needed fix, please understand the past situation!
+
 ```
 class Applicative m => Monad m where
         (>>=) :: forall a b. m a -> (a -> m b) -> m b
