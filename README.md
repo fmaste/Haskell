@@ -77,8 +77,26 @@ Basic types and clasess that are in scope by default in every Haskell file
 
 See [Prelude](Prelude.md)
 
+Custom Prelude: The default Prelude can be disabled using ```-XNoImplicitPrelude``` GHC flag, this allows us to replace the default entirely with a custom prelude. Some projects roll their own Prologue.hs module in replacement.
+
+```
+{-# LANGUAGE NoImplicitPrelude #-}
+```
+
+## Class hierarchy
+
+For an easy start see [Monoid](doc/Monoid.md), you won't be using them much but helps undertanding the rest.
+
+See [Monad](doc/Monad.md)
+
+TODO: https://stackoverflow.com/questions/36274369/what-are-some-types-that-discriminate-between-categories
+
 ## TODO
 
 seL4: Formal Verification of an OS Kernel
 https://www.sigops.org/s/conferences/sosp/2009/papers/klein-sosp09.pdf
 
+# Further reading
+
+- [What I Wish I Knew When Learning Haskell ](http://dev.stephendiehl.com/hask/#what-is-haskell)
+- 

@@ -41,14 +41,21 @@ data Word # A Word is an unsigned integral type, with the same size as Int.
 
 ### Maybe and Either
 
+#### Maybe
+
 How to represent a value that can be null?
 
 ```
 data Maybe a = Nothing | Just a
 maybe :: b -> (a -> b) -> Maybe a -> b
 ```
+More functions in module [Data.Maybe](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Maybe.html)
 
-How to represent a value that can be an error (```Left```)?
+#### Either
+
+More functions in module [Data.Either](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Either.html)
+
+How to represent a value that can be an error (The standard practice is using ```Left```)?
 
 ```
 data Either a b = Left a | Right b

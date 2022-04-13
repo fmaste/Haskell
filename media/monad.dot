@@ -1,0 +1,38 @@
+digraph {
+
+# Based on:
+# https://wiki.haskell.org/Typeclassopedia#Introduction
+# https://wiki.haskell.org/File:Dependencies.txt
+
+        node [shape=box];
+
+        Semigroup -> Monoid;
+
+        {rank = same; Monoid; Foldable; Monad}
+
+        Foldable -> Traversable;
+
+        Functor -> Applicative -> Monad;
+
+        Monad -> MonadPlus;
+
+        Monad -> MonadFix;
+
+        {rank = same; MonadPlus; MonadFix}
+
+        Functor -> Traversable;
+        Applicative -> Alternative;
+
+        # TODO:
+
+        Category -> Arrow -> ArrowChoice;
+
+        {rank = same; Arrow; ArrowZero; ArrowPlus}
+
+        Arrow -> ArrowApply;
+
+        Arrow -> ArrowLoop;
+
+        Arrow -> ArrowZero -> ArrowPlus;
+
+}
