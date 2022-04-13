@@ -85,6 +85,8 @@ Custom Prelude: The default Prelude can be disabled using ```-XNoImplicitPrelude
 
 ## Class hierarchy
 
+![Monad classes](media/monad.png)
+
 For an easy start see [Monoid](doc/Monoid.md), you won't be using them much but helps undertanding the rest.
 
 See [Monad](doc/Monad.md)
