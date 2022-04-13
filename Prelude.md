@@ -160,3 +160,46 @@ class (Real a, Enum a) => Integral a where
 #### Fractional
 
 See [Fractional](NumbersFractional.md)
+
+# Basic Input and output
+
+```
+data IO
+```
+
+## Output functions
+
+```
+putChar :: Char -> IO () 
+putStr :: String -> IO ()
+putStrLn :: String -> IO ()
+print :: Show a => a -> IO ()
+```
+
+## Input functions
+
+```
+getChar :: IO Char
+getLine :: IO String
+getContents :: IO String
+interact :: (String -> String) -> IO ()
+```
+
+## Files
+
+```
+type FilePath = String
+readFile :: FilePath -> IO String
+writeFile :: FilePath -> String -> IO ()
+appendFile :: FilePath -> String -> IO ()
+readIO :: Read a => String -> IO a
+readLn :: Read a => IO a
+```
+
+## Exception handling in the I/O monad
+
+```
+type IOError = IOException
+ioError :: IOError -> IO a
+userError :: String -> IOError
+```
