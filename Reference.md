@@ -123,3 +123,19 @@ class Num a where
         signum :: a -> a
         fromInteger :: Integer -> a
 ```
+
+```
+class (Num a, Ord a) => Real a where
+        toRational :: a -> Rational
+```
+
+```
+class (Real a, Enum a) => Integral a where
+        quot :: a -> a -> a
+        rem :: a -> a -> a
+        div :: a -> a -> a
+        mod :: a -> a -> a
+        quotRem :: a -> a -> (a, a) 
+        divMod :: a -> a -> (a, a) 
+        toInteger :: a -> Integer
+```
