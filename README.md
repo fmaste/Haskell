@@ -6,15 +6,15 @@ Based on [GHC](https://www.haskell.org/ghc/) (The Glasgow Haskell Compiler), a s
 
 Using [version 9.2.2](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/index.html) of GHC
 
+## Purpose
+
+[What Haskell want to achieve and the path taken](https://www.youtube.com/watch?v=iSmkqocn0oQ)
+
 ## History
 Read [A History of Haskell: Being Lazy with Class](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf)
 
 From its abstract:
 `This paper describes the history of Haskell, including its genesis and principles, technical contributions, implementations and tools, and applications and impact.`
-
-## Purpose
-
-[What Haskell want to achieve and the path taken](https://www.youtube.com/watch?v=iSmkqocn0oQ)
 
 ## Prelude
 
