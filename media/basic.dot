@@ -1,0 +1,104 @@
+digraph G {
+
+  compound=true;
+  graph [fontname="Liberation Mono"];
+  node [fontname="Liberation Mono"];
+  edge [fontname="Liberation Mono"];
+  #node [shape=record fontsize=10 fontname="Verdana"];
+
+  subgraph cluster_bool {
+    label = "Boolean type";
+    Bool [shape=box]
+  }
+
+  subgraph cluster_finite {
+    label = "Finite Numbers";
+
+  subgraph cluster_finite_no {
+    label = "Non Floating";
+
+    Int [shape=box]
+    Word [shape=box]
+    Char [shape=box]
+  }
+
+  subgraph cluster_finite_yes {
+    label = "Floating";
+
+    Float [shape=box]
+    Double [shape=box]
+  }
+
+  }
+
+  subgraph cluster_infinite {
+    label = "Infinite Numbers";
+
+    Integer [shape=box]
+  }
+
+  subgraph cluster_ord {
+    label = "Ordering Classes";
+    color=lightgrey;
+    node [style=filled,color=white];
+    style=filled;
+
+    Eq -> Ord
+  }
+
+  subgraph cluster_bounds {
+    label = "Bounds Classes";
+    color=lightgrey;
+    node [style=filled,color=white];
+    style=filled;
+
+    Bounded
+  }
+
+  subgraph cluster_enum {
+    label = "Numeric Classes";
+    color=lightgrey;
+    node [style=filled,color=white];
+    style=filled;
+
+    Enum
+
+    Num -> Real
+    Ord -> Real
+
+    Enum -> Integral
+    Real -> Integral
+    
+    Num -> Fractional
+    Fractional -> Floating
+    Real -> RealFrac
+    Fractional -> RealFrac
+    RealFrac -> RealFloat
+    Floating -> RealFloat
+  }
+
+  Ord -> Bool [ltail=cluster_ord];
+  Enum -> Bool [lhead=cluster_bool];
+  Bounded -> Bool [ltail=cluster_bounds];
+
+  Ord -> Word [lhead=cluster_finite_no];
+  Enum -> Word [lhead=cluster_finite_no];
+  Num -> Word [lhead=cluster_finite_no];
+  Bounded -> Word [lhead=cluster_finite_no];
+
+  Ord -> Float [lhead=cluster_finite_yes];
+  Enum -> Float [lhead=cluster_finite_yes];
+  Num -> Float [lhead=cluster_finite_yes];
+  Bounded -> Float [lhead=cluster_finite_yes];
+
+  Ord -> Integer [lhead=cluster_infinite];
+  Enum -> Integer [lhead=cluster_infinite];
+  Num -> Integer [lhead=cluster_infinite];
+
+  #Enum -> Float [ltail=cluster_enum];
+  #Bounded -> Float [ltail=cluster_bounds];
+
+  #Ord -> Integer [ltail=cluster_ord lhead=cluster_finite];
+  #Enum -> Integer [ltail=cluster_finite];
+
+}
