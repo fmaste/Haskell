@@ -54,4 +54,21 @@ eval :: (Int -> Bool) -> LogicExpr -> Bool
 True
 ```
 
-The tricky part is using the type system to create an EDSL that is easy to use by the end user and that its parts are easily reusable by the developer.
+The tricky part is using the type system to create an EDSL that is easy to use by the end user and that its code is more maintainable and reusable by the developer.
+
+# The “expression problem”
+
+In 1998, Philip Wadler coined the “expression problem”[^1]: `“The Expression Problem is a new name for an old problem. The goal is to define a datatype by cases, where one can add new cases to the datatype and new functions over the datatype, without recompiling existing code, and while retaining static type safety (e.g., no casts).”`
+
+[^1]: http://www.daimi.au.dk/~madst/tool/papers/expression.txt
+
+## A Generic Abstract Syntax Model for Embedded Languages
+
+- https://emilaxelsson.github.io/documents/axelsson2012generic.pdf
+- https://emilaxelsson.github.io/documents/axelsson2012generic-slides.pdf
+- http://hackage.haskell.org/package/syntactic-1.0
+
+# Further reading
+
+https://www.cambridge.org/core/services/aop-cambridge-core/content/view/14416CB20C4637164EA9F77097909409/S0956796808006758a.pdf/data-types-a-la-carte.pdf
+https://www.reddit.com/r/haskell/comments/nojtd2/annotate_ast_with_location_information/
