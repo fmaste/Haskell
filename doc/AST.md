@@ -1,3 +1,5 @@
+[Annotate AST with location information](https://www.reddit.com/r/haskell/comments/nojtd2/annotate_ast_with_location_information/)
+
 - [Data types `a la carte](https://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf)
 - [Compositional Data Types](https://dl.acm.org/doi/pdf/10.1145/2036918.2036930)
 - [A Generic Abstract Syntax Model for Embedded Languages](https://emilaxelsson.github.io/documents/axelsson2012generic.pdf)
