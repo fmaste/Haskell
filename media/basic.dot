@@ -1,70 +1,90 @@
 digraph G {
 
+  #clusterrank=local;
   compound=true;
+  #newrank=true;
+  rankdir=TB;
+  #overlap=false;
+  #splines=true;
+  #ranksep="5 equally"
+  #ratio=0.60
+
   graph [fontname="Liberation Mono"];
   node [fontname="Liberation Mono"];
   edge [fontname="Liberation Mono"];
   #node [shape=record fontsize=10 fontname="Verdana"];
 
   subgraph cluster_bool {
-    label = "Boolean type";
+    label = "Bool type";
+    margin=10;
+    rank=same;
     Bool [shape=box]
   }
 
-  subgraph cluster_finite {
-    label = "Finite Numbers";
+  subgraph cluster_numbers {
+    label = "Number types";
+    margin=10;
+    rank=same;
 
-  subgraph cluster_finite_no {
-    label = "Non Floating";
+    subgraph cluster_finite {
+      label = "Finite";
+      margin=10;
+      rank=same;
 
-    Int [shape=box]
-    Word [shape=box]
-    Char [shape=box]
-  }
+      subgraph cluster_finite_no {
+        label = "Non Floating";
+        {
+          rank=same;
+          Int [shape=box]
+          Word [shape=box]
+          # Char is not part of Num
+          #Char [shape=box]
+        }
+      }
 
-  subgraph cluster_finite_yes {
-    label = "Floating";
+      subgraph cluster_finite_yes {
+        label = "Floating";
+        {
+          rank=same;
+          Float [shape=box;]
+          Double [shape=box]
+        }
+      }
 
-    Float [shape=box]
-    Double [shape=box]
-  }
+    }
 
-  }
+    subgraph cluster_infinite {
+      label = "Infinite";
+      margin=10;
+      rank=same;
+      Integer [shape=box]
+    }
 
-  subgraph cluster_infinite {
-    label = "Infinite Numbers";
 
-    Integer [shape=box]
   }
 
   subgraph cluster_ord {
-    label = "Ordering Classes";
+    label = "Ordering";
     color=lightgrey;
     node [style=filled,color=white];
     style=filled;
-
     Eq -> Ord
   }
 
   subgraph cluster_bounds {
-    label = "Bounds Classes";
+    label = "Bounds";
     color=lightgrey;
     node [style=filled,color=white];
     style=filled;
-
     Bounded
   }
 
   subgraph cluster_enum {
-    label = "Numeric Classes";
+    label = "Numeric";
     color=lightgrey;
     node [style=filled,color=white];
     style=filled;
-
     Enum
-
-    Num -> Real
-    Ord -> Real
 
     Enum -> Integral
     Real -> Integral
@@ -77,28 +97,24 @@ digraph G {
     Floating -> RealFloat
   }
 
-  Ord -> Bool [ltail=cluster_ord];
+  Num -> Real
+  Ord -> Real
+    
+  Ord -> Bool [lhead=cluster_bool];
   Enum -> Bool [lhead=cluster_bool];
-  Bounded -> Bool [ltail=cluster_bounds];
+  Bounded -> Bool [lhead=cluster_bool];
 
-  Ord -> Word [lhead=cluster_finite_no];
-  Enum -> Word [lhead=cluster_finite_no];
-  Num -> Word [lhead=cluster_finite_no];
-  Bounded -> Word [lhead=cluster_finite_no];
+  Ord -> Word [lhead=cluster_numbers];
+  Enum -> Word [lhead=cluster_numbers];
+  Num -> Word [lhead=cluster_numbers];
 
-  Ord -> Float [lhead=cluster_finite_yes];
-  Enum -> Float [lhead=cluster_finite_yes];
-  Num -> Float [lhead=cluster_finite_yes];
-  Bounded -> Float [lhead=cluster_finite_yes];
+  Bounded -> Word [lhead=cluster_finite];
 
-  Ord -> Integer [lhead=cluster_infinite];
-  Enum -> Integer [lhead=cluster_infinite];
-  Num -> Integer [lhead=cluster_infinite];
+  Integral -> Word [lhead=cluster_finite_no];
+  Integral -> Integer [lhead=cluster_infinite];
+  
+  RealFloat -> Float [lhead=cluster_finite_yes];
 
-  #Enum -> Float [ltail=cluster_enum];
-  #Bounded -> Float [ltail=cluster_bounds];
-
-  #Ord -> Integer [ltail=cluster_ord lhead=cluster_finite];
-  #Enum -> Integer [ltail=cluster_finite];
+# constraint=false;
 
 }
