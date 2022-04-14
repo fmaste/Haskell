@@ -44,7 +44,7 @@ data LogicExpr =
         Or LogicExpr LogicExpr
 ```
 
-You can rely on the type system so only syntactic and semantic expressions can be formed and directly work on the abstract syntax tree to produce an evaluation or transformation function.
+You can rely on the type system so only syntactically and semantically valid expressions can be formed and concentrate on the abstract syntax tree to produce an evaluation or transformation function.
 
 ```
 eval :: (Int -> Bool) -> LogicExpr -> Bool
