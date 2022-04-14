@@ -1,1 +1,2 @@
-[A Generic Abstract Syntax Model for Embedded Languages](https://emilaxelsson.github.io/documents/axelsson2012generic.pdf)
+- [Data types `a la carte](https://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf)
+- [A Generic Abstract Syntax Model for Embedded Languages](https://emilaxelsson.github.io/documents/axelsson2012generic.pdf)
