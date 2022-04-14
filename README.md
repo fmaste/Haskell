@@ -75,6 +75,8 @@ Open source contribution to Haskell is very active with a wide range of packages
 
 Basic types and clasess that are in scope by default in every Haskell file
 
+![Basic types hierarchy](media/basic.png)
+
 See [Prelude](Prelude.md)
 
 Custom Prelude: The default Prelude can be disabled using ```-XNoImplicitPrelude``` GHC flag, this allows us to replace the default entirely with a custom prelude. Some projects roll their own Prologue.hs module in replacement.
