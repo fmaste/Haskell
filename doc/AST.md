@@ -3,3 +3,6 @@
 - [A Generic Abstract Syntax Model for Embedded Languages](https://emilaxelsson.github.io/documents/axelsson2012generic.pdf)
 
 [Hypertypes allow constructing expressions from re-usable terms like DTALC, which can be rich mutually recursive](https://github.com/lamdu/hypertypes)
+
+Super use of type families and Generics
+https://reasonablypolymorphic.com/blog/higher-kinded-data/
