@@ -2,7 +2,7 @@
 
 In logic, mathematics, computer science, and linguistics, a formal language consists of ***words whose letters are taken from an alphabet*** and are ***well-formed according to a specific set of rules***.
 
-In formal languages words (as in string like ```if a > 0 then True else False```) is a finite sequence of [symbols, letters, or tokens](https://en.wikipedia.org/wiki/Symbol_(formal\)) (as in ```if```, ```then```, ```else```, ```>```, ```a```) that are chosen from a set called an [alphabet](https://en.wikipedia.org/wiki/Alphabet_(computer_science\)).
+In formal languages words (as in string like ```if a > 0 then True else False```) is a finite sequence of [symbols, letters, or tokens](https://en.wikipedia.org/wiki/Symbol_(formal)) (as in ```if```, ```then```, ```else```, ```>```, ```a```) that are chosen from a set called an [alphabet](https://en.wikipedia.org/wiki/Alphabet_(computer_science)).
 
 The words that belong to a particular formal language, that adhere to the rules specified on the formal language specification, are called well-formed words or well-formed formulas.
 
@@ -18,14 +18,15 @@ Formal languages are used as tools in multiple disciplines. However, formal lang
 
  In computer science a formal language is often defined by means of a [formal grammar](https://en.wikipedia.org/wiki/Formal_grammar) such as a [regular grammar](https://en.wikipedia.org/wiki/Regular_grammar) or [context-free grammar](https://en.wikipedia.org/wiki/Context-free_grammar), which consists of its formation rules.
 
-* regular grammar is a subset of context free grammar, but not every context free grammar is a regular grammar.
+Regular grammar is a subset of context free grammar, but not every context free grammar is a regular grammar.
 
-### Abstract Syntax Tree
+## Abstract Syntax Tree
 
 Programming languages compilers usually have a two stage [parser](https://en.wikipedia.org/wiki/Parser):
-- A lexical analyzer: to perform the first tokenization stage (word analysis)
-- A syntactic analyzer: tries to make sense of the source code based on a formal grammar
-That usually outputs an [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) that is used by subsequent stages of the compiler to eventually generate an executable containing machine code that runs directly on the hardware, or some intermediate code that requires a virtual machine to execute.
+- [Lexical analysis](https://en.wikipedia.org/wiki/Lexical_analysis): the input character stream is split into meaningful symbols defined by a grammar of [regular expressions](https://en.wikipedia.org/wiki/Regular_expression).
+- Syntactic analysis: which is checking that the tokens form an allowable expression.
+
+The final phase is semantic parsing or analysis. This usually done with an [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) that is used by subsequent stages of the compiler to eventually generate an executable containing machine code that runs directly on the hardware, or some intermediate code that requires a virtual machine to execute.
 
 # EDSL
 
