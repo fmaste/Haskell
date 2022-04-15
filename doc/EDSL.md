@@ -84,5 +84,9 @@ See [Phantom Types](doc/Phantom.md) for the most widely used extensions to data 
 
 # Further reading
 
+https://wiki.haskell.org/Embedded_domain_specific_language
+
 https://www.cambridge.org/core/services/aop-cambridge-core/content/view/14416CB20C4637164EA9F77097909409/S0956796808006758a.pdf/data-types-a-la-carte.pdf
 https://www.reddit.com/r/haskell/comments/nojtd2/annotate_ast_with_location_information/
+
+https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/rank_polymorphism.html#extension-RankNTypes

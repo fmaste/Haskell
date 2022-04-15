@@ -7,16 +7,16 @@ What is GADT notation first: When the [GADTSyntax extension](https://ghc.gitlab.
 
 For example:
 ```
-data Maybe a where
-        Nothing :: Maybe a
-        Just    :: a -> Maybe a
-
-data Either a b where
-        Left  :: a -> Either a b
-        Right :: b -> Either a b
-
-newtype Down a where
-        Down :: a -> Down a
+data Maybe a =            |         data Maybe a where
+        Nothing           |                 Nothing :: Maybe a
+        (Just a)          |                 Just    :: a -> Maybe a
+                          |
+data Either a b =         |         data Either a b where
+          Left a          |                 Left  :: a -> Either a b
+        | Right b         |                 Right :: b -> Either a b
+                          |
+newtype Down a =          |         newtype Down a where
+        Down a            |                 Down :: a -> Down a
 ```
 
 Any datatype (or newtype) that can be declared in standard Haskell 98 syntax, can also be declared using GADT-style syntax. The choice is largely stylistic.
@@ -40,24 +40,25 @@ insert a (MkSet as) | a `elem` as = MkSet as
 
 # ["Fun with phantom types"](http://www.cs.ox.ac.uk/ralf.hinze/publications/With.pdf)
 
-Phantom types is another name for GADT
+Phantom types is another name for GADT. Also called "guarded recursive data types” or “first-class phantom types”.
 
 Using the syntax described above, the type signature of each constructor is independent, and is implicitly universally quantified as usual. In particular, the type variable(s) in the ```data T a where``` header have no scope, and different constructors may have different universally-quantified type variables.
 
-When all the variables ```a```, ```b```, ```c```, etc that appear in ```data T a b c``` are used by every constructor nothing new is happening. The magic starts when constructors don't use them.
+TODO: FIXME: When all the variables ```a```, ```b```, ```c```, etc that appear in ```data T a b c``` are used by every constructor nothing new is happening. The magic starts no constructors use them and they instantiate to ....
 
 Suppose you want to embed a programming language, say, a simple expression language in Haskell. Since you are a firm believer of static typing, you would like your embedded language to be statically typed, as well.
 
 This requirement rules out a simple Term data type as this choice would allow us to freely mix terms of different types. The next idea is to parameterize the Term type so that Term t comprises only terms of type t
 
 ```
-zero :: Term Int
-succ, pred :: Term Int -> Term Int
-isZero :: Term Int -> Term Bool
-ifThenElse :: ∀a . Term Bool -> Term a -> Term a -> Term a.
+type Zero :: Term Int
+type Succ :: Term Int -> Term Int
+type Pred :: Term Int -> Term Int
+type Zero :: Term Int -> Term Bool
+type If   :: ∀a . Term Bool -> Term a -> Term a -> Term a
 ```
 
-Unfortunately, the above signatures cannot be translated into a data declaration (Haskell’s linguistic construct for introducing constructors). The reason is simply that all constructors of a data type must share the same result type, namely, the declared type on the left-hand side.
+Unfortunately, the above signatures cannot be translated into a data declaration (Haskell’s linguistic construct for introducing constructors) to build a syntax tree structure. The reason is simply that all constructors of a data type must share the same result type, namely, the declared type on the left-hand side.
 
 The paper proposes something like this:
 
@@ -69,6 +70,7 @@ data Term t =
         | IsZero (Term Int)                  with t = Bool
         | If (Term Bool ) (Term a) (Term a)  with t = a
 ```
+Note that the ```with``` clause of the If constructor is not strictly necessary. We could have simply replaced a by t. Its main purpose is to illustrate that the type equation may contain type variables that do not appear on the left-hand side of the declaration. These variables can be seen as being existentially quantified.
 
 Generalised Algebraic Data Types can only be declared using the syntactic explained above.
 That using Haskell's GADT notation it converted into something like this:
@@ -81,7 +83,7 @@ data Term t where
         If :: Term Bool -> Term a -> Term a -> Term a
 ```
 - https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/gadt.html
-
+- https://wiki.haskell.org/Generalised_algebraic_datatype
 
 
 
@@ -155,3 +157,5 @@ evalExpr (Num n) = n
 evalExpr (Add a b) = evalExpr a + evalExpr b
 evalExpr (Mul a b) = evalExpr a * evalExpr b
 ```
+
+https://www.microsoft.com/en-us/research/publication/simple-unification-based-type-inference-for-gadts/
