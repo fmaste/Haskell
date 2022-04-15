@@ -37,18 +37,21 @@ Haskell's mathematical notation and rich and versatile type system makes it a go
 For example a structure like the one below allows us to build a formal language specification with grammar, parser and abstract syntax tree all at once.
 
 ```
-data LogicExpr =
-        Var Int |
-        Not LogicExpr |
-        And LogicExpr LogicExpr |
-        Or LogicExpr LogicExpr
+data Expr a =
+        Var a |
+        Not (Expr a) |
+        And (Expr a) (Expr a) |
+        Or (Expr a) (Expr a)
 ```
 
 You can rely on the type system so only syntactically and semantically valid expressions can be formed and concentrate on the abstract syntax tree to produce an evaluation or transformation function.
 
 ```
-eval :: (Int -> Bool) -> LogicExpr -> Bool
-...
+eval :: (a -> Bool) -> Expr a -> Bool
+eval f (Var i) = f i
+eval f (Not a) = if (eval f a) then False else True
+eval f (And a b) = if (eval f a) then (eval f b) else False
+eval f (Or a b) = if (eval f a) then True else (eval f b)
 
 >> eval (>= 1) ( Or (Not $ Var 1 ) ( And (Var 2) (Var 3) ) )
 True
@@ -61,6 +64,13 @@ The tricky part is using the type system to create an EDSL that is easy to use b
 In 1998, Philip Wadler coined the “expression problem”[^1]: `“The Expression Problem is a new name for an old problem. The goal is to define a datatype by cases, where one can add new cases to the datatype and new functions over the datatype, without recompiling existing code, and while retaining static type safety (e.g., no casts).”`
 
 [^1]: http://www.daimi.au.dk/~madst/tool/papers/expression.txt
+
+The problem with types such as ```Expr``` above is that:
+- They are not extensible. It is perfectly possible to add new interpretation functions in the same way as ```eval```, but unfortunately, adding new constructors is not that easy. If we want to add a new constructor, say for XOR, not only do we need to edit and recompile the definition of ```Expr```, but also all existing interpretation functions.
+- Another problem with ```Expr``` is the way that the recursive structure of the tree has been mixed up with the symbols in it: It is not possible to traverse the tree without pattern matching on the constructors, and this prevents the definition of generic traversals where only the “interesting” constructors have to be dealt with.
+- The output value is always ```Bool```
+
+We are going to deal with the problem of generic traversal first, and will then see that the result also opens up for a solution to the extensibility problem.
 
 ## A Generic Abstract Syntax Model for Embedded Languages
 
