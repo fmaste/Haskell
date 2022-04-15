@@ -4,7 +4,7 @@ In logic, mathematics, computer science, and linguistics, a formal language cons
 
 In formal languages words (as in string like ```if a > 0 then True else False```) is a finite sequence of [symbols, letters, or tokens](https://en.wikipedia.org/wiki/Symbol_(formal)) (as in ```if```, ```then```, ```else```, ```>```, ```a```) that are chosen from a set called an [alphabet](https://en.wikipedia.org/wiki/Alphabet_(computer_science)).
 
-The words that belong to a particular formal language, that adhere to the rules specified on the formal language specification, are called well-formed words or well-formed formulas.
+The words that belong to a particular formal language, that adhere to the rules specified on the formal language specification, are called well-formed words or ***well-formed formulas***.
 
 There are many languages that can be described by rules, such as [regular languages](https://en.wikipedia.org/wiki/Regular_language) or [context-free languages](https://en.wikipedia.org/wiki/Context-free_language). This two provide a good compromise between expressiveness and ease of parsing, and are widely used in practical applications.
 
@@ -70,7 +70,11 @@ The problem with types such as ```Expr``` above is that:
 - Another problem with ```Expr``` is the way that the recursive structure of the tree has been mixed up with the symbols in it: It is not possible to traverse the tree without pattern matching on the constructors, and this prevents the definition of generic traversals where only the “interesting” constructors have to be dealt with.
 - The output value is always ```Bool```
 
-We are going to deal with the problem of generic traversal first, and will then see that the result also opens up for a solution to the extensibility problem.
+We are going to look at different solutions to this problem problem.
+
+## Phantom types or GADTs
+
+See [Generalised Algebraic Data Types (GADTs)](doc/Phantom.md) for the most widely used extensions to data types that is used to tackle some of this problems.
 
 ## A Generic Abstract Syntax Model for Embedded Languages
 

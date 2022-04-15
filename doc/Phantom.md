@@ -1,7 +1,9 @@
 - https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/explicit_forall.html
 - https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/existential_quantification.html#existential-quantification
 
-# ["Fun with phantom types"](http://www.cs.ox.ac.uk/ralf.hinze/publications/With.pdf). Phantom types is another name of GADT
+# ["Fun with phantom types"](http://www.cs.ox.ac.uk/ralf.hinze/publications/With.pdf)
+
+Phantom types is another name for GADT
 
 Suppose you want to embed a programming language, say, a simple expression language in Haskell. Since you are a firm believer of static typing, you would like your embedded language to be statically typed, as well.
 
