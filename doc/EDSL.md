@@ -90,3 +90,5 @@ https://www.cambridge.org/core/services/aop-cambridge-core/content/view/14416CB2
 https://www.reddit.com/r/haskell/comments/nojtd2/annotate_ast_with_location_information/
 
 https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/rank_polymorphism.html#extension-RankNTypes
+
+["Generic Monadic Constructs for Embedded Languages" (Persson et al., IFL 2011)](https://emilaxelsson.github.io/documents/persson2011generic.pdf>)
