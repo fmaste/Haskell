@@ -72,9 +72,9 @@ The problem with types such as ```Expr``` above is that:
 
 We are going to look at different solutions to this problem problem.
 
-## Phantom types or GADTs
+## Generalised Algebraic Data Types (GADTs)
 
-See [Generalised Algebraic Data Types (GADTs)](doc/Phantom.md) for the most widely used extensions to data types that is used to tackle some of this problems.
+See [Phantom Types](doc/Phantom.md) for the most widely used extensions to data types that is used to tackle some of this problems.
 
 ## A Generic Abstract Syntax Model for Embedded Languages
 

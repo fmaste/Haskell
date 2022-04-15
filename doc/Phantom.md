@@ -1,9 +1,50 @@
 - https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/explicit_forall.html
-- https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/existential_quantification.html#existential-quantification
+- https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/existential_quantification.html
+
+# Notation
+
+What is GADT notation first: When the [GADTSyntax extension](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/gadt_syntax.html) is enabled, GHC allows you to declare an algebraic data type by giving the type signatures of constructors explicitly.
+
+For example:
+```
+data Maybe a where
+        Nothing :: Maybe a
+        Just    :: a -> Maybe a
+
+data Either a b where
+        Left  :: a -> Either a b
+        Right :: b -> Either a b
+
+newtype Down a where
+        Down :: a -> Down a
+```
+
+Any datatype (or newtype) that can be declared in standard Haskell 98 syntax, can also be declared using GADT-style syntax. The choice is largely stylistic.
+
+## Class constraints
+
+But GADT-style declarations differ in one important aspect: A constructor signature may mention type class constraints, which can differ for different constructors. They treat class constraints on the data constructors differently, and if the constructor is given a type-class context, that context is made available by pattern matching.
+
+For example:
+```
+data Set a where
+        MkSet :: Eq a => [a] -> Set a
+
+makeSet :: Eq a => [a] -> Set a
+makeSet xs = MkSet (nub xs)
+
+insert :: a -> Set a -> Set a
+insert a (MkSet as) | a `elem` as = MkSet as
+                    | otherwise   = MkSet (a:as)
+```
 
 # ["Fun with phantom types"](http://www.cs.ox.ac.uk/ralf.hinze/publications/With.pdf)
 
 Phantom types is another name for GADT
+
+Using the syntax described above, the type signature of each constructor is independent, and is implicitly universally quantified as usual. In particular, the type variable(s) in the ```data T a where``` header have no scope, and different constructors may have different universally-quantified type variables.
+
+When all the variables ```a```, ```b```, ```c```, etc that appear in ```data T a b c``` are used by every constructor nothing new is happening. The magic starts when constructors don't use them.
 
 Suppose you want to embed a programming language, say, a simple expression language in Haskell. Since you are a firm believer of static typing, you would like your embedded language to be statically typed, as well.
 
@@ -29,8 +70,7 @@ data Term t =
         | If (Term Bool ) (Term a) (Term a)  with t = a
 ```
 
-Like saying what the ouput type should be
-
+Generalised Algebraic Data Types can only be declared using the syntactic explained above.
 That using Haskell's GADT notation it converted into something like this:
 
 ```
@@ -40,9 +80,12 @@ data Term t where
         Zero :: Term Int -> Term Bool
         If :: Term Bool -> Term a -> Term a -> Term a
 ```
-
-- https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/gadt_syntax.html
 - https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/gadt.html
+
+
+
+
+
 
 
 ```
