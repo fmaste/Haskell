@@ -26,7 +26,7 @@ Any datatype (or newtype) that can be declared in standard Haskell 98 syntax, ca
 But GADT-style declarations differ in one important aspect: A constructor signature may mention type class constraints, which can differ for different constructors. They treat class constraints on the data constructors differently, and if the constructor is given a type-class context, that context is made available by pattern matching.
 
 For example:
-```
+```haskell
 data Set a where
         MkSet :: Eq a => [a] -> Set a
 
@@ -63,7 +63,7 @@ Suppose you want to embed a programming language, say, a simple expression langu
 
 This requirement rules out a simple ```Term``` data type as this choice would allow us to freely mix terms of different types.
 
-```
+```haskell
 data Term =
           Zero
         | Succ Expr
@@ -77,7 +77,7 @@ data Term =
 
 The next idea is to parameterize the ```Term``` type so that ```Term t``` comprises only terms of type ```t```. The different compartments of ```Term``` are then inhabited by declaring constructors of the appropriate types.
 
-```
+```haskell
 data Term t =
       Zero (Term t)
       Succ (Term t)
@@ -90,7 +90,7 @@ Unfortunately, the above signatures cannot be translated into a data declaration
 
 The ["Fun with phantom types"](http://www.cs.ox.ac.uk/ralf.hinze/publications/With.pdf) paper proposes something like this:
 
-```
+```haskell
 data Term t =
           Zero                               with t = Int
         | Succ (Term Int)                    with t = Int
@@ -103,7 +103,7 @@ Note that the ```with``` clause of the ```If``` constructor is not strictly nece
 Generalised Algebraic Data Types can only be declared using the syntactic explained above.
 That using Haskell's GADT notation it converted into something like this:
 
-```
+```haskell
 data Term t where
         Zero :: Term Int -> Term Int
         Succ, pred :: Term Int -> Term Int -> Term Int
@@ -115,7 +115,7 @@ data Term t where
 
 The key point about GADTs is that pattern matching causes type refinement. For example, in the right hand side of the equation
 
-```
+```haskell
 eval :: Term a -> a
 eval (Lit i) =  ...
 ```
@@ -133,7 +133,7 @@ The type a is refined to ```Int```. That’s the whole point! A precise specific
 TODO: [Visible type application](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/type_applications.html#visible-type-application)
 
 
-```
+```haskell
 data Expr a =
           I Int
         | B Bool
@@ -147,7 +147,7 @@ https://wiki.haskell.org/GADTs_for_dummies
 
 
 This does not type checks!:
-```
+```haskell
 data Expr a =
         Num Int |
         Add (Expr Int) (Expr Int) |
@@ -185,7 +185,7 @@ Prelude>
 
 Compiles!
 
-```
+```haskell
 {-# LANGUAGE GADTs #-}
 
 data Expr a where

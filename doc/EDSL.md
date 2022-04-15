@@ -36,7 +36,7 @@ Haskell's mathematical notation and rich and versatile type system makes it a go
 
 For example a structure like the one below allows us to build a formal language specification with grammar, parser and abstract syntax tree all at once.
 
-```
+```haskell
 data Expr a =
         Var a |
         Not (Expr a) |
@@ -46,7 +46,7 @@ data Expr a =
 
 You can rely on the type system so only syntactically and semantically valid expressions can be formed and concentrate on the abstract syntax tree to produce an evaluation or transformation function.
 
-```
+```haskell
 eval :: (a -> Bool) -> Expr a -> Bool
 eval f (Var i) = f i
 eval f (Not a) = if (eval f a) then False else True
