@@ -1,22 +1,22 @@
 - https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/explicit_forall.html
-- https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/existential_quantification.html
 
-# Notation
+# GADT Notation
 
 What is GADT notation first: When the [GADTSyntax extension](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/gadt_syntax.html) is enabled, GHC allows you to declare an algebraic data type by giving the type signatures of constructors explicitly.
 
 For example:
 ```
-data Maybe a =            |         data Maybe a where
-        Nothing           |                 Nothing :: Maybe a
-        (Just a)          |                 Just    :: a -> Maybe a
-                          |
-data Either a b =         |         data Either a b where
-          Left a          |                 Left  :: a -> Either a b
-        | Right b         |                 Right :: b -> Either a b
-                          |
-newtype Down a =          |         newtype Down a where
-        Down a            |                 Down :: a -> Down a
+data Maybe a =              |       data Maybe a where
+        Nothing             |               Nothing :: Maybe a
+        (Just a)            |               Just    :: a -> Maybe a
+                            |
+data Either a b =           |       data Either a b where {
+          Left a            |               Left  :: a -> Either a b
+        | Right b           |               Right :: b -> Either a b
+        deriving( Eq, Ord ) |       } deriving( Eq, Ord )
+                            |
+newtype Down a =            |       newtype Down a where
+        Down a              |               Down :: a -> Down a
 ```
 
 Any datatype (or newtype) that can be declared in standard Haskell 98 syntax, can also be declared using GADT-style syntax. The choice is largely stylistic.
@@ -38,29 +38,57 @@ insert a (MkSet as) | a `elem` as = MkSet as
                     | otherwise   = MkSet (a:as)
 ```
 
-# ["Fun with phantom types"](http://www.cs.ox.ac.uk/ralf.hinze/publications/With.pdf)
+### Wasn't this considered a misfeature???
+
+- https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/datatype_contexts.html ???
+
+# "Fun with phantom types"
 
 Phantom types is another name for GADT. Also called "guarded recursive data types” or “first-class phantom types”.
 
-Using the syntax described above, the type signature of each constructor is independent, and is implicitly universally quantified as usual. In particular, the type variable(s) in the ```data T a where``` header have no scope, and different constructors may have different universally-quantified type variables.
+The old Haskell 98 syntax for data declarations always declares an ordinary data type. The result type of each constructor must begin with the type constructor being defined, but for a GADT, the arguments to the type constructor can be arbitrary [monotypes](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/let_generalisation.html). For example, in a ```Term t``` data type, the type of each constructor must end with ```Term t```, but the ```t``` need not be the same type variable.
 
-TODO: FIXME: When all the variables ```a```, ```b```, ```c```, etc that appear in ```data T a b c``` are used by every constructor nothing new is happening. The magic starts no constructors use them and they instantiate to ....
+The magic of the GADT syntax starts with the presence of data constructors whose result type is not just ```T a b```, or which include contexts.
 
-Suppose you want to embed a programming language, say, a simple expression language in Haskell. Since you are a firm believer of static typing, you would like your embedded language to be statically typed, as well.
+This is possible using the syntax described above because, the type signature of each constructor is independent, and is implicitly universally quantified as usual. But in particular, the type variable(s) in the ```data T a where``` header have no scope, and different constructors may have different universally-quantified type variables.
 
-This requirement rules out a simple Term data type as this choice would allow us to freely mix terms of different types. The next idea is to parameterize the Term type so that Term t comprises only terms of type t
+Also:
+- 
+- https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/existential_quantification.html
+
+
+## Example
+
+Suppose you want to embed a programming language, say, a simple expression language in Haskell. Since you are a firm believer of static typing, you would like your [embedded language](doc/EDSL.md) to be statically typed, as well.
+
+This requirement rules out a simple ```Term``` data type as this choice would allow us to freely mix terms of different types.
 
 ```
-type Zero :: Term Int
-type Succ :: Term Int -> Term Int
-type Pred :: Term Int -> Term Int
-type Zero :: Term Int -> Term Bool
-type If   :: ∀a . Term Bool -> Term a -> Term a -> Term a
+data Term =
+          Zero
+        | Succ Expr
+        | Pred Expr
+        | IsZero Expr
+        | If Expr Expr Expr
+
+-- This type checks:
+-- >> If (Succ 1) (IsZero (Succ Zero)) (Pred $ If Zero Zero Zero)
+```
+
+The next idea is to parameterize the ```Term``` type so that ```Term t``` comprises only terms of type ```t```. The different compartments of ```Term``` are then inhabited by declaring constructors of the appropriate types.
+
+```
+data Term t =
+      Zero (Term t)
+      Succ (Term t)
+      Pred (Term t)
+      IsZero (Term t)
+      If (Term t) (Term t) (Term t)
 ```
 
 Unfortunately, the above signatures cannot be translated into a data declaration (Haskell’s linguistic construct for introducing constructors) to build a syntax tree structure. The reason is simply that all constructors of a data type must share the same result type, namely, the declared type on the left-hand side.
 
-The paper proposes something like this:
+The ["Fun with phantom types"](http://www.cs.ox.ac.uk/ralf.hinze/publications/With.pdf) paper proposes something like this:
 
 ```
 data Term t =
@@ -68,9 +96,9 @@ data Term t =
         | Succ (Term Int)                    with t = Int
         | Pred (Term Int)                    with t = Int
         | IsZero (Term Int)                  with t = Bool
-        | If (Term Bool ) (Term a) (Term a)  with t = a
+        | If (Term Bool) (Term a) (Term a)   with t = a
 ```
-Note that the ```with``` clause of the If constructor is not strictly necessary. We could have simply replaced a by t. Its main purpose is to illustrate that the type equation may contain type variables that do not appear on the left-hand side of the declaration. These variables can be seen as being existentially quantified.
+Note that the ```with``` clause of the ```If``` constructor is not strictly necessary. We could have simply replaced ```a``` by ```t```. Its main purpose is to illustrate that the type equation may contain type variables that do not appear on the left-hand side of the declaration. These variables can be seen as being existentially quantified.
 
 Generalised Algebraic Data Types can only be declared using the syntactic explained above.
 That using Haskell's GADT notation it converted into something like this:
@@ -82,12 +110,27 @@ data Term t where
         Zero :: Term Int -> Term Bool
         If :: Term Bool -> Term a -> Term a -> Term a
 ```
+
+# Typing
+
+The key point about GADTs is that pattern matching causes type refinement. For example, in the right hand side of the equation
+
+```
+eval :: Term a -> a
+eval (Lit i) =  ...
+```
+
+The type a is refined to ```Int```. That’s the whole point! A precise specification of the type rules is beyond what this user manual aspires to, but the design closely follows that described in the paper [Simple unification-based type inference for GADTs, (ICFP 2006)](https://research.microsoft.com/%7Esimonpj/papers/gadt/).
+
+# Further reading
+
 - https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/gadt.html
+- https://www.haskell.org/haskellwiki/GADT
 - https://wiki.haskell.org/Generalised_algebraic_datatype
+- https://www.microsoft.com/en-us/research/publication/simple-unification-based-type-inference-for-gadts/
 
 
-
-
+TODO: [Visible type application](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/type_applications.html#visible-type-application)
 
 
 ```
@@ -98,8 +141,6 @@ data Expr a =
         | Mul (Expr a) (Expr a)
         | Eq  (Expr a) (Expr a)
 ```
-
-Note that an expression ```Expr a``` does not contain a value ```a``` at all; that's why a is called a phantom type, it's just a dummy variable.
 
 jajaja/hahaha
 https://wiki.haskell.org/GADTs_for_dummies
@@ -158,4 +199,4 @@ evalExpr (Add a b) = evalExpr a + evalExpr b
 evalExpr (Mul a b) = evalExpr a * evalExpr b
 ```
 
-https://www.microsoft.com/en-us/research/publication/simple-unification-based-type-inference-for-gadts/
+Note that ```Expr a``` constructors do not contain a value ```a``` at all; that's why ```a``` is called a phantom type, it's just a dummy variable.
