@@ -9,20 +9,29 @@ class Functor f where
 
 Imagine you have a list, ```Maybe```, ```Either``` or some complex tree structure or whatever thing that has ***a context with values of some type inside***, the ```Functor``` class is Haskell's way of defining a standard function that let's you ***work with those values without altering the context*** or structure that holds them.
 
+To check that ```fmap``` preserves the structure it needs to adhere to the following rule:
+- Identity: ```fmap id == id```
+
+## Operator notation:
+
+```fmap f a``` is the same as saying ```f `fmap` a``` or ```f <$> a```
+
+```haskell
+(<$>) :: Functor f => (a -> b) -> f a -> f b
+```
+
+## Examples
+
 ```haskell
 > fmap (+1) (Just 1)
 Just 2
 > fmap (+1) Nothing
 Nothing
-> fmap (+1) [1,2,3,4,5]
+> (+1) <$> [1,2,3,4,5]
 [2,3,4,5,6]
-> fmap (+1) []
+> (+1) <$> []
 []
 ```
-
-To preserve the structure, ```fmap``` need to adhere to the following:
-- Identity: ```fmap id == id```
-- Composition: ```fmap (f . g) == fmap f . fmap g```
 
 The ```<$``` operator is also part of the ```Functor``` class above.
 ```haskell
@@ -34,14 +43,6 @@ Or its flipped version:
 ```haskell
 ($>) :: Functor f => f a -> b -> f b
 ```
-
-Operator notation:
-
-```haskell
-(<$>) :: Functor f => (a -> b) -> f a -> f b
-```
-
-```fmap f a``` is the same as saying ```f `fmap` a``` or ```f <$> a```
 
 You can think of fmap as either a function that takes a function and a functor and then maps that function over the functor, or you can think of it as a function that takes a function and lifts that function so that it operates on functors. Both views are correct and in Haskell, equivalent.
 
