@@ -14,7 +14,7 @@ To check that ```fmap``` preserves the structure it needs to adhere to the follo
 
 ## Example
 
-Working with values that can be "null":
+Working with values that can be "null" or zero to many values at the same time:
 
 ```haskell
 instance Functor Maybe where
