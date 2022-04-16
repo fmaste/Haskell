@@ -77,19 +77,9 @@ Just 2
 > [1,2,3,4,5] <&> (replicate 3)
 [[1,1,1],[2,2,2],[3,3,3],[4,4,4],[5,5,5]]
 ```
+## Kind
 
-## Further reading
-
-- http://learnyouahaskell.com/making-our-own-types-and-typeclasses#the-functor-typeclass
-- http://learnyouahaskell.com/functors-applicative-functors-and-monoids
-
-You can think of fmap as either a function that takes a function and a functor and then maps that function over the functor, or you can think of it as a function that takes a function and lifts that function so that it operates on functors. Both views are correct and in Haskell, equivalent.
-
-It says: give me a function that takes an a and returns a b and a box with an a (or several of them) inside it and I'll give you a box with a b (or several of them) inside it. It kind of applies the function to the element inside the box.
-
-A more correct term for what a functor is would be computational context.
-
-If we want to make a type constructor an instance of Functor, it has to have a kind of ```* -> *```, which means that it has to take exactly one concrete type as a type parameter.
+If you want to make a type constructor an instance of Functor, it has to have a kind of ```* -> *```, which means that it has to take exactly one concrete type as a type parameter.
 
 ```
 instance Functor (Either a) where
@@ -99,13 +89,16 @@ instance Functor (Either a) where
 
 ```fmap``` here has type ```fmap :: (b -> c) -> Either a b -> Either a c```
 
-```haskell
-($>)  :: Functor f => f a -> b -> f b 
-(<&>) :: Functor f => f a -> (a -> b) -> f b 
-void  :: Functor f => f a -> f () 
-```
+Only by looking at its type you know it never touches ```a``` values.
 
+You can think of fmap as either a function that takes a function and a functor and then maps that function over the functor, or you can think of it as a function that takes a function and lifts that function so that it operates on functors. Both views are correct and in Haskell, equivalent.
 
+It says: give me a function that takes an a and returns a b and a box with an a (or several of them) inside it and I'll give you a box with a b (or several of them) inside it. It kind of applies the function to the element inside the box.
+
+## Further reading
+
+- http://learnyouahaskell.com/making-our-own-types-and-typeclasses#the-functor-typeclass
+- http://learnyouahaskell.com/functors-applicative-functors-and-monoids
 
 # Applicative
 
