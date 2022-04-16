@@ -12,6 +12,23 @@ Imagine you have a list, ```Maybe```, ```Either``` or some complex tree structur
 To check that ```fmap``` preserves the structure it needs to adhere to the following rule:
 - Identity: ```fmap id == id```
 
+## Example
+
+Working with values that can be "null":
+
+```haskell
+instance Functor Maybe where
+        fmap f (Just a) = Just (f a)
+        fmap _ _ = Nothing
+```
+
+```haskell
+> fmap (+1) (Just 1)
+Just 2
+> fmap (+1) Nothing
+Nothing
+```
+
 ## Operator notation:
 
 ```fmap f a``` is the same as saying ```f `fmap` a``` or ```f <$> a```
@@ -20,23 +37,12 @@ To check that ```fmap``` preserves the structure it needs to adhere to the follo
 (<$>) :: Functor f => (a -> b) -> f a -> f b
 ```
 
-## Examples
-
 ```haskell
-instance Functor Maybe where
-        fmap f (Just a) = Just (f a)
-        fmap _ _ = Nothing
-
 instance Functor [] where
         fmap f xs = map f xs
 ```
 
 ```haskell
-> fmap (+1) (Just 1)
-Just 2
-> fmap (+1) Nothing
-Nothing
-
 > (+1) <$> [1,2,3,4,5]
 [2,3,4,5,6]
 > (+1) <$> []
