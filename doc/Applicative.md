@@ -41,11 +41,13 @@ Nothing
 
 ## Operator notation:
 
-```fmap f a``` is the same as saying ```f `fmap` a``` or ```f <$> a```
+```<$>``` is an infix synonym for ```fmap```
 
 ```haskell
 (<$>) :: Functor f => (a -> b) -> f a -> f b
 ```
+
+```f <$> a``` is the same as saying ```f `fmap` a``` or ```fmap f a```
 
 Or its flipped version:
 ```haskell
@@ -102,12 +104,14 @@ It says: give me a function that takes an a and returns a b and a box with an a 
 
 # Applicative
 
-we'll take a closer look at functors, along with slightly stronger and more useful versions of functors called applicative functors.
+```Applicative``` is a subclass of ```Functor```, applicative functors are beefed up functors
+
+An Applicative is an intermediate structure between a functor and a monad (technically, a strong lax monoidal functor).
 
 ```haskell
-class (Functor f) => Applicative f where  
-        pure :: a -> f a  
-        (<*>) :: f (a -> b) -> f a -> f b 
+class (Functor f) => Applicative f where
+        pure :: a -> f a
+        (<*>) :: f (a -> b) -> f a -> f b
 ```
 
 ```haskell
@@ -116,4 +120,27 @@ liftA2 :: (a -> b -> c) -> f a -> f b -> f c
 (<*) :: f a -> f b -> f a 
 ```
 
-applicative functors, which are beefed up functors
+## Example
+
+Imagine trying to build a valid ```Person``` data type value from some ```name``` and ```age``` you are parsing from a json object, this two can be null or an error or something is wrong.
+
+```haskell
+data Person = Person {name :: String, age :: Int}
+        deriving Show
+```
+
+```haskell
+> :t Person
+Person :: String -> Int -> Person
+> :t Person "Federico"
+Person "Federico" :: Int -> Person
+> :t Person "Federico" 18
+Person "Federico" 18 :: Person
+```
+
+```haskell
+> Person <$> (Just "Fede") <*> (Just 35)
+Just (Person {name = "Fede", age = 35})
+> Person <$> Nothing <*> (Just 35)
+Nothing
+```
