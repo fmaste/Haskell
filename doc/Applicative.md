@@ -20,6 +20,9 @@ Working with values that can be "null":
 instance Functor Maybe where
         fmap f (Just a) = Just (f a)
         fmap _ _ = Nothing
+
+instance Functor [] where
+        fmap f xs = map f xs
 ```
 
 ```haskell
@@ -27,6 +30,10 @@ instance Functor Maybe where
 Just 2
 > fmap (+1) Nothing
 Nothing
+> fmap (+1) [1,2,3,4,5]
+[2,3,4,5,6]
+> fmap (+1) []
+[]
 ```
 
 ## Operator notation:
@@ -35,18 +42,6 @@ Nothing
 
 ```haskell
 (<$>) :: Functor f => (a -> b) -> f a -> f b
-```
-
-```haskell
-instance Functor [] where
-        fmap f xs = map f xs
-```
-
-```haskell
-> (+1) <$> [1,2,3,4,5]
-[2,3,4,5,6]
-> (+1) <$> []
-[]
 ```
 
 The ```<$``` operator is also part of the ```Functor``` class above.
@@ -58,6 +53,23 @@ It defaults too ```fmap . const``` and just lets you write a more efficient way 
 Or its flipped version:
 ```haskell
 ($>) :: Functor f => f a -> b -> f b
+```
+
+### Example
+
+```haskell
+> (+1) <$> (Just 1)
+Just 2
+> (+1) <$> Nothing
+Nothing
+> (+1) <$> [1,2,3,4,5]
+[2,3,4,5,6]
+> (+1) <$> []
+[]
+> 1 <$ [1,2,3,4,5]
+[1,1,1,1,1]
+> [1,2,3,4,5] $> 1
+[1,1,1,1,1]
 ```
 
 You can think of fmap as either a function that takes a function and a functor and then maps that function over the functor, or you can think of it as a function that takes a function and lifts that function so that it operates on functors. Both views are correct and in Haskell, equivalent.
