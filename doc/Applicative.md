@@ -21,10 +21,8 @@ Nothing
 ```
 
 To preserve the structure, ```fmap``` need to adhere to the following:
-- Identity
-- - ```fmap id == id```
-- Composition
-- - ```fmap (f . g) == fmap f . fmap g```
+- Identity: ```fmap id == id```
+- Composition: ```fmap (f . g) == fmap f . fmap g```
 
 The ```<$``` operator is also part of the ```Functor``` class above.
 ```haskell
