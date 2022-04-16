@@ -7,16 +7,16 @@ class Functor f where
         fmap :: (a -> b) -> f a -> f b
 ```
 
-Imagine you have a list, ```Maybe```, ```Either``` or some complex tree structure or whatever thing that has ***a context with values of some type inside***, the ```Functor``` class is the Haskell standard to define a function that let's you ***work with those values without altering the context*** or structure that holds them.
+Imagine you have a list, ```Maybe```, ```Either``` or some complex tree structure or whatever thing that has ***a context with values of some type inside***, the ```Functor``` class is Haskell's way of defining a standard function that let's you ***work with those values without altering the context*** or structure that holds them.
 
 ```haskell
-Prelude Control.Applicative> fmap (+1) (Just 1)
+> fmap (+1) (Just 1)
 Just 2
-Prelude Control.Applicative> fmap (+1) Nothing
+> fmap (+1) Nothing
 Nothing
-Prelude Control.Applicative> fmap (+1) [1,2,3,4,5]
+> fmap (+1) [1,2,3,4,5]
 [2,3,4,5,6]
-Prelude Control.Applicative> fmap (+1) []
+> fmap (+1) []
 []
 ```
 
