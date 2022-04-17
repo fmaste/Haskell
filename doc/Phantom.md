@@ -6,6 +6,7 @@ What is GADT notation first: When the [GADTSyntax extension](https://ghc.gitlab.
 
 For example:
 ```
+{-# LANGUAGE GADTs #-}
 data Maybe a =              |       data Maybe a where
         Nothing             |               Nothing :: Maybe a
         (Just a)            |               Just    :: a -> Maybe a

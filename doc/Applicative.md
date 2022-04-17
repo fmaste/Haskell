@@ -104,14 +104,24 @@ It says: give me a function that takes an a and returns a b and a box with an a 
 
 # Applicative
 
-```Applicative``` is a subclass of ```Functor```, applicative functors are beefed up functors
-
-An Applicative is an intermediate structure between a functor and a monad (technically, a strong lax monoidal functor).
+It's Haskell's standard function to map over but now with a function already inside a ```Functor```
 
 ```haskell
 class (Functor f) => Applicative f where
         pure :: a -> f a
         (<*>) :: f (a -> b) -> f a -> f b
+```
+
+```Applicative``` is a subclass of ```Functor```, applicative functors are beefed up functors
+
+More specifically, an ```Applicative``` is an intermediate structure between a ```Functor``` and a ```Monad``` (technically, a strong lax monoidal functor).
+
+Simple instance
+```haskell
+instance Applicative Maybe where
+        pure = Just -- Short for "pure a = Just a"
+        Nothing <*> _ = Nothing
+        (Just f) <*> b = fmap f b -- Just take out the f and map over.
 ```
 
 ```haskell
@@ -122,12 +132,34 @@ liftA2 :: (a -> b -> c) -> f a -> f b -> f c
 
 ## Example
 
-Imagine trying to build a valid ```Person``` data type value from some ```name``` and ```age``` you are parsing from a json object, this two can be null or an error or something is wrong.
+Imagine trying to build a valid ```Person``` data type value from some ```name``` and ```age``` you are parsing from a JSON text, this two can be null or an error or something is wrong.
 
 ```haskell
 data Person = Person {name :: String, age :: Int}
         deriving Show
+
+parseName :: Maybe String
+parseName = Just "Federico"
+
+parseAge :: Maybe Int
+parseAge = Just 18
 ```
+
+All of this are the same
+```haskell
+> pure Person <*> parseName <*> parseAge
+Just (Person {name = "Federico", age = 18})
+> fmap Person parseName <*> parseAge
+Just (Person {name = "Federico", age = 18})
+> Person <$> parseName <*> parseAge
+Just (Person {name = "Federico", age = 18})
+```
+
+What is this?
+
+First both ```<$>``` and ```<*>``` are left-associative.
+```pure Person <*> parseName <*> parseAge``` is the same as ```((pure Person) <*> parseName) <*> parseAge```.
+Injecting a pure non-functor function inside a functor is the same as mapping over a pure function. It's the same as doing ```(fmap Person parseName) <*> parseAge```.
 
 ```haskell
 > :t Person
@@ -138,9 +170,18 @@ Person "Federico" :: Int -> Person
 Person "Federico" 18 :: Person
 ```
 
+```f <$> a <*> b``` is the same as ```(f <$> a) <*> b``` which replacing the ```<$>``` operator is the same as ```(fmap f a) <*> b```
+
+What happens when one is ```Nothing```?
+
 ```haskell
-> Person <$> (Just "Fede") <*> (Just 35)
-Just (Person {name = "Fede", age = 35})
-> Person <$> Nothing <*> (Just 35)
+> Person <$> (Just "Fede") <*> (Just 18)
+Just (Person {name = "Fede", age = 18})
+> Person <$> Nothing <*> (Just 18)
 Nothing
 ```
+
+# Further reading
+
+- https://www.fpcomplete.com/haskell/tutorial/applicative-syntax/
+- https://hackage.haskell.org/package/base-4.16.1.0/docs/Control-Applicative.html
