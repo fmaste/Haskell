@@ -56,39 +56,31 @@ A [+10 years old funny video](https://www.youtube.com/watch?v=iSmkqocn0oQ) of wh
 
 ### Main Features
 
-#### Purely functional
-
-Every function in Haskell is a function in the mathematical sense (i.e., "pure"). Even side-effecting IO operations are but a description of what to do, produced by pure code. There are no statements or instructions, only expressions which cannot mutate variables (local or global) nor access state like time or random numbers.
-
-#### Statically typed
-
-Every expression in Haskell has a type which is determined at compile time. All the types composed together by function application have to match up. If they don't, the program will be rejected by the compiler. Types become not only a form of guarantee, but a language for expressing the construction of programs.
-
-#### Type inference
-
-You don't have to explicitly write out every type in a Haskell program. Types will be inferred by unifying every type bidirectionally. However, you can write out types if you choose, or ask the compiler to write them for you for handy documentation.
-
-#### Lazy
-
-Functions don't evaluate their arguments. This means that programs can compose together very well, with the ability to write control constructs (such as if/else) just by writing normal functions. The purity of Haskell code makes it easy to fuse chains of functions together, allowing for performance benefits.
-
-#### Concurrent
-
-Haskell lends itself well to concurrent programming due to its explicit handling of effects. Its flagship compiler, GHC, comes with a high-performance parallel garbage collector and light-weight concurrency library containing a number of useful concurrency primitives and abstractions.
-
-#### Packages
-
-Open source contribution to Haskell is very active with a wide range of packages available on the public package servers.
+- Purely functional
+-- Every function in Haskell is a function in the mathematical sense (i.e., "pure"). Even side-effecting IO operations are but a description of what to do, produced by pure code. There are no statements or instructions, only expressions which cannot mutate variables (local or global) nor access state like time or random numbers.
+- Statically typed
+-- Every expression in Haskell has a type which is determined at compile time. All the types composed together by function application have to match up. If they don't, the program will be rejected by the compiler. Types become not only a form of guarantee, but a language for expressing the construction of programs.
+- Type inference
+-- You don't have to explicitly write out every type in a Haskell program. Types will be inferred by unifying every type bidirectionally. However, you can write out types if you choose, or ask the compiler to write them for you for handy documentation.
+- Lazy
+-- Functions don't evaluate their arguments. This means that programs can compose together very well, with the ability to write control constructs (such as if/else) just by writing normal functions. The purity of Haskell code makes it easy to fuse chains of functions together, allowing for performance benefits.
+- Concurrent
+- Haskell lends itself well to concurrent programming due to its explicit handling of effects. Its flagship compiler, GHC, comes with a high-performance parallel garbage collector and light-weight concurrency library containing a number of useful concurrency primitives and abstractions.
+- Packages
+- - Open source contribution to Haskell is very active with a wide range of packages available on the public package servers.
 
 ## Prelude
 
-Basic types and clasess that are in scope by default in every Haskell file
+The basic types and clasess that are in scope by default in every Haskell file are described in [Prelude](Prelude.md)
+- [Prelude](Lists.md)
+- [Prelude](Strings.md)
+- [Prelude](NumbersFractional.md)
 
 ![Basic types hierarchy](media/basic.png)
 
-See [Prelude](Prelude.md)
+### Custom Prelude
 
-Custom Prelude: The default Prelude can be disabled using ```-XNoImplicitPrelude``` GHC flag, this allows us to replace the default entirely with a custom prelude. Some projects roll their own Prologue.hs module in replacement.
+The Prelude is imported by default or with ```import Prelude``` but the default Prelude can be disabled using ```-XNoImplicitPrelude``` GHC flag, this allows us to replace the default entirely with a custom prelude. Some projects roll their own Prologue.hs module in replacement.
 
 ```
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -98,11 +90,30 @@ Custom Prelude: The default Prelude can be disabled using ```-XNoImplicitPrelude
 
 ![Monad classes](media/monad.png)
 
+### Monoids
+
 For an easy start see [Monoid](doc/Monoid.md), you won't be using them much but helps undertanding the rest.
+
+### Applicative Functors
+
+See [Monad](doc/Applicative.md)
+
+### Monads
 
 See [Monad](doc/Monad.md)
 
+Best publication about monads is this one that focuses on explaining the “bits round the edges” of Haskell programs:
 [Tackling the awkward squad: monadic input/output, concurrency, exceptions, and foreign-language calls in Haskell](https://www.microsoft.com/en-us/research/publication/tackling-awkward-squad-monadic-inputoutput-concurrency-exceptions-foreign-language-calls-haskell/)
+
+## Datatype extensions
+
+### Phantoms
+
+See [Monad](doc/Phantom.md)
+
+
+
+
 
 This tutorial focuses on explaining the “bits round the edges” of Haskell programs, rather than the beautiful functional core we all know and love. More specifically, it gives, in a single framework, an account of
 - Monadic input/output (the I/O monad)
