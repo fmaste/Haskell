@@ -1,6 +1,6 @@
 # [Haskell](http://www.haskell.org/), an advanced, purely functional programming language
 
-***A mixture of quick reference guide and Haskell tutorial*** [^1] [^2]
+A ***mixture of quick reference guide and Haskell tutorial*** full of external references [^1] [^2]
 
 [^1]: Based on [GHC](https://www.haskell.org/ghc/) (The Glasgow Haskell Compiler), a state-of-the-art, open source, compiler and interactive environment for the functional language Haskell
 
