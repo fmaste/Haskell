@@ -10,6 +10,7 @@ class Functor f where
 ```haskell
 (<$>) :: Functor f => (a -> b) -> f a -> f b 
 ```
+
 And ```Applicative``` and its primary function/operator ```<*>``` also from [here](doc/Applicative.md)?
 
 ```haskell
