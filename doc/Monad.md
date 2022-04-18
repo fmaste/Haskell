@@ -1,5 +1,11 @@
 # Monads
 
+## Why? The problem
+
+> We begin with an apparently fundamental conflict. A purely functional program implements a function; it has no side effect. Yet the ultimate purpose of running a program is invariably to cause some side effect: a changed file, some new pixels on the screen, a message sent, or whatever. Indeed it’s a bit cheeky to call input/output “awkward” at all. I/O is the raison d’ˆetre of every program. — a program that had no observable effect whatsoever (no input, no output) would not be very useful.
+>
+> [Tackling the awkward squad: monadic input/output, concurrency, exceptions, and foreign-language calls in Haskell](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/mark.pdf)
+
 Remember ```Functor``` and its primary operator ```<$>``` from [here](doc/Applicative.md)?
 ```haskell
 class Functor f where

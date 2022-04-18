@@ -8,10 +8,10 @@ A ***mixture of quick reference guide and Haskell tutorial*** full of external r
 
 ## Preface
 
-`“Some half dozen persons have written technically on combinatory logic, and most of these, including ourselves, have published something erroneous. Since some of our fellow sinners are among the most careful and competent logicians on the contemporary scene, we regard this as evidence that the subject is refractory. Thus fullness of exposition is necessary for accuracy; and excessive condensation would be false economy here, even more than it is ordinarily.”`
-
-[Haskell B. Curry](https://en.wikipedia.org/wiki/Haskell_Curry) and [Robert Feys](https://en.wikipedia.org/wiki/Robert_Feys)
-in the Preface to Combinatory Logic [\[3\]](https://www.haskell.org/onlinereport/haskell2010/haskellli3.html#Xcurry&feys:book), May 31, 1956
+> “Some half dozen persons have written technically on combinatory logic, and most of these, including ourselves, have published something erroneous. Since some of our fellow sinners are among the most careful and competent logicians on the contemporary scene, we regard this as evidence that the subject is refractory. Thus fullness of exposition is necessary for accuracy; and excessive condensation would be false economy here, even more than it is ordinarily.”
+>
+> [Haskell B. Curry](https://en.wikipedia.org/wiki/Haskell_Curry) and [Robert Feys](https://en.wikipedia.org/wiki/Robert_Feys)
+> in the Preface to Combinatory Logic [\[3\]](https://www.haskell.org/onlinereport/haskell2010/haskellli3.html#Xcurry&feys:book), May 31, 1956
 
 [^3]: H.K. Curry and R. Feys. Combinatory Logic. North-Holland Pub. Co., Amsterdam, 1958
 
@@ -37,7 +37,12 @@ The committee’s primary goal was to design a language that satisfied these con
 
 [This documents](https://wiki.haskell.org/Language_and_library_specification) describes the results of that (and subsequent) committee’s efforts: a purely functional programming language called Haskell, ***named after the logician Haskell B. Curry whose work provides the logical basis for much of ours***.
 
-TL;DR; from this short post full of irony: [A Brief, Incomplete, and Mostly Wrong History of Programming Languages](https://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html).
+Paper with a static semantics for a large subset of Haskell, including giving a translations into a language without overloading:
+https://www.microsoft.com/en-us/research/wp-content/uploads/1991/03/A-Static-Semantics-for-Haskell_small.pdf
+
+##### TL;DR;
+
+From this short post full of irony: [A Brief, Incomplete, and Mostly Wrong History of Programming Languages](https://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html).
 
 `1990 - A committee formed by Simon Peyton-Jones, Paul Hudak, Philip Wadler, Ashton Kutcher, and People for the Ethical Treatment of Animals creates Haskell, a pure, non-strict, functional language. Haskell gets some resistance due to the complexity of using monads to control side effects. Wadler tries to appease critics by explaining that "a monad is a monoid in the category of endofunctors, what's the problem?"`
 
@@ -97,12 +102,23 @@ For an easy start see [Monoid](doc/Monoid.md), you won't be using them much but 
 
 See [Monad](doc/Monad.md)
 
+[Tackling the awkward squad: monadic input/output, concurrency, exceptions, and foreign-language calls in Haskell](https://www.microsoft.com/en-us/research/publication/tackling-awkward-squad-monadic-inputoutput-concurrency-exceptions-foreign-language-calls-haskell/)
+
+This tutorial focuses on explaining the “bits round the edges” of Haskell programs, rather than the beautiful functional core we all know and love. More specifically, it gives, in a single framework, an account of
+- Monadic input/output (the I/O monad)
+- Concurrency (threads, MVars)
+- Exceptions (both synchronous and asynchronous)
+- Foreign language interfaces
+
 TODO: https://stackoverflow.com/questions/36274369/what-are-some-types-that-discriminate-between-categories
 
 ## TODO
 
 seL4: Formal Verification of an OS Kernel
 https://www.sigops.org/s/conferences/sosp/2009/papers/klein-sosp09.pdf
+
+Category theory
+[Categories for the Working Mathematician](https://link.springer.com/book/10.1007/978-1-4757-4721-8)
 
 # Further reading
 
