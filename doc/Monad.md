@@ -53,15 +53,16 @@ Compare the main composition functions of ```Functor```, ```Applicative``` and `
 (>>=) :: Monad m => m a -> (a -> m b) -> m b -- Monadic bind
 ```
 
-```Functor``` type class describe additional context around values using some type and the ```Applicative``` class let's us compose ```Functor```s.
+The ```Functor``` type class describes additional context around values using some type and the ```Applicative``` class let's us compose ```Functor```s.
 
-Monadic bind ```>>=``` is a stricter version of this two. The monadic context is never duplicated or thrown away no matter what code the programmer writes.
-
-The only operation that can combine or compose monadic actions is ```>>=```. Treats the monadic context in a single-threaded way.
+The monadic bind ```>>=``` is a stricter version of this two:
+- The monadic context is never duplicated or thrown away no matter what code the programmer writes.
+- The only operation that can combine or compose monadic actions is ```>>=```. Treats the monadic context in a single-threaded way.
 
 With Functor this extra structure is often thought of as a "container", while with Monad it tends to be thought of as "side effects".
 
-The distinctive feature of Monad compared to other Functors is that it can embed control flow into the extra structure. The reason it can do this is that, unlike fmap which applies a single flat function over the entire structure, (>>=) inspects individ
+TODO: The distinctive feature of Monad compared to other Functors is that it can embed control flow into the extra structure. The reason it can do this is that, unlike fmap which applies a single flat function over the entire structure, (>>=) inspects individual elements and builds new structure from that.
+https://stackoverflow.com/questions/3382210/monad-join-function
 
 ## Theory
 
@@ -79,6 +80,7 @@ He wrote several more papers like:
 - [How to declare an imperative](https://homepages.inf.ed.ac.uk/wadler/topics/monads.html)
 - - This tutorial describes the use of a monad to integrate interaction into a purely declarative language.
 - [Imperative functional programming](https://www.microsoft.com/en-us/research/publication/imperative-functional-programming/) with Simon Peyton Jones.
+
 More from him at his [personal page](https://homepages.inf.ed.ac.uk/wadler/) and all his monad related publications at this [subpage](https://homepages.inf.ed.ac.uk/wadler/topics/monads.html).
 
 # Folds and traversals
