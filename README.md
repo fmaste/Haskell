@@ -113,27 +113,18 @@ Best publication about monads is this one that focuses on explaining the “bits
 
 See [Monad](doc/Phantom.md)
 
+# Further reading
 
+- [What I Wish I Knew When Learning Haskell ](http://dev.stephendiehl.com/hask/#what-is-haskell)
 
+# TODO
 
+# Category theory
+[Categories for the Working Mathematician](https://link.springer.com/book/10.1007/978-1-4757-4721-8)
 
-This tutorial focuses on explaining the “bits round the edges” of Haskell programs, rather than the beautiful functional core we all know and love. More specifically, it gives, in a single framework, an account of
-- Monadic input/output (the I/O monad)
-- Concurrency (threads, MVars)
-- Exceptions (both synchronous and asynchronous)
-- Foreign language interfaces
-
-TODO: https://stackoverflow.com/questions/36274369/what-are-some-types-that-discriminate-between-categories
-
-## TODO
+# Others
 
 seL4: Formal Verification of an OS Kernel
 https://www.sigops.org/s/conferences/sosp/2009/papers/klein-sosp09.pdf
 
-Category theory
-[Categories for the Working Mathematician](https://link.springer.com/book/10.1007/978-1-4757-4721-8)
-
-# Further reading
-
-- [What I Wish I Knew When Learning Haskell ](http://dev.stephendiehl.com/hask/#what-is-haskell)
-- 
+Maybe explain some of this: https://stackoverflow.com/questions/36274369/what-are-some-types-that-discriminate-between-categories
