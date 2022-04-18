@@ -54,20 +54,16 @@ Nothing
 [[Just 2,Just 2],[Just 3,Just 3],[Nothing,Nothing],[Just 5,Just 5],[Just 6,Just 6]]
 ```
 
-And also has a flipped version that is not used much and doesn't even come by default with the Prelude:
-```haskell
-(<&>) :: Functor f => f a -> (a -> b) -> f b
-```
-
 The ```<$``` operator is also part of the ```Functor``` class above.
 ```haskell
 (<$) :: a -> f b -> f a
 ```
 It defaults too ```fmap . const``` and just lets you write a more efficient way to replace all the values with a fixed value.
 
-Or its flipped version also not imported by default:
+There are flipped version of this two operators that are not used much and don't even come by default with the Prelude:
 ```haskell
-($>) :: Functor f => f a -> b -> f b
+(<&>) :: Functor f => f a -> (a -> b) -> f b -- Flipped version of <$>
+($>) :: Functor f => f a -> b -> f b -- Flipped version of <$
 ```
 
 ## Kind
