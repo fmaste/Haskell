@@ -88,6 +88,7 @@ Only by looking at its type you know it never touches ```a``` values.
 
 ## Further reading
 
+- https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Functor.html
 - http://learnyouahaskell.com/making-our-own-types-and-typeclasses#the-functor-typeclass
 
 # [Applicative](https://hackage.haskell.org/package/base-4.16.1.0/docs/Control-Applicative.html)
@@ -123,6 +124,12 @@ liftA2 :: (a -> b -> c) -> f a -> f b -> f c
 (*>) :: f a -> f b -> f b
 (<*) :: f a -> f b -> f a 
 ```
+
+## Further reading
+
+- https://hackage.haskell.org/package/base-4.16.1.0/docs/Control-Applicative.html
+
+# Applicative Functors
 
 ## Example
 
@@ -181,7 +188,6 @@ A not valid ```Person``` type was found. So ```Nothing``` happened!
 
 - http://learnyouahaskell.com/functors-applicative-functors-and-monoids
 - https://www.fpcomplete.com/haskell/tutorial/applicative-syntax/
-- https://hackage.haskell.org/package/base-4.16.1.0/docs/Control-Applicative.html
 
 # TODO
 
