@@ -4,7 +4,7 @@
 
 The class of types that have an associative binary operation. A very general typeclass.
 
-```
+```haskell
 class Semigroup a where
         (<>) :: a -> a -> a
 ```
@@ -18,7 +18,7 @@ In essence, the <> function could do anything, as long as it doesn't matter wher
 
 In Haskell a Monoid (not to be confused with ```Monad```) is a ```Semigroup``` with the added requirement of a neutral element.
 
-```
+```haskell
 class Semigroup a => Monoid a where
         mempty :: a
         mappend :: a -> a -> a
@@ -45,12 +45,12 @@ It is closely related to the ```Foldable``` class, and indeed you can think of a
 
 Example:
 
-```
+```haskell
 instance Semigroup [a] where
         (<>) = (++)
 ```
 
-```
+```haskell
 instance Monoid [a] where
         mappend = (<>) -- From the Semigroup instance above.
         mempty = []
@@ -64,7 +64,7 @@ Like ```Sum``` and ```Product``` explained above there are other wrappers
 
 ### Boolean wrappers
 
-```
+```haskell
 newtype All = All {getAll :: Bool}
 >>> getAll (All True <> mempty <> All False)
 False
@@ -72,7 +72,7 @@ False
 False
 ```
 
-```
+```haskell
 newtype Any = Any {getAny :: Bool}
 >>> getAny (Any True <> mempty <> Any False)
 True
@@ -82,7 +82,7 @@ True
 
 ### Reverse wrapper
 
-```
+```haskell
 newtype Dual a = Dual {getDual :: a}
 
 >>> getDual (mappend (Dual "Hello") (Dual "World"))
@@ -91,7 +91,7 @@ newtype Dual a = Dual {getDual :: a}
 
 ### Function wrapper
 
-```
+```haskell
 newtype Endo a = Endo {appEndo :: a -> a}
 >>> let computation = Endo ("Hello, " ++) <> Endo (++ "!")
 >>> appEndo computation "Haskell"
