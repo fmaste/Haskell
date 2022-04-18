@@ -8,7 +8,7 @@
 
 ## Haskell's Monad class definition
 
-Remember ```Functor``` and its primary operator ```<$>``` from [here](doc/Applicative.md)?
+Remember ```Functor``` and its primary operator ```<$>``` from [here](doc/ApplicativeFunctor.md)?
 ```haskell
 class Functor f where
         fmap :: (a -> b) -> f a -> f b
@@ -19,7 +19,7 @@ class Functor f where
 (<$>) :: Functor f => (a -> b) -> f a -> f b
 ```
 
-And ```Applicative``` and its primary function/operator ```<*>``` also from [here](doc/Applicative.md)?
+And ```Applicative``` and its primary function/operator ```<*>``` also from [here](doc/ApplicativeFunctor.md)?
 
 ```haskell
 class Functor f => Applicative f where
