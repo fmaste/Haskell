@@ -70,20 +70,6 @@ Or its flipped version also not imported by default:
 ($>) :: Functor f => f a -> b -> f b
 ```
 
-### Examples
-
-```haskell
-> (+1) <$> (Just 1)
-Just 2
-> (+1) <$> [1,2,3,4,5]
-[2,3,4,5,6]
-> 1 <$ [1,2,3,4,5]
-[1,1,1,1,1]
-> [1,2,3,4,5] $> 1
-[1,1,1,1,1]
-> [1,2,3,4,5] <&> (replicate 3)
-[[1,1,1],[2,2,2],[3,3,3],[4,4,4],[5,5,5]]
-```
 ## Kind
 
 If you want to make a type constructor an instance of Functor, it has to have a kind of ```* -> *```, which means that it has to take exactly one concrete type as a type parameter.
