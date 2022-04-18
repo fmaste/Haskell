@@ -74,11 +74,11 @@ More from him at his [personal page](https://person.dibris.unige.it/moggi-eugeni
 Those are not an easy read at all and are not specific about programming, [Phil Wadler](https://en.wikipedia.org/wiki/Philip_Wadler) in [Comprehending Monads](https://ncatlab.org/nlab/files/WadlerMonads.pdf) describes the usefulness of monads in a programming context.
 He wrote several more papers like:
 - [The essence of functional programming](https://homepages.inf.ed.ac.uk/wadler/topics/monads.html).
-- - This paper explores the use monads to structure functional programs. No prior knowledge of monads or category theory is required.
+  - This paper explores the use monads to structure functional programs. No prior knowledge of monads or category theory is required.
 - [Monads for functional programming](https://homepages.inf.ed.ac.uk/wadler/topics/monads.html).
-- - The use of monads to structure functional programs is described.
+  - The use of monads to structure functional programs is described.
 - [How to declare an imperative](https://homepages.inf.ed.ac.uk/wadler/topics/monads.html)
-- - This tutorial describes the use of a monad to integrate interaction into a purely declarative language.
+  - This tutorial describes the use of a monad to integrate interaction into a purely declarative language.
 - [Imperative functional programming](https://www.microsoft.com/en-us/research/publication/imperative-functional-programming/) with Simon Peyton Jones.
 
 More from him at his [personal page](https://homepages.inf.ed.ac.uk/wadler/) and all his monad related publications at this [subpage](https://homepages.inf.ed.ac.uk/wadler/topics/monads.html).
