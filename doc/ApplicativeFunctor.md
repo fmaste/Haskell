@@ -68,9 +68,9 @@ There are flipped version of this two operators that are not used much and don't
 
 ## Kind
 
-If you want to make a type constructor an instance of Functor, it has to have a kind of ```* -> *```, which means that it has to take exactly one concrete type as a type parameter.
+If you haven't noticed when you want to make a type constructor an instance of ```Functor```, it has to have a kind of ```* -> *```, which means that it has to take exactly one concrete type as a type parameter.
 
-```
+```haskell
 instance Functor (Either a) where
         fmap f (Right b) = Right (f b)
         fmap _ e = e
@@ -79,6 +79,8 @@ instance Functor (Either a) where
 ```fmap``` here has type ```fmap :: (b -> c) -> Either a b -> Either a c```
 
 Only by looking at its type you know it never touches ```a``` values.
+
+## Summary
 
 You can think of fmap as either a function that takes a function and a functor and then maps that function over the functor, or you can think of it as a function that takes a function and lifts that function so that it operates on functors. Both views are correct and in Haskell, equivalent.
 
