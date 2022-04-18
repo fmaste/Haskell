@@ -1,4 +1,4 @@
-# Functor
+# [Functor](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Functor.html)
 
 A ```Functor``` would be a computational context.
 ```Functor```s are basically things that can be mapped over.
@@ -82,16 +82,15 @@ Only by looking at its type you know it never touches ```a``` values.
 
 ## Summary
 
-You can think of fmap as either a function that takes a function and a functor and then maps that function over the functor, or you can think of it as a function that takes a function and lifts that function so that it operates on functors. Both views are correct and in Haskell, equivalent.
+`You can think of fmap as either a function that takes a function and a functor and then maps that function over the functor, or you can think of it as a function that takes a function and lifts that function so that it operates on functors. Both views are correct and in Haskell, equivalent.`
 
-It says: give me a function that takes an a and returns a b and a box with an a (or several of them) inside it and I'll give you a box with a b (or several of them) inside it. It kind of applies the function to the element inside the box.
+`It says: give me a function that takes an a and returns a b and a box with an a (or several of them) inside it and I'll give you a box with a b (or several of them) inside it. It kind of applies the function to the element inside the box.`
 
 ## Further reading
 
 - http://learnyouahaskell.com/making-our-own-types-and-typeclasses#the-functor-typeclass
-- http://learnyouahaskell.com/functors-applicative-functors-and-monoids
 
-# Applicative
+# [Applicative](https://hackage.haskell.org/package/base-4.16.1.0/docs/Control-Applicative.html)
 
 It's Haskell's standard function to map over but now with a function already inside a ```Functor```. With ```fmap``` a function outside the ```Functor``` context is applied to every value inside the context, with ```Applicative``` the function is already inside the ```Functor``` context and sort of "sequences" both ```Functor```s. You can "run" functors without leaving the functor context.
 
@@ -180,6 +179,7 @@ A not valid ```Person``` type was found. So ```Nothing``` happened!
 
 # Further reading
 
+- http://learnyouahaskell.com/functors-applicative-functors-and-monoids
 - https://www.fpcomplete.com/haskell/tutorial/applicative-syntax/
 - https://hackage.haskell.org/package/base-4.16.1.0/docs/Control-Applicative.html
 
