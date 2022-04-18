@@ -32,9 +32,12 @@ data PLSentenceV0 =
 
 data PLSentenceGHC a =
           PLVarGHC (XVar a) Int
-        | PLNotGHC (XNot a) (PLSentenceGHC a)
-        | PLAndGHC (XAnd a) (PLSentenceGHC a) (PLSentenceGHC a)
-        | PLOrGHC  (XOr a) (PLSentenceGHC a) (PLSentenceGHC a)
+        | PLNotGHC (XNot a)
+                (XRec a (PLSentenceGHC a))
+        | PLAndGHC (XAnd a)
+                (XRec a (PLSentenceGHC a)) (XRec a (PLSentenceGHC a))
+        | PLOrGHC  (XOr a)
+                (XRec a (PLSentenceGHC a)) (XRec a (PLSentenceGHC a))
         | PLExt (XPLExt a)
 
 type family XVar x
