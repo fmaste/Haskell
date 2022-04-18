@@ -6,15 +6,17 @@
 >
 > [Tackling the awkward squad: monadic input/output, concurrency, exceptions, and foreign-language calls in Haskell](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/mark.pdf)
 
+## Haskell's Monad class definition
+
 Remember ```Functor``` and its primary operator ```<$>``` from [here](doc/Applicative.md)?
 ```haskell
 class Functor f where
-        fmap :: (a -> b) -> f a -> f b 
-        (<$) :: a -> f b -> f a 
+        fmap :: (a -> b) -> f a -> f b
+        (<$) :: a -> f b -> f a
 ```
 
 ```haskell
-(<$>) :: Functor f => (a -> b) -> f a -> f b 
+(<$>) :: Functor f => (a -> b) -> f a -> f b
 ```
 
 And ```Applicative``` and its primary function/operator ```<*>``` also from [here](doc/Applicative.md)?
@@ -35,25 +37,55 @@ class Applicative m => Monad m where
         return :: a -> m a 
 ```
 
+The ```>>=``` function implements sequential composition, is a combinator used to combine/sequence/compose monadic actions and is often pronounced `bind`.
+
 ## Historic note
 
 For a long type ```Applicative``` was not a superclass of ```Monad``` but thankfully this was fixed with the [AMP proposal](https://wiki.haskell.org/Functor-Applicative-Monad_Proposal). If you see code not making use of this much needed fix, please understand the past situation!
 
-# Wait, I'm slow
+## Wait, I'm slow
 
+Compare the main composition functions of ```Functor```, ```Applicative``` and ```Monad```
 
-Functors type classes describe additional context using some type.
+```haskell
+(<&>) :: Functor m => m a -> (a -> b) -> m b -- Flipped version of Functor's <$>
+(<**>) :: Applicative m => m a -> m (a -> b) -> m b -- A variant of <*> with the arguments reversed.
+(>>=) :: Monad m => m a -> (a -> m b) -> m b -- Monadic bind
+```
+
+```Functor``` type class describe additional context around values using some type and the ```Applicative``` class let's us compose ```Functor```s.
+
+Monadic bind ```>>=``` is a stricter version of this two. The monadic context is never duplicated or thrown away no matter what code the programmer writes.
+
+The only operation that can combine or compose monadic actions is ```>>=```. Treats the monadic context in a single-threaded way.
 
 With Functor this extra structure is often thought of as a "container", while with Monad it tends to be thought of as "side effects".
 
 The distinctive feature of Monad compared to other Functors is that it can embed control flow into the extra structure. The reason it can do this is that, unlike fmap which applies a single flat function over the entire structure, (>>=) inspects individ
 
+## Theory
 
+Monads were originally invented in a branch of mathematics called category theory, which is increasingly being applied to describe the semantics of programming languages.
 
+The usefullness of monads to describe composable “computations” was first described by [Eugenio Moggi](https://en.wikipedia.org/wiki/Eugenio_Moggi) in [Computational lambda-calculus and monads](https://person.dibris.unige.it/moggi-eugenio/ftp/lics89.pdf) and also later wrote about how to to structure programs with monads in [Notions of computation and monads](https://person.dibris.unige.it/moggi-eugenio/ftp/ic91.pdf).
+More from him at his [personal page](https://person.dibris.unige.it/moggi-eugenio/).
+
+Those are not an easy read at all and are not specific about programming, [Phil Wadler](https://en.wikipedia.org/wiki/Philip_Wadler) in [Comprehending Monads](https://ncatlab.org/nlab/files/WadlerMonads.pdf) describes the usefulness of monads in a programming context.
+He wrote several more papers like:
+- [The essence of functional programming](https://homepages.inf.ed.ac.uk/wadler/topics/monads.html).
+- - This paper explores the use monads to structure functional programs. No prior knowledge of monads or category theory is required.
+- [Monads for functional programming](https://homepages.inf.ed.ac.uk/wadler/topics/monads.html).
+- - The use of monads to structure functional programs is described.
+- [How to declare an imperative](https://homepages.inf.ed.ac.uk/wadler/topics/monads.html)
+- - This tutorial describes the use of a monad to integrate interaction into a purely declarative language.
+- [Imperative functional programming](https://www.microsoft.com/en-us/research/publication/imperative-functional-programming/) with Simon Peyton Jones.
+More from him at his [personal page](https://homepages.inf.ed.ac.uk/wadler/) and all his monad related publications at this [subpage](https://homepages.inf.ed.ac.uk/wadler/topics/monads.html).
 
 # Folds and traversals
 
 ## TODO: Link to forall notation
+
+unsafePerformIO !!!
 
 ```haskell
 class Monad m => MonadFail m where
