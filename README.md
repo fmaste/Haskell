@@ -96,11 +96,11 @@ For an easy start see [Monoid](doc/Monoid.md), you won't be using them much but 
 
 ### Applicative Functors
 
-See [Monad](doc/Applicative.md)
+See [subpage](doc/ApplicativeFunctor.md)
 
 ### Monads
 
-See [Monad](doc/Monad.md)
+See [subpage](doc/Monad.md)
 
 Best publication about monads is this one that focuses on explaining the “bits round the edges” of Haskell programs:
 [Tackling the awkward squad: monadic input/output, concurrency, exceptions, and foreign-language calls in Haskell](https://www.microsoft.com/en-us/research/publication/tackling-awkward-squad-monadic-inputoutput-concurrency-exceptions-foreign-language-calls-haskell/)
