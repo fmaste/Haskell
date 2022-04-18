@@ -72,7 +72,7 @@ A [+10 years old funny video](https://www.youtube.com/watch?v=iSmkqocn0oQ) of wh
 ## Prelude
 
 The basic types and clasess that are in scope by default in every Haskell file are described in [Prelude](doc/Prelude.md)
-- [Lists](Lists.md)
+- [Lists](doc/Lists.md)
 - [Strings](doc/Strings.md)
 - [Fractional Numbers](doc/NumbersFractional.md)
 
