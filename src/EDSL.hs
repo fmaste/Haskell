@@ -48,6 +48,14 @@ type family XPLExt x
 
 type family XRec x a
 
+type instance XVar () = ()
+type instance XNot () = ()
+type instance XAnd () = ()
+type instance XOr () = ()
+type instance XPLExt () = ()
+
+type instance XRec () a = ()
+
 -- Version 0: Lambda calculus.
 --------------------------------------------------------------------------------
 
