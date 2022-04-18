@@ -37,6 +37,8 @@ Nothing
 []
 > fmap (replicate 3) [1,2,3,4,5]
 [[1,1,1],[2,2,2],[3,3,3],[4,4,4],[5,5,5]]
+> fmap (replicate 3 . fmap (+1)) [Just 1, Just 2, Nothing, Just 4, Just 5]
+[[Just 2,Just 2,Just 2],[Just 3,Just 3,Just 3],[Nothing,Nothing,Nothing],[Just 5,Just 5,Just 5],[Just 6,Just 6,Just 6]]
 ```
 
 ## Operator notation:
