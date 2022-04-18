@@ -61,8 +61,11 @@ The monadic bind ```>>=``` is a stricter version of this two:
 
 With Functor this extra structure is often thought of as a "container", while with Monad it tends to be thought of as "side effects".
 
-TODO: The distinctive feature of Monad compared to other Functors is that it can embed control flow into the extra structure. The reason it can do this is that, unlike fmap which applies a single flat function over the entire structure, (>>=) inspects individual elements and builds new structure from that.
+TODO: `The distinctive feature of Monad compared to other Functors is that it can embed control flow into the extra structure. The reason it can do this is that, unlike fmap which applies a single flat function over the entire structure, (>>=) inspects individual elements and builds new structure from that.`
 https://stackoverflow.com/questions/3382210/monad-join-function
+
+TODO: `A Monad is something that "computes" when monadic context is collapsed by join :: m (m a) -> m a (recalling that >>= can be defined as x >>= y = join (fmap y x)). This is how Monads carry context through a sequential chain of computations: because at each point in the series, the context from the previous call is collapsed with the next.`
+https://stackoverflow.com/questions/13352205/what-are-free-monads
 
 ## Theory
 

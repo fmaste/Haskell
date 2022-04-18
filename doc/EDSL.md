@@ -32,6 +32,10 @@ A grammar does not describe the meaning of the strings or what can be done with 
 
 # EDSL
 
+## TODO: deep vs shallow
+http://composition.al/blog/2015/06/02/embedding-deep-and-shallow/
+Shallow? https://hackage.haskell.org/package/esqueleto
+
 Haskell's mathematical notation and rich and versatile type system makes it a good playground for domain specific languages or EDSL for short.
 
 For example a structure like the one below allows us to build a formal language specification with grammar, parser and abstract syntax tree all at once.
@@ -82,6 +86,19 @@ See [Phantom Types](doc/Phantom.md) for the most widely used extensions to data 
 - https://emilaxelsson.github.io/documents/axelsson2012generic-slides.pdf
 - http://hackage.haskell.org/package/syntactic-1.0
 
+### Other from the same guy
+
+[Generic Monadic Constructs for Embedded Languages](https://emilaxelsson.github.io/documents/persson2011generic.pdf)
+
+## Free monads
+
+https://www.haskell.org/haskellwiki/Free_monad
+https://serokell.io/blog/introduction-to-free-monads
+https://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html
+
+`A free monad satisfies all the Monad laws, but does not do any collapsing (i.e., computation). It just builds up a nested series of contexts. The user who creates such a free monadic value is responsible for doing something with those nested contexts, so that the meaning of such a composition can be deferred until after the monadic value has been created.`
+https://stackoverflow.com/questions/13352205/what-are-free-monads
+
 # Further reading
 
 https://wiki.haskell.org/Embedded_domain_specific_language
@@ -92,3 +109,22 @@ https://www.reddit.com/r/haskell/comments/nojtd2/annotate_ast_with_location_info
 https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/rank_polymorphism.html#extension-RankNTypes
 
 ["Generic Monadic Constructs for Embedded Languages" (Persson et al., IFL 2011)](https://emilaxelsson.github.io/documents/persson2011generic.pdf>)
+
+
+## Denotational Design: from meanings to programs
+
+https://github.com/conal/talk-2014-bayhac-denotational-design
+http://conal.net/talks/denotational-design-bayhac-2014.pdf
+https://www.reddit.com/r/haskell/comments/2dh0sd/denotational_design_from_meanings_to_programs_by/
+
+> The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise
+>
+> - Edsger Dijkstra
+
+> It is not only not right, it is not even wrong
+>
+> - Wolfgang Pauli
+
+> Everything is vague to a degree you do not realize till you have tried to make it precise.
+>
+> - Bertrand Russell
