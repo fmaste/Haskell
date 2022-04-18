@@ -163,9 +163,11 @@ Just (Person {name = "Federico", age = 18})
 
 What is this?
 
-First both ```<$>``` and ```<*>``` are left-associative.
-```pure Person <*> parseName <*> parseAge``` is the same as ```((pure Person) <*> parseName) <*> parseAge```.
-Injecting a pure non-functor function inside a functor is the same as mapping over a pure function. It's the same as doing ```(fmap Person parseName) <*> parseAge```.
+First both ```<$>``` and ```<*>``` are left-associative. So ```pure Person <*> parseName <*> parseAge``` is the same as ```((pure Person) <*> parseName) <*> parseAge```.
+
+Injecting a pure non-functor function inside a functor is the same as mapping over a pure function. It's the same as doing ```(fmap Person parseName) <*> parseAge```. Or with its shorthand operator ```<$>``` is the same as ```(Person <$> parseName) <*> parseAge```
+
+How does this work with ```Person```? Easy, see the type of ```Person``` when not all its parameter are applied. It's just like a regular Haskell function.
 
 ```haskell
 > :t Person
@@ -176,8 +178,6 @@ Person "Federico" :: Int -> Person
 Person "Federico" 18 :: Person
 ```
 
-```f <$> a <*> b``` is the same as ```(f <$> a) <*> b``` which replacing the ```<$>``` operator is the same as ```(fmap f a) <*> b```
-
 What happens when one is ```Nothing```?
 
 ```haskell
@@ -186,6 +186,8 @@ Just (Person {name = "Fede", age = 18})
 > Person <$> Nothing <*> (Just 18)
 Nothing
 ```
+
+A not valid ```Person``` type was found. So ```Nothing``` happened!
 
 # Further reading
 
