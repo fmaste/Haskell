@@ -35,10 +35,6 @@ Nothing
 [2,3,4,5,6]
 > fmap (+1) []
 []
-> fmap (replicate 3) [1,2,3,4,5]
-[[1,1,1],[2,2,2],[3,3,3],[4,4,4],[5,5,5]]
-> fmap (replicate 3 . fmap (+1)) [Just 1, Just 2, Nothing, Just 4, Just 5]
-[[Just 2,Just 2,Just 2],[Just 3,Just 3,Just 3],[Nothing,Nothing,Nothing],[Just 5,Just 5,Just 5],[Just 6,Just 6,Just 6]]
 ```
 
 ## Operator notation:
@@ -51,7 +47,14 @@ Nothing
 
 ```f <$> a``` is the same as saying ```f `fmap` a``` or ```fmap f a```
 
-Or its flipped version:
+```haskell
+> (replicate 3) <$> [1,2,3,4,5]
+[[1,1,1],[2,2,2],[3,3,3],[4,4,4],[5,5,5]]
+> replicate 3 . fmap (+1) <$> [Just 1, Just 2, Nothing, Just 4, Just 5]
+[[Just 2,Just 2,Just 2],[Just 3,Just 3,Just 3],[Nothing,Nothing,Nothing],[Just 5,Just 5,Just 5],[Just 6,Just 6,Just 6]]
+```
+
+And also has a flipped version that is not used much and doesn't even come by default with the Prelude:
 ```haskell
 (<&>) :: Functor f => f a -> (a -> b) -> f b
 ```
@@ -62,7 +65,7 @@ The ```<$``` operator is also part of the ```Functor``` class above.
 ```
 It defaults too ```fmap . const``` and just lets you write a more efficient way to replace all the values with a fixed value.
 
-Or its flipped version:
+Or its flipped version also not imported by default:
 ```haskell
 ($>) :: Functor f => f a -> b -> f b
 ```
