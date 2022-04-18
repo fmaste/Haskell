@@ -104,7 +104,11 @@ It says: give me a function that takes an a and returns a b and a box with an a 
 
 # Applicative
 
-It's Haskell's standard function to map over but now with a function already inside a ```Functor```
+It's Haskell's standard function to map over but now with a function already inside a ```Functor```. With ```fmap``` a function outside the ```Functor``` context is applied to every value inside the context, with ```Applicative``` the function is already inside the ```Functor``` context and sort of "sequences" both ```Functor```s. You can "run" functors without leaving the functor context.
+
+A functor with application, providing operations to:
+- embed pure expressions (```pure```).
+- sequence computations and combine their results (```<*>```).
 
 ```haskell
 class (Functor f) => Applicative f where
@@ -112,9 +116,11 @@ class (Functor f) => Applicative f where
         (<*>) :: f (a -> b) -> f a -> f b
 ```
 
-```Applicative``` is a subclass of ```Functor```, applicative functors are beefed up functors
+```Applicative``` is a subclass of ```Functor```, applicative functors are beefed up functors.
 
 More specifically, an ```Applicative``` is an intermediate structure between a ```Functor``` and a ```Monad``` (technically, a strong lax monoidal functor).
+
+
 
 Simple instance
 ```haskell
@@ -185,3 +191,9 @@ Nothing
 
 - https://www.fpcomplete.com/haskell/tutorial/applicative-syntax/
 - https://hackage.haskell.org/package/base-4.16.1.0/docs/Control-Applicative.html
+
+# TODO
+
+## TODO
+- https://gitlab.haskell.org/ghc/ghc/-/wikis/recursive-do
+- https://gitlab.haskell.org/ghc/ghc/-/wikis/applicative-do

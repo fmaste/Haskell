@@ -1,44 +1,57 @@
-# Monads and functors
+# Monads
 
-```
+Remember ```Functor``` and its primary operator ```<$>``` from [here](doc/Applicative.md)?
+```haskell
 class Functor f where
         fmap :: (a -> b) -> f a -> f b 
         (<$) :: a -> f b -> f a 
 ```
 
-```
+```haskell
 (<$>) :: Functor f => (a -> b) -> f a -> f b 
 ```
+And ```Applicative``` and its primary function/operator ```<*>``` also from [here](doc/Applicative.md)?
 
-## TODO
-- https://gitlab.haskell.org/ghc/ghc/-/wikis/recursive-do
-- https://gitlab.haskell.org/ghc/ghc/-/wikis/applicative-do
-
-```
+```haskell
 class Functor f => Applicative f where
         pure :: a -> f a
         (<*>) :: f (a -> b) -> f a -> f b
-        (*>) :: f a -> f b -> f b
-        (<*) :: f a -> f b -> f a
 ```
 
-For a long type ```Applicative``` was not a superclass of ```Monad``` but thankfully this was fixed with the [AMP proposal](https://wiki.haskell.org/Functor-Applicative-Monad_Proposal). If you see code not making use of this much needed fix, please understand the past situation!
+The Monad class defines the basic operations over a monad, a concept from a branch of mathematics known as [category theory](https://en.wikipedia.org/wiki/Monad_(category_theory)). From the perspective of a Haskell programmer, however, it is best to think of a monad as an abstract datatype of actions.
 
-```
+Without further introduction this is a monad in Haskell, just a beefed up applicative functor:
+```haskell
 class Applicative m => Monad m where
-        (>>=) :: forall a b. m a -> (a -> m b) -> m b
-        (>>) :: forall a b. m a -> m b -> m b
+        (>>=) :: m a -> (a -> m b) -> m b
+        (>>) :: m a -> m b -> m b
         return :: a -> m a 
 ```
 
-```
-class Monad m => MonadFail m where
-        fail :: String -> m a 
-```
+## Historic note
+
+For a long type ```Applicative``` was not a superclass of ```Monad``` but thankfully this was fixed with the [AMP proposal](https://wiki.haskell.org/Functor-Applicative-Monad_Proposal). If you see code not making use of this much needed fix, please understand the past situation!
+
+# Wait, I'm slow
+
+
+Functors type classes describe additional context using some type.
+
+With Functor this extra structure is often thought of as a "container", while with Monad it tends to be thought of as "side effects".
+
+The distinctive feature of Monad compared to other Functors is that it can embed control flow into the extra structure. The reason it can do this is that, unlike fmap which applies a single flat function over the entire structure, (>>=) inspects individ
+
+
+
 
 # Folds and traversals
 
 ## TODO: Link to forall notation
+
+```haskell
+class Monad m => MonadFail m where
+        fail :: String -> m a
+```
 
 ```
 class Foldable t where
@@ -94,3 +107,5 @@ sequence_ :: (Foldable t, Monad m) => t (m a) -> m ()
 # TODO: Alternative
 
 A Alt turns any Alternative instance into a Monoid.
+
+https://en.wikibooks.org/wiki/Haskell/Category_theory

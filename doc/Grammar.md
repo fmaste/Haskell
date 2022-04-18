@@ -39,3 +39,7 @@ data ExprF = Var Id | Abs Id r | App r r deriving Functor
 You think "... smaller is good, but the extra parameter is bad ...".
 ```
 ```
+
+# TODO:
+
+https://bartoszmilewski.com/2016/12/27/monads-categorically/
