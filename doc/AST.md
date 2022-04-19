@@ -8,5 +8,8 @@
 
 [Extensible Effects vs Data types à la Carte](https://okmij.org/ftp/Haskell/extensible/extensible-a-la-carte.html)
 
+`While Swierstra’s construction is notable, Oleg Kiselyov demonstrates that the algebra construction is unable to handle the addition of new effects, in other words, it was not an extensible system. Provides some good precautions on using category theory as a design tool.`
+https://siraben.dev/2020/02/20/free-monads.html
+
 Super use of type families and Generics
 https://reasonablypolymorphic.com/blog/higher-kinded-data/

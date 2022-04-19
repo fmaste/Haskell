@@ -115,7 +115,7 @@ See [Monad](doc/Phantom.md)
 
 # Further reading
 
-- [What I Wish I Knew When Learning Haskell ](http://dev.stephendiehl.com/hask/#what-is-haskell)
+- [What I Wish I Knew When Learning Haskell ](http://dev.stephendiehl.com/hask/)
 - http://dev.stephendiehl.com/fun/WYAH.pdf
 
 # TODO

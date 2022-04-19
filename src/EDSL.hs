@@ -199,50 +199,105 @@ False
 -- TODO: "Free Monads" and fix point recursion:
 -- https://serokell.io/blog/introduction-to-free-monads
 -- https://hackage.haskell.org/package/free
+-- https://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html
 
-data Free f a = Pure a | Free (f (Free f a))
-        --deriving Functor
+-- Given a functor f, Free f is the monad it generates:
+data Free f a =
+          Pure a -- Like `Applicative`'s `pure` and `Monad`'s `return`
+        | Free (f (Free f a)) -- Like monadic `join`
+
+data PLSentenceF t =
+          PLNotF t
+        | PLAndF t t
+        | PLOrF  t t
+        deriving Functor
+
+type PLSentence a = Free PLSentenceF a
+
+-- > :t Free (PLAndF (Pure 1) (Pure 0))
+-- Free (PLAndF (Pure 1) (Pure 0)) :: Num a => Free PLSentenceF a
+-- > :t Free ( PLAndF (Pure 1) (Free (PLOrF (Pure 1) (Pure 0))) )
+-- Free ( PLAndF (Pure 1) (Free (PLOrF (Pure 1) (Pure 0))) )
+-- :: Num a => Free PLSentenceF a
+
+evaluate :: (a -> Bool) -> (PLSentence a) -> Bool
+evaluate vf (Pure v) = vf v
+evaluate vf (Free (PLNotF a  )) = not $ evaluate vf a
+evaluate vf (Free (PLAndF a b)) = (evaluate vf a) && (evaluate vf b)
+evaluate vf (Free (PLOrF  a b)) = (evaluate vf a) || (evaluate vf b)
+
+printPl :: Show a => (PLSentence a) -> String
+printPl (Pure v) = show v
+printPl (Free (PLNotF a  )) = "NOT ( " ++ (printPl a) ++ " ) "
+printPl (Free (PLAndF a b)) = "(" ++ (printPl a) ++ ") AND (" ++ (printPl b) ++ ")"
+printPl (Free (PLOrF  a b)) = "(" ++ (printPl a) ++ ") OR  (" ++ (printPl b) ++ ")"
+
+plVar :: a -> (PLSentence a)
+plVar v = Pure v
+
+plNot :: (PLSentence a) -> (PLSentence a)
+plNot a = Free (PLNotF a)
+
+plAnd :: (PLSentence a) -> (PLSentence a) -> (PLSentence a)
+plAnd a b = Free (PLAndF a b)
+
+plOr :: (PLSentence a) -> (PLSentence a) -> (PLSentence a)
+plOr a b = Free (PLOrF a b)
+
+example1 :: PLSentence Int
+example1 = plAnd (plVar 1) (plOr (plVar 0) (plVar 1))
+
+-- > evaluate1 (>0) example1
+-- True
+
+-- > printPl example1
+-- "(1) AND ((0) OR  (1))"
+
+{-- TODO: Monadic version of this??? Is not sequential!
 
 instance Functor f => Functor (Free f) where
-        fmap f = go where
-                go (Pure a)  = Pure (f a)
-                go (Free fa) = Free (go <$> fa)
+        fmap g (Pure a) = Pure (g a)
+        fmap g (Free f) = Free (fmap (fmap g) f) -- Like g o f in math notation.
 
 instance Functor f => Applicative (Free f) where
         pure = Pure
-        Pure a <*> Pure b = Pure $ a b
-        Pure a <*> Free mb = Free $ fmap a <$> mb
-        Free ma <*> b = Free $ (<*> b) <$> ma
+        Pure g <*> Pure a = Pure $ g a
+        Pure g <*> Free mb = Free $ fmap g <$> mb
+        Free mg <*> b = Free $ (<*> b) <$> mg
 
+-- Given that f is a Functor, we get that Free is a Monad for free:
 instance Functor f => Monad (Free f) where
         return = pure
         Pure a >>= f = f a
-        Free m >>= f = Free ((>>= f) <$> m)
+        Free m >>= f = Free (fmap (>>= f) m)
 
 {--
 liftF :: Functor f => f a -> Free f a
 liftF f = Free (\a -> Free f a)
 --}
+liftF :: (Functor f) => f r -> Free f r
+liftF command = Free (fmap Pure command)
 
-data PLSentenceV2 t a =
-          PLNotV2 t (t -> a)
-        | PLAndV2 t t (t -> a)
-        | PLOrV2  t t (t -> a)
-        | Input (t -> a)
-        | Output t a
-        deriving Functor
+plNotM :: a -> (PLSentence a)
+plNotM x = Free (PLNotF (Pure x))
 
-type FreeAST t = Free (PLSentenceV2 t)
+plAndM :: a -> a -> (PLSentence a)
+plAndM x y = Free (PLAndF (Pure x) (Pure y))
 
-{--
-input :: FreeAST t t
-input = liftF $ Input id
+plOrM :: a -> a -> (PLSentence a)
+plOrM x y = Free (PLOrF (Pure x) (Pure y))
 
-plAnd :: t -> t -> FreeAST t t
-plAnd x y = liftF $ PLAndV2 x y id
+example2 :: PLSentence Int
+example2 = do
+        var0 <- plVar 0
+        var1 <- plVar 1
+        pl <- plAndM var0 var1
+        plOrM var0 pl
+        --return pl
 
-output :: t -> FreeAST t ()
-output x = liftF $ Output x ()
+-- > printPl example2
+-- "((0) OR  (0)) AND ((0) OR  (1))"
+
 --}
 
 -- Version 3: Solving the expression problem:
@@ -281,7 +336,7 @@ data PLSentenceV3 a where
         PLAndV3 :: PLSentenceV3 (Bool :-> Bool :-> Full Bool)
         PLOrV3 :: PLSentenceV3 (Bool :-> Bool :-> Full Bool)
 
-type PLSentence a = AST PLSentenceV3 (Full a)
+type PLSentenceAST a = AST PLSentenceV3 (Full a)
 
 {--
 The purpose of abstraction is not to be vague, but to create a new semantic
