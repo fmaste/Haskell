@@ -24,12 +24,12 @@ Lambda-reduction (also called lambda conversion) refers to all three
   - [A. Church, “An Unsolvable Problem of Elementary Number Systems,” Amer. J. Math. 58 (1936), 345–363](https://www.ics.uci.edu/~lopes/teaching/inf212W12/readings/church.pdf).
     - Provides a rigorous formal characterization of what it means to be [solvable by means of an algorithm](https://en.wikipedia.org/wiki/Computability), known as [Church–Turing thesis](https://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis).
     - [Want to buy it?](https://www.sophiararebooks.com/pages/books/4543/alonzo-church/an-unsolvable-problem-in-elementary-number-theory)
-- [History of the Church–Turing thesis](https://en.wikipedia.org/wiki/History_of_the_Church%E2%80%93Turing_thesis)
-- [General recursive functions / partial recursive function / μ-recursive functions](https://en.wikipedia.org/wiki/General_recursive_function)
-  - The smallest class of functions (with arbitrarily many arguments) that is closed under composition, recursion, and minimization, and includes zero, successor, and all projections.
 - The equivalence between the partial recursive functions and the Turing computable functions was shown by Kleene:
   - S. C. Kleene, “General Recursive Functions of Natural Numbers,” Math. Annalen 112 (1936), 727–742.
   - It seems to be incidental that the calculus invented by Church turned out to be Turing complete.
+- [General recursive functions / partial recursive function / μ-recursive functions](https://en.wikipedia.org/wiki/General_recursive_function)
+  - The smallest class of functions (with arbitrarily many arguments) that is closed under composition, recursion, and minimization, and includes zero, successor, and all projections.
+- [History of the Church–Turing thesis](https://en.wikipedia.org/wiki/History_of_the_Church%E2%80%93Turing_thesis)
 - http://www.mathematicaguidebooks.org/
 - Seldin (2006). The logic of Curry and Church. In Handbook of the History of Logic, vol.5: Logic from Russell to Church, p. 819—874. North-Holland: Amsterdam. 
   - https://www.elsevier.com/search-results?labels=books&book-series=Handbook%20of%20the%20History%20of%20Logic&sort=document.published-asc
