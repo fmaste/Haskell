@@ -37,3 +37,4 @@ Lambda-reduction (also called lambda conversion) refers to all three
   - https://people.uleth.ca/~jonathan.seldin/CCL.pdf
 - http://cs.brown.edu/people/jsavage/book/
   - https://cs.brown.edu/people/jsavage/book/pdfs/ModelsOfComputation.pdf
+  - Types: [Church (1940). A formulation of the simple theory of types. Journal of Symbolic Logic 5(2):56—68](www.classes.cs.uchicago.edu/archive/2007/spring/32001-1/papers/church-1940.pdf).
