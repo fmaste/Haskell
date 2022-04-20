@@ -1,6 +1,6 @@
 # Lambda calculus
 
-The subarea of [Theoretical Computer Science](https://en.wikipedia.org/wiki/Theoretical_computer_science) called [Lambda Calculus](https://en.wikipedia.org/wiki/Lambda_calculus) (also written as λ-calculus) is a formal system for expressing computations developed by [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church) and [Stephen Kleene](https://en.wikipedia.org/wiki/Stephen_Cole_Kleene).
+The subarea of [Theoretical Computer Science](https://en.wikipedia.org/wiki/Theoretical_computer_science) called [Lambda Calculus](https://en.wikipedia.org/wiki/Lambda_calculus) (also written as λ-calculus) is a formal system for expressing computations developed by [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church) and [Stephen Kleene](https://en.wikipedia.org/wiki/Stephen_Cole_Kleene). It's a theoretical/formal model of computations.
 
 Like any [formal system](https://en.wikipedia.org/wiki/Formal_system), it's an abstract structure used for inferring theorems from axioms according to a set of rules.
 
@@ -20,4 +20,6 @@ Lambda-reduction (also called lambda conversion) refers to all three
 
 # Further Reading
 
-http://www.mathematicaguidebooks.org/
+- http://www.mathematicaguidebooks.org/
+- http://cs.brown.edu/people/jsavage/book/
+  - https://cs.brown.edu/people/jsavage/book/pdfs/ModelsOfComputation.pdf
