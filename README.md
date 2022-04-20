@@ -110,6 +110,10 @@ See [subpage](doc/Monad.md)
 Best publication about monads is this one that focuses on explaining the “bits round the edges” of Haskell programs:
 [Tackling the awkward squad: monadic input/output, concurrency, exceptions, and foreign-language calls in Haskell](https://www.microsoft.com/en-us/research/publication/tackling-awkward-squad-monadic-inputoutput-concurrency-exceptions-foreign-language-calls-haskell/)
 
+### Example
+
+A little [example](doc/MonadExample.md) showing how an instance of [Monoid](doc/Monoid.md), [Applicative](doc/ApplicativeFunctor.md) and [Monad](doc/Monad.md) is built.
+
 ## Datatype extensions
 
 ### Phantoms
