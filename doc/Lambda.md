@@ -12,9 +12,11 @@ It's a set of [Axioms](https://en.wikipedia.org/wiki/Axiom) (something taken to 
 
 The alphabet is the finite set of symbols which concatenate formulas. Or a formula is just a finite string of symbols taken from the alphabet.
 
-We select a particular list of symbols, consisting of the symbols `{`, `}`, `(`, `)`, `λ`, `[` ,`]` and an enumerably infinite set of symbols `a`, `b`, `c`, . . . to be called variables.
+We select a particular list of symbols, consisting of the symbols ```{```, ```}```, ```(```, ```)```, ```λ```, ```[``` ,```]``` and an enumerably infinite set of symbols ```a```, ```b```, ```c```, . . . to be called variables.
 
 ## Grammar
+
+The terms `well-formed formula`, `free variable`, and `bound variable` are then defined by induction as follows.
 
 - A grammar consisting of rules to form formulas from simpler formulas. A formula is said to be well-formed if it can be formed using the rules of the formal grammar. It is often required that there be a decision procedure for deciding whether a formula is well-formed.
 - A set of axioms, or axiom schemata, consisting of well-formed formulas.
