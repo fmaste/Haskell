@@ -89,7 +89,7 @@ The Prelude is imported by default or with ```import Prelude``` but the default 
 ```
 ## Lambda calculus
 
-![the beginnings of Theoretical Computer Science](doc/Lambda.png)
+![The beginnings of Theoretical Computer Science](doc/Lambda.png)
 
 ## Class hierarchy
 
