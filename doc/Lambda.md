@@ -26,6 +26,7 @@ Lambda-reduction (also called lambda conversion) refers to all three
     - [Want to buy it?](https://www.sophiararebooks.com/pages/books/4543/alonzo-church/an-unsolvable-problem-in-elementary-number-theory)
 - The equivalence between the partial recursive functions and the Turing computable functions was shown by Kleene:
   - S. C. Kleene, “General Recursive Functions of Natural Numbers,” Math. Annalen 112 (1936), 727–742.
+- [General recursive functions / partial recursive function / μ-recursive functions](https://en.wikipedia.org/wiki/General_recursive_function)
 - http://www.mathematicaguidebooks.org/
 - http://cs.brown.edu/people/jsavage/book/
   - https://cs.brown.edu/people/jsavage/book/pdfs/ModelsOfComputation.pdf
