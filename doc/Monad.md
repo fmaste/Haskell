@@ -83,6 +83,7 @@ He wrote several more papers like:
 - [How to declare an imperative](https://homepages.inf.ed.ac.uk/wadler/topics/monads.html)
   - This tutorial describes the use of a monad to integrate interaction into a purely declarative language.
 - [Imperative functional programming](https://www.microsoft.com/en-us/research/publication/imperative-functional-programming/) with Simon Peyton Jones.
+  - POPL 2003: ten-year most-influential paper award.
 
 More from him at his [personal page](https://homepages.inf.ed.ac.uk/wadler/) and all his monad related publications at this [subpage](https://homepages.inf.ed.ac.uk/wadler/topics/monads.html).
 
