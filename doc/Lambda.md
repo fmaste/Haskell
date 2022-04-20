@@ -16,7 +16,13 @@ We select a particular list of symbols, consisting of the symbols ```{```, ```}`
 
 ## Grammar
 
-The terms `well-formed formula`, `free variable`, and `bound variable` are then defined by induction as follows.
+The main idea is forming functions by abstraction and applying a function to an argument. The set of lambda expressions or λ-terms, ```Λ```, is defined by induction as follows:
+1. If ```x``` is a variable, then ```x ∈ Λ```
+2. Abstraction (AKA function definition): If ```x``` is a variable and ```M ∈ Λ```, then ```(λx.M) ∈ Λ``` (sometimes shown as ```(λx[M])```).
+3. Application (AKA provide a value for a parameter of a function): If ```M, N ∈ Λ```, then ```(M N) ∈ Λ```.
+We take M and N as sub expresssions, which can be any of the above forms.
+
+The terms `well-formed formula`, `free variable`, and `bound variable` 
 
 - A grammar consisting of rules to form formulas from simpler formulas. A formula is said to be well-formed if it can be formed using the rules of the formal grammar. It is often required that there be a decision procedure for deciding whether a formula is well-formed.
 - A set of axioms, or axiom schemata, consisting of well-formed formulas.
