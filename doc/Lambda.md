@@ -30,5 +30,9 @@ Lambda-reduction (also called lambda conversion) refers to all three
 - The equivalence between the partial recursive functions and the Turing computable functions was shown by Kleene:
   - S. C. Kleene, “General Recursive Functions of Natural Numbers,” Math. Annalen 112 (1936), 727–742.
 - http://www.mathematicaguidebooks.org/
+- Seldin (2006). The logic of Curry and Church. In Handbook of the History of Logic, vol.5: Logic from Russell to Church, p. 819—874. North-Holland: Amsterdam. 
+  - https://www.elsevier.com/search-results?labels=books&book-series=Handbook%20of%20the%20History%20of%20Logic&sort=document.published-asc
+  - https://www.sciencedirect.com/handbook/handbook-of-the-history-of-logic
+  - https://people.uleth.ca/~jonathan.seldin/CCL.pdf
 - http://cs.brown.edu/people/jsavage/book/
   - https://cs.brown.edu/people/jsavage/book/pdfs/ModelsOfComputation.pdf
