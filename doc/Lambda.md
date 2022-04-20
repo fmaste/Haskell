@@ -10,7 +10,9 @@ It's a set of [Axioms](https://en.wikipedia.org/wiki/Axiom) (something taken to 
 
 ## Alphabet
 
-A finite set of symbols, known as the alphabet, which concatenate formulas, so that a formula is just a finite string of symbols taken from the alphabet. We select a particular list of symbols, consisting of the symbols `{`, `}`, `(`, `)`, `λ`, `[` ,`]` and an enumerably infinite set of symbols `a`, `b`, `c`, . . . to be called variables.
+The finite set of symbols which concatenate formulas, so that a formula is just a finite string of symbols taken from the alphabet is known as the alphabet.
+
+We select a particular list of symbols, consisting of the symbols `{`, `}`, `(`, `)`, `λ`, `[` ,`]` and an enumerably infinite set of symbols `a`, `b`, `c`, . . . to be called variables.
 
 ## Grammar
 
