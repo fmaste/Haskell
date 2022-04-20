@@ -23,3 +23,7 @@ Lambda-reduction (also called lambda conversion) refers to all three
 - http://www.mathematicaguidebooks.org/
 - http://cs.brown.edu/people/jsavage/book/
   - https://cs.brown.edu/people/jsavage/book/pdfs/ModelsOfComputation.pdf
+- Church gave a formal model of computation in:
+  - [A. Church, “An Unsolvable Problem of Elementary Number Systems,” Amer. J. Math. 58 (1936), 345–363](https://www.ics.uci.edu/~lopes/teaching/inf212W12/readings/church.pdf).
+- The equivalence between the partial recursive functions and the Turing computable functions was shown by Kleene:
+  - S. C. Kleene, “General Recursive Functions of Natural Numbers,” Math. Annalen 112 (1936), 727–742.
