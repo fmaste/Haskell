@@ -29,7 +29,7 @@ Lambda-reduction (also called lambda conversion) refers to all three
   - The smallest class of functions (with arbitrarily many arguments) that is closed under composition, recursion, and minimization, and includes zero, successor, and all projections.
 - The equivalence between the partial recursive functions and the Turing computable functions was shown by Kleene:
   - S. C. Kleene, “General Recursive Functions of Natural Numbers,” Math. Annalen 112 (1936), 727–742.
-  - It seems to be incidental that the calculus invented by Church turned out to be Turing complete, although Church later used the lambda calculus for what he called Effectively computable functions (1936).
+  - It seems to be incidental that the calculus invented by Church turned out to be Turing complete.
 - http://www.mathematicaguidebooks.org/
 - Seldin (2006). The logic of Curry and Church. In Handbook of the History of Logic, vol.5: Logic from Russell to Church, p. 819—874. North-Holland: Amsterdam. 
   - https://www.elsevier.com/search-results?labels=books&book-series=Handbook%20of%20the%20History%20of%20Logic&sort=document.published-asc
