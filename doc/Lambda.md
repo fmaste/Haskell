@@ -76,6 +76,10 @@ Three theorems of lambda calculus are
 - eta-conversion
 Lambda-reduction (also called lambda conversion) refers to all three
 
+# Types
+
+Since the development of Hindley–Milner type inference in the 1970s, functional programming languages have tended to use typed lambda calculus, rejecting all invalid programs at compilation time and risking false positive errors, as opposed to the untyped lambda calculus, that accepts all valid programs at compilation time and risks false negative errors.
+
 # Further Reading
 
 - In the course of studying the [Entscheidungsproblem](https://en.wikipedia.org/wiki/Entscheidungsproblem) Church gave a formal model of computation in:

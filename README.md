@@ -123,7 +123,8 @@ See [Monad](doc/Phantom.md)
 # Further reading
 
 - [What I Wish I Knew When Learning Haskell ](http://dev.stephendiehl.com/hask/)
-- http://dev.stephendiehl.com/fun/WYAH.pdf
+  - PDF Version: http://dev.stephendiehl.com/fun/WYAH.pdf
+- [Introduction to functional programming](https://learn.saylor.org/mod/book/view.php?id=33044)
 
 # TODO
 
