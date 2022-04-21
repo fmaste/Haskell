@@ -16,21 +16,35 @@ We select a particular list of symbols, consisting of the symbols ```{```, ```}`
 
 ## Grammar
 
-A grammar consists of rules to form formulas from simpler formulas.
+A grammar consists of rules to form ***well-formed formula*** from simpler formulas.
 
-The main idea is forming functions by abstraction and applying a function to an argument. The set of lambda expressions or λ-terms, ```Λ```, is defined by induction as follows:
-1. If ```x``` is a variable, then ```x ∈ Λ```
-2. Abstraction (AKA function definition): If ```x``` is a variable and ```M ∈ Λ```, then ```(λx.M) ∈ Λ``` (sometimes shown as ```(λx[M])```).
-3. Application (AKA provide a value for a parameter of a function): If ```M, N ∈ Λ```, then ```(M N) ∈ Λ```.
+The set of well-formed formula lambda expressions or λ-terms, ```Λ```, is defined by induction as follows:
+
+1. If ```x``` is a variable, then ```x ∈ Λ```.
+   a. The occurrence of ```x``` in it is an occurrence of x as a free variable in it.
+2. Application: If ```F, X ∈ Λ```, then ```{F}(X) ∈ Λ```.
+   a. An occurrence of ```x``` as a free (bound) variable in ```F``` or ```X``` is an occurrence of ```x``` as a free (bound) variable in ```{F}(X)```.
+3. Abstraction: If ```x``` is a variable and ```M ∈ Λ```, then ```λx[M] ∈ Λ```.
+   a. If the formula ```M``` contains an occurrence of ```x``` as a free variable in ```M```, any occurrence of ```x``` in ```λ[M]``` is an occurrence of ```x``` as a bound variable in ```λx[M]```, and an occurrence of a variable ```y```, other than ```x```, as a free (bound) variable in ```M``` is an occurrence of ```y``` as a free (bound) variable in ```λx[M]```.
+
 We take M and N as sub expresssions, which can be any of the above forms.
+
+The main idea is forming functions by abstraction and applying a function to an argument.
 
 In some function a variable is said to be a ***free variable*** when its value depends on the context where the function is called. In contrast, we called a variable a ***bounded variable*** when it value does not depend on the context of the function call.
 
 
 In lambda calculus, ```x``` is a bound variable in the term ```M = λx. T``` and a free variable in the term ```T```. We say ```x``` is bound in ```M``` and free in ```T```. If T contains a subterm λx. U then x is rebound in this term. This nested, inner binding of x is said to "shadow" the outer binding. Occurrences of x in U are free occurrences of the new x
 
-The terms `well-formed formula`, `free variable`, and `bound variable` 
+### Abbreviations
 
+```{F}(X)``` to ```F(X)```
+```{{F}(X)}(Y)``` to ```{F}(X,Y)``` or ```F(X,Y)```
+```{{{F}(X)}(Y)}(Z)``` to ```{F}(X,Y,Z)``` or ```F(X,Y,Z)```
+and so on.
+
+```λx[λy[...λz[M]]]``` to ```λxyz.M```
+This ```.``` notation is more commonly used.
 
 -  A formula is said to be well-formed if it can be formed using the rules of the formal grammar. It is often required that there be a decision procedure for deciding whether a formula is well-formed.
 - A set of axioms, or axiom schemata, consisting of well-formed formulas.
