@@ -32,11 +32,16 @@ The main idea is forming functions by abstraction and applying a function to an 
 ### Abbreviations
 
 ```{F}(X)``` to ```F(X)```
+
 ```{{F}(X)}(Y)``` to ```{F}(X,Y)``` or ```F(X,Y)```
+
 ```{{{F}(X)}(Y)}(Z)``` to ```{F}(X,Y,Z)``` or ```F(X,Y,Z)```
+
 and so on.
 
+
 ```λx[λy[...λz[M]]]``` to ```λxyz.M```
+
 This ```.``` notation is more commonly used.
 
 ### Free variable vs. bound variable
