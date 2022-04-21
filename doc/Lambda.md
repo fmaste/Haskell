@@ -41,10 +41,10 @@ and so on.
 
 ```(λx[M])``` to ```λx[M]``` to ```λx.M```
 
+This ```.``` notation is more commonly used.
+
 This is a common abbreviation ```λx[λy[...λz[M]]]``` to ```λxyz.M```.
 But is the bound variable ```x``` or is it ```xyz```? Try not to use it.
-
-This ```.``` notation is more commonly used.
 
 ### Free variable vs. bound variable
 
