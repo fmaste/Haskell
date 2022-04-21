@@ -21,11 +21,11 @@ A grammar consists of rules to form ***well-formed formula*** from simpler formu
 The set of well-formed formula lambda expressions or λ-terms, ```Λ```, is defined by induction as follows:
 
 1. If ```x``` is a variable, then ```x ∈ Λ```.
-   a. The occurrence of ```x``` in it is an occurrence of x as a free variable in it.
+   - The occurrence of ```x``` in it is an occurrence of x as a free variable in it.
 2. Application: If ```F, X ∈ Λ```, then ```{F}(X) ∈ Λ```.
-   a. An occurrence of ```x``` as a free (bound) variable in ```F``` or ```X``` is an occurrence of ```x``` as a free (bound) variable in ```{F}(X)```.
+   - An occurrence of ```x``` as a free (bound) variable in ```F``` or ```X``` is an occurrence of ```x``` as a free (bound) variable in ```{F}(X)```.
 3. Abstraction: If ```x``` is a variable and ```M ∈ Λ```, then ```λx[M] ∈ Λ```.
-   a. If the formula ```M``` contains an occurrence of ```x``` as a free variable in ```M```, any occurrence of ```x``` in ```λ[M]``` is an occurrence of ```x``` as a bound variable in ```λx[M]```, and an occurrence of a variable ```y```, other than ```x```, as a free (bound) variable in ```M``` is an occurrence of ```y``` as a free (bound) variable in ```λx[M]```.
+   - If the formula ```M``` contains an occurrence of ```x``` as a free variable in ```M```, any occurrence of ```x``` in ```λ[M]``` is an occurrence of ```x``` as a bound variable in ```λx[M]```, and an occurrence of a variable ```y```, other than ```x```, as a free (bound) variable in ```M``` is an occurrence of ```y``` as a free (bound) variable in ```λx[M]```.
 
 We take M and N as sub expresssions, which can be any of the above forms.
 
