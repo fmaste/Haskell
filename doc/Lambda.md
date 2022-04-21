@@ -29,6 +29,10 @@ The set of well-formed formula lambda expressions or λ-terms, ```Λ```, is defi
 
 The main idea is forming functions by abstraction and applying a function to an argument.
 
+### In BNF notation,
+
+```e ::= x | (λx[e]) | {e0}(e1)```
+
 ### Abbreviations
 
 ```{F}(X)``` to ```F(X)```
@@ -45,6 +49,12 @@ This ```.``` notation is more commonly used.
 
 This is a common abbreviation ```λx[λy[...λz[M]]]``` to ```λxyz.M```.
 But is the bound variable ```x``` or is it ```xyz```? Try not to use it.
+
+Parentheses are used just for grouping; they have no meaning on their own.
+
+Lambda terms are greedy, extending as far to the right as they can.
+The term ```λx. λy. y``` is the same as ```λx.(x (λy.y))```, not (λx.x) (λy.y).
+Application terms are left-associative, so ```x y z``` is the same thing as ```(x y) z```.
 
 ### Free variable vs. bound variable
 
@@ -85,3 +95,4 @@ Lambda-reduction (also called lambda conversion) refers to all three
   - https://cs.brown.edu/people/jsavage/book/pdfs/ModelsOfComputation.pdf
   - Types: [Church (1940). A formulation of the simple theory of types. Journal of Symbolic Logic 5(2):56—68](www.classes.cs.uchicago.edu/archive/2007/spring/32001-1/papers/church-1940.pdf).
 - [Stanford Encyclopedia of Philosophy: The Lambda Calculus](https://plato.stanford.edu/entries/lambda-calculus/)
+- [CS 312 Recitation 26 The Lambda Calculus](https://www.cs.cornell.edu/courses/cs3110/2008fa/recitations/rec26.html)
