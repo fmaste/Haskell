@@ -32,6 +32,7 @@ The main idea is forming functions by abstraction and applying a function to an 
 ### In BNF notation
 
 ```varid → (small {small})```
+
 ```formula → varid | {formula}(formula) | (λvarid[formula])```
 
 ### Abbreviations
