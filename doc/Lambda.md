@@ -24,7 +24,7 @@ The set of well-formed formula lambda expressions or λ-terms, ```Λ```, is defi
    - The occurrence of ```x``` in it is an occurrence of x as a free variable in it.
 2. Application: If ```F, X ∈ Λ```, then ```{F}(X) ∈ Λ```.
    - An occurrence of ```x``` as a free (bound) variable in ```F``` or ```X``` is an occurrence of ```x``` as a free (bound) variable in ```{F}(X)```.
-3. Abstraction: If ```x``` is a variable and ```M ∈ Λ```, then ```λx[M] ∈ Λ```.
+3. Abstraction: If ```x``` is a variable and ```M ∈ Λ```, then ```(λx[M]) ∈ Λ```.
    - If the formula ```M``` contains an occurrence of ```x``` as a free variable in ```M```, any occurrence of ```x``` in ```λx[M]``` is an occurrence of ```x``` as a bound variable in ```λx[M]```, and an occurrence of a variable ```y```, other than ```x```, as a free (bound) variable in ```M``` is an occurrence of ```y``` as a free (bound) variable in ```λx[M]```.
 
 The main idea is forming functions by abstraction and applying a function to an argument.
@@ -39,8 +39,10 @@ The main idea is forming functions by abstraction and applying a function to an 
 
 and so on.
 
+```(λx[M])``` to ```λx[M]``` to ```λx.M```
 
-```λx[λy[...λz[M]]]``` to ```λxyz.M```
+This is a common abbreviation ```λx[λy[...λz[M]]]``` to ```λxyz.M```.
+But is the bound variable ```x``` or is it ```xyz```? Try not to use it.
 
 This ```.``` notation is more commonly used.
 
@@ -50,7 +52,11 @@ In lambda calculus, ```x``` is a bound variable in the term ```λx.T``` and a fr
 
 In some function a variable is said to be a free variable when its value depends on the context where the function is called. In contrast, we called a variable a bounded variable when it value does not depend on the context of the function call.
 
+If ```M``` has no free variables ```M``` is called a ***combinator***.
+
 ## Theorems
+
+TODO:
 
 Three theorems of lambda calculus are
 - beta-conversion
@@ -78,3 +84,4 @@ Lambda-reduction (also called lambda conversion) refers to all three
 - http://cs.brown.edu/people/jsavage/book/
   - https://cs.brown.edu/people/jsavage/book/pdfs/ModelsOfComputation.pdf
   - Types: [Church (1940). A formulation of the simple theory of types. Journal of Symbolic Logic 5(2):56—68](www.classes.cs.uchicago.edu/archive/2007/spring/32001-1/papers/church-1940.pdf).
+- [Stanford Encyclopedia of Philosophy: The Lambda Calculus](https://plato.stanford.edu/entries/lambda-calculus/)
