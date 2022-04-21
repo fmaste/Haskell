@@ -29,9 +29,9 @@ The set of well-formed formula lambda expressions or λ-terms, ```Λ```, is defi
 
 The main idea is forming functions by abstraction and applying a function to an argument.
 
-### In BNF notation,
+### In BNF notation
 
-```e ::= x | (λx[e]) | {e0}(e1)```
+```e ::= x | {e0}(e1) | (λx[e])```
 
 ### Abbreviations
 
