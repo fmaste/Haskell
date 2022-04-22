@@ -118,15 +118,19 @@ The basic types and clasess that are in scope by default in every Haskell file a
 
 [Basic types hierarchy](media/basic.png)
 
-# IO
-
-https://www.haskell.org/onlinereport/haskell2010/haskellch7.html#x14-1420007
-
 ## Custom Prelude
 
 The Prelude is imported by default or with ```import Prelude``` but the default Prelude can be disabled using ```-XNoImplicitPrelude``` GHC flag, this allows us to replace the default entirely with a custom prelude. Some projects roll their own Prologue.hs module in replacement.
 
+```
+{-# LANGUAGE NoImplicitPrelude #-}
+```
+
 You get an idea of how customizable source code in Haskell can be.
+
+# IO
+
+https://www.haskell.org/onlinereport/haskell2010/haskellch7.html#x14-1420007
 
 # Language formal definition
 
@@ -139,11 +143,6 @@ The Haskell reports define "the syntax for Haskell programs and an informal abst
 ## [Declarations](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-620004)
 
 ## [Modules](https://www.haskell.org/onlinereport/haskell2010/haskellch5.html#x11-980005)
-
-
-```
-{-# LANGUAGE NoImplicitPrelude #-}
-```
 
 ## Class hierarchy
 
