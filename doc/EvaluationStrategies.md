@@ -93,8 +93,8 @@ memoized_fib = (map fib [0 ..] !!)
 ```
 
 ```haskell
-memoized_fib :: Int -> Integer
-memoized_fib = \i -> (map fib [0 ..] !!) i
+memoized_fib' :: Int -> Integer
+memoized_fib' = \i -> (map fib [0 ..] !!) i
         where fib 0 = 0
               fib 1 = 1
               fib n = memoized_fib (n-2) + memoized_fib (n-1)
@@ -102,6 +102,7 @@ memoized_fib = \i -> (map fib [0 ..] !!) i
 
 The hard part is knowing where the lambda expressions are.
 
+https://bor0.wordpress.com/2020/12/11/haskell-memoization-and-evaluation-model/
 
 [3.1 Errors](https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-230003.1)
 
