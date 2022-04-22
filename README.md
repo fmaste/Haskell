@@ -78,7 +78,7 @@ A [+10 years old funny video](https://www.youtube.com/watch?v=iSmkqocn0oQ) of wh
 
 # Lambda calculus
 
-![The beginnings of Theoretical Computer Science](doc/Lambda.md)
+[The beginnings of Theoretical Computer Science](doc/Lambda.md)
 
 # Prelude
 
