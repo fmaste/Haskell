@@ -109,6 +109,8 @@ An expression evaluates to a value and has a static type. Values and types are n
 
 There are two constraints on naming: Names for variables and type variables are identifiers beginning with lowercase letters or underscore; the other four kinds of names are identifiers beginning with uppercase letters. An identifier must not be used as the name of a type constructor and a class in the same scope. These are the only constraints; for example, Int may simultaneously be the name of a module, class, and constructor within a single scope.
 
+## Built-in
+
 The basic types and clasess that are in scope by default in every Haskell file are described in [Prelude](doc/Prelude.md)
 - [Lists](doc/Lists.md)
 - [Strings](doc/Strings.md)
