@@ -18,7 +18,8 @@ A ***mixture of quick reference guide and Haskell tutorial*** full of external r
 [^3]: H.K. Curry and R. Feys. Combinatory Logic. North-Holland Pub. Co., Amsterdam, 1958
 
 ### History
-Read paper ["A History of Haskell: Being Lazy with Class"](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf) from 2007
+
+Read paper ["A History of Haskell: Being Lazy with Class"](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf) from 2007.
 
 From its abstract:
 `This paper describes the history of Haskell, including its genesis and principles, technical contributions, implementations and tools, and applications and impact.`
@@ -57,6 +58,10 @@ There is an old but still relevant paper about [Why Functional Programming Matte
 A [+10 years old funny video](https://www.youtube.com/watch?v=iSmkqocn0oQ) of what Haskell wants to achieve and the path taken to achieve it
 
 ### Main Features
+
+> Haskell is a general purpose, purely functional programming language incorporating many recent innovations in programming language design. Haskell provides ***higher-order functions***, ***non-strict semantics***, ***static polymorphic typing***, ***user-defined algebraic datatypes***, ***pattern-matching***, ***list comprehensions***, a module system, a monadic I/O system, and a rich set of primitive datatypes, including lists, arrays, arbitrary and fixed precision integers, and floating-point numbers. Haskell is both the culmination and solidification of many years of research on non-strict functional languages.
+>
+> [Haskell 2010 Report - Chapter 1 - Introduction](https://www.haskell.org/onlinereport/haskell2010/haskellch1.html#x6-90001)
 
 - Purely functional
   - Every function in Haskell is a function in the mathematical sense (i.e., "pure"). Even side-effecting IO operations are but a description of what to do, produced by pure code. There are no statements or instructions, only expressions which cannot mutate variables (local or global) nor access state like time or random numbers.
@@ -122,9 +127,10 @@ See [Monad](doc/Phantom.md)
 
 # Further reading
 
-- [What I Wish I Knew When Learning Haskell ](http://dev.stephendiehl.com/hask/)
+- [What I Wish I Knew When Learning Haskell](http://dev.stephendiehl.com/hask/)
   - PDF Version: http://dev.stephendiehl.com/fun/WYAH.pdf
 - [Introduction to functional programming](https://learn.saylor.org/mod/book/view.php?id=33044)
+- [Haskell 2010 Language Report](https://www.haskell.org/onlinereport/haskell2010/)
 
 # TODO
 
