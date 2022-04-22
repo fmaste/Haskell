@@ -78,20 +78,66 @@ A [+10 years old funny video](https://www.youtube.com/watch?v=iSmkqocn0oQ) of wh
 
 # Lambda calculus
 
-[The beginnings of Theoretical Computer Science](doc/Lambda.md)
+Desugared Haskell is essentially a slightly sugared variant of the lambda calculus with a straightforward denotational semantics.
+
+A little theory about how it all started: [The beginnings of Theoretical Computer Science](doc/Lambda.md).
 
 # Prelude
+
+We will start first showing with examples the standard built-in datatypes and classes in Haskell.
+
+https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1160006
+
+Two thing that you may need to undertand first:
+
+## 1. Values and types
+
+An expression evaluates to a value and has a static type. Values and types are not mixed in Haskell. However, the type system allows user-defined datatypes of various sorts, and permits not only parametric polymorphism (using a traditional Hindley-Milner type structure) but also ad hoc polymorphism, or overloading (using type classes).
+
+## 2. Namespaces
+
+ There are six kinds of names in Haskell:
+- Those for values:
+  - Variables
+  - Constructors
+- Those for entities related to the type system:
+  - Type variables
+  - Type constructors
+  - Type classes
+- Those for module
+  - Module names
+
+There are two constraints on naming: Names for variables and type variables are identifiers beginning with lowercase letters or underscore; the other four kinds of names are identifiers beginning with uppercase letters. An identifier must not be used as the name of a type constructor and a class in the same scope. These are the only constraints; for example, Int may simultaneously be the name of a module, class, and constructor within a single scope.
 
 The basic types and clasess that are in scope by default in every Haskell file are described in [Prelude](doc/Prelude.md)
 - [Lists](doc/Lists.md)
 - [Strings](doc/Strings.md)
 - [Fractional Numbers](doc/NumbersFractional.md)
 
-![Basic types hierarchy](media/basic.png)
+[Basic types hierarchy](media/basic.png)
+
+# IO
+
+https://www.haskell.org/onlinereport/haskell2010/haskellch7.html#x14-1420007
 
 ## Custom Prelude
 
 The Prelude is imported by default or with ```import Prelude``` but the default Prelude can be disabled using ```-XNoImplicitPrelude``` GHC flag, this allows us to replace the default entirely with a custom prelude. Some projects roll their own Prologue.hs module in replacement.
+
+You get an idea of how customizable source code in Haskell can be.
+
+# Language formal definition
+
+The Haskell reports define "the syntax for Haskell programs and an informal abstract semantics for the meaning of such programs" but not "the ways in which Haskell programs are to be manipulated, interpreted, compiled, etc".
+
+## [Haskell’s lexical structure](https://www.haskell.org/onlinereport/haskell2010/haskellch2.html#x7-140002)
+
+## [Expressions](https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-220003)
+
+## [Declarations](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-620004)
+
+## [Modules](https://www.haskell.org/onlinereport/haskell2010/haskellch5.html#x11-980005)
+
 
 ```
 {-# LANGUAGE NoImplicitPrelude #-}
