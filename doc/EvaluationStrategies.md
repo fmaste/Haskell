@@ -26,16 +26,16 @@ It will return ```2``` using non-strict evaluation and ```error``` using strict.
 
 ### Binding Strategies
 
-- Strict
+- [Strict](https://en.wikipedia.org/wiki/Evaluation_strategy#Strict_binding_strategies)
   - Call-by-value
     - The evaluated value of the argument expression is bound to the corresponding variable in the function.
   - Call-by-reference (or pass by reference)
     - A parameter is bound to a reference to the variable used as argument, rather than a copy of its value.
-- Non-strict
+- [Non-strict](https://en.wikipedia.org/wiki/Evaluation_strategy#Non-strict_binding_strategies)
   - Call-by-name
     - Arguments are substituted directly into the function body.
   - Call-by-need
-    - Call-by-name with memoization, if the function argument is evaluated its value is stored for subsequent uses. So the expression is evaluated no more than once.
+    - Call-by-name with [memoization](https://en.wikipedia.org/wiki/Memoization), if the function argument is evaluated its value is stored for subsequent uses. So the expression is evaluated no more than once.
 
 ## Haskell's definition
 
@@ -63,7 +63,7 @@ It will return ```2``` using non-strict evaluation and ```error``` using strict.
 
 ### Note
 
-A Haskell implementation using "call by name", would be technically conforming?
+A Haskell implementation using call-by-name, would be technically conforming?
 
 ## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
 
@@ -73,8 +73,34 @@ Haskell is often described as a lazy language. However, the language specificati
 
 Lazy evaluation is classified as a binding technique rather than an evaluation strategy.
 
+# Memoization
 
+As we have learned that Haskell computes any given expression at most once every time the lambda expression is entered, we can use the memoization optimization technique.
 
+```haskell
+slow_fib :: Int -> Integer
+slow_fib 0 = 0
+slow_fib 1 = 1
+slow_fib n = slow_fib (n-2) + slow_fib (n-1)
+```
+
+```haskell
+memoized_fib :: Int -> Integer
+memoized_fib = (map fib [0 ..] !!)
+        where fib 0 = 0
+              fib 1 = 1
+              fib n = memoized_fib (n-2) + memoized_fib (n-1)
+```
+
+```haskell
+memoized_fib :: Int -> Integer
+memoized_fib = \i -> (map fib [0 ..] !!) i
+        where fib 0 = 0
+              fib 1 = 1
+              fib n = memoized_fib (n-2) + memoized_fib (n-1)
+```
+
+The hard part is knowing where the lambda expressions are.
 
 
 [3.1 Errors](https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-230003.1)
