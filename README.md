@@ -1,12 +1,12 @@
 This is a WORK IN PROGRESS!
 
-# [Haskell](http://www.haskell.org/), an advanced, purely functional programming language
-
 A ***mixture of quick reference guide and Haskell tutorial*** full of external references [^1] [^2]
 
 [^1]: Based on [GHC](https://www.haskell.org/ghc/) (The Glasgow Haskell Compiler), a state-of-the-art, open source, compiler and interactive environment for the functional language Haskell
 
 [^2]: Using [version 9.2.2](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/index.html) of GHC
+
+# [Haskell](http://www.haskell.org/), an advanced, purely functional programming language
 
 ## Preface
 
@@ -17,7 +17,7 @@ A ***mixture of quick reference guide and Haskell tutorial*** full of external r
 
 [^3]: H.K. Curry and R. Feys. Combinatory Logic. North-Holland Pub. Co., Amsterdam, 1958
 
-### History
+## History
 
 Read paper ["A History of Haskell: Being Lazy with Class"](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf) from 2007.
 
@@ -26,7 +26,7 @@ From its abstract:
 
 Also [this video](https://www.youtube.com/watch?v=re96UgMk6GQ) from 2017 where [Symon Peyton Jones](https://www.microsoft.com/en-us/research/people/simonpj/) discusses Haskell’s birth and evolution
 
-#### Inception
+### Inception
 
 In a meeting held at the conference on Functional Programming Languages and Computer Architecture (FPCA ’87) in Portland, Oregon in September of 1987, it was decided that a committee should be formed to design a much needed common language for a ***purely functional programming languages***
 
@@ -43,21 +43,21 @@ The committee’s primary goal was to design a language that satisfied these con
 Paper with a static semantics for a large subset of Haskell, including giving a translations into a language without overloading:
 https://www.microsoft.com/en-us/research/wp-content/uploads/1991/03/A-Static-Semantics-for-Haskell_small.pdf
 
-##### TL;DR;
+#### TL;DR;
 
 From this short post full of irony: [A Brief, Incomplete, and Mostly Wrong History of Programming Languages](https://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html).
 
 `1990 - A committee formed by Simon Peyton-Jones, Paul Hudak, Philip Wadler, Ashton Kutcher, and People for the Ethical Treatment of Animals creates Haskell, a pure, non-strict, functional language. Haskell gets some resistance due to the complexity of using monads to control side effects. Wadler tries to appease critics by explaining that "a monad is a monoid in the category of endofunctors, what's the problem?"`
 
-### Why?
+## Why?
 
 There is an old but still relevant paper about [Why Functional Programming Matters](http://www.cse.chalmers.se/~rjmh/Papers/whyfp.html) by John Hughes. More recently, Sebastian Sylvan wrote an article about [Why Haskell Matters](https://wiki.haskell.org/Why_Haskell_matters). 
 
-#### Purpose
+### Purpose
 
 A [+10 years old funny video](https://www.youtube.com/watch?v=iSmkqocn0oQ) of what Haskell wants to achieve and the path taken to achieve it
 
-### Main Features
+## Main Features
 
 > Haskell is a general purpose, purely functional programming language incorporating many recent innovations in programming language design. Haskell provides ***higher-order functions***, ***non-strict semantics***, ***static polymorphic typing***, ***user-defined algebraic datatypes***, ***pattern-matching***, ***list comprehensions***, a module system, a monadic I/O system, and a rich set of primitive datatypes, including lists, arrays, arbitrary and fixed precision integers, and floating-point numbers. Haskell is both the culmination and solidification of many years of research on non-strict functional languages.
 >
@@ -76,7 +76,11 @@ A [+10 years old funny video](https://www.youtube.com/watch?v=iSmkqocn0oQ) of wh
 - Packages
   - Open source contribution to Haskell is very active with a wide range of packages available on the public package servers.
 
-## Prelude
+# Lambda calculus
+
+![The beginnings of Theoretical Computer Science](doc/Lambda.md)
+
+# Prelude
 
 The basic types and clasess that are in scope by default in every Haskell file are described in [Prelude](doc/Prelude.md)
 - [Lists](doc/Lists.md)
@@ -85,16 +89,13 @@ The basic types and clasess that are in scope by default in every Haskell file a
 
 ![Basic types hierarchy](media/basic.png)
 
-### Custom Prelude
+## Custom Prelude
 
 The Prelude is imported by default or with ```import Prelude``` but the default Prelude can be disabled using ```-XNoImplicitPrelude``` GHC flag, this allows us to replace the default entirely with a custom prelude. Some projects roll their own Prologue.hs module in replacement.
 
 ```
 {-# LANGUAGE NoImplicitPrelude #-}
 ```
-## Lambda calculus
-
-![The beginnings of Theoretical Computer Science](doc/Lambda.md)
 
 ## Class hierarchy
 
