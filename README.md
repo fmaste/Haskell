@@ -169,7 +169,24 @@ A little [example](doc/MonadExample.md) showing how an instance of [Monoid](doc/
 
 ## Datatype extensions
 
-### Phantoms
+### Multi-parameter type classes
+
+```haskell
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE FunctionalDependencies #-}
+
+class Collection c a where
+        union :: c a -> c a -> c a
+        ...
+
+class Coerce a b c | a b -> c where
+        add :: a -> b -> c
+        ...
+```
+
+See [Multi-parameter type classes](doc/extension/MultiParamTypeClasses.md)
+
+### Phantom types (GADTs)
 
 See [Monad](doc/Phantom.md)
 
