@@ -116,7 +116,7 @@ The basic types and clasess that are in scope by default in every Haskell file a
 - [Strings](doc/Strings.md)
 - [Fractional Numbers](doc/NumbersFractional.md)
 
-[Basic types hierarchy](media/basic.png)
+![Basic types hierarchy](media/basic.png)
 
 ## Custom Prelude
 
