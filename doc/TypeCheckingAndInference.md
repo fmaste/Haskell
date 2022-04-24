@@ -48,22 +48,13 @@ Failed, no modules loaded.
 ```
 
 What we must learn from this example error is that Haskell is a statically typed
-language, every expression in Haskell has a type which must be determined at
-compile time and not when already running the generated executable code.
+language, ***every expression in Haskell has a type which must be determined at
+compile*** time and not when already running the generated executable code.
 
 As there's no caller of this function the compiler has no way to know which
 implementation is intended to be used, it can't choose one implementation and
 hence infer the type of ```myAdd```. Imagine what could happen if it chooses an
 unintended implementation, ```1 + 2``` could become ```4```, who knows!
-
-The same way it can't pick a specific implementation of class ```Addition``` it
-can't make function ```myAdd``` use restricted polymorphism / overloading by its
-own. How can the compiler be sure that's unambiguously what the developer wants?
-This is not an scripting language.
-
-In contrast with dynamically typed languages all the types composed together by
-function application have to match up. If they don't, the program will be
-rejected by the compiler.
 
 We could say that this was a problem of the type inference system and as with
 most type error in Haskell, with proper type annotations it should work:
@@ -121,13 +112,23 @@ src/TypeCheckingAndInference.hs:7:34: error:
 Failed, no modules loaded.
 ```
 
-The type inference system is good but can't that good while trying to be
-unambiguous. With the first usage parsed it inferred that the type was
-```myAdd :: Int -> Int -> Int``` but later you are calling it with type
-```myAdd :: Float -> Float -> Float```.
+The type inference system is good but can't be that good while trying to be
+unambiguous. With the first usage parsed it inferred that the type of
+```myAdd``` was ```myAdd :: Int -> Int -> Int``` but later we are calling it
+with type ```myAdd :: Float -> Float -> Float```.
+
+The same way it can't pick a specific implementation of class ```Addition``` it
+can't make function ```myAdd``` use restricted polymorphism / overloading by its
+own. How can the compiler be sure that's unambiguously what the developer wants?
+This is not an scripting language.
+
+In contrast with dynamically typed languages ***all the types composed together
+by function application have to match up. If they don't, the program will be
+rejected by the compiler***.
 
 Now we can add the most abstract type as possible to ```myAdd``` or call the
-class member function ```add``` directly and everything will work as expected:
+class member function ```add``` directly and everything will work as expected
+because there's no type ambiguity:
 
 ```haskell
 main :: IO ()
