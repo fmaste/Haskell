@@ -129,19 +129,21 @@ function application have to match up. If they don't, the program will be
 rejected by the compiler.
 
 We could say that this was a problem of the type inference system and as with
-most type error in Haskell, with proper type declarations it should work.
+most type error in Haskell, with proper type annotations it should work.
 ```haskell
 main :: IO ()
 main = do
         print ((myAdd (1::Int) (3.0::Float)) :: Float)
 ```
 ```haskell
+ghci> :t myAdd 
+myAdd :: Int -> Float -> Float
 ghci> main
 3.0
 ```
 
-Now before adding any type information to the ```myAdd``` function, try calling
-it twice with different types like this:
+Now before trying to add any type information to the ```myAdd``` function, try
+calling it twice with different types like this:
 ```haskell
 main :: IO ()
 main = do
@@ -180,10 +182,6 @@ src/MultiParamTypeClasses.hs:9:37: error:
 9 |         print ((myAdd (4.0::Float) (1::Int)) :: Float)
   |                                     ^^^^^^
 Failed, no modules loaded.
-```
-```haskell
-ghci> :t myAdd 
-myAdd :: Int -> Float -> Float
 ```
 
 

@@ -88,7 +88,7 @@ We will start first showing with examples the standard built-in datatypes and cl
 
 https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1160006
 
-Two thing that you may need to undertand first:
+Two thing that you may need to understand first:
 
 ## 1. Values and types
 
@@ -111,7 +111,7 @@ There are two constraints on naming: Names for variables and type variables are 
 
 ## Built-in
 
-The basic types and clasess that are in scope by default in every Haskell file are described in [Prelude](doc/Prelude.md)
+The basic types and classes that are in scope by default in every Haskell file are described in [Prelude](doc/Prelude.md)
 - [Lists](doc/Lists.md)
 - [Strings](doc/Strings.md)
 - [Fractional Numbers](doc/NumbersFractional.md)
