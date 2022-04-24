@@ -136,7 +136,7 @@ main = do
         print ((myAdd (1::Int) (3.0::Float)) :: Float)
 ```
 ```haskell
-ghci> :t myAdd 
+ghci> :t myAdd
 myAdd :: Int -> Float -> Float
 ghci> main
 3.0
@@ -151,11 +151,6 @@ main = do
         print ((myAdd (4.0::Float) (1::Int)) :: Float)
 
 ```
-
-The type inference system is good but not that good while trying to be
-unambiguous. With the first usage parsed it inferred that the type was
-```myAdd :: Int -> Float -> Float``` but later you are calling it with type
-```myAdd :: Float -> Int -> Float```:
 ```haskell
 GHCi, version 9.2.2: https://www.haskell.org/ghc/  :? for help
 [1 of 1] Compiling Main             ( src/MultiParamTypeClasses.hs, interpreted )
@@ -183,36 +178,132 @@ src/MultiParamTypeClasses.hs:9:37: error:
   |                                     ^^^^^^
 Failed, no modules loaded.
 ```
+The type inference system is good but not that good while trying to be
+unambiguous. With the first usage parsed it inferred that the type was
+```myAdd :: Int -> Float -> Float``` but later you are calling it with type
+```myAdd :: Float -> Int -> Float```.
 
 
-
-
-Even with all the type annotations the type checker doesn't know what to do
-
+Now we can add the most abstract type as possible to ```myAdd``` or call the
+class member function ```add``` directly and everything will work as expected.
 ```haskell
-> add 1 1
+main :: IO ()
+main = do
+        print ((add (1::Int) (3.0::Float)) :: Float)
+        print ((add (4.0::Float) (1::Int)) :: Float)
 
-<interactive>:26:1: error:
-    • Could not deduce (Coerce a0 b0 c)
-      from the context: (Coerce a b c, Num a, Num b)
-        bound by the inferred type for ‘it’:
-                   forall a b c. (Coerce a b c, Num a, Num b) => c
-        at <interactive>:26:1-7
-      The type variables ‘a0’, ‘b0’ are ambiguous
-    • In the ambiguity check for the inferred type for ‘it’
-      To defer the ambiguity check to use sites, enable AllowAmbiguousTypes
-      When checking the inferred type
-        it :: forall a b c. (Coerce a b c, Num a, Num b) => c
-> add (1::Int) (1::Int)
-
-<interactive>:32:1: error:
-    • Non type-variable argument in the constraint: Coerce Int Int c
-      (Use FlexibleContexts to permit this)
-    • When checking the inferred type
-        it :: forall c. Coerce Int Int c => c
-> add (1::Int) (1::Int) :: Int
-2
+myAdd :: Coerce a b c => a -> b -> c
+myAdd = add
 ```
+```haskell
+ghci> main
+3.0
+4.0
+```
+
+The typing fun doesn't end here. Remove the final type annotation of the calls
+to ```add``` expecting the compiler to infer ```Float```. Because in the end the
+available instances are:
+- ```Coerce Int Int Int```
+- ```Coerce Float Int Float```
+- ```Coerce Int Float Float```
+- ```Coerce Float Float Float```
+and the result is obvious. Is it obvious?
+```haskell
+main :: IO ()
+main = do
+        print (add (1::Int) (3.0::Float))
+        print (add (4.0::Float) (1::Int))
+```
+```haskell
+GHCi, version 9.2.2: https://www.haskell.org/ghc/  :? for help
+[1 of 1] Compiling Main             ( src/MultiParamTypeClasses.hs, interpreted )
+
+src/MultiParamTypeClasses.hs:8:9: error:
+    • Ambiguous type variable ‘a0’ arising from a use of ‘print’
+      prevents the constraint ‘(Show a0)’ from being solved.
+      Probable fix: use a type annotation to specify what ‘a0’ should be.
+      These potential instances exist:
+        instance Show Ordering -- Defined in ‘GHC.Show’
+        instance Show a => Show (Maybe a) -- Defined in ‘GHC.Show’
+        instance Show Integer -- Defined in ‘GHC.Show’
+        ...plus 23 others
+        ...plus 13 instances involving out-of-scope types
+        (use -fprint-potential-instances to see them all)
+    • In a stmt of a 'do' block: print (add (1 :: Int) (3.0 :: Float))
+      In the expression:
+        do print (add (1 :: Int) (3.0 :: Float))
+           print (add (4.0 :: Float) (1 :: Int))
+      In an equation for ‘main’:
+          main
+            = do print (add (1 :: Int) (3.0 :: Float))
+                 print (add (4.0 :: Float) (1 :: Int))
+  |
+8 |         print (add (1::Int) (3.0::Float))
+  |         ^^^^^
+
+src/MultiParamTypeClasses.hs:8:16: error:
+    • Ambiguous type variable ‘a0’ arising from a use of ‘add’
+      prevents the constraint ‘(Coerce Int Float a0)’ from being solved.
+      Probable fix: use a type annotation to specify what ‘a0’ should be.
+      These potential instance exist:
+        instance Coerce Int Float Float
+          -- Defined at src/MultiParamTypeClasses.hs:23:10
+    • In the first argument of ‘print’, namely
+        ‘(add (1 :: Int) (3.0 :: Float))’
+      In a stmt of a 'do' block: print (add (1 :: Int) (3.0 :: Float))
+      In the expression:
+        do print (add (1 :: Int) (3.0 :: Float))
+           print (add (4.0 :: Float) (1 :: Int))
+  |
+8 |         print (add (1::Int) (3.0::Float))
+  |                ^^^
+
+src/MultiParamTypeClasses.hs:9:9: error:
+    • Ambiguous type variable ‘a1’ arising from a use of ‘print’
+      prevents the constraint ‘(Show a1)’ from being solved.
+      Probable fix: use a type annotation to specify what ‘a1’ should be.
+      These potential instances exist:
+        instance Show Ordering -- Defined in ‘GHC.Show’
+        instance Show a => Show (Maybe a) -- Defined in ‘GHC.Show’
+        instance Show Integer -- Defined in ‘GHC.Show’
+        ...plus 23 others
+        ...plus 13 instances involving out-of-scope types
+        (use -fprint-potential-instances to see them all)
+    • In a stmt of a 'do' block: print (add (4.0 :: Float) (1 :: Int))
+      In the expression:
+        do print (add (1 :: Int) (3.0 :: Float))
+           print (add (4.0 :: Float) (1 :: Int))
+      In an equation for ‘main’:
+          main
+            = do print (add (1 :: Int) (3.0 :: Float))
+                 print (add (4.0 :: Float) (1 :: Int))
+  |
+9 |         print (add (4.0::Float) (1::Int))
+  |         ^^^^^
+
+src/MultiParamTypeClasses.hs:9:16: error:
+    • Ambiguous type variable ‘a1’ arising from a use of ‘add’
+      prevents the constraint ‘(Coerce Float Int a1)’ from being solved.
+      Probable fix: use a type annotation to specify what ‘a1’ should be.
+      These potential instance exist:
+        instance Coerce Float Int Float
+          -- Defined at src/MultiParamTypeClasses.hs:26:10
+    • In the first argument of ‘print’, namely
+        ‘(add (4.0 :: Float) (1 :: Int))’
+      In a stmt of a 'do' block: print (add (4.0 :: Float) (1 :: Int))
+      In the expression:
+        do print (add (1 :: Int) (3.0 :: Float))
+           print (add (4.0 :: Float) (1 :: Int))
+  |
+9 |         print (add (4.0::Float) (1::Int))
+  |                ^^^
+Failed, no modules loaded.
+```
+
+# Functional dependencies to the rEsCuE
+
+
 
 > In a predicate such as ```Eq a```, we refer to ```Eq``` as the class name, and
 > to ```a``` as the class parameter. Were it not for the use of a restricted
@@ -251,6 +342,7 @@ instance Add' Int Int Int where
 > add' (1::Int) (1::Int)
 2
 ```
+
 ## Final personal note
 
 IMO Multi-parameter type classes are [not a good idea since type families arrived](https://wiki.haskell.org/Functional_dependencies_vs._type_families). One of the intended uses of this extension was to generalize list abstractions and concepts to monads and those are possible, at least now, without this extension (See Monoid, Semigroup, etc).
