@@ -39,9 +39,9 @@ The main idea is forming functions by abstraction and applying a function to an 
 
 ```{F}(X)``` to ```F(X)```
 
-```{{F}(X)}(Y)``` to ```{F}(X,Y)``` or ```F(X,Y)```
+```{ {F}(X) }(Y)``` to ```{F}(X,Y)``` or ```F(X,Y)```
 
-```{{{F}(X)}(Y)}(Z)``` to ```{F}(X,Y,Z)``` or ```F(X,Y,Z)```
+```{ { {F}(X) }(Y) }(Z)``` to ```{F}(X,Y,Z)``` or ```F(X,Y,Z)```
 
 and so on.
 
