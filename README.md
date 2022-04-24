@@ -197,6 +197,10 @@ class Coerce a b c | a b -> c where
         ...
 ```
 
+IMO this extension was deprecated by the type families extension but the reason
+for this may provide some hindsight on the type system and the type inference
+system.
+
 See [Multi-parameter type classes](doc/extension/MultiParamTypeClasses.md)
 
 ### Phantom types (GADTs)
