@@ -204,11 +204,14 @@ ghci> main
 The typing fun doesn't end here. Remove the final type annotation of the calls
 to ```add``` expecting the compiler to infer ```Float```. Because in the end the
 available instances are:
+
 - ```Coerce Int Int Int```
 - ```Coerce Float Int Float```
 - ```Coerce Int Float Float```
 - ```Coerce Float Float Float```
+
 and the result is obvious. Is it obvious?
+
 ```haskell
 main :: IO ()
 main = do
