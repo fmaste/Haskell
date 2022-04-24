@@ -119,16 +119,16 @@ The basic types and clasess that are in scope by default in every Haskell file a
 ![Basic types hierarchy](media/basic.png)
 
 - <pre>Eq         = {Float, Double, Int, Word, Integer, Bool}</pre>
-- Ord        = {Float, Double, Int, Word, Integer, Bool}
-- Enum       = {Float, Double, Int, Word, Integer, Bool}
-- Bounded    = {Float, Double, Int, Word,          Bool}
-- Num        = {Float, Double, Int, Word, Integer, Bool}
-- Integral   = {               Int, Word, Integer      }
-- Real       = {Float, Double, Int, Word, Integer      }
-- Fractional = {Float, Double                          }
-- Floating   = {Float, Double                          }
-- RealFrac   = {Float, Double                          }
-- RealFloat  = {Float, Double                          }
+- <pre>Ord        = {Float, Double, Int, Word, Integer, Bool}</pre>
+- <pre>Enum       = {Float, Double, Int, Word, Integer, Bool}</pre>
+- <pre>Bounded    = {Float, Double, Int, Word,          Bool}</pre>
+- <pre>Num        = {Float, Double, Int, Word, Integer, Bool}</pre>
+- <pre>Integral   = {               Int, Word, Integer      }</pre>
+- <pre>Real       = {Float, Double, Int, Word, Integer      }</pre>
+- <pre>Fractional = {Float, Double                          }</pre>
+- <pre>Floating   = {Float, Double                          }</pre>
+- <pre>RealFrac   = {Float, Double                          }</pre>
+- <pre>RealFloat  = {Float, Double                          }</pre>
 
 ## Custom Prelude
 
