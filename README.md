@@ -118,7 +118,7 @@ The basic types and clasess that are in scope by default in every Haskell file a
 
 ![Basic types hierarchy](media/basic.png)
 
-- `Eq         = {Float, Double, Int, Word, Integer, Bool}`
+- "Eq         = {Float, Double, Int, Word, Integer, Bool}"
 - ```Ord        = {Float, Double, Int, Word, Integer, Bool}```
 - ```Enum       = {Float, Double, Int, Word, Integer, Bool}```
 - ```Bounded    = {Float, Double, Int, Word,          Bool}```
