@@ -57,10 +57,17 @@ This extension was not part of the Haskell 98 standard neither 2010.
 >
 > [Type Classes with Functional Dependencies, Mark P. Jones, In Proceedings of the 9th European Symposium on Programming, ESOP 2000, Berlin, Germany, March 2000, Springer-Verlag LNCS 1782](https://web.cecs.pdx.edu/~mpj/pubs/fundeps.html).
 
+IMO this is mostly a social problem, were most are accustomed to using a
+dynamically typed language or compiler rather than a statically typed one as
+Haskell. Let's see it in action.
+
 ## Type checker and type inference in action
 
 Define this type class and 3 instance declarations:
+
 ```haskell
+{-# LANGUAGE MultiParamTypeClasses #-}
+
 class Coerce a b c where
         add :: a -> b -> c
 
@@ -78,11 +85,13 @@ instance Coerce Float Float Float where
 ```
 
 If you try to add function ```myAdd``` without any type information as show
-below the compiler must fail.
+below:
 
 ```haskell
 myAdd = add
 ```
+
+the compiler must fail:
 
 ```haskell
 > ghci -fprint-potential-instances src/MultiParamTypeClasses.hs
@@ -124,6 +133,10 @@ implementation is intended to be used, it can't choose one implementation and
 hence infer the type of ```myAdd```. Imagine what could happen if it chooses an
 unintended implementation, ```1 + 2``` could become ```4```, who knows!
 
+The same way it can't pick a specific implementation of class ```Coerce``` it
+can't make function ```myAdd``` use restricted polymorphism / overloading by its
+own. How can the compiler be sure that's unambiguously what we want?
+
 In contrast with dynamically typed languages all the types composed together by
 function application have to match up. If they don't, the program will be
 rejected by the compiler.
@@ -144,6 +157,7 @@ ghci> main
 
 Now before trying to add any type information to the ```myAdd``` function, try
 calling it twice with different types like this:
+
 ```haskell
 main :: IO ()
 main = do
@@ -306,7 +320,14 @@ Failed, no modules loaded.
 
 # Functional dependencies to the rEsCuE
 
-
+The programmer intended
+that if the arguments of (+) are both Int then so is the result, but
+that intent is implied only by the absence of an instance declaration
+such as
+```haskell
+instance Add Int Int Float where
+        ...
+```
 
 > In a predicate such as ```Eq a```, we refer to ```Eq``` as the class name, and
 > to ```a``` as the class parameter. Were it not for the use of a restricted

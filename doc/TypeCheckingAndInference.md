@@ -49,7 +49,7 @@ Failed, no modules loaded.
 
 What we must learn from this example error is that Haskell is a statically typed
 language, ***every expression in Haskell has a type which must be determined at
-compile*** time and not when already running the generated executable code.
+compile time*** and not when already running the generated executable code.
 
 As there's no caller of this function the compiler has no way to know which
 implementation is intended to be used, it can't choose one implementation and
@@ -120,15 +120,15 @@ with type ```myAdd :: Float -> Float -> Float```.
 The same way it can't pick a specific implementation of class ```Addition``` it
 can't make function ```myAdd``` use restricted polymorphism / overloading by its
 own. How can the compiler be sure that's unambiguously what the developer wants?
-This is not an scripting language.
+This is not a scripting language.
 
 In contrast with dynamically typed languages ***all the types composed together
 by function application have to match up. If they don't, the program will be
 rejected by the compiler***.
 
-Now we can add the most abstract type as possible to ```myAdd``` or call the
-class member function ```add``` directly and everything will work as expected
-because there's no type ambiguity:
+Now we can write ourselves the most abstract type as possible to ```myAdd``` or
+call the class member function ```add``` directly and everything will work as
+expected because there's no type ambiguity:
 
 ```haskell
 main :: IO ()
