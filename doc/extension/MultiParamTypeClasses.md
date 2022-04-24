@@ -77,10 +77,9 @@ instance Coerce Float Float Float where
         add = (+)
 ```
 
-When you try to add this function without any type information it obviously
-fails. The compiler has no way to know which implementation is intended to be
-used and it can't select one by default, imagine what could happen if it
-chooses a unintended one.
+If you try to add function ```myAdd``` without any type information as show
+below the compiler must fail.
+
 ```haskell
 myAdd = add
 ```
@@ -116,62 +115,81 @@ src/MultiParamTypeClasses.hs:31:9: error:
 Failed, no modules loaded.
 ```
 
-This is a problem if the type inference system, with enough type annotations
-it should work.
+What we must learn from this example error is that Haskell is a statically typed
+language, every expression in Haskell has a type which must be determined at
+compile time and not when running the already generated executable code.
 
+As there's no caller of this function the compiler has no way to know which
+implementation is intended to be used, it can't choose one implementation and
+hence infer the type of ```myAdd```. Imagine what could happen if it chooses an
+unintended implementation, ```1 + 2``` could become ```4```, who knows!
+
+In contrast with dynamically typed languages all the types composed together by
+function application have to match up. If they don't, the program will be
+rejected by the compiler.
+
+We could say that this was a problem of the type inference system and as with
+most type error in Haskell, with proper type declarations it should work.
 ```haskell
 main :: IO ()
-main = putStrLn $ show ((myAdd (1::Int) (3.0::Float)) :: Float)
+main = do
+        print ((myAdd (1::Int) (3.0::Float)) :: Float)
 ```
-
 ```haskell
-> main
+ghci> main
 3.0
 ```
 
 Now before adding any type information to the ```myAdd``` function, try calling
-it twice like this:
+it twice with different types like this:
 ```haskell
 main :: IO ()
 main = do
-        putStrLn $ show ((myAdd (1::Int) (3.0::Float)) :: Float)
-        putStrLn $ show ((myAdd (3.0::Float) (1::Int)) :: Float)
+        print ((myAdd (1::Int) (3.0::Float)) :: Float)
+        print ((myAdd (4.0::Float) (1::Int)) :: Float)
 
 ```
 
-The type inference system is good but not while trying to be that good while
-trying to be unambiguous. With the first usage found it inferred that the type
-was ```myAdd :: Int -> Float -> Float``` but later you are calling it with type
+The type inference system is good but not that good while trying to be
+unambiguous. With the first usage parsed it inferred that the type was
+```myAdd :: Int -> Float -> Float``` but later you are calling it with type
 ```myAdd :: Float -> Int -> Float```:
 ```haskell
 GHCi, version 9.2.2: https://www.haskell.org/ghc/  :? for help
 [1 of 1] Compiling Main             ( src/MultiParamTypeClasses.hs, interpreted )
 
-src/MultiParamTypeClasses.hs:9:34: error:
+src/MultiParamTypeClasses.hs:9:24: error:
     • Couldn't match expected type ‘Int’ with actual type ‘Float’
-    • In the first argument of ‘myAdd’, namely ‘(3.0 :: Float)’
-      In the first argument of ‘show’, namely
-        ‘((myAdd (3.0 :: Float) (1 :: Int)) :: Float)’
-      In the second argument of ‘($)’, namely
-        ‘show ((myAdd (3.0 :: Float) (1 :: Int)) :: Float)’
+    • In the first argument of ‘myAdd’, namely ‘(4.0 :: Float)’
+      In the first argument of ‘print’, namely
+        ‘((myAdd (4.0 :: Float) (1 :: Int)) :: Float)’
+      In a stmt of a 'do' block:
+        print ((myAdd (4.0 :: Float) (1 :: Int)) :: Float)
   |
-9 |         putStrLn $ show ((myAdd (3.0::Float) (1::Int)) :: Float)
-  |                                  ^^^^^^^^^^
+9 |         print ((myAdd (4.0::Float) (1::Int)) :: Float)
+  |                        ^^^^^^^^^^
 
-src/MultiParamTypeClasses.hs:9:47: error:
+src/MultiParamTypeClasses.hs:9:37: error:
     • Couldn't match expected type ‘Float’ with actual type ‘Int’
     • In the second argument of ‘myAdd’, namely ‘(1 :: Int)’
-      In the first argument of ‘show’, namely
-        ‘((myAdd (3.0 :: Float) (1 :: Int)) :: Float)’
-      In the second argument of ‘($)’, namely
-        ‘show ((myAdd (3.0 :: Float) (1 :: Int)) :: Float)’
+      In the first argument of ‘print’, namely
+        ‘((myAdd (4.0 :: Float) (1 :: Int)) :: Float)’
+      In a stmt of a 'do' block:
+        print ((myAdd (4.0 :: Float) (1 :: Int)) :: Float)
   |
-9 |         putStrLn $ show ((myAdd (3.0::Float) (1::Int)) :: Float)
-  |                                               ^^^^^^
+9 |         print ((myAdd (4.0::Float) (1::Int)) :: Float)
+  |                                     ^^^^^^
 Failed, no modules loaded.
 ```
+```haskell
+ghci> :t myAdd 
+myAdd :: Int -> Float -> Float
+```
 
-Even with all the type anotations the type checker doesn't know what to do
+
+
+
+Even with all the type annotations the type checker doesn't know what to do
 
 ```haskell
 > add 1 1
