@@ -1,4 +1,4 @@
-## Type checking and type inference in action
+# Type Checking and Type Inference in Action
 
 Define this type class and 2 instance declarations:
 
@@ -12,6 +12,8 @@ instance Addition Int where
 instance Addition Float where
         add a _ = b -- Just for fun
 ```
+
+## Unambiguous Overloading
 
 If you try to add function ```myAdd``` without any type information as show
 below:
@@ -73,6 +75,8 @@ ghci> main
 "Hello!"
 4
 ```
+
+## No Implicit Overloading
 
 Now before trying to add any type information to the ```myAdd``` function, try
 calling it twice with different types like this:
@@ -147,3 +151,111 @@ ghci> main
 4
 4.0
 ```
+
+## Let-Bound Polymorphism
+
+Suppose we create a very naive test for our ```Addition``` implementation. Zero
+plus some above zero number must always be above zero, so we test it for
+```Int``` and ```Float``` at the same time.
+
+```haskell
+main :: IO ()
+main = do
+        print "Testing!"
+        let test = \addFunction ->
+                if addFunction (0::Int) (1::Int) > 0 && addFunction (0::Float) (1::Float) > 0
+                        then "It works!"
+                        else "Something is wrong!"
+        print "Testing built-in (+)"
+        print $ test (+)
+        print "Testing our Addition class"
+        print $ test add
+```
+
+```haskell
+> ghci -XHaskell2010 src/TypeCheckingAndInference.hs
+GHCi, version 9.2.2: https://www.haskell.org/ghc/  :? for help
+[1 of 1] Compiling Main             ( src/TypeCheckingAndInference.hs, interpreted )
+
+src/TypeCheckingAndInference.hs:9:70: error:
+    • Couldn't match expected type ‘Int’ with actual type ‘Float’
+    • In the first argument of ‘addFunction’, namely ‘(0 :: Float)’
+      In the first argument of ‘(>)’, namely
+        ‘addFunction (0 :: Float) (1 :: Float)’
+      In the second argument of ‘(&&)’, namely
+        ‘addFunction (0 :: Float) (1 :: Float) > 0’
+  |
+9 |                 if addFunction (0::Int) (1::Int) > 0 && addFunction (0::Float) (1::Float) > 0
+  |                                                                      ^^^^^^^^
+
+src/TypeCheckingAndInference.hs:9:81: error:
+    • Couldn't match expected type ‘Int’ with actual type ‘Float’
+    • In the second argument of ‘addFunction’, namely ‘(1 :: Float)’
+      In the first argument of ‘(>)’, namely
+        ‘addFunction (0 :: Float) (1 :: Float)’
+      In the second argument of ‘(&&)’, namely
+        ‘addFunction (0 :: Float) (1 :: Float) > 0’
+  |
+9 |                 if addFunction (0::Int) (1::Int) > 0 && addFunction (0::Float) (1::Float) > 0
+  |                                                                                 ^^^^^^^^
+Failed, no modules loaded.
+```
+
+Sorry to tell you that in any language using the Hindley-Milner type system a
+bound function cannot be instantiated in two different ways. ```addFunction```
+is used inside the lambda abstraction in two different ways, first with type
+```Int -> Int -> Int``` and then with ```Float -> Float -> Float```.
+
+Even if you type annotate ```addFunction``` inside the lambda expression to be
+of a more polymorphic type like ```Addition a => a -> a -> a``` it will still
+fail. It's just a limitation of identifiers not bound using a let or where
+clause (or at the top level of a module).
+
+## The Monomorphism Restriction
+
+Violations of the monomorphism restriction result in a static type error.
+
+https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-930004.5.5
+
+> The monomorphism restriction says that any identifier bound by a pattern
+> binding (which includes bindings to a single identifier), and having no
+> explicit type signature, must be monomorphic. An identifier is monomorphic if
+> is either not overloaded, or is overloaded but is used in at most one specific
+> overloading and is not exported.
+>
+> https://www.haskell.org/tutorial/pitfalls.html
+
+Fails:
+```haskell
+-- Not type specified.
+sum = foldl (+) 0
+```
+
+Compiles adding a type signature:
+```haskell
+sum :: Num a => [a] -> a
+sum = foldl (+) 0
+```
+
+Compiles because there is no pattern binding:
+```haskell
+-- Not type specified.
+sum xs = foldl (+) 0 xs
+```
+
+# Further reading
+
+- [Gentle Introduction To Haskell, version 98. Revised June, 2000 by Reuben Thomas](https://www.haskell.org/tutorial/index.html).
+  - 12 - Typing Pitfalls
+    - https://www.haskell.org/tutorial/pitfalls.html
+- The Hindley/Milner type system:
+  - A Hindley–Milner (HM) type system is a classical type system for the lambda calculus with parametric polymorphism.
+    - https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system.
+  - R. Hindley. The principal type-scheme of an object in combinatory logic. Trans-
+actions of the American Mathematical Society, 146:29–60, December 1969.
+  - R. Milner. A theory of type polymorphism in programming. Journal of Computer
+and System Sciences, 17(3), 1978.
+  - L. Damas and R. Milner. Principal type schemes for functional programs. In 9th Annual ACM Symposium on Principles of Programming languages, pages 207–212, Albuquerque, N.M., January 1982.
+  - http://dev.stephendiehl.com/fun/006_hindley_milner.html
+  - https://course.ccs.neu.edu/cs4410sp19/lec_type-inference_notes.html
+- [Type Classes with Functional Dependencies, Mark P. Jones, In Proceedings of the 9th European Symposium on Programming, ESOP 2000, Berlin, Germany, March 2000, Springer-Verlag LNCS 1782](https://web.cecs.pdx.edu/~mpj/pubs/fundeps.html).
