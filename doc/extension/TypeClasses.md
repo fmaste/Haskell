@@ -15,6 +15,21 @@
 >
 > [Type Classes with Functional Dependencies, Mark P. Jones, In Proceedings of the 9th European Symposium on Programming, ESOP 2000, Berlin, Germany, March 2000, Springer-Verlag LNCS 1782](https://web.cecs.pdx.edu/~mpj/pubs/fundeps.html).
 
+```haskell
+instance Eq Bool where
+        x == y = if x then y else not y
+
+instance (Eq a, Eq b) ⇒ Eq (a, b) where
+        (x , y) == (u, v ) = (x == u && y == v )
+```
+
+> In this particular context, the ⇒ symbol should not be read as implication; in
+> fact reverse implication would be a more accurate reading, the intention being
+> that every instance of ```Ord``` is also an instance of ```Eq```. Thus
+> ```Eq``` plays the role of a superclass of ```Ord```.
+>
+> [Type Classes with Functional Dependencies, Mark P. Jones, In Proceedings of the 9th European Symposium on Programming, ESOP 2000, Berlin, Germany, March 2000, Springer-Verlag LNCS 1782](https://web.cecs.pdx.edu/~mpj/pubs/fundeps.html).
+
 - [Functional Programming with Overloading and Higher-Order Polymorphism, by Mark P Jones, in Advanced School of Functional Programming, 1995](http://web.cecs.pdx.edu/~mpj/pubs/springschool.html).
 - > In most implementations, the presence of a predicate in a function’s type
 indicates that an implicit parameter will be added to pass some appropriate

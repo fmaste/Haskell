@@ -46,12 +46,6 @@ This extension was not part of the Haskell 98 standard.
 >
 > [Type Classes with Functional Dependencies, Mark P. Jones, In Proceedings of the 9th European Symposium on Programming, ESOP 2000, Berlin, Germany, March 2000, Springer-Verlag LNCS 1782](https://web.cecs.pdx.edu/~mpj/pubs/fundeps.html).
 
-Naive use of MPTCs may result in ambiguity, so functional dependencies were
-developed as a method of resolving that ambiguity, declaring that some subset of
-the parameters is sufficient to determine the values of the others.
-
-appropriate types of value are used in a particular context
-
 IMO Multi-parameter type classes are [not a good idea since type families arrived](https://wiki.haskell.org/Functional_dependencies_vs._type_families). One of the intended uses of this extension was to generalize list abstractions and concepts to monads and those are possible, at least now, without this extension (See Monoid, Semigroup, etc).
 
 ```haskell
@@ -178,6 +172,13 @@ Even with all the type anotations the type checker doesn't know what to do
 >
 > [Type Classes with Functional Dependencies, Mark P. Jones, In Proceedings of the 9th European Symposium on Programming, ESOP 2000, Berlin, Germany, March 2000, Springer-Verlag LNCS 1782](https://web.cecs.pdx.edu/~mpj/pubs/fundeps.html).
 
+Naive use of MPTCs may result in ambiguity, so functional dependencies were
+developed as a method of resolving that ambiguity, declaring that some subset of
+the parameters is sufficient to determine the values of the others.
+
+The key idea is to allow the definitions of type classes to be annotated
+with functional dependencies - an idea that originates in the theory of
+relational databases
 
 ```haskell
 class Add' a b c | a b -> c where
