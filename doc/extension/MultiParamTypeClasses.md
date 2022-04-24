@@ -1,12 +1,23 @@
 # Multi-parameter type classes
 
+Type class declarations are as defined by the 2010 standard of the form (See type classes):
+```haskell
+class C a where
+        f :: a -> a -> a
+````
+This extensions allows:
+```haskell
+class C' a b c where
+        f' :: a -> b -> c
+````
+
 Also called a parametric type class, a class that has type parameters in
 addition to the placeholder variable which is always present in a class
 declaration.
 
-Multi-parameter type classes are permitted with pragma ```MultiParamTypeClasses```.
-
 ## Usage
+
+Multi-parameter type classes are permitted with pragma ```MultiParamTypeClasses```.
 
 ```haskell
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -24,9 +35,9 @@ class Coerce a b c | a b -> c where
         add :: a -> b -> c
 ```
 
-## Why not?
+## Why not part of the standard?
 
-This extension was not part of the Haskell 98 standard.
+This extension was not part of the Haskell 98 standard neither 2010.
 
 > Single-parameter type classes were already a big step beyond our initial
 > conservative design goals, and they solved the problem we initially addressed
@@ -46,36 +57,9 @@ This extension was not part of the Haskell 98 standard.
 >
 > [Type Classes with Functional Dependencies, Mark P. Jones, In Proceedings of the 9th European Symposium on Programming, ESOP 2000, Berlin, Germany, March 2000, Springer-Verlag LNCS 1782](https://web.cecs.pdx.edu/~mpj/pubs/fundeps.html).
 
-IMO Multi-parameter type classes are [not a good idea since type families arrived](https://wiki.haskell.org/Functional_dependencies_vs._type_families). One of the intended uses of this extension was to generalize list abstractions and concepts to monads and those are possible, at least now, without this extension (See Monoid, Semigroup, etc).
-
-```haskell
-instance Semigroup [a] where
-        ...
-
-instance Monoid [a] where
-        ...
-
-instance Functor [] where
-        ...
-
-instance Applicative [] where
-        ...
-
-instance Monad []  where
-        ...
-```
-
-It allowed to build many good libraries like [```mtl``` monad transformer library](https://hackage.haskell.org/package/mtl) for a long time. But now it's just classes that abstract another library with the same functionality built as a portable package (no multi-parameter) in [```transformers```](https://hackage.haskell.org/package/transformers). Many package using ```mtl``` can be ported to ```transformers``` with only slight modifications.
-
-A [type families based version](https://hackage.haskell.org/package/monads-tf) appeared later.
-
-Don't get me wrong, the idea of a statically typed language is to accept as many good programs as possible and reject as many bad ones as possible.
-
-
 ## Type checker and type inference in action
 
-Define this class and instances:
-
+Define this type class and 3 instance declarations:
 ```haskell
 class Coerce a b c where
         add :: a -> b -> c
@@ -93,39 +77,98 @@ instance Coerce Float Float Float where
         add = (+)
 ```
 
-When you try to add this function it obviously fails. The compiler has no way to know which implementation it's intended to be used.
+When you try to add this function without any type information it obviously
+fails. The compiler has no way to know which implementation is intended to be
+used and it can't select one by default, imagine what could happen if it
+chooses a unintended one.
 ```haskell
 myAdd = add
 ```
 
 ```haskell
 > ghci -fprint-potential-instances src/MultiParamTypeClasses.hs
-GHCi, version 8.10.7: https://www.haskell.org/ghc/  :? for help
+GHCi, version 9.2.2: https://www.haskell.org/ghc/  :? for help
 [1 of 1] Compiling Main             ( src/MultiParamTypeClasses.hs, interpreted )
 
-src/MultiParamTypeClasses.hs:24:9: error:
+src/MultiParamTypeClasses.hs:31:9: error:
     • Ambiguous type variables ‘a0’, ‘b0’,
                                ‘c0’ arising from a use of ‘add’
       prevents the constraint ‘(Coerce a0 b0 c0)’ from being solved.
       Relevant bindings include
         myAdd :: a0 -> b0 -> c0
-          (bound at src/MultiParamTypeClasses.hs:24:1)
+          (bound at src/MultiParamTypeClasses.hs:31:1)
       Probable fix: use a type annotation to specify what ‘a0’, ‘b0’,
                                                           ‘c0’ should be.
       These potential instances exist:
         instance Coerce Float Float Float
-          -- Defined at src/MultiParamTypeClasses.hs:21:10
+          -- Defined at src/MultiParamTypeClasses.hs:27:10
         instance Coerce Float Int Float
-          -- Defined at src/MultiParamTypeClasses.hs:18:10
+          -- Defined at src/MultiParamTypeClasses.hs:24:10
         instance Coerce Int Float Float
-          -- Defined at src/MultiParamTypeClasses.hs:15:10
+          -- Defined at src/MultiParamTypeClasses.hs:21:10
         instance Coerce Int Int Int
-          -- Defined at src/MultiParamTypeClasses.hs:12:10
+          -- Defined at src/MultiParamTypeClasses.hs:18:10
     • In the expression: add
       In an equation for ‘myAdd’: myAdd = add
    |
-24 | myAdd = add
-   |
+31 | myAdd = add
+   |         ^^^
+Failed, no modules loaded.
+```
+
+This is a problem if the type inference system, with enough type annotations
+it should work.
+
+```haskell
+main :: IO ()
+main = putStrLn $ show ((myAdd (1::Int) (3.0::Float)) :: Float)
+```
+
+```haskell
+> main
+3.0
+```
+
+Now before adding any type information to the ```myAdd``` function, try calling
+it twice like this:
+```haskell
+main :: IO ()
+main = do
+        putStrLn $ show ((myAdd (1::Int) (3.0::Float)) :: Float)
+        putStrLn $ show ((myAdd (3.0::Float) (1::Int)) :: Float)
+
+```
+
+The type inference system is good but not while trying to be that good while
+trying to be unambiguous. With the first usage found it inferred that the type
+was ```myAdd :: Int -> Float -> Float``` but later you are calling it with type
+```myAdd :: Float -> Int -> Float```:
+```haskell
+GHCi, version 9.2.2: https://www.haskell.org/ghc/  :? for help
+[1 of 1] Compiling Main             ( src/MultiParamTypeClasses.hs, interpreted )
+
+src/MultiParamTypeClasses.hs:9:34: error:
+    • Couldn't match expected type ‘Int’ with actual type ‘Float’
+    • In the first argument of ‘myAdd’, namely ‘(3.0 :: Float)’
+      In the first argument of ‘show’, namely
+        ‘((myAdd (3.0 :: Float) (1 :: Int)) :: Float)’
+      In the second argument of ‘($)’, namely
+        ‘show ((myAdd (3.0 :: Float) (1 :: Int)) :: Float)’
+  |
+9 |         putStrLn $ show ((myAdd (3.0::Float) (1::Int)) :: Float)
+  |                                  ^^^^^^^^^^
+
+src/MultiParamTypeClasses.hs:9:47: error:
+    • Couldn't match expected type ‘Float’ with actual type ‘Int’
+    • In the second argument of ‘myAdd’, namely ‘(1 :: Int)’
+      In the first argument of ‘show’, namely
+        ‘((myAdd (3.0 :: Float) (1 :: Int)) :: Float)’
+      In the second argument of ‘($)’, namely
+        ‘show ((myAdd (3.0 :: Float) (1 :: Int)) :: Float)’
+  |
+9 |         putStrLn $ show ((myAdd (3.0::Float) (1::Int)) :: Float)
+  |                                               ^^^^^^
+Failed, no modules loaded.
 ```
 
 Even with all the type anotations the type checker doesn't know what to do
@@ -192,6 +235,15 @@ instance Add' Int Int Int where
 > add' (1::Int) (1::Int)
 2
 ```
+## Final personal note
+
+IMO Multi-parameter type classes are [not a good idea since type families arrived](https://wiki.haskell.org/Functional_dependencies_vs._type_families). One of the intended uses of this extension was to generalize list abstractions and concepts to monads and those are possible, at least now, without this extension (See Monoid, Semigroup, etc).
+
+It allowed to build many good libraries like [```mtl``` monad transformer library](https://hackage.haskell.org/package/mtl) for a long time. But now it's just classes that abstract another library with the same functionality built as a portable package (no multi-parameter) in [```transformers```](https://hackage.haskell.org/package/transformers). Many package using ```mtl``` can be ported to ```transformers``` with only slight modifications.
+
+A [type families based version](https://hackage.haskell.org/package/monads-tf) appeared later.
+
+Don't get me wrong, the idea of a statically typed language is to accept as many good programs as possible and reject as many bad ones as possible.
 
 ## Further reading
 

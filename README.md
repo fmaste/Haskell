@@ -197,7 +197,7 @@ class Coerce a b c | a b -> c where
         ...
 ```
 
-IMO this extension was deprecated by the type families extension but the reason
+IMO this extension was superseded by the type families extension but the reasons
 for this may provide some hindsight on the type system and the type inference
 system.
 
