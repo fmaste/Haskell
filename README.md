@@ -118,6 +118,7 @@ The basic types and clasess that are in scope by default in every Haskell file a
 
 ![Basic types hierarchy](media/basic.png)
 
+Set based view:
 - <pre>Eq         = {Float, Double, Int, Word, Integer, Bool}</pre>
 - <pre>Ord        = {Float, Double, Int, Word, Integer, Bool}</pre>
 - <pre>Enum       = {Float, Double, Int, Word, Integer, Bool}</pre>
