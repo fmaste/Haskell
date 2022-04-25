@@ -65,9 +65,9 @@ implementation is intended to be used***, it can't choose one implementation and
 hence infer the type of ```myAdd```. Imagine what could happen if it chooses an
 unintended implementation, ```1 + 2``` could become ```4```, who knows!
 
-We could say that this was a problem of the type inference system and ambiguous
+We could say that this was a problem of the type inference system and ***ambiguous
 types in Haskell can only be circumvented by input from the user with proper
-type-signature expressions:
+type-signature expressions***:
 
 ```haskell
 main :: IO ()
