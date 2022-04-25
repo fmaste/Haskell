@@ -29,7 +29,7 @@ below:
 myAdd = add
 ```
 
-the compiler must fail:
+The compiler must fail:
 
 ```haskell
 > ghci -XHaskell2010 src/TypeCheckingAndInference.hs
@@ -60,8 +60,8 @@ What we must learn from this example error is that Haskell is a statically typed
 language, ***every expression in Haskell has a type which must be determined at
 compile time*** and not when already running the generated executable code.
 
-As there's no caller of this function the compiler has no way to know which
-implementation is intended to be used, it can't choose one implementation and
+As there's no caller of this function ***the compiler has no way to know which
+implementation is intended to be used***, it can't choose one implementation and
 hence infer the type of ```myAdd```. Imagine what could happen if it chooses an
 unintended implementation, ```1 + 2``` could become ```4```, who knows!
 
@@ -128,10 +128,11 @@ unambiguous. With the first usage parsed it inferred that the type of
 ```myAdd``` was ```myAdd :: Int -> Int -> Int``` but later we are calling it
 with type ```myAdd :: Float -> Float -> Float```.
 
-The same way it can't pick a specific implementation of class ```Addition``` it
-can't make function ```myAdd``` use restricted polymorphism / overloading by its
-own. How can the compiler be sure that's unambiguously what the developer wants?
-This is not a scripting language.
+The same way it couldn't pick a specific implementation of class ```Addition```
+it can't make function ```myAdd``` use restricted polymorphism / overloading by
+its own. ***How can the compiler be unambiguously sure what the developer
+wants?*** Maybe create a set of "default rules" to follow but this is not a
+simple scripting language.
 
 In contrast with dynamically typed languages ***all the types composed together
 by function application have to match up. If they don't, the program will be
@@ -161,16 +162,17 @@ ghci> main
 
 ### Let-Bound Polymorphism
 
-Suppose we create a very naive test for our ```Addition``` implementation. Zero
-plus some number above zero number must always be above zero, so we test it for
+Suppose we create a very naïve test for our ```Addition``` implementations. Zero
+plus some number above zero must always be above zero, so we test it for
 ```Int``` and ```Float``` at the same time.
 
 ```haskell
 main :: IO ()
 main = do
         print "Testing!"
-        let test = \addFunction ->
-                if    addFunction (0::Int)   (1::Int) > 0
+        let test addFunction =
+                if
+                      addFunction (0::Int)   (1::Int) > 0
                    && addFunction (0::Float) (1::Float) > 0
                         then "It works!"
                         else "Something is wrong!"
@@ -185,7 +187,7 @@ main = do
 GHCi, version 9.2.2: https://www.haskell.org/ghc/  :? for help
 [1 of 1] Compiling Main             ( src/TypeCheckingAndInference.hs, interpreted )
 
-src/TypeCheckingAndInference.hs:10:36: error:
+src/TypeCheckingAndInference.hs:12:36: error:
     • Couldn't match expected type ‘Int’ with actual type ‘Float’
     • In the first argument of ‘addFunction’, namely ‘(0 :: Float)’
       In the first argument of ‘(>)’, namely
@@ -193,10 +195,10 @@ src/TypeCheckingAndInference.hs:10:36: error:
       In the second argument of ‘(&&)’, namely
         ‘addFunction (0 :: Float) (1 :: Float) > 0’
    |
-10 |                    && addFunction (0::Float) (1::Float) > 0
+12 |                    && addFunction (0::Float) (1::Float) > 0
    |                                    ^^^^^^^^
 
-src/TypeCheckingAndInference.hs:10:47: error:
+src/TypeCheckingAndInference.hs:12:47: error:
     • Couldn't match expected type ‘Int’ with actual type ‘Float’
     • In the second argument of ‘addFunction’, namely ‘(1 :: Float)’
       In the first argument of ‘(>)’, namely
@@ -204,7 +206,7 @@ src/TypeCheckingAndInference.hs:10:47: error:
       In the second argument of ‘(&&)’, namely
         ‘addFunction (0 :: Float) (1 :: Float) > 0’
    |
-10 |                    && addFunction (0::Float) (1::Float) > 0
+12 |                    && addFunction (0::Float) (1::Float) > 0
    |                                               ^^^^^^^^
 Failed, no modules loaded.
 ```
@@ -222,11 +224,8 @@ clause (or at the top level of a module).
 
 ### The Monomorphism Restriction
 
-The monomorphism restriction is a generalization of the Let-Bound Polymorphism
-explained above to not only lambda expression binds.
-
-https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-930004.5.5
-https://downloads.haskell.org/ghc/latest/docs/html/users_guide/exts/let_generalisation.html
+The monomorphism restriction is a generalization to not only lambda expression
+binds of the Let-Bound Polymorphism explained above.
 
 > The monomorphism restriction says that any identifier bound by a pattern
 > binding (which includes bindings to a single identifier), and having no
@@ -300,6 +299,8 @@ actions of the American Mathematical Society, 146:29–60, December 1969.
 and System Sciences, 17(3), 1978.
   - L. Damas and R. Milner. Principal type schemes for functional programs. In 9th Annual ACM Symposium on Principles of Programming languages, pages 207–212, Albuquerque, N.M., January 1982.
   - [Write You a Haskell - Hindley-Milner Inference](http://dev.stephendiehl.com/fun/006_hindley_milner.html)
-- (https://wiki.haskell.org/Monomorphism_restriction)
-- (https://course.ccs.neu.edu/cs4410sp19/lec_type-inference_notes.html)
+- [Haskell 2010 Report - 4.5.5 The Monomorphism Restriction](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-930004.5.5)
+- [https://wiki.haskell.org/Monomorphism_restriction](https://wiki.haskell.org/Monomorphism_restriction)
+- [GHC Docs - 6.12.2. Let-generalisation](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/exts/let_generalisation.html).
+- [https://course.ccs.neu.edu/cs4410sp19/lec_type-inference_notes.html](https://course.ccs.neu.edu/cs4410sp19/lec_type-inference_notes.html)
 - [Type Classes with Functional Dependencies, Mark P. Jones, In Proceedings of the 9th European Symposium on Programming, ESOP 2000, Berlin, Germany, March 2000, Springer-Verlag LNCS 1782](https://web.cecs.pdx.edu/~mpj/pubs/fundeps.html).
