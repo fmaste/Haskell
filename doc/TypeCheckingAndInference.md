@@ -2,8 +2,12 @@
 
 The most difficult part in Haskell for beginners is the type system and the
 compiler's error messages. Most of this arise from how type classes work and how
-we are used to think about classes and implementations in object oriented
-languages or dynamically typed languages.
+we are used to think about classes and it's implementations in object oriented
+languages or how operators work on dynamically typed languages.
+
+Evolving the type system towards type safety to try to eliminates a large class
+of erroneous programs while allowing as much good programs as possible is not an
+easy equilibrium to achieve.
 
 ## Class Overloading
 
@@ -26,6 +30,7 @@ If you try to add function ```myAdd``` without a type-signatures expression as
 show below:
 
 ```haskell
+-- No type-signature as in: myAdd :: a -> a -> a
 myAdd = add
 ```
 
@@ -73,7 +78,9 @@ type? or make a more type restrictive version? The compiler can't read minds!
 
 We could say that this was a problem of the type inference system and ***ambiguous
 types in Haskell can only be circumvented by input from the user with proper
-type-signature expressions***:
+type-signature expressions***.
+
+Let's add type annotations to the calling expression:
 
 ```haskell
 main :: IO ()
@@ -81,6 +88,8 @@ main = do
         print "Hello!"
         print (myAdd (1::Int) (3::Int))
 ```
+
+It works:
 
 ```haskell
 ghci> :t myAdd
@@ -144,12 +153,7 @@ In contrast with dynamically typed languages ***all the types composed together
 by function application have to match up. If they don't, the program will be
 rejected by the compiler***.
 
-Maybe create a set of "default rules" to follow? but this is not a simple
-scripting language. A defaulting mechanism exists for the ```Num``` class and
-it's considered a wart on the language that is almost exclusively used for GHCi.
-In other words, Haskell targets [safety first, not usability first](https://www.youtube.com/watch?v=iSmkqocn0oQ).
-
-Now we can write ourselves the most polymorphic type possible for ```myAdd``` or
+Now we can write ourselves the less restrictive type possible for ```myAdd``` or
 call the class member function ```add``` directly and everything will work as
 expected because there's no type ambiguity:
 
@@ -174,6 +178,11 @@ ghci> main
 4
 4.0
 ```
+
+Maybe create a set of "default rules" to follow? but this is not a simple
+scripting language. A defaulting mechanism exists for the ```Num``` class and
+it's considered a wart on the language that is almost exclusively used for GHCi.
+In other words, Haskell targets [safety first, not usability first](https://www.youtube.com/watch?v=iSmkqocn0oQ).
 
 ## The Monomorphism Restriction
 
