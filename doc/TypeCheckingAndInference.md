@@ -1,8 +1,8 @@
 # Type Checking and Type Inference in Action
 
-The most difficult part for beginners in Haskell is the type system and the
+The most difficult part in Haskell for beginners is the type system and the
 compiler's error messages. Most of this arise from how type classes work and how
-we are used to think about classes and implementations in object oriented 
+we are used to think about classes and implementations in object oriented
 languages or dynamically typed languages.
 
 ## By example
@@ -22,14 +22,14 @@ instance Addition Float where
 
 ### Unambiguous Overloading
 
-If you try to add function ```myAdd``` without any type information as show
-below:
+If you try to add function ```myAdd``` without a type-signatures expression as
+show below:
 
 ```haskell
 myAdd = add
 ```
 
-The compiler must fail:
+Such expression is considered ill-typed, a static type error:
 
 ```haskell
 > ghci -XHaskell2010 src/TypeCheckingAndInference.hs
@@ -65,8 +65,9 @@ implementation is intended to be used***, it can't choose one implementation and
 hence infer the type of ```myAdd```. Imagine what could happen if it chooses an
 unintended implementation, ```1 + 2``` could become ```4```, who knows!
 
-We could say that this was a problem of the type inference system and as with
-most type errors in Haskell, with proper type annotations it should work:
+We could say that this was a problem of the type inference system and ambiguous
+types in Haskell can only be circumvented by input from the user with proper
+type-signature expressions:
 
 ```haskell
 main :: IO ()
@@ -85,8 +86,8 @@ ghci> main
 
 ### No Implicit Overloading
 
-Now before trying to add any type information to the ```myAdd``` function, try
-calling it twice with different types like this:
+Now before trying to add a type-signature to the ```myAdd``` function, try
+calling it twice with different input types like this:
 
 ```haskell
 main :: IO ()
@@ -128,17 +129,20 @@ unambiguous. With the first usage parsed it inferred that the type of
 ```myAdd``` was ```myAdd :: Int -> Int -> Int``` but later we are calling it
 with type ```myAdd :: Float -> Float -> Float```.
 
-The same way it couldn't pick a specific implementation of class ```Addition```
-it can't make function ```myAdd``` use restricted polymorphism / overloading by
-its own. ***How can the compiler be unambiguously sure what the developer
-wants?*** Maybe create a set of "default rules" to follow but this is not a
-simple scripting language.
-
 In contrast with dynamically typed languages ***all the types composed together
 by function application have to match up. If they don't, the program will be
 rejected by the compiler***.
 
-Now we can write ourselves the most abstract type as possible to ```myAdd``` or
+The same way the compiler couldn't pick a specific implementation of class
+```Addition``` it can't make function ```myAdd``` use restricted polymorphism /
+overloading by its own. ***How can the compiler be unambiguously sure what the
+developer wants?***
+
+Maybe create a set of "default rules" to follow but this is not a simple
+scripting language? A defaulting mechanism exists for the ```Num``` class and
+it's considered a wart on the language that is almost exclusively used for GHCi.
+
+Now we can write ourselves the most polymorphic type possible for ```myAdd``` or
 call the class member function ```add``` directly and everything will work as
 expected because there's no type ambiguity:
 
@@ -163,7 +167,7 @@ ghci> main
 ### Let-Bound Polymorphism
 
 Suppose we create a very naïve test for our ```Addition``` implementations. Zero
-plus some number above zero must always be above zero, so we test it for
+plus some number above zero must always be above zero, so we test this for
 ```Int``` and ```Float``` at the same time.
 
 ```haskell
@@ -219,13 +223,14 @@ first with type ```Int -> Int -> Int``` and then with type
 
 Even if you type annotate ```addFunction``` inside the lambda expression to be
 of a the desired polymorphic type like ```Addition a => a -> a -> a``` it will
-still fail. It's just a limitation of identifiers not bound using a let or where
+still fail. It's just a limitation of identifiers bound using a let or where
 clause (or at the top level of a module).
 
 ### The Monomorphism Restriction
 
 The monomorphism restriction is a generalization to not only lambda expression
-binds of the Let-Bound Polymorphism explained above.
+binds of the Let-Bound Polymorphism explained above. Haskell places certain
+extra restrictions on the generalization step.
 
 > The monomorphism restriction says that any identifier bound by a pattern
 > binding (which includes bindings to a single identifier), and having no
@@ -266,30 +271,56 @@ src/MonomorphismRestriction.hs:7:9: error:
   |
 ```
 
-Solved if you specify the function type
+Solved adding a type-signature expression:
 
 ```haskell
 mySum :: Num a => [a] -> a
 mySum = foldl (+) 0
 ```
 
-And also solved if you write the function this way:
+And also solved if, without a type-signature expression, you write the function
+this way:
 
 ```haskell
 mySum xs = foldl (+) 0 xs
 ```
 
-Why? Because the first one is desugared to ```\f -> foldl (+) 0 f``` and this
-in inferred as ```mySum :: forall {t :: * -> *} {a}. (Foldable t, Num a) => t a -> a```
+Why? Because the first one is desugared to ```\f -> foldl (+) 0 f``` while this
+one in inferred as ```mySum :: forall {t :: * -> *} {a}. (Foldable t, Num a) => t a -> a```
 
 Don't try this with GHCi because it uses by default an extension called
 ```NoMonomorphismRestriction``` that tries to infer a type from a list of
-default possibilities.
+default possibilities. The restriction is turned on by default in compiled
+modules, and turned off by default at the GHCi prompt (since GHC 7.8.1).
+
+#### Motivation
+
+It is commonly called "The Dreaded Monomorphism Restriction".
+
+It solves two problems:
+1. Some ambiguous types (As explained above in Let-Bound Polymorphism).
+2. Some repeated evaluation (sharing).
+
+Some thinks this cases are so rare that the restriction is not worth it, some
+think this cases should be properly treated (whatever this means).
+
+```haskell
+f xs = (len,len)
+        where
+                len = genericLength xs
+```
+
+Without this restriction ```genericLength xs``` may be computed twice, once
+for each overloading. Because if the compiler doesn't know the type of the ```(a,b)```
+expression, it can't know if ```a``` and ```b``` are the same type.
 
 # Further reading
 
+- [Haskell 2010 Report - 4.3.4 Ambiguous Types, and Defaults for Overloaded Numeric Operations](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-790004.3.4).
 - [Gentle Introduction To Haskell, version 98. Revised June, 2000 by Reuben Thomas](https://www.haskell.org/tutorial/index.html).
   - [12 - Typing Pitfalls](https://www.haskell.org/tutorial/pitfalls.html).
+- [GHC Docs - 3.4.8. Type defaulting in GHCi](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/ghci.html#extension-ExtendedDefaultRules).
+- [Haskell 2010 Report - 4.3.4 Ambiguous Types, and Defaults for Overloaded Numeric Operations](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-790004.3.4).
 - The Hindley/Milner type system:
   - A Hindley–Milner (HM) type system is a classical type system for the lambda calculus with parametric polymorphism.
     - [Wikipedia article](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system).
@@ -299,6 +330,7 @@ actions of the American Mathematical Society, 146:29–60, December 1969.
 and System Sciences, 17(3), 1978.
   - L. Damas and R. Milner. Principal type schemes for functional programs. In 9th Annual ACM Symposium on Principles of Programming languages, pages 207–212, Albuquerque, N.M., January 1982.
   - [Write You a Haskell - Hindley-Milner Inference](http://dev.stephendiehl.com/fun/006_hindley_milner.html)
+- [GHC Docs - 6.8.4. Default method signatures](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/default_signatures.html).
 - [Haskell 2010 Report - 4.5.5 The Monomorphism Restriction](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-930004.5.5)
 - [https://wiki.haskell.org/Monomorphism_restriction](https://wiki.haskell.org/Monomorphism_restriction)
 - [GHC Docs - 6.12.2. Let-generalisation](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/exts/let_generalisation.html).

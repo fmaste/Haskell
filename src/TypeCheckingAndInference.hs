@@ -5,9 +5,10 @@ main = do
         print "Hello!"
         print (add (1::Int) (3::Int))
         print (myAdd (1::Float) (3::Float))
-{--
-        let test = \addFunction ->
-                if    addFunction (0::Int)   (1::Int) > 0
+--{--
+        let test addFunction =
+                if
+                      addFunction (0::Int)   (1::Int) > 0
                    && addFunction (0::Float) (1::Float) > 0
                         then "It works!"
                         else "Something is wrong!"

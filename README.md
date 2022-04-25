@@ -19,7 +19,7 @@ This is a WORK IN PROGRESS!
 
 ## History
 
-Read paper ["A History of Haskell: Being Lazy with Class"](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf) from 2007.
+Read paper ["A History of Haskell: Being Lazy with Class"](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf) from 2007 or watch the [YouTube video](https://youtu.be/06x8Wf2r2Mc).
 
 From its abstract:
 `This paper describes the history of Haskell, including its genesis and principles, technical contributions, implementations and tools, and applications and impact.`
@@ -80,7 +80,7 @@ A [+10 years old funny video](https://www.youtube.com/watch?v=iSmkqocn0oQ) of wh
 
 # Lambda calculus
 
-Desugared Haskell is essentially a slightly sugared variant of the lambda calculus with a straightforward denotational semantics.
+[Desugared Haskell](https://serokell.io/blog/haskell-to-core) is essentially a slightly sugared variant of the lambda calculus with a straightforward denotational semantics.
 
 A little theory about how it all started: [The beginnings of Theoretical Computer Science](doc/Lambda.md).
 
@@ -213,6 +213,7 @@ See [Monad](doc/Phantom.md)
 
 - [What I Wish I Knew When Learning Haskell](http://dev.stephendiehl.com/hask/)
   - PDF Version: http://dev.stephendiehl.com/fun/WYAH.pdf
+- [Write You a Haskell](http://dev.stephendiehl.com/fun/index.html)
 - [Introduction to functional programming](https://learn.saylor.org/mod/book/view.php?id=33044)
 - [Haskell 2010 Language Report](https://www.haskell.org/onlinereport/haskell2010/)
 
