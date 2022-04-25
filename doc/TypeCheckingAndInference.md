@@ -138,8 +138,8 @@ The same way the compiler couldn't pick a specific implementation of class
 overloading by its own. ***How can the compiler be unambiguously sure what the
 developer wants?***
 
-Maybe create a set of "default rules" to follow but this is not a simple
-scripting language? A defaulting mechanism exists for the ```Num``` class and
+Maybe create a set of "default rules" to follow? but this is not a simple
+scripting language. A defaulting mechanism exists for the ```Num``` class and
 it's considered a wart on the language that is almost exclusively used for GHCi.
 In other words, Haskell targets [safety first, not usability first](https://www.youtube.com/watch?v=iSmkqocn0oQ).
 
