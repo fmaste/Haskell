@@ -124,6 +124,11 @@ src/TypeCheckingAndInference.hs:7:34: error:
 Failed, no modules loaded.
 ```
 
+The same way the compiler couldn't pick a specific implementation of class
+```Addition``` it can't make function ```myAdd``` use restricted polymorphism /
+overloading by its own. ***How can the compiler be unambiguously sure what the
+developer wants?***
+
 The type inference system is good but can't be that good while trying to be
 unambiguous. With the first usage parsed it inferred that the type of
 ```myAdd``` was ```myAdd :: Int -> Int -> Int``` but later we are calling it
@@ -132,11 +137,6 @@ with type ```myAdd :: Float -> Float -> Float```.
 In contrast with dynamically typed languages ***all the types composed together
 by function application have to match up. If they don't, the program will be
 rejected by the compiler***.
-
-The same way the compiler couldn't pick a specific implementation of class
-```Addition``` it can't make function ```myAdd``` use restricted polymorphism /
-overloading by its own. ***How can the compiler be unambiguously sure what the
-developer wants?***
 
 Maybe create a set of "default rules" to follow? but this is not a simple
 scripting language. A defaulting mechanism exists for the ```Num``` class and
