@@ -139,19 +139,24 @@ src/TypeCheckingAndInference.hs:7:34: error:
 Failed, no modules loaded.
 ```
 
-The same way the compiler couldn't pick a specific implementation of class
-```Addition``` it can't make function ```myAdd``` use restricted polymorphism /
-overloading by its own. ***How can the compiler be unambiguously sure what the
-developer wants?***
-
 The type inference system is good but can't be that good while trying to be
-unambiguous. With the first usage parsed it inferred that the type of
-```myAdd``` was ```myAdd :: Int -> Int -> Int``` but later we are calling it
+unambiguous. With the first parsed usage it inferred that the type of
+```myAdd``` was ```myAdd :: Int -> Int -> Int``` but next line we are calling it
 with type ```myAdd :: Float -> Float -> Float```.
+
+The same way the compiler couldn't pick a specific implementation of class
+```Addition``` it can't make function ```myAdd``` use restricted
+polymorphism/overloading by its own. ***How can the compiler be unambiguously
+sure what the developer wants?***
 
 In contrast with dynamically typed languages ***all the types composed together
 by function application have to match up. If they don't, the program will be
 rejected by the compiler***.
+
+### Be Specific
+
+The Haskell The Robustness Principle should be something like this: "Be specific
+in what you accept and return, be liberal in what you do".
 
 Now we can write ourselves the less restrictive type possible for ```myAdd``` or
 call the class member function ```add``` directly and everything will work as
