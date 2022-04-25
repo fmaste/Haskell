@@ -5,7 +5,7 @@ compiler's error messages. Most of this arise from how type classes work and how
 we are used to think about classes and implementations in object oriented
 languages or dynamically typed languages.
 
-## By example
+## Class Overloading
 
 Define this type class and 2 instance declarations:
 
@@ -20,7 +20,7 @@ instance Addition Float where
         add a _ = b -- Just for fun
 ```
 
-### Unambiguous Overloading
+### Types Must Be Unambiguous
 
 If you try to add function ```myAdd``` without a type-signatures expression as
 show below:
@@ -60,10 +60,16 @@ What we must learn from this example error is that Haskell is a statically typed
 language, ***every expression in Haskell has a type which must be determined at
 compile time*** and not when already running the generated executable code.
 
-As there's no caller of this function ***the compiler has no way to know which
+As there's no caller of this function ***the compiler has no way to infer which
 implementation is intended to be used***, it can't choose one implementation and
 hence infer the type of ```myAdd```. Imagine what could happen if it chooses an
 unintended implementation, ```1 + 2``` could become ```4```, who knows!
+
+If you want to create a function that just pushes its parameters to another
+function, what are you intending to achieve? Create an alias with the same
+type? or make a more type restrictive version? The compiler can't read minds!
+
+### Inferring Types
 
 We could say that this was a problem of the type inference system and ***ambiguous
 types in Haskell can only be circumvented by input from the user with proper
@@ -84,7 +90,7 @@ ghci> main
 4
 ```
 
-### No Implicit Overloading
+### Ambiguous Type Inferring
 
 Now before trying to add a type-signature to the ```myAdd``` function, try
 calling it twice with different input types like this:
@@ -151,7 +157,9 @@ expected because there's no type ambiguity:
 main :: IO ()
 main = do
         print "Hello again again!"
-        print (add (1::Int) (3::Int))
+        print (add   (1::Int)   (3::Int))
+        print (add   (1::Float) (3::Float))
+        print (myAdd (1::Int)   (3::Int))
         print (myAdd (1::Float) (3::Float))
 
 myAdd :: Addition a => a -> a -> a
@@ -163,9 +171,11 @@ ghci> main
 "Hello again again!"
 4
 4.0
+4
+4.0
 ```
 
-### Let-Bound Polymorphism
+## The Monomorphism Restriction
 
 Suppose we create a very naïve test for our ```Addition``` implementations. Zero
 plus some number above zero must always be above zero, so we test this for
@@ -300,6 +310,7 @@ It is commonly called "The Dreaded Monomorphism Restriction".
 
 It solves two problems:
 1. Some ambiguous types (As explained above in Let-Bound Polymorphism).
+   - Well, I believe this example is self-explanatory. There are situations when not applying the rule results in type ambiguity.
 2. Some repeated evaluation (sharing).
 
 Some thinks this cases are so rare that the restriction is not worth it, some
@@ -315,13 +326,84 @@ Without this restriction ```genericLength xs``` may be computed twice, once
 for each overloading. Because if the compiler doesn't know the type of the ```(a,b)```
 expression, it can't know if ```a``` and ```b``` are the same type.
 
-# Further reading
+If len was polymorphic the type of f would be:
+```f :: Num a, Num b => [c] -> (a, b)```
+So the two elements of the tuple (len, len) could actually be different values! But this means that the computation done by genericLength must be repeated to obtain the two different values.
+The rationale here is: the code contains one function call, but not introducing this rule could produce two hidden function calls, which is counter intuitive.
+With the monomorphism restriction the type of f becomes:
+```f :: Num a => [b] -> (a, a)```
+
+## Let/Where-Bound Polymorphism
+
+Sorry to tell you that in any language using the Hindley-Milner type system a
+function cannot polymorphic when bounded inside a lambda abstraction.
+
+```haskell
+letBound :: (Int, Char)
+letBound = (\f -> (f 1, f 'a')) id
+```
+
+```haskell
+> ghci ghci src/TypeCheckingAndInference.hs
+[1 of 1] Compiling Main             ( src/TypeCheckingAndInference.hs, interpreted )
+
+src/TypeCheckingAndInference.hs:39:12: error:
+    • Couldn't match type ‘Int’ with ‘Char’
+      Expected: (Int, Char)
+        Actual: (Int, Int)
+    • In the expression: (\ f -> (f 1, f 'a')) id
+      In an equation for ‘letBound’: letBound = (\ f -> (f 1, f 'a')) id
+   |
+39 | letBound = (\f -> (f 1, f 'a')) id
+   |            ^^^^^^^^^^^^^^^^^^^^^^^
+
+src/TypeCheckingAndInference.hs:39:33: error:
+    • Couldn't match type ‘Char’ with ‘Int’
+      Expected: Char -> Int
+        Actual: Char -> Char
+    • In the first argument of ‘\ f -> (f 1, f 'a')’, namely ‘id’
+      In the expression: (\ f -> (f 1, f 'a')) id
+      In an equation for ‘letBound’: letBound = (\ f -> (f 1, f 'a')) id
+   |
+39 | letBound = (\f -> (f 1, f 'a')) id
+   |                                 ^^
+Failed, no modules loaded.
+```
+
+Can be fixed using ```let``` or ```where```:
+
+```haskell
+letBound' :: (Int, Char)
+letBound' = (f 1, f 'a')
+        where f = id
+```
+
+```haskell
+letBound'' :: (Int, Char)
+letBound'' = (f 1, f 'a')
+        where f = id
+```
+
+Or using extensions ```RankNTypes``` and ```ScopedTypeVariables```:
+
+```haskell
+{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+
+letBound''' :: (Int, Char)
+letBound''' = (\(f :: forall a. a -> a) -> (f 1, f 'a')) id
+```
+
+## Further reading
 
 - [Haskell 2010 Report - 4.3.4 Ambiguous Types, and Defaults for Overloaded Numeric Operations](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-790004.3.4).
 - [Gentle Introduction To Haskell, version 98. Revised June, 2000 by Reuben Thomas](https://www.haskell.org/tutorial/index.html).
   - [12 - Typing Pitfalls](https://www.haskell.org/tutorial/pitfalls.html).
 - [GHC Docs - 3.4.8. Type defaulting in GHCi](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/ghci.html#extension-ExtendedDefaultRules).
 - [Haskell 2010 Report - 4.3.4 Ambiguous Types, and Defaults for Overloaded Numeric Operations](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-790004.3.4).
+- (
+Kwang's Haskell Blog
+ - )[https://kseo.github.io/tags/let%20bound%20polymorphism.html].
 - The Hindley/Milner type system:
   - A Hindley–Milner (HM) type system is a classical type system for the lambda calculus with parametric polymorphism.
     - [Wikipedia article](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system).
