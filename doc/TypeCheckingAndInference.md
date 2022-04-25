@@ -189,7 +189,7 @@ scripting language. A defaulting mechanism exists for the ```Num``` class and
 it's considered a wart on the language that is almost exclusively used for GHCi.
 In other words, Haskell targets [safety first, not usability first](https://www.youtube.com/watch?v=iSmkqocn0oQ).
 
-## The Monomorphism Restriction
+### "Testing" It
 
 Suppose we create a very naïve test for our ```Addition``` implementations. Zero
 plus some number above zero must always be above zero, so we test this for
@@ -205,9 +205,9 @@ main = do
                    && addFunction (0::Float) (1::Float) > 0
                         then "It works!"
                         else "Something is wrong!"
-        print "Testing built-in (+)"
+        print "- Testing built-in (+):"
         print $ test (+)
-        print "Testing our Addition class"
+        print "- Testing our Addition class:"
         print $ test add
 ```
 
@@ -240,10 +240,9 @@ src/TypeCheckingAndInference.hs:12:47: error:
 Failed, no modules loaded.
 ```
 
-Sorry to tell you that in any language using the Hindley-Milner type system a
-bound function cannot be instantiated in two different ways and here
-```addFunction``` is used inside the lambda abstraction in two different ways,
-first with type ```Int -> Int -> Int``` and then with type
+Sorry to tell you that a bound function cannot be instantiated in two different
+ways and here ```addFunction``` is used inside the lambda abstraction in two
+different ways, first with type ```Int -> Int -> Int``` and then with type
 ```Float -> Float -> Float```.
 
 Even if you type annotate ```addFunction``` inside the lambda expression to be
@@ -251,7 +250,7 @@ of a the desired polymorphic type like ```Addition a => a -> a -> a``` it will
 still fail. It's just a limitation of identifiers bound using a let or where
 clause (or at the top level of a module).
 
-### The Monomorphism Restriction
+## The Monomorphism Restriction
 
 The monomorphism restriction is a generalization to not only lambda expression
 binds of the Let-Bound Polymorphism explained above. Haskell places certain
@@ -350,7 +349,7 @@ With the monomorphism restriction the type of f becomes:
 ## Let/Where-Bound Polymorphism
 
 Sorry to tell you that in any language using the Hindley-Milner type system a
-function cannot polymorphic when bounded inside a lambda abstraction.
+function cannot be polymorphic when bounded inside a lambda abstraction.
 
 ```haskell
 letBound :: (Int, Char)
@@ -408,16 +407,18 @@ letBound''' :: (Int, Char)
 letBound''' = (\(f :: forall a. a -> a) -> (f 1, f 'a')) id
 ```
 
+Or using data types with polymorphic fields, such as
+```data Endo = Endo (forall a. a -> a)``` also works.
+
 ## Further reading
 
-- [Haskell 2010 Report - 4.3.4 Ambiguous Types, and Defaults for Overloaded Numeric Operations](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-790004.3.4).
+- [Haskell 2010 Report - 4.5.5 The Monomorphism Restriction](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-930004.5.5)
+- [Haskell Wiki - Monomorphism restriction](https://wiki.haskell.org/Monomorphism_restriction)
+- [GHC Docs - 6.12.2. Let-generalisation](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/exts/let_generalisation.html).
+- [Let Should not be Generalised](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tldi10-vytiniotis.pdf).
 - [Gentle Introduction To Haskell, version 98. Revised June, 2000 by Reuben Thomas](https://www.haskell.org/tutorial/index.html).
   - [12 - Typing Pitfalls](https://www.haskell.org/tutorial/pitfalls.html).
-- [GHC Docs - 3.4.8. Type defaulting in GHCi](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/ghci.html#extension-ExtendedDefaultRules).
-- [Haskell 2010 Report - 4.3.4 Ambiguous Types, and Defaults for Overloaded Numeric Operations](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-790004.3.4).
-- (
-Kwang's Haskell Blog
- - )[https://kseo.github.io/tags/let%20bound%20polymorphism.html].
+- (Kwang's Haskell Blog - let-bound polymorphism)[https://kseo.github.io/tags/let%20bound%20polymorphism.html].
 - The Hindley/Milner type system:
   - A Hindley–Milner (HM) type system is a classical type system for the lambda calculus with parametric polymorphism.
     - [Wikipedia article](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system).
@@ -427,9 +428,9 @@ actions of the American Mathematical Society, 146:29–60, December 1969.
 and System Sciences, 17(3), 1978.
   - L. Damas and R. Milner. Principal type schemes for functional programs. In 9th Annual ACM Symposium on Principles of Programming languages, pages 207–212, Albuquerque, N.M., January 1982.
   - [Write You a Haskell - Hindley-Milner Inference](http://dev.stephendiehl.com/fun/006_hindley_milner.html)
-- [GHC Docs - 6.8.4. Default method signatures](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/default_signatures.html).
-- [Haskell 2010 Report - 4.5.5 The Monomorphism Restriction](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-930004.5.5)
-- [https://wiki.haskell.org/Monomorphism_restriction](https://wiki.haskell.org/Monomorphism_restriction)
-- [GHC Docs - 6.12.2. Let-generalisation](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/exts/let_generalisation.html).
+- Defaults:
+  - [Haskell 2010 Report - 4.3.4 Ambiguous Types, and Defaults for Overloaded Numeric Operations](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-790004.3.4).
+  - [GHC Docs - 3.4.8. Type defaulting in GHCi](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/ghci.html#extension-ExtendedDefaultRules).
+  - [GHC Docs - 6.8.4. Default method signatures](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/default_signatures.html).
 - [https://course.ccs.neu.edu/cs4410sp19/lec_type-inference_notes.html](https://course.ccs.neu.edu/cs4410sp19/lec_type-inference_notes.html)
 - [Type Classes with Functional Dependencies, Mark P. Jones, In Proceedings of the 9th European Symposium on Programming, ESOP 2000, Berlin, Germany, March 2000, Springer-Verlag LNCS 1782](https://web.cecs.pdx.edu/~mpj/pubs/fundeps.html).
