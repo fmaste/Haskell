@@ -53,14 +53,14 @@ More functions in module [Data.Maybe](https://hackage.haskell.org/package/base-4
 
 #### Either
 
-More functions in module [Data.Either](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Either.html)
-
 How to represent a value that can be an error (The standard practice is using ```Left```)?
 
 ```
 data Either a b = Left a | Right b
 either :: (a -> c) -> (b -> c) -> Either a b -> c
 ```
+
+More functions in module [Data.Either](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Either.html)
 
 ## Basic type classes
 
@@ -122,7 +122,7 @@ uncurry :: (a -> b -> c) -> (a,b) -> c
 
 ## Lists
 
-See [Lists](doc/Lists.md) for list functions
+See [Lists](Lists.md) for list functions
 
 ## Characters
 
@@ -131,7 +131,7 @@ data Char
 type String = [Char]
 ```
 
-See [Strings](doc/Strings.md) for String functions
+See [Strings](Strings.md) for String functions
 
 ## Numeric type classes
 
@@ -166,7 +166,7 @@ class (Real a, Enum a) => Integral a where
 
 #### Fractional
 
-See [Fractional](doc/NumbersFractional.md)
+See [Fractional](NumbersFractional.md)
 
 # Basic Input and output
 
