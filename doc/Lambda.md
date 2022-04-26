@@ -6,13 +6,13 @@ Like any [formal system](https://en.wikipedia.org/wiki/Formal_system), it's an a
 
 It is based on function abstraction and application using variable binding and substitution.
 
-It's a set of [Axioms](https://en.wikipedia.org/wiki/Axiom) (something taken to be true as a starting point for further reasoning) 
+It's a set of [Axioms](https://en.wikipedia.org/wiki/Axiom) (something taken to be true as a starting point for further reasoning).
 
 ## Alphabet
 
 The alphabet is the finite set of symbols which concatenate formulas. Or a formula is just a finite string of symbols taken from the alphabet.
 
-We select a particular list of symbols, consisting of the symbols ```{```, ```}```, ```(```, ```)```, ```λ```, ```[``` ,```]``` and an enumerably infinite set of symbols ```a```, ```b```, ```c```, . . . to be called variables.
+The particular list of symbols consists of ```{```, ```}```, ```(```, ```)```, ```λ```, ```[``` ,```]``` and an enumerably infinite set of symbols ```a```, ```b```, ```c```, . . . to be called variables.
 
 ## Grammar
 
@@ -38,31 +38,30 @@ The main idea is forming functions by abstraction and applying a function to an 
 ### Abbreviations
 
 ```{F}(X)``` to ```F(X)```
-
 ```{ {F}(X) }(Y)``` to ```{F}(X,Y)``` or ```F(X,Y)```
-
 ```{ { {F}(X) }(Y) }(Z)``` to ```{F}(X,Y,Z)``` or ```F(X,Y,Z)```
-
 and so on.
 
-```(λx[M])``` to ```λx[M]``` to ```λx.M```
-
-This ```.``` notation is more commonly used.
+```(λx[M])``` to ```λx[M]```
+or to ```λx.M``` with the more commonly used ```.``` notation.
 
 This is a common abbreviation ```λx[λy[...λz[M]]]``` to ```λxyz.M```.
 But is the bound variable ```x``` or is it ```xyz```? Try not to use it.
 
 Parentheses are used just for grouping; they have no meaning on their own.
-
-Lambda terms are greedy, extending as far to the right as they can.
-The term ```λx. λy. y``` is the same as ```λx.(x (λy.y))```, not (λx.x) (λy.y).
-Application terms are left-associative, so ```x y z``` is the same thing as ```(x y) z```.
+Lambda terms are greedy, extending as far to the right as they can. The term
+```λx. λy. y``` is the same as ```λx.(x (λy.y))```, not (λx.x) (λy.y).
+Application terms are left-associative, so ```x y z``` is the same thing as
+```(x y) z```.
 
 ### Free variable vs. bound variable
 
 In lambda calculus, ```x``` is a bound variable in the term ```λx.T``` and a free variable in the term ```T```. We say ```x``` is bound in ```λx.T``` and free in ```T```.
 
-In some function a variable is said to be a free variable when its value depends on the context where the function is called. In contrast, we called a variable a bounded variable when it value does not depend on the context of the function call.
+In some function a variable is said to be a ***free variable when its value
+depends on the context where the function is called***. In contrast, we called a
+variable ***a bounded variable when it value does not depend on the context of
+the function call***.
 
 If ```M``` has no free variables ```M``` is called a ***combinator***.
 
