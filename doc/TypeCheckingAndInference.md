@@ -253,11 +253,11 @@ Restriction".
 
 ## The Monomorphism Restriction
 
-The explanation of the first ```myAdd``` example was a little more general, its
-semantics is formally described.
+The explanation of the first ```myAdd``` example was a little more general and
+its semantics is formally described in [Haskell 2010 Report - 4.5.5](https://www.haskell.org/onlinereport/decls.html#sect:monomorphism-restriction).
 
-Haskell places certain extra restrictions on the generalization step called the
-monomorphism restriction.
+Haskell places certain extra restrictions on the generalization step, related to
+type classes, called the monomorphism restriction.
 
 ### Motivation
 
@@ -289,11 +289,16 @@ Violations of the monomorphism restriction result in a static type error.
 
 ### Example
 
+These should all be equivalent but because of the monomorphism restriction they
+are not.
+
 For example like ```myAdd``` above:
 
 ```haskell
 mySum = foldl (+) 0
 ```
+
+Throws this error:
 
 ```haskell
 > ghc src/MonomorphismRestriction.hs
@@ -320,7 +325,8 @@ src/MonomorphismRestriction.hs:7:9: error:
   |
 ```
 
-Solved adding a type-signature expression, like ```myAdd``` again:
+Again, the simplest way to avoid it is to provide an explicit type signature,
+like with ```myAdd```:
 
 ```haskell
 mySum :: Num a => [a] -> a
@@ -328,7 +334,7 @@ mySum = foldl (+) 0
 ```
 
 And also solved if, without a type-signature expression, you write the function
-this way. This can also be done with ```myAdd```:
+this way. This "fix" can also be applied to the ```myAdd``` example:
 
 ```haskell
 mySum xs = foldl (+) 0 xs
@@ -336,6 +342,7 @@ mySum xs = foldl (+) 0 xs
 
 Why? Because the first one is desugared to ```\f -> foldl (+) 0 f``` while this
 one in inferred as ```mySum :: forall {t :: * -> *} {a}. (Foldable t, Num a) => t a -> a```
+and the restriction only applies to pattern bindings.
 
 Don't try this with GHCi because it uses by default an extension called
 ```NoMonomorphismRestriction``` that tries to infer a type from a list of
