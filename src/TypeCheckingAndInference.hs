@@ -3,10 +3,10 @@ module Main where
 main :: IO ()
 main = do
         print "Hello!"
-        print (add   (1::Int)   (3::Int))
-        print (add   (1::Float) (3::Float))
+--        print (add   (1::Int)   (3::Int))
+--        print (add   (1::Float) (3::Float))
         print (myAdd (1::Int)   (3::Int))
-        print (myAdd (1::Float) (3::Float))
+--        print (myAdd (1::Float) (3::Float))
 {--
         let test addFunction =
                 if
@@ -30,7 +30,8 @@ instance Addition Float where
         add = (+)
 
 --myAdd :: Addition a => a -> a -> a
-myAdd a b = add a b
+--myAdd a b = add a b
+myAdd = add
 
 --myDoubleAdd a b = add (add a b) (add a b)
 

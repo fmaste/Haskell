@@ -26,8 +26,8 @@ instance Addition Float where
 
 ### Types Must Be Unambiguous
 
-If you try to add function ```myAdd``` without a type-signatures expression as
-show below:
+If you try to add function ```myAdd``` without a type-signatures expression or
+parameters as show below:
 
 ```haskell
 -- No type-signature as in: myAdd :: a -> a -> a
@@ -70,9 +70,9 @@ implementation is intended to be used***, it can't choose one implementation and
 hence infer the type of ```myAdd```. Imagine what could happen if it chooses an
 unintended implementation, ```1 + 2``` could become ```4```, who knows!
 
-If you want to create a function that just pushes its parameters to another
-function, what are you intending to achieve? Create an alias with the same
-type? or make a more type restrictive version? The compiler can't read minds!
+If you want to create a variable that desugars to ```\a b -> add a b```, what
+are you intending to achieve? Create an alias with the same type? or make a more
+type restrictive version? The compiler can't read minds!
 
 ### Inferring Types
 
@@ -240,21 +240,19 @@ src/TypeCheckingAndInference.hs:12:47: error:
 Failed, no modules loaded.
 ```
 
-Sorry to tell you that a bound function cannot be instantiated in two different
-ways and here ```addFunction``` is used inside the lambda abstraction in two
-different ways, first with type ```Int -> Int -> Int``` and then with type
-```Float -> Float -> Float```.
+Even if you type annotate any occurrence of ```addFunction``` to be of a the
+desired polymorphic type like ```Addition a => a -> a -> a```, the compiler will
+still throw a static type error.
 
-Even if you type annotate ```addFunction``` inside the lambda expression to be
-of a the desired polymorphic type like ```Addition a => a -> a -> a``` it will
-still fail. It's just a limitation of identifiers bound using a let or where
-clause (or at the top level of a module).
+Here ```addFunction``` is used inside the lambda abstraction in two different
+ways, first with type ```Int -> Int -> Int``` and then with type
+```Float -> Float -> Float```.
 
 ## The Monomorphism Restriction
 
-The monomorphism restriction is a generalization to not only lambda expression
-binds of the Let-Bound Polymorphism explained above. Haskell places certain
-extra restrictions on the generalization step.
+The explanation of the first ```myAdd``` example was a little more consolidated.
+
+Haskell places certain extra restrictions on the generalization step.
 
 > The monomorphism restriction says that any identifier bound by a pattern
 > binding (which includes bindings to a single identifier), and having no
@@ -265,6 +263,8 @@ extra restrictions on the generalization step.
 > [Gentle Introduction To Haskell, version 98. Revised June, 2000 - 12. Typing Pitfalls](https://www.haskell.org/tutorial/pitfalls.html)
 
 Violations of the monomorphism restriction result in a static type error.
+
+For example like ```myAdd```:
 
 ```haskell
 mySum = foldl (+) 0
@@ -295,7 +295,7 @@ src/MonomorphismRestriction.hs:7:9: error:
   |
 ```
 
-Solved adding a type-signature expression:
+Solved adding a type-signature expression, like ```myAdd``` again:
 
 ```haskell
 mySum :: Num a => [a] -> a
@@ -303,7 +303,7 @@ mySum = foldl (+) 0
 ```
 
 And also solved if, without a type-signature expression, you write the function
-this way:
+this way. This can also be done with ```myAdd```:
 
 ```haskell
 mySum xs = foldl (+) 0 xs
@@ -317,16 +317,15 @@ Don't try this with GHCi because it uses by default an extension called
 default possibilities. The restriction is turned on by default in compiled
 modules, and turned off by default at the GHCi prompt (since GHC 7.8.1).
 
-#### Motivation
+### Motivation
 
 It is commonly called "The Dreaded Monomorphism Restriction".
 
 It solves two problems:
-1. Some ambiguous types (As explained above in Let-Bound Polymorphism).
+1. Some ambiguous types (As explained).
    - Well, I believe this example is self-explanatory. There are situations when not applying the rule results in type ambiguity.
 2. Some repeated evaluation (sharing).
-
-Some thinks this cases are so rare that the restriction is not worth it, some
+   - Some thinks this cases are so rare that the restriction is not worth it, some
 think this cases should be properly treated (whatever this means).
 
 ```haskell
@@ -339,10 +338,13 @@ Without this restriction ```genericLength xs``` may be computed twice, once
 for each overloading. Because if the compiler doesn't know the type of the ```(a,b)```
 expression, it can't know if ```a``` and ```b``` are the same type.
 
-If len was polymorphic the type of f would be:
+If ```len``` was polymorphic the type of ```f``` would be:
 ```f :: Num a, Num b => [c] -> (a, b)```
-So the two elements of the tuple (len, len) could actually be different values! But this means that the computation done by genericLength must be repeated to obtain the two different values.
-The rationale here is: the code contains one function call, but not introducing this rule could produce two hidden function calls, which is counter intuitive.
+So the two elements of the tuple ```(len, len)``` could actually be different
+values! But this means that the computation done by ```genericLength``` must be
+repeated to obtain the two different values.
+The rationale here is: the code contains one function call, but not introducing
+this rule could produce two hidden function calls, which is counter intuitive.
 With the monomorphism restriction the type of f becomes:
 ```f :: Num a => [b] -> (a, a)```
 
@@ -434,3 +436,5 @@ and System Sciences, 17(3), 1978.
   - [GHC Docs - 6.8.4. Default method signatures](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/default_signatures.html).
 - [https://course.ccs.neu.edu/cs4410sp19/lec_type-inference_notes.html](https://course.ccs.neu.edu/cs4410sp19/lec_type-inference_notes.html)
 - [Type Classes with Functional Dependencies, Mark P. Jones, In Proceedings of the 9th European Symposium on Programming, ESOP 2000, Berlin, Germany, March 2000, Springer-Verlag LNCS 1782](https://web.cecs.pdx.edu/~mpj/pubs/fundeps.html).
+- [serokell.io - Haskell to Core: Understanding Haskell Features Through Their Desugaring](https://serokell.io/blog/haskell-to-core).
+  - https://gitlab.haskell.org/ghc/ghc/-/blob/master/compiler/Language/Haskell/Syntax/Expr.hs
