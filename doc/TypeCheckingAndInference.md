@@ -80,7 +80,7 @@ We could say that this was a problem of the type inference system and ***ambiguo
 types in Haskell can only be circumvented by input from the user with proper
 type-signature expressions***.
 
-Let's add type annotations to the calling expression:
+Let's add type annotations to a calling expression:
 
 ```haskell
 main :: IO ()
@@ -140,14 +140,14 @@ Failed, no modules loaded.
 ```
 
 The type inference system is good but can't be that good while trying to be
-unambiguous. With the first parsed usage it inferred that the type of
+unambiguous. After the first usage parsed it inferred that the type of
 ```myAdd``` was ```myAdd :: Int -> Int -> Int``` but next line we are calling it
 with type ```myAdd :: Float -> Float -> Float```.
 
 The same way the compiler couldn't pick a specific implementation of class
 ```Addition``` it can't make function ```myAdd``` use restricted
 polymorphism/overloading by its own. ***How can the compiler be unambiguously
-sure what the developer wants?***
+sure about what the developer wants?***
 
 In contrast with dynamically typed languages ***all the types composed together
 by function application have to match up. If they don't, the program will be
@@ -340,9 +340,14 @@ this way. This "fix" can also be applied to the ```myAdd``` example:
 mySum xs = foldl (+) 0 xs
 ```
 
-Why? Because the first one is desugared to ```\f -> foldl (+) 0 f``` while this
-one in inferred as ```mySum :: forall {t :: * -> *} {a}. (Foldable t, Num a) => t a -> a```
-and the restriction only applies to pattern bindings.
+This third version binds ```xs``` x via a function binding, as described in
+[Haskell 2010 Report - 4.4.3](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-830004.4.3),
+and is therefore unrestricted.
+
+Why? Because there are function and pattern bindings. The first one is desugared
+to ```\f -> foldl (+) 0 f``` while this one in inferred as
+```mySum :: forall {t :: * -> *} {a}. (Foldable t, Num a) => t a -> a``` and the
+restriction only applies to pattern bindings.
 
 Don't try this with GHCi because it uses by default an extension called
 ```NoMonomorphismRestriction``` that tries to infer a type from a list of
