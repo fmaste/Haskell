@@ -40,9 +40,6 @@ The committee’s primary goal was to design a language that satisfied these con
 
 [This documents](https://wiki.haskell.org/Language_and_library_specification) describes the results of that (and subsequent) committee’s efforts: a purely functional programming language called Haskell, ***named after the logician Haskell B. Curry whose work provides the logical basis for much of ours***.
 
-Paper with a static semantics for a large subset of Haskell, including giving a translations into a language without overloading:
-https://www.microsoft.com/en-us/research/wp-content/uploads/1991/03/A-Static-Semantics-for-Haskell_small.pdf
-
 #### TL;DR;
 
 From this short post full of irony: [A Brief, Incomplete, and Mostly Wrong History of Programming Languages](https://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html).
@@ -216,6 +213,7 @@ See [Monad](doc/Phantom.md)
 - [Write You a Haskell](http://dev.stephendiehl.com/fun/index.html)
 - [Introduction to functional programming](https://learn.saylor.org/mod/book/view.php?id=33044)
 - [Haskell 2010 Language Report](https://www.haskell.org/onlinereport/haskell2010/)
+- [Paper with a static semantics for a large subset of Haskell, including giving a translations into a language without overloading](https://www.microsoft.com/en-us/research/wp-content/uploads/1991/03/A-Static-Semantics-for-Haskell_small.pdf).
 
 # TODO
 
