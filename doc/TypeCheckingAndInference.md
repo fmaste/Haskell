@@ -248,11 +248,34 @@ Here ```addFunction``` is used inside the lambda abstraction in two different
 ways, first with type ```Int -> Int -> Int``` and then with type
 ```Float -> Float -> Float```.
 
+We have reached the root cause, it is commonly called "The Dreaded Monomorphism
+Restriction".
+
 ## The Monomorphism Restriction
 
-The explanation of the first ```myAdd``` example was a little more consolidated.
+The explanation of the first ```myAdd``` example was a little more general, its
+semantics is formally described.
 
-Haskell places certain extra restrictions on the generalization step.
+Haskell places certain extra restrictions on the generalization step called the
+monomorphism restriction.
+
+### Motivation
+
+It solves two problems:
+1. Ambiguous types (As explained above).
+2. Some repeated evaluation (sharing).
+
+Point 1 was shown above and about point 2, some think this cases are so rare
+that the restriction is not worth it, some think this cases should be properly
+treated (whatever this means).
+
+The thing about Haskell is that it tries to be as pure and safe as possible so
+it sticks with its fundamentals, mostly based on
+[lambda calculus](doc/Lambda.md), to make it easier to add features and do
+research with it. If its semantic weren't formally specified or the language
+had many corner cases this wouldn't be possible.
+
+### How It Works
 
 > The monomorphism restriction says that any identifier bound by a pattern
 > binding (which includes bindings to a single identifier), and having no
@@ -264,7 +287,9 @@ Haskell places certain extra restrictions on the generalization step.
 
 Violations of the monomorphism restriction result in a static type error.
 
-For example like ```myAdd```:
+### Example
+
+For example like ```myAdd``` above:
 
 ```haskell
 mySum = foldl (+) 0
@@ -317,16 +342,7 @@ Don't try this with GHCi because it uses by default an extension called
 default possibilities. The restriction is turned on by default in compiled
 modules, and turned off by default at the GHCi prompt (since GHC 7.8.1).
 
-### Motivation
-
-It is commonly called "The Dreaded Monomorphism Restriction".
-
-It solves two problems:
-1. Some ambiguous types (As explained).
-   - Well, I believe this example is self-explanatory. There are situations when not applying the rule results in type ambiguity.
-2. Some repeated evaluation (sharing).
-   - Some thinks this cases are so rare that the restriction is not worth it, some
-think this cases should be properly treated (whatever this means).
+### Sharing
 
 ```haskell
 f xs = (len,len)
@@ -335,18 +351,8 @@ f xs = (len,len)
 ```
 
 Without this restriction ```genericLength xs``` may be computed twice, once
-for each overloading. Because if the compiler doesn't know the type of the ```(a,b)```
-expression, it can't know if ```a``` and ```b``` are the same type.
-
-If ```len``` was polymorphic the type of ```f``` would be:
-```f :: Num a, Num b => [c] -> (a, b)```
-So the two elements of the tuple ```(len, len)``` could actually be different
-values! But this means that the computation done by ```genericLength``` must be
-repeated to obtain the two different values.
-The rationale here is: the code contains one function call, but not introducing
-this rule could produce two hidden function calls, which is counter intuitive.
-With the monomorphism restriction the type of f becomes:
-```f :: Num a => [b] -> (a, a)```
+for each overloading. Because if the compiler doesn't know the type of the
+```(a,b)``` expression, it can't know if ```a``` and ```b``` are the same type.
 
 ## Let/Where-Bound Polymorphism
 
