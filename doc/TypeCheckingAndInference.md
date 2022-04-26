@@ -26,7 +26,7 @@ instance Addition Float where
 
 ### Types Must Be Unambiguous
 
-If you try to add function ```myAdd``` without a type-signatures expression or
+If you write function ```myAdd``` without a type-signatures expression or
 parameters as show below:
 
 ```haskell
@@ -34,7 +34,7 @@ parameters as show below:
 myAdd = add
 ```
 
-Such expression is considered ill-typed, a static type error:
+Such expression is considered ill-typed and a static type error is thrown:
 
 ```haskell
 > ghci -XHaskell2010 src/TypeCheckingAndInference.hs
