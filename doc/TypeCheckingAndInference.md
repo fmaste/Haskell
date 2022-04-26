@@ -271,17 +271,17 @@ treated (whatever this means).
 
 The thing about Haskell is that it tries to be as pure and safe as possible so
 it sticks with its fundamentals, mostly based on
-[lambda calculus](doc/Lambda.md), to make it easier to add features and do
+[lambda calculus](Lambda.md), to make it easier to add features and do
 research with it. If its semantic weren't formally specified or the language
 had many corner cases this wouldn't be possible.
 
 ### How It Works
 
-> The monomorphism restriction says that any identifier bound by a pattern
-> binding (which includes bindings to a single identifier), and having no
-> explicit type signature, must be monomorphic. An identifier is monomorphic if
-> is either not overloaded, or is overloaded but is used in at most one specific
-> overloading and is not exported.
+> The monomorphism restriction says that ***any identifier bound by a pattern
+> binding*** (which includes bindings to a single identifier), and having no
+> explicit type signature, must be monomorphic. An identifier ***is monomorphic
+> if is either not overloaded, or is overloaded but is used in at most one
+> specific overloading and is not exported***.
 >
 > [Gentle Introduction To Haskell, version 98. Revised June, 2000 - 12. Typing Pitfalls](https://www.haskell.org/tutorial/pitfalls.html)
 
