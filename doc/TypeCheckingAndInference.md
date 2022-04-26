@@ -262,8 +262,8 @@ monomorphism restriction.
 ### Motivation
 
 It solves two problems:
-1. Ambiguous types (As explained above).
-2. Some repeated evaluation (sharing).
+1. Prevents ambiguity (As explained above).
+2. Prevents computations from being unexpectedly repeated (sharing).
 
 Point 1 was shown above and about point 2, some think this cases are so rare
 that the restriction is not worth it, some think this cases should be properly
