@@ -8,7 +8,7 @@ module Main where
 main :: IO ()
 main = putStrLn "EDSL!"
 
--- The "problem":
+-- Version 0: The "problem":
 --------------------------------------------------------------------------------
 
 -- A deep EDSL (Embedded Domain Specific Language)
