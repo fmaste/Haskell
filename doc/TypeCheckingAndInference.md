@@ -184,7 +184,9 @@ ghci> main
 4.0
 ```
 
-Maybe create a set of "default rules" to follow? but this is not a simple
+#### Defaulting
+
+Why not create a set of "default rules" to follow? well, this is not a simple
 scripting language. A defaulting mechanism exists for the ```Num``` class and
 it's considered a wart on the language that is almost exclusively used for GHCi.
 In other words, Haskell targets [safety first, not usability first](https://www.youtube.com/watch?v=iSmkqocn0oQ).
