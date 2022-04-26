@@ -342,7 +342,8 @@ this way. This "fix" can also be applied to the ```myAdd``` example:
 mySum xs = foldl (+) 0 xs
 ```
 
-This third version binds ```xs``` x via a function binding, as described in
+This third version binds ```xs``` via a function binding, an expression like
+```"variable pat1 pat2 ... ="``` as described in
 [Haskell 2010 Report - 4.4.3](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-830004.4.3),
 and is therefore unrestricted.
 
