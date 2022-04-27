@@ -208,7 +208,27 @@ type instance Code Expr = '[ '[Int], '[Expr, Expr] ]
 
 ```[Int]``` has kind ```Type``` and ```'[ Int ]``` has kind ```[Type]```.
 
+```'[Int, Char, Bool]``` is the same as ```Int ': Char ': Bool : '[]``` and has
+kind ```'[Type]```.
+
+Is this an heterogeneous list? No, it's a type-level list of ```Type```. See:
+
+```haskell
+ghci> :k '[Int, Char, Bool]
+'[Int, Char, Bool] :: [*]
+ghci> :k '[Int, Char, Bool, Maybe]
+
+<interactive>:1:1: error:
+    • Expecting one more argument to ‘Maybe’
+      Expected a type, but ‘Maybe’ has kind ‘* -> *’
+    • In the type ‘'[Int, Char, Bool, Maybe]’
+```
+
 Are we are doing untyped functional programming at the type level ?
+
+## SOP
+
+
 
 # Further reading
 
