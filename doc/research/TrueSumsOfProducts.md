@@ -48,14 +48,14 @@ GHC parser doesn't know if ```::*``` means ```::*``` altogether is a type
 operator or we meant ```:: *``` with a space in between. If we add at least one
 space character it compiles correctly.
 
-We can use kinds or kind variables like we use type and type variable when
+We can also use kinds or kind variables like we use type and type variable when
 defining types. The usual style with kinds is to use ```k``` for variables:
 
 ```haskell
 newtype I (a::k) = I {unI :: a}
 ```
 
-Let's see now:
+Let's see if you are an intellectual reader:
 
 ```haskell
 $ ghc -XHaskell2010 src/research/TrueSumsOfProducts.hs 
