@@ -1,7 +1,13 @@
 # True Sums of Products
 
-https://www.andres-loeh.de/TrueSumsOfProducts/
-https://dl.acm.org/doi/pdf/10.1145/2633628.2633634
+Edsko de Vries, Andres Löh
+
+WGP '14 Proceedings of the 10th ACM SIGPLAN workshop on Generic programming, 2014
+
+- [Homepage](https://www.andres-loeh.de/TrueSumsOfProducts/)
+- [Paper](https://dl.acm.org/doi/pdf/10.1145/2633628.2633634)
+- [Hackage](https://hackage.haskell.org/package/generics-sop)
+- [GitHub](https://github.com/well-typed/generics-sop)
 
 ```haskell
 main :: IO ()
@@ -239,5 +245,7 @@ Are we are doing untyped functional programming at the type level ?
 
 # Further reading
 
+- https://www.andres-loeh.de/TrueSumsOfProducts/
+- https://dl.acm.org/doi/pdf/10.1145/2633628.2633634
 - https://thinkingwithtypes.com/
 - [Fun with type functions](https://www.microsoft.com/en-us/research/publication/fun-type-functions/).
