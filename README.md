@@ -202,7 +202,7 @@ See [Multi-parameter type classes](doc/extension/MultiParamTypeClasses.md)
 
 ### Phantom types (GADTs)
 
-See [Monad](doc/Phantom.md)
+See [Phantom](doc/Phantom.md)
 
 ### Explain the paper
 
