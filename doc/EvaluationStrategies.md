@@ -11,7 +11,7 @@ Prelude> take 5 [1,2..]
 
 ## Strictness
 
-[Lambda Calculus](doc/Lambda.md) has two main reduction models:
+[Lambda Calculus](Lambda.md) has two main reduction models:
 - Strict: All arguments are evaluated before entering the body of a function.
 - Non-strict: The arguments are evaluated only when required.
 
