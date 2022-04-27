@@ -1,6 +1,7 @@
 # True Sums of Products
 
 Edsko de Vries, Andres Löh
+
 WGP '14 Proceedings of the 10th ACM SIGPLAN workshop on Generic programming, 2014
 
 [Homepage](https://www.andres-loeh.de/TrueSumsOfProducts/)
