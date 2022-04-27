@@ -54,7 +54,7 @@ defining types. The usual style with kinds is to use ```k``` for variables:
 newtype I (a::k) = I {unI :: a}
 ```
 
-Let's see if you are an intellectual reader:
+Results now?:
 
 ```haskell
 $ ghc -XHaskell2010 src/research/TrueSumsOfProducts.hs 
@@ -87,7 +87,7 @@ We need the
 newtype I (a::k) = I {unI :: a}
 ```
 
-Results?:
+Let's see if you are an intellectual reader:
 
 ```haskell
 $ ghc -XHaskell2010 src/research/TrueSumsOfProducts.hs 
