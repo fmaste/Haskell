@@ -23,7 +23,7 @@ What we will be doing here is type-level programming. Programming at the type
 level is possible as you do at the value level. If you are not familiar with the
 concept imagine type constructors as functions at the type level, functions that
 return a type. ```Maybe``` is a function of kind ```* -> *```, and
-```Maybe Int``` is a type.
+```Maybe Int``` is a type of kind ```*```.
 
 Let's define ```I``` as the type equivalent of ```id :: a -> a``` and ```K```
 as the type equivalent of ```const :: a -> b -> a```. As in the paper:
