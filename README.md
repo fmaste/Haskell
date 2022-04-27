@@ -204,6 +204,10 @@ See [Multi-parameter type classes](doc/extension/MultiParamTypeClasses.md)
 
 See [Monad](doc/Phantom.md)
 
+### Explain the paper
+
+- [True Sums of Products](doc/research/TrueSumsOfProducts.md).
+
 # Further reading
 
 - [What I Wish I Knew When Learning Haskell](http://dev.stephendiehl.com/hask/)
