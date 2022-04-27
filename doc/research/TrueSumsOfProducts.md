@@ -38,9 +38,12 @@ src/research/TrueSumsOfProducts.hs:9:16: error:
 9 | newtype I (a::*) = I {unI :: a}
 ```
 
-GHC doesn't understand the ```*``` in ```(a::*)```. We need to use kinds or kind
-variables like we use type and type variable when defining types. The usual
-style with kinds is to use ```k``` for variables:
+GHC parser doesn't know if ```::*``` means ```::*``` altogether is a type
+operator or we meant ```:: *``` with a space in between. If we add at least one
+space character it compiles correctly.
+
+We can use kinds or kind variables like we use type and type variable when
+defining types. The usual style with kinds is to use ```k``` for variables:
 
 ```haskell
 newtype I (a::k) = I {unI :: a}
@@ -96,11 +99,12 @@ src/research/TrueSumsOfProducts.hs:11:15: error:
 
 ```k``` is a kind variable and ```a``` inside ```{unI :: a}``` needs to be of
 some concrete type. We are "storing" a value inside our newtype, it needs a type
-on a statically typed language. We need to import one kind from
+on a statically typed language. We need to use ```*``` or import ```Type``` kind
+from
 [Data.Kind](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Kind.html).
-The ```Type``` kind is the kind of types, says that it doesn't need any type
-parameter to return a type. ```Type``` is the default kind when kind-signature
-expressions are omitted.
+The ```Type``` kind is the kind of types, like ```*```, says that it doesn't
+need any type parameter to return a type. ```*``` or ```Type``` are the default
+kind when kind-signature expressions are omitted.
 
 ```haskell
 {-# LANGUAGE KindSignatures #-}
@@ -110,7 +114,7 @@ import Data.Kind(Type)
 newtype I (a::Type) = I {unI :: a}
 ```
 
-Now it compiles, let's add the ```const``` like function but at the type level:
+Now it compiles, let's add a ```const``` like function but at the type level:
 
 ```haskell
 $ ghc -XHaskell2010 src/research/TrueSumsOfProducts.hs 
@@ -129,7 +133,7 @@ What we are trying to say here is that ```b``` can be of any kind, like
 ```Either```, ```Either a``` or ```Either a b```. So we need the
 [```PolyKinds```
 extensions](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/poly_kinds.html#extension-PolyKinds)
-, if not ```b``` needs to be of a kind that returns a type.
+, if not ```b``` needs to be of kind ```*``` or ```Type``` that return a type.
 
 ```haskell
 {-# LANGUAGE KindSignatures #-}
@@ -177,11 +181,14 @@ and a type constructor!!!
 
 We need to use
 [Datatype promotion](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/data_kinds.html)
-that allows promotion of data types to the kind level.
+that automatically promotes every datatype to be a kind and its (value) constructors to be type constructors.
 
 Now the kind ```[]``` is the kind of types ```[]```. Mindblowing!
 
 https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/data_kinds.html#promoted-list-and-tuple-types
+
+As types and constructors can have the same name, to refer to a promoted
+constructors prefix it with a single quote mark, like ```'C```.
 
 https://ghc.gitlab.haskell.org/ghc/doc/users_guide/using-warnings.html#ghc-flag--Wunticked-promoted-constructors
 
