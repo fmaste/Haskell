@@ -123,6 +123,12 @@ newtype I (a::Type) = I {unI :: a}
 Now it compiles, let's add a ```const``` like function but at the type level:
 
 ```haskell
+newtype K (a::Type) (b::k) = K {unK :: a}
+```
+
+Enough. compile for once:
+
+```haskell
 $ ghc -XHaskell2010 src/research/TrueSumsOfProducts.hs 
 [1 of 1] Compiling Main             ( src/research/TrueSumsOfProducts.hs, src/research/TrueSumsOfProducts.o )
 
