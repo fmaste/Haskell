@@ -70,6 +70,7 @@ A [+10 years old funny video](https://www.youtube.com/watch?v=iSmkqocn0oQ) of wh
     - See [Type checker and type inference in action](doc/TypeCheckingAndInference.md).
 - Lazy
   - Functions don't evaluate their arguments. This means that programs can compose together very well, with the ability to write control constructs (such as if/else) just by writing normal functions. The purity of Haskell code makes it easy to fuse chains of functions together, allowing for performance benefits.
+    - See [Evaluation Strategies](doc/EvaluationStrategies.md).
 - Concurrent
   - Haskell lends itself well to concurrent programming due to its explicit handling of effects. Its flagship compiler, GHC, comes with a high-performance parallel garbage collector and light-weight concurrency library containing a number of useful concurrency primitives and abstractions.
 - Packages
