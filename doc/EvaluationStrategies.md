@@ -15,7 +15,8 @@ Prelude> take 5 [1,2..]
 - Strict: All arguments are evaluated before entering the body of a function.
 - Non-strict: The arguments are evaluated only when required.
 
-If you have this example function shown below
+If you have this example function shown below:
+
 ```haskell
 const :: a -> b -> a
 const a b = a
@@ -61,10 +62,6 @@ It will return ```2``` using non-strict evaluation and ```error``` using strict.
 
 [Haskell 2010 report - 6.2 Strict Evaluation](https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1260006.2).
 
-### Note
-
-A Haskell implementation using call-by-name, would be technically conforming?
-
 ## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
 
 Non-strictness is often confused with lazy evaluation.
@@ -73,9 +70,15 @@ Haskell is often described as a lazy language. However, the language specificati
 
 Lazy evaluation is classified as a binding technique rather than an evaluation strategy.
 
+### Note
+
+A Haskell implementation using call-by-name, would be technically conforming?
+
 # Memoization
 
-As we have learned that Haskell computes any given expression at most once every time the lambda expression is entered, we can use the memoization optimization technique.
+Now that we know that Haskell computes any given expression at most once every
+time the lambda expression is entered, we can use the memoization optimization
+technique:
 
 ```haskell
 slow_fib :: Int -> Integer
@@ -102,6 +105,11 @@ memoized_fib' = \i -> (map fib [0 ..] !!) i
 
 The hard part is knowing where the lambda expressions are.
 
+# Further Reading
+
+- [The Haskell 2010 Report (PDF)](https://www.haskell.org/definition/haskell2010.pdf)
+- 
+
 https://bor0.wordpress.com/2020/12/11/haskell-memoization-and-evaluation-model/
 
 [3.1 Errors](https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-230003.1)
@@ -113,10 +121,6 @@ undefined :: a
 A call to error terminates execution of the program and returns an appropriate error indication to the operating system. It should also display the string in some system-dependent manner. When undefined is used, the error message is created by the compiler.
 
 Translations of Haskell expressions use error and undefined to explicitly indicate where execution time errors may occur. The actual program behavior when an error occurs is up to the implementation. The messages passed to the error function in these translations are only suggestions; implementations may choose to display more or less information when an error occurs.
-
-- [The Haskell 2010 Report (PDF)](https://www.haskell.org/definition/haskell2010.pdf)
-- 
-
 
 TODO: Look for this papers:
 
