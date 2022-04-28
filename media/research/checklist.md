@@ -1,6 +1,9 @@
 - General
-  - [ ] A History of Haskell: Being Lazy with Class
-  - [ ] Fun with type functions
+  - Introductory
+    - [ ] A History of Haskell: Being Lazy with Class
+    - [ ] Fun with type functions
+    - [ ] Fun with phantom types
+    - [ ] Tackling the Awkward Squad: monadic IO, concurrency, exceptions, and foreign-language calls in Haskell
 - Type System
   - [ ] Functional Programming with Overloading and Higher-Order Polymorphism - Mark P. Jones
   - [ ] Type Classes with Functional Dependencies - Mark P. Jones
