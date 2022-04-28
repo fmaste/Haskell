@@ -5,8 +5,7 @@ The subarea of
 written as λ-calculus) is a formal system developed by
 [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church) and
 [Stephen Kleene](https://en.wikipedia.org/wiki/Stephen_Cole_Kleene) to study
-and/or for expressing
-[computations](https://en.wikipedia.org/wiki/Computability). Probably the
+[Computability](https://en.wikipedia.org/wiki/Computability). Probably the
 highest level theoretical/formal model of computation that will ever be
 conceived.
 
