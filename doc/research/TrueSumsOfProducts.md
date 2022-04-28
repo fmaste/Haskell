@@ -15,6 +15,10 @@ main = do
         print "True Sums of Products!"
 ```
 
+SOP list-like structure of datatypes is expressible accurate and allows for the
+definition of powerful high-level traversal combinators, which in turn encourage
+the definition of generic functions in a compositional and concise style.
+
 ## Recap of Type-Level Programming
 
 ### Kind Signatures With Kind Polymorphism
@@ -245,9 +249,10 @@ ghci> :k '[Int, Char, Bool, Maybe]
 
 Are we are doing untyped functional programming at the type level ?
 
-## SOP
+## Sums and Products
 
-
+The n-ary sums and products used to translate Haskell values into the SOP
+universe are defined as followed.
 
 # Further reading
 
