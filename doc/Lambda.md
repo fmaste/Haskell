@@ -49,16 +49,17 @@ The main idea is forming functions by abstraction and applying a function to an 
 
 ### Abbreviations
 
-```{F}(X)``` to ```F(X)```
-```{ {F}(X) }(Y)``` to ```{F}(X,Y)``` or ```F(X,Y)```
-```{ { {F}(X) }(Y) }(Z)``` to ```{F}(X,Y,Z)``` or ```F(X,Y,Z)```
-and so on.
-
-```(λx[M])``` to ```λx[M]```
-or to ```λx.M``` with the more commonly used ```.``` notation.
-
-This is a common abbreviation ```λx[λy[...λz[M]]]``` to ```λxyz.M```.
-But is the bound variable ```x``` or is it ```xyz```? Try not to use it.
+- Application:
+  - ```{F}(X)``` to ```F(X)```
+  - ```{ {F}(X) }(Y)``` to ```{F}(X,Y)``` or ```F(X,Y)```
+  - ```{ { {F}(X) }(Y) }(Z)``` to ```{F}(X,Y,Z)``` or ```F(X,Y,Z)```
+  - and so on
+- Abstraction:
+  - ```(λx[M])``` to ```λx[M]```
+  - or to ```λx.M``` with the more commonly used ```.``` notation
+  - This is a also common abbreviation:
+    - ```λx[λy[...λz[M]]]``` to ```λxyz.M```
+    - But is the bound variable ```x``` or is it ```xyz```? Try not to use it
 
 Parentheses are used just for grouping; they have no meaning on their own.
 Lambda terms are greedy, extending as far to the right as they can. The term
