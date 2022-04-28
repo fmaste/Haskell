@@ -2,9 +2,10 @@
 
 The subarea of
 [Theoretical Computer Science](https://en.wikipedia.org/wiki/Theoretical_computer_science) called [Lambda Calculus](https://en.wikipedia.org/wiki/Lambda_calculus) (also
-written as λ-calculus) is a formal system for expressing computations developed
-by [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church) and
+written as λ-calculus) is a formal system developed by
+[Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church) and
 [Stephen Kleene](https://en.wikipedia.org/wiki/Stephen_Cole_Kleene) to study
+and/or for expressing
 [computations](https://en.wikipedia.org/wiki/Model_of_computation). Probably the
 highest level theoretical/formal model of computation that will ever be
 conceived.
