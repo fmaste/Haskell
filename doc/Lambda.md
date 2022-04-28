@@ -6,7 +6,7 @@ written as λ-calculus) is a formal system developed by
 [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church) and
 [Stephen Kleene](https://en.wikipedia.org/wiki/Stephen_Cole_Kleene) to study
 and/or for expressing
-[computations](https://en.wikipedia.org/wiki/Model_of_computation). Probably the
+[computations](https://en.wikipedia.org/wiki/Computability). Probably the
 highest level theoretical/formal model of computation that will ever be
 conceived.
 
@@ -15,8 +15,11 @@ abstract structure used for inferring theorems from axioms according to a set of
 rules. It's a set of [Axioms](https://en.wikipedia.org/wiki/Axiom) (something
 taken to be true as a starting point for further reasoning).
 
-It is based on ***function abstraction (or creation)*** and ***function
-application*** using variable binding and substitution.
+There are other
+[models of computation](https://en.wikipedia.org/wiki/Model_of_computation), the
+best known is probably the [finite state machine](https://en.wikipedia.org/wiki/Finite_state_machine) that is a sequential model. Lambda calculus is a
+functional model and it is based on ***function abstraction (or creation)*** and
+***function application*** using variable binding and substitution.
 
 ## Alphabet
 
