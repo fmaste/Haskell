@@ -10,12 +10,13 @@ and/or for expressing
 highest level theoretical/formal model of computation that will ever be
 conceived.
 
-Like any [formal system](https://en.wikipedia.org/wiki/Formal_system), it's an abstract structure used for inferring theorems from axioms according to a set of rules.
+Like any [formal system](https://en.wikipedia.org/wiki/Formal_system), it's an
+abstract structure used for inferring theorems from axioms according to a set of
+rules. It's a set of [Axioms](https://en.wikipedia.org/wiki/Axiom) (something
+taken to be true as a starting point for further reasoning).
 
 It is based on ***function abstraction (or creation)*** and ***function
 application*** using variable binding and substitution.
-
-It's a set of [Axioms](https://en.wikipedia.org/wiki/Axiom) (something taken to be true as a starting point for further reasoning).
 
 ## Alphabet
 
