@@ -1,10 +1,18 @@
 # Lambda calculus
 
-The subarea of [Theoretical Computer Science](https://en.wikipedia.org/wiki/Theoretical_computer_science) called [Lambda Calculus](https://en.wikipedia.org/wiki/Lambda_calculus) (also written as λ-calculus) is a formal system for expressing computations developed by [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church) and [Stephen Kleene](https://en.wikipedia.org/wiki/Stephen_Cole_Kleene). Probably the highest level theoretical/formal model of computation that will ever be conceived.
+The subarea of
+[Theoretical Computer Science](https://en.wikipedia.org/wiki/Theoretical_computer_science) called [Lambda Calculus](https://en.wikipedia.org/wiki/Lambda_calculus) (also
+written as λ-calculus) is a formal system for expressing computations developed
+by [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church) and
+[Stephen Kleene](https://en.wikipedia.org/wiki/Stephen_Cole_Kleene) to study
+[computations](https://en.wikipedia.org/wiki/Model_of_computation). Probably the
+highest level theoretical/formal model of computation that will ever be
+conceived.
 
 Like any [formal system](https://en.wikipedia.org/wiki/Formal_system), it's an abstract structure used for inferring theorems from axioms according to a set of rules.
 
-It is based on function abstraction and application using variable binding and substitution.
+It is based on ***function abstraction (or creation)*** and ***function
+application*** using variable binding and substitution.
 
 It's a set of [Axioms](https://en.wikipedia.org/wiki/Axiom) (something taken to be true as a starting point for further reasoning).
 
