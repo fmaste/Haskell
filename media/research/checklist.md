@@ -1,5 +1,6 @@
 - General
   - [ ] A History of Haskell: Being Lazy with Class
+  - [ ] Fun with type functions
 - Type System
   - [ ] Functional Programming with Overloading and Higher-Order Polymorphism - Mark P. Jones
   - [ ] Type Classes with Functional Dependencies - Mark P. Jones
