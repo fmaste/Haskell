@@ -1,9 +1,9 @@
 # Type Checking and Type Inference in Action
 
-The most difficult part in Haskell for beginners is the type system and the
-compiler's error messages. Most of this arise from how type classes work and how
-we are used to think about classes and it's implementations in object oriented
-languages or how operators work on dynamically typed languages.
+One of the most difficult part of Haskell for beginners is the type system and
+the compiler's error messages. Most of this arise from how type classes work and
+how we are used to think about classes and it's implementations in object
+oriented languages or how operators work on dynamically typed languages.
 
 Evolving the type system towards type safety to try to eliminates a large class
 of erroneous programs while allowing as much good programs as possible is not an
