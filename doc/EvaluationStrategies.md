@@ -1,6 +1,16 @@
 # Evaluation Strategies
 
-How function arguments are processed when an expression is being evaluated.
+The evaluation strategy determines when to evaluate function arguments, not to
+be confused with [Lambda Calculus](Lambda.md) reduction strategies.
+
+Evaluation strategies combined with binding strategies, that determine what part
+of the argument to bind to formal parameters, form the ***parameter passing
+techniques*** as classified by Erik Crank and Matthias Felleisen in
+[Parameter-passing and the lambda calculus](https://doi.org/10.1145/99583.99616)
+.
+
+The choice of a parameter-passing technique is an important element in the
+design of a high-level programming language.
 
 ```haskell
 Prelude> length [1,(1/0),3,4,5]
@@ -11,8 +21,8 @@ Prelude> take 5 [1,2..]
 
 ## Strictness
 
-[Lambda Calculus](Lambda.md) has two main reduction models:
-- Strict: All arguments are evaluated before entering the body of a function.
+[Lambda Calculus](Lambda.md) has two prevailing evaluation strategies:
+- Strict/eager: All arguments are evaluated before entering the body of a function.
 - Non-strict: The arguments are evaluated only when required.
 
 If you have this example function shown below:
@@ -23,7 +33,8 @@ const a b = a
 
 const (1+1) (1/0)
 ```
-It will return ```2``` using non-strict evaluation and ```error``` using strict.
+It will return ```2``` using non-strict evaluation and ```error``` using strict
+evaluation.
 
 ### Binding Strategies
 
@@ -37,6 +48,14 @@ It will return ```2``` using non-strict evaluation and ```error``` using strict.
     - Arguments are substituted directly into the function body.
   - Call-by-need
     - Call-by-name with [memoization](https://en.wikipedia.org/wiki/Memoization), if the function argument is evaluated its value is stored for subsequent uses. So the expression is evaluated no more than once.
+
+## 
+
+Thanks to the work of
+[Church, Rosser](https://en.wikipedia.org/wiki/Church%E2%80%93Rosser_theorem)
+and [Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) we know that for any
+two reduction and evaluation paths taken, you can still evaluate both to the
+same expression (minus non-termination).
 
 ## Haskell's definition
 
@@ -149,7 +168,10 @@ TODO: Look for this papers:
 
 Hughes 1984 argues for lazy evaluation as a mechanism for improving program modularity through separation of concerns, by easing independent implementation of producers and consumers of data streams. Launchbury 1993 describes some difficulties that lazy evaluation introduces, particularly in analyzing a program's storage requirements, and proposes an operational semantics to aid in such analysis. Harper 2009 proposes including both strict and lazy evaluation in the same language, using the language's type system to distinguish them.
 
-- [G.D. Plotkin, Call-by-name, call-by-value and the λ-calculus, Theoretical Computer Science, Volume 1, Issue 2, December 1975, Pages 125-159](https://doi.org/10.1016/0304-3975\(75)90017-1)
+- [Church–Rosser Theorem - Wikipedia](https://en.wikipedia.org/wiki/Church%E2%80%93Rosser_theorem)
+- [Erik Crank and Matthias Felleisen. 1991. Parameter-passing and the lambda calculus. In Proceedings of the 18th ACM SIGPLAN-SIGACT symposium on Principles of programming languages (POPL '91). Association for Computing Machinery, New York, NY, USA, 233–244.](https://doi.org/10.1145/99583.99616)
+  - [PDF](https://dl.acm.org/doi/pdf/10.1145/99583.99616)
+- [G.D. Plotkin, Call-by-name, call-by-value and the λ-calculus, Theoretical Computer Science, Volume 1, Issue 2, December 1975, Pages 125-159](https://doi.org/10.1016/0304-3975(75)90017-1)
   - [PDF](https://homepages.inf.ed.ac.uk/gdp/publications/cbn_cbv_lambda.pdf)
 - [What's the difference between reduction strategies and evaluation strategies? - StackExchange](https://cstheory.stackexchange.com/questions/32551/whats-the-difference-between-reduction-strategies-and-evaluation-strategies)
 - [Evaluation Strategy - Wikipedia](https://en.wikipedia.org/w/index.php?title=Evaluation_strategy&oldid=681333382)
