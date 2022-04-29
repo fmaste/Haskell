@@ -51,11 +51,15 @@ evaluation.
 
 ## 
 
-Thanks to the work of
-[Church, Rosser](https://en.wikipedia.org/wiki/Church%E2%80%93Rosser_theorem)
-and [Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) we know that for any
+Thanks first to the work of
+[Church and Rosser](https://en.wikipedia.org/wiki/Church%E2%80%93Rosser_theorem)
+and later with [Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) and
+[Crank and Felleisen](https://doi.org/10.1145/99583.99616) we know that for any
 two reduction and evaluation paths taken, you can still evaluate both to the
 same expression (minus non-termination).
+
+No wonder why GHC/Haskell try to stay true to theory.
+See [Type checker and type inference in action](doc/TypeCheckingAndInference.md)
 
 ## Haskell's definition
 
