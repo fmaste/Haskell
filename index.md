@@ -1,4 +1,4 @@
-# [Haskell](http://www.haskell.org/), an advanced, purely functional programming language
+# An advanced, purely functional programming language
 
 A ***mixture of quick reference guide and Haskell tutorial*** full of external references [^1] [^2].
 
