@@ -49,6 +49,7 @@ It will return ```2``` using non-strict evaluation and ```error``` using strict.
 > The function ```seq``` is defined by the equations:
 >
 > ```seq ⊥ b  =  ⊥```
+>
 > ```seq a b  =  b, if a ≠ ⊥```
 >
 > ```seq``` is usually introduced to improve performance by avoiding unneeded
@@ -65,8 +66,11 @@ It will return ```2``` using non-strict evaluation and ```error``` using strict.
 > non-strict application.
 >
 > ```infixr 0 $, $!```
+>
 > ```($), ($!) :: (a -> b) -> a -> b```
+>
 > ```f $  x   =          f x```
+>
 > ```f $! x   =  x ‘seq‘ f x```
 >
 > The non-strict application operator ```$``` may appear redundant, since
