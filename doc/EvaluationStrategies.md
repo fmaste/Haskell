@@ -40,25 +40,44 @@ It will return ```2``` using non-strict evaluation and ```error``` using strict.
 
 ## Haskell's definition
 
-> Function application in Haskell is ***non-strict***; that is, a function argument is evaluated only when required. Sometimes it is desirable to force the evaluation of a value, using the ```seq``` function:
+> Function application in Haskell is ***non-strict***; that is, a function
+> argument is evaluated only when required. Sometimes it is desirable to force
+> the evaluation of a value, using the ```seq``` function:
+>
 >  ```seq :: a -> b -> b```
 >
 > The function ```seq``` is defined by the equations:
+>
 > ```seq ⊥ b  =  ⊥```
 > ```seq a b  =  b, if a ≠ ⊥```
 >
-> ```seq``` is usually introduced to improve performance by avoiding unneeded laziness. Strict datatypes (see Section [4.2.1](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-710004.2.1)) are defined in terms of the ```$!``` operator. However, the provision of ```seq``` has important semantic consequences, because it is available at every type. As a consequence, ```⊥``` is not the same as ```\x -> ⊥```, since ```seq``` can be used to distinguish them. For the same reason, the existence of ```seq``` weakens Haskell’s parametricity properties.
+> ```seq``` is usually introduced to improve performance by avoiding unneeded
+> laziness. Strict datatypes
+> (see Section [4.2.1](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-710004.2.1))
+> are defined in terms of the ```$!``` operator. However, the provision of
+> ```seq``` has important semantic consequences, because it is available at
+> every type. As a consequence, ```⊥``` is not the same as ```\x -> ⊥```, since
+> ```seq``` can be used to distinguish them. For the same reason, the existence
+> of ```seq``` weakens Haskell’s parametricity properties.
 >
-> The operator ```$!``` is strict (call-by-value) application, and is defined in terms of ```seq```. The Prelude also defines the ```$``` operator to perform non-strict application.
+> The operator ```$!``` is strict (call-by-value) application, and is defined in
+> terms of ```seq```. The Prelude also defines the ```$``` operator to perform
+> non-strict application.
+>
 > ```infixr 0 $, $!```
 > ```($), ($!) :: (a -> b) -> a -> b```
 > ```f $  x   =          f x```
 > ```f $! x   =  x ‘seq‘ f x```
 >
-> The non-strict application operator ```$``` may appear redundant, since ordinary application ```(f x)``` means the same as ```(f $ x)```. However, ```$``` has low, right-associative binding precedence, so it sometimes allows parentheses to be omitted; for example:
+> The non-strict application operator ```$``` may appear redundant, since
+> ordinary application ```(f x)``` means the same as ```(f $ x)```. However,
+> ```$``` has low, right-associative binding precedence, so it sometimes allows
+> parentheses to be omitted; for example:
+>
 > ```f $ g $ h x  =  f (g (h x))```
 >
-> It is also useful in higher-order situations, such as ```map ($ 0) xs```, or ```zipWith ($) fs xs```. 
+> It is also useful in higher-order situations, such as ```map ($ 0) xs```, or
+> ```zipWith ($) fs xs```.
 
 [Haskell 2010 report - 6.2 Strict Evaluation](https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1260006.2).
 
