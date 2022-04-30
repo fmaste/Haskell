@@ -81,15 +81,16 @@ If ```M``` has no free variables ```M``` is called a ***combinator***.
 
 ## Theorems
 
-TODO:
+TODO: Time is finite. I am working on how to explain it in a concise and easy way!
 
 Three theorems of lambda calculus are
 - beta-conversion
 - alpha-conversion
 - eta-conversion
+
 Lambda-reduction (also called lambda conversion) refers to all three
 
-# Types
+# Typed Lambda Calculus
 
 Since the development of Hindley–Milner type inference in the 1970s, functional programming languages have tended to use typed lambda calculus, rejecting all invalid programs at compilation time and risking false positive errors, as opposed to the untyped lambda calculus, that accepts all valid programs at compilation time and risks false negative errors.
 
