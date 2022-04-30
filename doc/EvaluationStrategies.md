@@ -1,13 +1,14 @@
 # Evaluation Strategies
 
-The evaluation strategy determines when to evaluate function arguments, not to
-be confused with [Lambda Calculus](Lambda.md) reduction strategies.
+The evaluation strategy determines when to evaluate the arguments of a function.
 
-Evaluation strategies combined with binding strategies, that determine what part
-of the argument to bind to formal parameters, form the ***parameter passing
+Not to be confused with [Lambda Calculus](Lambda.md) reduction strategies, the
+process by which a more complex expression is reduced to a simpler expression.
+
+Evaluation strategies combined with the binding strategies that determine what
+kind of value to pass to the function, form the ***parameter passing
 techniques*** as classified by Erik Crank and Matthias Felleisen in
-[Parameter-passing and the lambda calculus](https://doi.org/10.1145/99583.99616)
-.
+[Parameter-passing and the lambda calculus](https://doi.org/10.1145/99583.99616).
 
 The choice of a parameter-passing technique is an important element in the
 design of a high-level programming language.
@@ -19,11 +20,43 @@ Prelude> take 5 [1,2..]
 [1,2,3,4,5]
 ```
 
+## A Little Terminology
+
+Parameters are ```a``` and ```b``` and arguments are ```1``` and ```2```:
+```haskell
+add :: Int -> Int -> Int
+add a b = a + b
+
+main :: IO ()
+main = print (add 1 2)
+```
+
+## Confluence
+
+Thanks first to the work of
+[Church and Rosser](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/)
+and later [Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) and
+[Crank and Felleisen](https://doi.org/10.1145/99583.99616) we know that for any
+two reduction and evaluation paths taken, both will evaluate to the same
+expression (minus non-termination).
+
+Non-termination is key. In imperative languages the difference between a
+call-by-value strategy and a call-by-name strategy can produce different results
+for the same program, whereas in functional languages the only observable
+difference is its termination behavior.
+
+Wonder why Haskell/GHC tries to stay true to the theory?
+See [Type checker and type inference in action](doc/TypeCheckingAndInference.md)
+
 ## Strictness
 
 [Lambda Calculus](Lambda.md) has two prevailing evaluation strategies:
-- Strict/eager: All arguments are evaluated before entering the body of a function.
-- Non-strict: The arguments are evaluated only when required.
+- ***Strict***/eager/greedy:
+  - All arguments are evaluated before entering the body of a function.
+  - If any subexpression fails to have a value, the whole expression fails with it.
+- ***Non-strict***:
+  - The arguments are evaluated only when required.
+  - Expressions can have a value even if some of their subexpressions do not.
 
 If you have this example function shown below:
 
@@ -48,18 +81,6 @@ evaluation.
     - Arguments are substituted directly into the function body.
   - Call-by-need
     - Call-by-name with [memoization](https://en.wikipedia.org/wiki/Memoization), if the function argument is evaluated its value is stored for subsequent uses. So the expression is evaluated no more than once.
-
-## 
-
-Thanks first to the work of
-[Church and Rosser](https://en.wikipedia.org/wiki/Church%E2%80%93Rosser_theorem)
-and later with [Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) and
-[Crank and Felleisen](https://doi.org/10.1145/99583.99616) we know that for any
-two reduction and evaluation paths taken, you can still evaluate both to the
-same expression (minus non-termination).
-
-No wonder why GHC/Haskell try to stay true to theory.
-See [Type checker and type inference in action](doc/TypeCheckingAndInference.md)
 
 ## Haskell's definition
 
@@ -172,11 +193,16 @@ TODO: Look for this papers:
 
 Hughes 1984 argues for lazy evaluation as a mechanism for improving program modularity through separation of concerns, by easing independent implementation of producers and consumers of data streams. Launchbury 1993 describes some difficulties that lazy evaluation introduces, particularly in analyzing a program's storage requirements, and proposes an operational semantics to aid in such analysis. Harper 2009 proposes including both strict and lazy evaluation in the same language, using the language's type system to distinguish them.
 
+- [Church, A., Rosser, J. B.: Some Properties of Conversion, Trans. Amer. Math. Soc., 39, 1936, 472–482](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/)
+  - [PDF](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/S0002-9947-1936-1501858-0.pdf)
+- [Dexter Kozen. 2010. Church-Rosser Made Easy. Fundam. Inf. 103, 1–4 (January 2010), 129–136.](https://dl.acm.org/doi/abs/10.5555/1922521.1922529)
+  - [PDF]()
 - [Church–Rosser Theorem - Wikipedia](https://en.wikipedia.org/wiki/Church%E2%80%93Rosser_theorem)
 - [Erik Crank and Matthias Felleisen. 1991. Parameter-passing and the lambda calculus. In Proceedings of the 18th ACM SIGPLAN-SIGACT symposium on Principles of programming languages (POPL '91). Association for Computing Machinery, New York, NY, USA, 233–244.](https://doi.org/10.1145/99583.99616)
   - [PDF](https://dl.acm.org/doi/pdf/10.1145/99583.99616)
 - [G.D. Plotkin, Call-by-name, call-by-value and the λ-calculus, Theoretical Computer Science, Volume 1, Issue 2, December 1975, Pages 125-159](https://doi.org/10.1016/0304-3975(75)90017-1)
   - [PDF](https://homepages.inf.ed.ac.uk/gdp/publications/cbn_cbv_lambda.pdf)
-- [What's the difference between reduction strategies and evaluation strategies? - StackExchange](https://cstheory.stackexchange.com/questions/32551/whats-the-difference-between-reduction-strategies-and-evaluation-strategies)
 - [Evaluation Strategy - Wikipedia](https://en.wikipedia.org/w/index.php?title=Evaluation_strategy&oldid=681333382)
 - [Reduction Strategy - Wikipedia](https://en.wikipedia.org/w/index.php?title=Reduction_strategy_%28lambda_calculus%29&oldid=639577658)
+- [What's the difference between reduction strategies and evaluation strategies? - StackExchange](https://cstheory.stackexchange.com/questions/32551/whats-the-difference-between-reduction-strategies-and-evaluation-strategies)
+- [Differences Between Parameters and Arguments](https://developer.mozilla.org/en-US/docs/Glossary/Parameter)
