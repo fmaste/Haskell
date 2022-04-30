@@ -22,6 +22,9 @@ functional model and it is based on ***function abstraction (or creation)*** and
 
 ## Relevance
 
+Functional programming languages extend pure λ-calculi with a variety of constructs
+that are indispensable for programming
+
 Functional languages are based on Lambda Calculus which can be explained in a
 few words and its grammar is just 3 lines. Adding (a lot) of syntactic sugar on
 top languages based on it can be built and benefit from years of research.

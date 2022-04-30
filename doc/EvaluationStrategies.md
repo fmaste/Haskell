@@ -1,16 +1,11 @@
 # Evaluation Strategies
 
+Functional programming languages extend pure [Lambda Calculus]((Lambda.md)) with
+a variety of constructs (AKA tons of syntactic sugar) that make it useful for
+programmers.
+
 The evaluation strategy determines how to evaluate argument expressions during
 function application.
-
-Evaluation strategies combined with the more specific notion of binding
-strategies that are the ones that determine what kind of value to pass to the
-function, form the ***parameter passing techniques*** as classified by Erik
-Crank and Matthias Felleisen in
-[Parameter-passing and the lambda calculus](https://doi.org/10.1145/99583.99616).
-
-The choice of a parameter-passing technique is an important element in the
-design of a high-level programming language.
 
 ```haskell
 Prelude> length [1,(1/0),3,4,5]
@@ -21,7 +16,7 @@ Prelude> take 5 [1,2..]
 
 ## A Little Terminology
 
-Not to be confused with [Lambda Calculus](Lambda.md) reduction strategies, the
+Not to be confused with [λ-Calculus](Lambda.md) reduction strategies, the
 process by which a more complex expression is reduced to a simpler expression.
 
 Also notice that we are not talking about the evaluation order when not
@@ -29,42 +24,36 @@ constrained by operator precedence or associativity, that in languages like C
 is unspecified. We are talking about how the expressions that need further
 evaluation and are used as function arguments are treated.
 
-The parameters are ```a``` and ```b``` and the arguments are ```1``` and ```2*3```:
+By parameters we mean ```a``` and ```b``` and the arguments are ```1``` and
+```2*3``` in the example below:
 ```haskell
 add :: Int -> Int -> Int
 add a b = a + b
 
 main :: IO ()
-main = print (add 1 (2*3))
+main = print $ add 1 (2*3)
 ```
 
-## Confluence
+## Classification
 
-Thanks first to the work of
-[Church and Rosser](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/)
-and later [Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) and
-[Crank and Felleisen](https://doi.org/10.1145/99583.99616) we know that for any
-two reduction and evaluation paths taken, both will evaluate to the same
-expression (minus non-termination).
+We use the classification described by Erik Crank and Matthias Felleisen in
+[Parameter-passing and the lambda calculus](https://doi.org/10.1145/99583.99616)
+where ***evaluation strategies*** are combined with the more specific notion of
+***binding strategies*** that are the ones that determine what kind of value to
+pass to the function.
 
-Non-termination is key. In most imperative languages different evaluation
-strategies can produce different results for the same program, whereas purely
-functional languages the only output difference is its termination behavior.
+This two form the ***parameter passing techniques*** and its choice is an
+important element in the design of a high-level programming language.
 
-No wonder why Haskell and GHC try to stay true to theory. See
-[Type checker and type inference in action](doc/TypeCheckingAndInference.md)
-to get an idea of what it means for the usability of the language to be pure (no
-side-effects), non-strict and statically typed.
+### Strictness
 
-## Strictness
+[λ-Calculus](Lambda.md) has two prevailing evaluation strategies:
 
-[Lambda Calculus](Lambda.md) has two prevailing evaluation strategies:
-
-- ***Strict***/eager/greedy/applicative order evaluation:
-  - All arguments are evaluated before entering the body of a function.
+- ***Strict*** (or eager/greedy/applicative order) evaluation:
+  - All argument expressions are evaluated before entering the body of a function.
   - If any subexpression fails to have a value, the whole expression fails.
-- ***Non-strict***/normal order evaluation:
-  - The arguments are evaluated only when required.
+- ***Non-strict*** (or normal order) evaluation:
+  - All argument expressions are passed unevaluated to the body of the function.
   - Expressions can have a value even if some of their subexpressions do not.
 
 If we have this example function shown below:
@@ -81,19 +70,44 @@ and ```error``` using strict evaluation.
 We defined if argument expressions are evaluated before function application or
 not, but what is passed as value to the function in those parameters?
 
-- [Strict](https://en.wikipedia.org/wiki/Evaluation_strategy#Strict_binding_strategies)
-  - Call-by-value
+- [Strict:](https://en.wikipedia.org/wiki/Evaluation_strategy#Strict_binding_strategies)
+  - Call-by-value:
     - The evaluated values of the argument expressions are bound to the corresponding parameters in the function.
-  - Call-by-reference (or pass by reference)
+  - Call-by-reference (or pass-by-reference):
     - Parameters are bound to a reference to the variable used as argument, rather than a copy of its value.
-- [Non-strict](https://en.wikipedia.org/wiki/Evaluation_strategy#Non-strict_binding_strategies)
-  - Call-by-name
+- [Non-strict:](https://en.wikipedia.org/wiki/Evaluation_strategy#Non-strict_binding_strategies)
+  - Call-by-name:
     - Argument expressions are substituted directly into the function body.
-  - Call-by-need
+  - Call-by-need:
     - Call-by-name with [memoization](https://en.wikipedia.org/wiki/Memoization), if the function argument is evaluated its value is stored for subsequent uses. So the expression is evaluated no more than once.
 
 Some authors refer to strict evaluation as call-by-value due to the
 call-by-value binding strategy requiring strict evaluation.
+
+## Confluence
+
+> A language is purely functional if (i) it includes every simply typed
+> λ-calculus term, and (ii) its call-by-name, call-by-need, and call-by-value
+> implementations are equivalent (modulo divergence and errors).
+>
+> [A. M. R. SABRY, “What is a purely functional language?”, Journal of Functional Programming, vol. 8, no. 1, pp. 1–22, 1998.](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.27.7800)
+
+Thanks first to the work of
+[Church and Rosser](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/)
+and later [Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) and
+[Crank and Felleisen](https://doi.org/10.1145/99583.99616) we know that for any
+two reduction and evaluation paths taken, both will evaluate to the same
+expression (minus non-termination).
+
+Non-termination is key. In most imperative languages different evaluation
+strategies can produce different results for the same program, whereas in
+[purely functional languages](https://en.wikipedia.org/wiki/Purely_functional_programming)
+the only output difference is its termination behavior.
+
+No wonder why Haskell and GHC try to stay true to theory. See
+[Type checker and type inference in action](doc/TypeCheckingAndInference.md)
+to get an idea of what it means for the usability of the language to be pure (no
+side-effects), non-strict and statically typed.
 
 ## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
 
@@ -215,6 +229,8 @@ Hughes 1984 argues for lazy evaluation as a mechanism for improving program modu
   - [PDF](https://dl.acm.org/doi/pdf/10.1145/99583.99616)
 - [G.D. Plotkin, Call-by-name, call-by-value and the λ-calculus, Theoretical Computer Science, Volume 1, Issue 2, December 1975, Pages 125-159](https://doi.org/10.1016/0304-3975(75)90017-1)
   - [PDF](https://homepages.inf.ed.ac.uk/gdp/publications/cbn_cbv_lambda.pdf)
+- [A. M. R. SABRY, “What is a purely functional language?”, Journal of Functional Programming, vol. 8, no. 1, pp. 1–22, 1998.](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.27.7800)
+  - [PDF](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/3A39D50DA48F628D17D9A768A1FA39C3/S0956796897002943a.pdf/what-is-a-purely-functional-language.pdf)
 - [Evaluation Strategy - Wikipedia](https://en.wikipedia.org/w/index.php?title=Evaluation_strategy&oldid=681333382)
 - [Reduction Strategy - Wikipedia](https://en.wikipedia.org/w/index.php?title=Reduction_strategy_%28lambda_calculus%29&oldid=639577658)
 - [What's the difference between reduction strategies and evaluation strategies? - StackExchange](https://cstheory.stackexchange.com/questions/32551/whats-the-difference-between-reduction-strategies-and-evaluation-strategies)
