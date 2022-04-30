@@ -26,7 +26,8 @@ process by which a more complex expression is reduced to a simpler expression.
 
 Also notice that we are not talking about the evaluation order when not
 constrained by operator precedence or associativity, that in languages like C
-is unspecified.
+is unspecified. We are talking about how the expressions that need further
+evaluation and are used as function arguments are treated.
 
 The parameters are ```a``` and ```b``` and the arguments are ```1``` and ```2*3```:
 ```haskell
