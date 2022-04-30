@@ -1,13 +1,14 @@
 # Evaluation Strategies
 
-The evaluation strategy determines when to evaluate the arguments of a function.
+The evaluation strategy determines how to evaluate the arguments of a function.
 
 Not to be confused with [Lambda Calculus](Lambda.md) reduction strategies, the
 process by which a more complex expression is reduced to a simpler expression.
 
-Evaluation strategies combined with the binding strategies that determine what
-kind of value to pass to the function, form the ***parameter passing
-techniques*** as classified by Erik Crank and Matthias Felleisen in
+Evaluation strategies combined with the more specific notions of binding
+strategies that determine what kind of value to pass to the function, form the
+***parameter passing techniques*** as classified by Erik Crank and Matthias
+Felleisen in
 [Parameter-passing and the lambda calculus](https://doi.org/10.1145/99583.99616).
 
 The choice of a parameter-passing technique is an important element in the
@@ -40,21 +41,22 @@ and later [Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) and
 two reduction and evaluation paths taken, both will evaluate to the same
 expression (minus non-termination).
 
-Non-termination is key. In imperative languages the difference between a
-call-by-value strategy and a call-by-name strategy can produce different results
-for the same program, whereas in functional languages the only observable
-difference is its termination behavior.
+Non-termination is key. In most imperative languages different evaluation
+strategies can produce different results for the same program, whereas in most
+functional languages the only output difference is its termination behavior.
 
-Wonder why Haskell/GHC tries to stay true to the theory?
-See [Type checker and type inference in action](doc/TypeCheckingAndInference.md)
+No wonder why Haskell/GHC try to stay true to theory. See
+[Type checker and type inference in action](doc/TypeCheckingAndInference.md)
+to get an idea of what it means for the usability of the language to be pure (no
+side-effects), non-strict and statically typed.
 
 ## Strictness
 
 [Lambda Calculus](Lambda.md) has two prevailing evaluation strategies:
-- ***Strict***/eager/greedy:
+- ***Strict***/eager/greedy/applicative order evaluation:
   - All arguments are evaluated before entering the body of a function.
   - If any subexpression fails to have a value, the whole expression fails.
-- ***Non-strict***:
+- ***Non-strict***/normal order evaluation:
   - The arguments are evaluated only when required.
   - Expressions can have a value even if some of their subexpressions do not.
 
@@ -66,6 +68,9 @@ const a b = a
 ```
 Calling ```const (1+1) (1/0)``` will return ```2``` using non-strict evaluation
 and ```error``` using strict evaluation.
+
+Some authors refer to strict evaluation as "call by value" due to the call-by-value binding strategy requiring strict evaluation
+
 
 ### Binding Strategies
 
