@@ -52,7 +52,7 @@ important element in the design of a high-level programming language.
 - ***Strict*** (or eager/greedy/applicative order) evaluation:
   - All argument expressions are evaluated before entering the body of a function.
   - If any subexpression fails to have a value, the whole expression fails.
-- ***Non-strict*** (or normal order) evaluation:
+- ***Non-strict*** (or normal order but not lazy) evaluation:
   - All argument expressions are passed unevaluated to the body of the function.
   - Expressions can have a value even if some of their subexpressions do not.
 
