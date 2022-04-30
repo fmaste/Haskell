@@ -39,7 +39,8 @@ The set of well-formed formula lambda expressions or λ-terms, ```Λ```, is defi
 3. Abstraction: If ```x``` is a variable and ```M ∈ Λ```, then ```(λx[M]) ∈ Λ```.
    - If the formula ```M``` contains an occurrence of ```x``` as a free variable in ```M```, any occurrence of ```x``` in ```λx[M]``` is an occurrence of ```x``` as a bound variable in ```λx[M]```, and an occurrence of a variable ```y```, other than ```x```, as a free (bound) variable in ```M``` is an occurrence of ```y``` as a free (bound) variable in ```λx[M]```.
 
-The main idea is forming functions by abstraction and applying a function to an argument.
+The main idea is forming functions by abstraction and applying functions
+parameters to arguments.
 
 ### In BNF notation
 
@@ -104,11 +105,9 @@ Since the development of Hindley–Milner type inference in the 1970s, functiona
 - [General recursive functions / partial recursive function / μ-recursive functions](https://en.wikipedia.org/wiki/General_recursive_function)
   - The smallest class of functions (with arbitrarily many arguments) that is closed under composition, recursion, and minimization, and includes zero, successor, and all projections.
 - [History of the Church–Turing thesis](https://en.wikipedia.org/wiki/History_of_the_Church%E2%80%93Turing_thesis)
-- http://www.mathematicaguidebooks.org/
+- [The Mathematica GuideBooks](http://www.mathematicaguidebooks.org/)
 - Seldin (2006). The logic of Curry and Church. In Handbook of the History of Logic, vol.5: Logic from Russell to Church, p. 819—874. North-Holland: Amsterdam. 
-  - https://www.elsevier.com/search-results?labels=books&book-series=Handbook%20of%20the%20History%20of%20Logic&sort=document.published-asc
-  - https://www.sciencedirect.com/handbook/handbook-of-the-history-of-logic
-  - https://people.uleth.ca/~jonathan.seldin/CCL.pdf
+  - Link [1](https://www.elsevier.com/search-results?labels=books&book-series=Handbook%20of%20the%20History%20of%20Logic&sort=document.published-asc), [2](https://www.sciencedirect.com/handbook/handbook-of-the-history-of-logic) and [3](https://people.uleth.ca/~jonathan.seldin/CCL.pdf).
 - http://cs.brown.edu/people/jsavage/book/
   - https://cs.brown.edu/people/jsavage/book/pdfs/ModelsOfComputation.pdf
   - Types: [Church (1940). A formulation of the simple theory of types. Journal of Symbolic Logic 5(2):56—68](www.classes.cs.uchicago.edu/archive/2007/spring/32001-1/papers/church-1940.pdf).
