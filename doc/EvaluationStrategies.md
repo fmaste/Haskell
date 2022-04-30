@@ -25,16 +25,16 @@ Not to be confused with [Lambda Calculus](Lambda.md) reduction strategies, the
 process by which a more complex expression is reduced to a simpler expression.
 
 Also notice that we are not talking about the evaluation order when not
-constrained by operator precedence and associativity, that in languages like C
+constrained by operator precedence or associativity, that in languages like C
 is unspecified.
 
-The parameters are ```a``` and ```b``` and the arguments are ```1``` and ```2```:
+The parameters are ```a``` and ```b``` and the arguments are ```1``` and ```2*3```:
 ```haskell
 add :: Int -> Int -> Int
 add a b = a + b
 
 main :: IO ()
-main = print (add 1 2)
+main = print (add 1 (2*3))
 ```
 
 ## Confluence
@@ -50,7 +50,7 @@ Non-termination is key. In most imperative languages different evaluation
 strategies can produce different results for the same program, whereas in most
 functional languages the only output difference is its termination behavior.
 
-No wonder why Haskell/GHC try to stay true to theory. See
+No wonder why Haskell and GHC try to stay true to theory. See
 [Type checker and type inference in action](doc/TypeCheckingAndInference.md)
 to get an idea of what it means for the usability of the language to be pure (no
 side-effects), non-strict and statically typed.
@@ -58,6 +58,7 @@ side-effects), non-strict and statically typed.
 ## Strictness
 
 [Lambda Calculus](Lambda.md) has two prevailing evaluation strategies:
+
 - ***Strict***/eager/greedy/applicative order evaluation:
   - All arguments are evaluated before entering the body of a function.
   - If any subexpression fails to have a value, the whole expression fails.
@@ -74,23 +75,34 @@ const a b = a
 Calling ```const (1+1) (1/0)``` will return ```2``` using non-strict evaluation
 and ```error``` using strict evaluation.
 
-Some authors refer to strict evaluation as "call by value" due to the call-by-value binding strategy requiring strict evaluation
-
-
 ### Binding Strategies
+
+We defined if argument expressions are evaluated before function application or
+not, but what is passed as value to the function in those parameters?
 
 - [Strict](https://en.wikipedia.org/wiki/Evaluation_strategy#Strict_binding_strategies)
   - Call-by-value
-    - The evaluated value of the argument expression is bound to the corresponding variable in the function.
+    - The evaluated values of the argument expressions are bound to the corresponding parameters in the function.
   - Call-by-reference (or pass by reference)
-    - A parameter is bound to a reference to the variable used as argument, rather than a copy of its value.
+    - Parameters are bound to a reference to the variable used as argument, rather than a copy of its value.
 - [Non-strict](https://en.wikipedia.org/wiki/Evaluation_strategy#Non-strict_binding_strategies)
   - Call-by-name
-    - Arguments are substituted directly into the function body.
+    - Argument expressions are substituted directly into the function body.
   - Call-by-need
     - Call-by-name with [memoization](https://en.wikipedia.org/wiki/Memoization), if the function argument is evaluated its value is stored for subsequent uses. So the expression is evaluated no more than once.
 
+Some authors refer to strict evaluation as call-by-value due to the
+call-by-value binding strategy requiring strict evaluation.
+
+## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
+
+Non-strictness is often confused with lazy evaluation.
+
+Lazy evaluation is classified as a binding technique rather than an evaluation strategy.
+
 ## Haskell's definition
+
+Haskell is often described as a lazy language. However, the language specification simply states that Haskell is ***[non-strict](https://wiki.haskell.org/Non-strict_semantics)***, which is not quite the same thing as ***[lazy](https://wiki.haskell.org/Lazy_evaluation)***.
 
 > Function application in Haskell is ***non-strict***; that is, a function
 > argument is evaluated only when required. Sometimes it is desirable to force
@@ -137,19 +149,11 @@ Some authors refer to strict evaluation as "call by value" due to the call-by-va
 
 [Haskell 2010 report - 6.2 Strict Evaluation](https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1260006.2).
 
-## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
-
-Non-strictness is often confused with lazy evaluation.
-
-Haskell is often described as a lazy language. However, the language specification simply states that Haskell is ***[non-strict](https://wiki.haskell.org/Non-strict_semantics)***, which is not quite the same thing as ***[lazy](https://wiki.haskell.org/Lazy_evaluation)***.
-
-Lazy evaluation is classified as a binding technique rather than an evaluation strategy.
-
-### Note
-
 A Haskell implementation using call-by-name, would be technically conforming?
 
-# Memoization
+## Memoization
+
+Technically, lazy evaluation means call-by-name plus [sharing](https://wiki.haskell.org/Sharing).
 
 Now that we know that Haskell computes any given expression at most once every
 time the lambda expression is entered, we can use the memoization optimization
