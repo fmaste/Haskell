@@ -20,6 +20,12 @@ best known is probably the [finite state machine](https://en.wikipedia.org/wiki/
 functional model and it is based on ***function abstraction (or creation)*** and
 ***function application*** using variable binding and substitution.
 
+## Relevance
+
+Functional languages are based on Lambda Calculus which can be explained in a
+few words and its grammar is just 3 lines. Adding (a lot) of syntactic sugar on
+top languages based on it can be built and benefit from years of research.
+
 ## Alphabet
 
 The alphabet is the finite set of symbols which concatenate formulas. Or a formula is just a finite string of symbols taken from the alphabet.

@@ -48,7 +48,7 @@ two reduction and evaluation paths taken, both will evaluate to the same
 expression (minus non-termination).
 
 Non-termination is key. In most imperative languages different evaluation
-strategies can produce different results for the same program, whereas in most
+strategies can produce different results for the same program, whereas purely
 functional languages the only output difference is its termination behavior.
 
 No wonder why Haskell and GHC try to stay true to theory. See
@@ -67,7 +67,7 @@ side-effects), non-strict and statically typed.
   - The arguments are evaluated only when required.
   - Expressions can have a value even if some of their subexpressions do not.
 
-If you have this example function shown below:
+If we have this example function shown below:
 
 ```haskell
 const :: a -> b -> a
