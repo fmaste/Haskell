@@ -113,4 +113,4 @@ Since the development of Hindley–Milner type inference in the 1970s, functiona
   - Types: [Church (1940). A formulation of the simple theory of types. Journal of Symbolic Logic 5(2):56—68](www.classes.cs.uchicago.edu/archive/2007/spring/32001-1/papers/church-1940.pdf).
 - [Stanford Encyclopedia of Philosophy: The Lambda Calculus](https://plato.stanford.edu/entries/lambda-calculus/)
 - [CS 312 Recitation 26 The Lambda Calculus](https://www.cs.cornell.edu/courses/cs3110/2008fa/recitations/rec26.html)
-- http://dev.stephendiehl.com/fun/003_lambda_calculus.html
+- [Lambda Calculus - Write You a Calculus](http://dev.stephendiehl.com/fun/003_lambda_calculus.html)
