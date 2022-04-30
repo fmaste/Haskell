@@ -22,7 +22,7 @@ Prelude> take 5 [1,2..]
 
 ## A Little Terminology
 
-Parameters are ```a``` and ```b``` and arguments are ```1``` and ```2```:
+The parameters are ```a``` and ```b``` and the arguments are ```1``` and ```2```:
 ```haskell
 add :: Int -> Int -> Int
 add a b = a + b
@@ -53,7 +53,7 @@ See [Type checker and type inference in action](doc/TypeCheckingAndInference.md)
 [Lambda Calculus](Lambda.md) has two prevailing evaluation strategies:
 - ***Strict***/eager/greedy:
   - All arguments are evaluated before entering the body of a function.
-  - If any subexpression fails to have a value, the whole expression fails with it.
+  - If any subexpression fails to have a value, the whole expression fails.
 - ***Non-strict***:
   - The arguments are evaluated only when required.
   - Expressions can have a value even if some of their subexpressions do not.
@@ -63,11 +63,9 @@ If you have this example function shown below:
 ```haskell
 const :: a -> b -> a
 const a b = a
-
-const (1+1) (1/0)
 ```
-It will return ```2``` using non-strict evaluation and ```error``` using strict
-evaluation.
+Calling ```const (1+1) (1/0)``` will return ```2``` using non-strict evaluation
+and ```error``` using strict evaluation.
 
 ### Binding Strategies
 
