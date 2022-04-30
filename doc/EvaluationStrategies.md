@@ -1,12 +1,12 @@
 # Evaluation Strategies
 
-The evaluation strategy determines how to evaluate the arguments of a function
-during function application.
+The evaluation strategy determines how to evaluate argument expressions during
+function application.
 
-Evaluation strategies combined with the more specific notions of binding
-strategies that determine what kind of value to pass to the function, form the
-***parameter passing techniques*** as classified by Erik Crank and Matthias
-Felleisen in
+Evaluation strategies combined with the more specific notion of binding
+strategies that are the ones that determine what kind of value to pass to the
+function, form the ***parameter passing techniques*** as classified by Erik
+Crank and Matthias Felleisen in
 [Parameter-passing and the lambda calculus](https://doi.org/10.1145/99583.99616).
 
 The choice of a parameter-passing technique is an important element in the
