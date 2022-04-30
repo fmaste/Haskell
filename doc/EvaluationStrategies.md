@@ -1,9 +1,7 @@
 # Evaluation Strategies
 
-The evaluation strategy determines how to evaluate the arguments of a function.
-
-Not to be confused with [Lambda Calculus](Lambda.md) reduction strategies, the
-process by which a more complex expression is reduced to a simpler expression.
+The evaluation strategy determines how to evaluate the arguments of a function
+during function application.
 
 Evaluation strategies combined with the more specific notions of binding
 strategies that determine what kind of value to pass to the function, form the
@@ -22,6 +20,13 @@ Prelude> take 5 [1,2..]
 ```
 
 ## A Little Terminology
+
+Not to be confused with [Lambda Calculus](Lambda.md) reduction strategies, the
+process by which a more complex expression is reduced to a simpler expression.
+
+Also notice that we are not talking about the evaluation order when not
+constrained by operator precedence and associativity, that in languages like C
+is unspecified.
 
 The parameters are ```a``` and ```b``` and the arguments are ```1``` and ```2```:
 ```haskell
