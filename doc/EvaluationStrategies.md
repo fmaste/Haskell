@@ -86,7 +86,22 @@ as non-strict evaluation because it means that arguments are passed unevaluated
 to the function body, which by popular folklore is the usual Church's lambda
 calculus strategy.
 
-## Confluence
+Obviously call-by-reference introduces side effects.
+
+## [Confluence](https://en.wikipedia.org/wiki/Confluence_(abstract_rewriting))
+
+Based on work of
+[Church and Rosser](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/)
+about the ordering of reduction rules and
+[Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) who was the first to
+consider equational theories for the analysis of parameter-passing techniques,
+we know that for any two reduction and evaluation paths taken, both will
+evaluate to the same expression (minus non-termination).
+
+Non-termination is key. In most imperative languages different evaluation
+strategies can produce different results for the same program, whereas in
+[purely functional languages](https://en.wikipedia.org/wiki/Purely_functional_programming)
+the only output difference is its termination behavior.
 
 > A language is purely functional if (i) it includes every simply typed
 > λ-calculus term, and (ii) its call-by-name, call-by-need, and call-by-value
@@ -94,24 +109,8 @@ calculus strategy.
 >
 > [A. M. R. SABRY, “What is a purely functional language?”, Journal of Functional Programming, vol. 8, no. 1, pp. 1–22, 1998.](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.27.7800)
 
-Obviously call by reference introduces side effects.
-
-Thanks first to the work of
-[Church and Rosser](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/)
-about the ordering of reduction rules and later
-[Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) who studied
-equational reasoning systems for call-by-name and call-by-value in functional
-languages and also
-[Crank and Felleisen](https://doi.org/10.1145/99583.99616) we know that for any
-two reduction and evaluation paths taken, both will evaluate to the same
-expression (minus non-termination).
-
-Non-termination is key. In most imperative languages different evaluation
-strategies can produce different results for the same program, whereas in
-[purely functional languages](https://en.wikipedia.org/wiki/Purely_functional_programming)
-the only output difference is its termination behavior.
-
-No wonder why Haskell and GHC try to stay true to theory. See
+No wonder why Haskell and GHC try to stay true to theory by extending lambda
+calculus. See
 [Type checker and type inference in action](doc/TypeCheckingAndInference.md)
 to get an idea of what it means for the usability of the language to be pure (no
 side-effects), non-strict and statically typed.
@@ -119,8 +118,6 @@ side-effects), non-strict and statically typed.
 ## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
 
 Non-strictness is often confused with lazy evaluation.
-
-Lazy evaluation is classified as a binding technique rather than an evaluation strategy.
 
 ## Haskell's definition
 
