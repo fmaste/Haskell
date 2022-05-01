@@ -101,7 +101,9 @@ Lambda-reduction (also called lambda conversion) refers to all three
 
 # Typed Lambda Calculus
 
-Since the development of Hindley–Milner type inference in the 1970s, functional programming languages have tended to use typed lambda calculus, rejecting all invalid programs at compilation time and risking false positive errors, as opposed to the untyped lambda calculus, that accepts all valid programs at compilation time and risks false negative errors.
+"Since the development of Hindley–Milner type inference in the 1970s, functional programming languages have tended to use typed lambda calculus, rejecting all invalid programs at compilation time and risking false positive errors, as opposed to the untyped lambda calculus, that accepts all valid programs at compilation time and risks false negative errors.""
+
+"Lambda calculus may be untyped or typed. In typed lambda calculus, functions can be applied only if they are capable of accepting the given input's "type" of data. Typed lambda calculi are weaker than the untyped lambda calculus, which is the primary subject of this article, in the sense that typed lambda calculi can express less than the untyped calculus can, but on the other hand typed lambda calculi allow more things to be proven; in the simply typed lambda calculus it is, for example, a theorem that every evaluation strategy terminates for every simply typed lambda-term, whereas evaluation of untyped lambda-terms need not terminate. One reason there are many different typed lambda calculi has been the desire to do more (of what the untyped calculus can do) without giving up on being able to prove strong theorems about the calculus."
 
 # Further Reading
 
@@ -124,3 +126,12 @@ Since the development of Hindley–Milner type inference in the 1970s, functiona
 - [Stanford Encyclopedia of Philosophy: The Lambda Calculus](https://plato.stanford.edu/entries/lambda-calculus/)
 - [CS 312 Recitation 26 The Lambda Calculus](https://www.cs.cornell.edu/courses/cs3110/2008fa/recitations/rec26.html)
 - [Lambda Calculus - Write You a Calculus](http://dev.stephendiehl.com/fun/003_lambda_calculus.html)
+- Barendregt, H. P. (1984) The Lambda Calculus: Its syntax and semantics. (Revised edn.) Studies in Logic and the Foundations of Mathematics, Vol. 103. North-Holland.
+
+# TODO:
+
+"During his talk at Codemotion Rome 2019, Jarek Ratajski reminded us of one of the most important results derived from Lambda Calculus: Church‘s proof that there are unsolvable problems – Hilbert’s Entscheidungsproblem – such as computable procedures which can decide whether two given terms convert to one another, as in Gödel’s first incompleteness theorem.
+
+"The barber is the “one who shaves all those, and those only, who do not shave themselves.” The question is, does the barber shave himself?"
+
+This means that our code can never be perfect and, worse still, that there is no code that can prove that. Despite that, we should keep coding and, above all, have fun with it."

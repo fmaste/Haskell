@@ -5,8 +5,8 @@ with a variety of constructs (AKA tons of syntactic sugar) that make it useful
 for programmers.
 
 The evaluation strategy determines when to evaluate argument expressions during
-function application. Although it is closer to the implementation details than
-the formal system, its choice is an important element in the design of a
+function application. Although it is closer to operational semantics than
+denotational semantics, its choice is an important element in the design of a
 [high-level programming language](https://en.wikipedia.org/wiki/High-level_programming_language).
 
 ```haskell
@@ -121,7 +121,10 @@ Non-strictness is often confused with lazy evaluation.
 
 ## Haskell's definition
 
-Haskell is often described as a lazy language. However, the language specification simply states that Haskell is ***[non-strict](https://wiki.haskell.org/Non-strict_semantics)***, which is not quite the same thing as ***[lazy](https://wiki.haskell.org/Lazy_evaluation)***.
+Haskell is often described as a lazy language. However, the language
+specification simply states that Haskell is
+***[non-strict](https://wiki.haskell.org/Non-strict_semantics)***, which is not
+quite the same thing as ***[lazy](https://wiki.haskell.org/Lazy_evaluation)***.
 
 > Function application in Haskell is ***non-strict***; that is, a function
 > argument is evaluated only when required. Sometimes it is desirable to force
@@ -224,15 +227,15 @@ TODO: Look for this papers:
 
 Hughes 1984 argues for lazy evaluation as a mechanism for improving program modularity through separation of concerns, by easing independent implementation of producers and consumers of data streams. Launchbury 1993 describes some difficulties that lazy evaluation introduces, particularly in analyzing a program's storage requirements, and proposes an operational semantics to aid in such analysis. Harper 2009 proposes including both strict and lazy evaluation in the same language, using the language's type system to distinguish them.
 
-- [Church, A., Rosser, J. B.: Some Properties of Conversion, Trans. Amer. Math. Soc., 39, 1936, 472–482](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/)
+- [Alonzo Church and J. B. Rosser. Some properties of conversion. Transactions of the American Mathematical Society, vol. 39 (1936), pp. 472–482.](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/)
   - [PDF](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/S0002-9947-1936-1501858-0.pdf)
 - [Dexter Kozen. 2010. Church-Rosser Made Easy. Fundam. Inf. 103, 1–4 (January 2010), 129–136.](https://dl.acm.org/doi/abs/10.5555/1922521.1922529)
   - [PDF]()
 - [Church–Rosser Theorem - Wikipedia](https://en.wikipedia.org/wiki/Church%E2%80%93Rosser_theorem)
-- [Erik Crank and Matthias Felleisen. 1991. Parameter-passing and the lambda calculus. In Proceedings of the 18th ACM SIGPLAN-SIGACT symposium on Principles of programming languages (POPL '91). Association for Computing Machinery, New York, NY, USA, 233–244.](https://doi.org/10.1145/99583.99616)
-  - [PDF](https://dl.acm.org/doi/pdf/10.1145/99583.99616)
 - [G.D. Plotkin, Call-by-name, call-by-value and the λ-calculus, Theoretical Computer Science, Volume 1, Issue 2, December 1975, Pages 125-159](https://doi.org/10.1016/0304-3975(75)90017-1)
   - [PDF](https://homepages.inf.ed.ac.uk/gdp/publications/cbn_cbv_lambda.pdf)
+- [Erik Crank and Matthias Felleisen. 1991. Parameter-passing and the lambda calculus. In Proceedings of the 18th ACM SIGPLAN-SIGACT symposium on Principles of programming languages (POPL '91). Association for Computing Machinery, New York, NY, USA, 233–244.](https://doi.org/10.1145/99583.99616)
+  - [PDF](https://dl.acm.org/doi/pdf/10.1145/99583.99616)
 - [A. M. R. SABRY, “What is a purely functional language?”, Journal of Functional Programming, vol. 8, no. 1, pp. 1–22, 1998.](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.27.7800)
   - [PDF](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/3A39D50DA48F628D17D9A768A1FA39C3/S0956796897002943a.pdf/what-is-a-purely-functional-language.pdf)
 - [Evaluation Strategy - Wikipedia](https://en.wikipedia.org/w/index.php?title=Evaluation_strategy&oldid=681333382)
