@@ -5,9 +5,11 @@ with a variety of constructs (AKA tons of syntactic sugar) that make it useful
 for programmers.
 
 The evaluation strategy determines when to evaluate argument expressions during
-function application. Although sometimes it look closer to operational semantics
-than denotational semantics, its choice is an important element in the design of
-a
+function application. Although sometimes it look closer to
+[operational semantics](https://en.wikipedia.org/wiki/Operational_semantics)
+than
+[denotational semantics](https://en.wikibooks.org/wiki/Haskell/Denotational_semantics),
+its choice is an important element in the design of a
 [high-level programming language](https://en.wikipedia.org/wiki/High-level_programming_language).
 
 ```haskell
@@ -51,10 +53,10 @@ function.
 
 - ***Strict*** or eager (also greedy/applicative order) evaluation:
   - All argument expressions to a function are evaluated before binding the parameters.
-  - Semantics: If any subexpression fails to have a value, the whole expression fails.
+  - ***Semantics***: If any subexpression fails to have a value, the whole expression fails.
 - ***Non-strict*** (or normal order but not lazy) evaluation:
   - All argument expressions are passed unevaluated to the body of the function.
-  - Semantics: Expressions can have a value even if some of their subexpressions do not.
+  - ***Semantics***: Expressions can have a value even if some of their subexpressions do not.
 
 If we have this example function shown below:
 
