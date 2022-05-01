@@ -1,11 +1,13 @@
 # Evaluation Strategies
 
-Functional programming languages extend pure [Lambda Calculus]((Lambda.md)) with
-a variety of constructs (AKA tons of syntactic sugar) that make it useful for
-programmers.
+Functional programming languages extend Church's [Lambda Calculus]((Lambda.md))
+with a variety of constructs (AKA tons of syntactic sugar) that make it useful
+for programmers.
 
-The evaluation strategy determines how to evaluate argument expressions during
-function application.
+The evaluation strategy determines when to evaluate argument expressions during
+function application. Although it is closer to the implementation details than
+the formal system, its choice is an important element in the design of a
+[high-level programming language](https://en.wikipedia.org/wiki/High-level_programming_language).
 
 ```haskell
 Prelude> length [1,(1/0),3,4,5]
@@ -34,23 +36,20 @@ main :: IO ()
 main = print $ add 1 (2*3)
 ```
 
-## Classification
+## Parameter-Passing Classification
 
 We use the classification described by Erik Crank and Matthias Felleisen in
 [Parameter-passing and the lambda calculus](https://doi.org/10.1145/99583.99616)
 where ***evaluation strategies*** are combined with the more specific notion of
-***binding strategies*** that are the ones that determine what kind of value to
-pass to the function.
-
-This two form the ***parameter passing techniques*** and its choice is an
-important element in the design of a high-level programming language.
+***binding strategies*** that determines what kind of value to pass to the
+function.
 
 ### Strictness
 
 [λ-Calculus](Lambda.md) has two prevailing evaluation strategies:
 
-- ***Strict*** (or eager/greedy/applicative order) evaluation:
-  - All argument expressions are evaluated before entering the body of a function.
+- ***Strict*** or eager (also greedy/applicative order) evaluation:
+  - All argument expressions to a function are evaluated before binding the parameters.
   - If any subexpression fails to have a value, the whole expression fails.
 - ***Non-strict*** (or normal order but not lazy) evaluation:
   - All argument expressions are passed unevaluated to the body of the function.
@@ -81,8 +80,11 @@ not, but what is passed as value to the function in those parameters?
   - Call-by-need:
     - Call-by-name with [memoization](https://en.wikipedia.org/wiki/Memoization), if the function argument is evaluated its value is stored for subsequent uses. So the expression is evaluated no more than once.
 
-Some authors refer to strict evaluation as call-by-value due to the
-call-by-value binding strategy requiring strict evaluation.
+Most authors refer to strict evaluation as call-by-value due to the
+call-by-value binding strategy requiring strict evaluation and to call-by-name
+as non-strict evaluation because it means that arguments are passed unevaluated
+to the function body, which by popular folklore is the usual Church's lambda
+calculus strategy.
 
 ## Confluence
 
@@ -92,9 +94,14 @@ call-by-value binding strategy requiring strict evaluation.
 >
 > [A. M. R. SABRY, “What is a purely functional language?”, Journal of Functional Programming, vol. 8, no. 1, pp. 1–22, 1998.](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.27.7800)
 
+Obviously call by reference introduces side effects.
+
 Thanks first to the work of
 [Church and Rosser](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/)
-and later [Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) and
+about the ordering of reduction rules and later
+[Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) who studied
+equational reasoning systems for call-by-name and call-by-value in functional
+languages and also
 [Crank and Felleisen](https://doi.org/10.1145/99583.99616) we know that for any
 two reduction and evaluation paths taken, both will evaluate to the same
 expression (minus non-termination).
