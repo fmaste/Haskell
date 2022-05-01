@@ -86,8 +86,6 @@ as non-strict evaluation because it means that arguments are passed unevaluated
 to the function body, which by popular folklore is the usual Church's lambda
 calculus strategy.
 
-Obviously call-by-reference introduces side effects.
-
 ## [Confluence](https://en.wikipedia.org/wiki/Confluence_(abstract_rewriting))
 
 Based on the works of
@@ -108,6 +106,8 @@ the only output difference is its termination behavior.
 > implementations are equivalent (modulo divergence and errors).
 >
 > [A. M. R. SABRY, “What is a purely functional language?”, Journal of Functional Programming, vol. 8, no. 1, pp. 1–22, 1998.](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.27.7800)
+
+* Obviously call-by-reference introduces side effects.
 
 No wonder why Haskell and GHC try to stay true to theory by extending lambda
 calculus. See
