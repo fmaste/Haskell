@@ -5,8 +5,9 @@ with a variety of constructs (AKA tons of syntactic sugar) that make it useful
 for programmers.
 
 The evaluation strategy determines when to evaluate argument expressions during
-function application. Although it may look closer to operational semantics than
-denotational semantics, its choice is an important element in the design of a
+function application. Although sometimes it look closer to operational semantics
+than denotational semantics, its choice is an important element in the design of
+a
 [high-level programming language](https://en.wikipedia.org/wiki/High-level_programming_language).
 
 ```haskell
