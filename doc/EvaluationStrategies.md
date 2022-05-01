@@ -90,7 +90,7 @@ Obviously call-by-reference introduces side effects.
 
 ## [Confluence](https://en.wikipedia.org/wiki/Confluence_(abstract_rewriting))
 
-Based on work of
+Based on the works of
 [Church and Rosser](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/)
 about the ordering of reduction rules and
 [Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) who was the first to
