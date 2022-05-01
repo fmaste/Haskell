@@ -5,7 +5,7 @@ with a variety of constructs (AKA tons of syntactic sugar) that make it useful
 for programmers.
 
 The evaluation strategy determines when to evaluate argument expressions during
-function application. Although it is closer to operational semantics than
+function application. Although it may look closer to operational semantics than
 denotational semantics, its choice is an important element in the design of a
 [high-level programming language](https://en.wikipedia.org/wiki/High-level_programming_language).
 
@@ -46,7 +46,7 @@ function.
 
 ### Strictness
 
-[λ-Calculus](Lambda.md) has two prevailing evaluation strategies:
+[λ-Calculus](Lambda.md) has two prevailing semantics:
 
 - ***Strict*** or eager (also greedy/applicative order) evaluation:
   - All argument expressions to a function are evaluated before binding the parameters.
@@ -61,8 +61,8 @@ If we have this example function shown below:
 const :: a -> b -> a
 const a b = a
 ```
-Calling ```const (1+1) (1/0)``` will return ```2``` using non-strict evaluation
-and ```error``` using strict evaluation.
+Calling ```const (1+1) (1/0)``` will return ```2``` in Haskell and ```error```
+using strict evaluation.
 
 ### Binding Strategies
 
@@ -117,7 +117,8 @@ side-effects), non-strict and statically typed.
 
 ## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
 
-Non-strictness is often confused with lazy evaluation.
+Non-strictness is often confused with lazy evaluation but laziness is not the
+only way to implement non-strictness.
 
 ## Haskell's definition
 
