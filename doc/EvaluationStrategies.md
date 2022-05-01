@@ -51,10 +51,10 @@ function.
 
 - ***Strict*** or eager (also greedy/applicative order) evaluation:
   - All argument expressions to a function are evaluated before binding the parameters.
-  - If any subexpression fails to have a value, the whole expression fails.
+  - Semantics: If any subexpression fails to have a value, the whole expression fails.
 - ***Non-strict*** (or normal order but not lazy) evaluation:
   - All argument expressions are passed unevaluated to the body of the function.
-  - Expressions can have a value even if some of their subexpressions do not.
+  - Semantics: Expressions can have a value even if some of their subexpressions do not.
 
 If we have this example function shown below:
 
@@ -62,8 +62,9 @@ If we have this example function shown below:
 const :: a -> b -> a
 const a b = a
 ```
-Calling ```const (1+1) (1/0)``` will return ```2``` in Haskell and ```error```
-using strict evaluation.
+
+Calling ```const (1+1) (1/0)``` will return ```2``` in Haskell and "error" using
+strict semantics.
 
 ### Binding Strategies
 
@@ -206,3 +207,5 @@ Hughes 1984 argues for lazy evaluation as a mechanism for improving program modu
 - [Reduction Strategy - Wikipedia](https://en.wikipedia.org/w/index.php?title=Reduction_strategy_%28lambda_calculus%29&oldid=639577658)
 - [What's the difference between reduction strategies and evaluation strategies? - StackExchange](https://cstheory.stackexchange.com/questions/32551/whats-the-difference-between-reduction-strategies-and-evaluation-strategies)
 - [Differences Between Parameters and Arguments](https://developer.mozilla.org/en-US/docs/Glossary/Parameter)
+- [How does non-strict and lazy differ?](https://exchangetuts.com/how-does-non-strict-and-lazy-differ-1639549927834114)
+- [Design Concepts in Programming Languages By Franklyn Turbak and David Gifford](https://mitpress.mit.edu/books/design-concepts-programming-languages)
