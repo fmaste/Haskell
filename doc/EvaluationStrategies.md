@@ -101,13 +101,15 @@ strategies can produce different results for the same program, whereas in
 [purely functional languages](https://en.wikipedia.org/wiki/Purely_functional_programming)
 the only output difference is its termination behavior.
 
+We arrived to what it means to be purely functional:
+
 > A language is purely functional if (i) it includes every simply typed
 > λ-calculus term, and (ii) its call-by-name, call-by-need, and call-by-value
 > implementations are equivalent (modulo divergence and errors).
 >
 > [A. M. R. SABRY, “What is a purely functional language?”, Journal of Functional Programming, vol. 8, no. 1, pp. 1–22, 1998.](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.27.7800)
 
-* Obviously call-by-reference introduces side effects.
+\* Obviously call-by-reference introduces side effects.
 
 No wonder why Haskell and GHC try to stay true to theory by extending lambda
 calculus. See
