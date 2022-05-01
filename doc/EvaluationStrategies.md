@@ -118,24 +118,24 @@ calculus. See
 to get an idea of what it means for the usability of the language to be pure (no
 side-effects), non-strict and statically typed.
 
-## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
-
-Non-strictness is often confused with lazy evaluation but laziness is not the
-only way to implement non-strictness.
-
 ## Haskell's definition
 
 Haskell is often described as a lazy language. However, the language
 specification simply states that Haskell is
 ***[non-strict](https://wiki.haskell.org/Non-strict_semantics)***, which is not
-quite the same thing as ***[lazy](https://wiki.haskell.org/Lazy_evaluation)***.
+quite the same thing as ***[lazy](https://wiki.haskell.org/Lazy_evaluation)***:
 
 > Function application in Haskell is ***non-strict***; that is, a function
 > argument is evaluated only when required.
 >
 > [Haskell 2010 report - 6.2 Strict Evaluation](https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1260006.2).
 
-A Haskell implementation using call-by-name, would be technically conforming?
+A Haskell implementation using call-by-name would be technically conforming.
+
+## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
+
+Non-strictness is often confused with lazy evaluation but laziness is not the
+only way to implement non-strictness.
 
 ## Memoization
 
