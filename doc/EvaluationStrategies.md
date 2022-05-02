@@ -1,8 +1,8 @@
 # Evaluation Strategies
 
-Functional programming languages extend Church's [Lambda Calculus]((Lambda.md)
-with a variety of constructs (AKA tons of syntactic sugar) that make it useful
-for programmers.
+[Functional programming languages](https://en.wikipedia.org/wiki/Functional_programming)
+extend Church's [Lambda Calculus](Lambda.md) with a variety of constructs (AKA
+tons of syntactic sugar) that make it useful for programmers.
 
 The evaluation strategy determines when to evaluate argument expressions during
 function application. Although sometimes it looks closer to
@@ -58,8 +58,6 @@ function.
   - All argument expressions are passed unevaluated to the body of the function.
   - ***Semantics***: Expressions can have a value even if some of their subexpressions do not.
 
-A function f is strict if ```f ⊥ = ⊥```.
-
 If we have this example function shown below:
 
 ```haskell
@@ -69,6 +67,8 @@ const a b = a
 
 Calling ```const (1+1) (1/0)``` will return ```2``` in Haskell and "error" using
 strict semantics.
+
+<!-- A function ```f``` is strict if and only if ```f ⊥ = ⊥```. -->
 
 ### Binding Strategies
 
@@ -115,7 +115,9 @@ We arrived to what it means to be purely functional:
 >
 > [A. M. R. SABRY, “What is a purely functional language?”, Journal of Functional Programming, vol. 8, no. 1, pp. 1–22, 1998.](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.27.7800)
 
-\* Obviously call-by-reference introduces side effects.
+In a purely functional language when a function is evaluated with some given
+arguments, it will always return the same result. Obviously call-by-reference
+introduces side effects.
 
 No wonder why Haskell and GHC try to stay true to theory by extending lambda
 calculus. See
