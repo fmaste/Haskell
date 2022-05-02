@@ -114,8 +114,9 @@ We need a proper definition of ***purely functional language***:
 >
 > [A. M. R. SABRY, “What is a purely functional language?”, Journal of Functional Programming, vol. 8, no. 1, pp. 1–22, 1998.](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.27.7800)
 
-In a purely functional language the function return values are identical for
-identical arguments. Obviously call-by-reference introduces side effects.
+The definition implies that function return values are identical for identical
+arguments and the operational decision of how to pass the arguments is
+irrelevant. Obviously call-by-reference introduces side effects.
 
 No wonder why Haskell and GHC do everything possible to stay true to the theory
 when extending lambda calculus. See
