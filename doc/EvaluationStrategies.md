@@ -166,8 +166,9 @@ combination of two things:
   copying it avoids duplicating the unevaluated argument. This gives rise to
   what in GHC is known as [thunk](https://wiki.haskell.org/Thunk).
 - Updating the root of the redex with the result: We must ensure that when an
-  expression is reduced we modify the graph to reflect the result. This will
-  ensure that shared expressions will only be reduced once.
+  expression is reduced we modify the graph to reflect the result. This gives
+  rise to [sharing](https://wiki.haskell.org/Sharing) and will ensure that
+  shared expressions will only be reduced once.
 
 ### Memoization
 
