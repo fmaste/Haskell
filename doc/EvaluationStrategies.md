@@ -170,6 +170,9 @@ combination of two things:
   rise to [sharing](https://wiki.haskell.org/Sharing) and will ensure that
   shared expressions will only be reduced once.
 
+![Figure 12.2 Pointer Substitution](media/Figure12.2.png)
+![Figure 12.3 Overwriting the Root of the Redex](media/Figure12.3.png)
+
 ### Memoization
 
 Now that we know that Haskell computes any given expression at most once every
