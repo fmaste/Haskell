@@ -52,10 +52,10 @@ where ***evaluation strategies*** are combined with the more specific notion of
 
 - ***Strict*** or eager (also greedy) evaluation:
   - ***Semantics***: If any subexpression fails to have a value, the whole expression fails.
-  - All argument expressions to a function are evaluated before binding the parameters.
+  - Implementation: All argument expressions to a function are evaluated before binding the parameters.
 - ***Non-strict*** evaluation:
   - ***Semantics***: Expressions can have a value even if some of their subexpressions do not.
-  - All argument expressions are passed unevaluated to the body of the function.
+  - Implementation: All argument expressions are passed unevaluated to the body of the function.
 
 If we have this example function shown below:
 
