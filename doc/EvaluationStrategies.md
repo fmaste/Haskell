@@ -164,8 +164,10 @@ that once evaluated should never be re-evaluated, is implemented with a
 combination of two things:
 - Substitute pointers: Substituting pointers to the argument rather than
   copying it avoids duplicating the unevaluated argument. This gives rise to
-  what is called sharing and what in Haskell is known as [thunk](https://wiki.haskell.org/Thunk).
-- Updating the root of the redex with the result: If we are to exploit sharing successfully we must ensure that when an expression is reduced we modify the graph to reflect the result. This will ensure that shared expressions will only be reduced once.
+  what in GHC is known as [thunk](https://wiki.haskell.org/Thunk).
+- Updating the root of the redex with the result: We must ensure that when an
+  expression is reduced we modify the graph to reflect the result. This will
+  ensure that shared expressions will only be reduced once.
 
 ### Memoization
 
