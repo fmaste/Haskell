@@ -153,9 +153,11 @@ A Haskell implementation using call-by-name would be technically conforming.
 
 ### Implementation Details
 
-GHC laziness refers to the operational semantics used to perform a reduction,
-called ***lazy graph reduction***. Its implementation details are only mentioned
-here.
+GHC laziness refers to the operational semantics used to perform a call-by-need
+reduction. Expressions are translated to a graph and is called ***lazy graph
+reduction***. This allows things like working with infinite lists possible.
+
+Its implementation details are only mentioned here:
 
 The first ingredient of call-by-need, that a function argument is evaluated only
 when required, is directly implemented by using a normal order reduction. The
@@ -163,7 +165,7 @@ second ingredient, that once evaluated should never be re-evaluated, is
 implemented with a combination of two things:
 - Pointer substitution: Substituting pointers to the argument rather than
   copying it avoids duplicating the (unevaluated) argument. This gives rise to
-  what is called sharing.
+  what is called sharing and what in Haskell is known as [thunk](https://wiki.haskell.org/Thunk).
 - Updating the root of the redex tree with the results: updating the root of the
   redex with the result ensures that further uses of the argument will get the
   benefit of the work done.
