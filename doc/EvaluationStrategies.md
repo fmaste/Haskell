@@ -123,6 +123,19 @@ when extending lambda calculus. See
 to get an idea of what it means for the usability of the language to be pure (no
 side-effects), non-strict and statically typed.
 
+## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
+
+> If a function is non-strict, we say that it is lazy. Technically, this is an
+> abuse of terminology, since lazy evaluation is an implementation technique
+> which implements non-strict semantics. However, ‘lazy’ is such an evocative
+> term that it is often used where ‘non-strict’ would be more correct.
+>
+> [The Implementation of Functional Programming Languages, Simon Peyton Jones, Published by Prentice Hall \| January 1987](https://www.microsoft.com/en-us/research/publication/the-implementation-of-functional-programming-languages/)
+
+The term lazy is informally interchangeable with non-strict because it's the
+prevalent implementation technique for non-strict languages, but laziness is not
+the only way to implement non-strictness.
+
 ## Haskell's definition
 
 Haskell is often described as a lazy language. However, the language
@@ -137,26 +150,9 @@ quite the same thing as ***[lazy](https://wiki.haskell.org/Lazy_evaluation)***:
 
 A Haskell implementation using call-by-name would be technically conforming.
 
-## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
+### Memoization
 
-> If a function is non-strict, we say that it is lazy. Technically, this is an
-> abuse of terminology, since lazy evaluation is an implementation technique
-> which implements non-strict semantics. However, ‘lazy’ is such an evocative
-> term that it is often used where ‘non-strict’ would be more correct.
->
-> [The Implementation of Functional Programming Languages, Simon Peyton Jones, Published by Prentice Hall \| January 1987](https://www.microsoft.com/en-us/research/publication/the-implementation-of-functional-programming-languages/)
-
-The term lazy is informally interchangeable with non-strict because it's the
-prevalent implementation technique for non-strict languages, but laziness is not
-the only way to implement non-strictness.
-
-Call-by-name with [memoization](https://en.wikipedia.org/wiki/Memoization).
-
-it is directly implemented by normal order reduction
-
-## Memoization
-
-Technically, lazy evaluation means call-by-name plus [sharing](https://wiki.haskell.org/Sharing).
+Technically, lazy evaluation means call-by-name with [memoization](https://wiki.haskell.org/Memoization).
 
 Now that we know that Haskell computes any given expression at most once every
 time the lambda expression is entered, we can use the memoization optimization
@@ -171,42 +167,17 @@ slow_fib n = slow_fib (n-2) + slow_fib (n-1)
 
 ```haskell
 memoized_fib :: Int -> Integer
-memoized_fib = (map fib [0 ..] !!)
+memoized_fib i = map fib [0 ..] !! i
         where fib 0 = 0
               fib 1 = 1
               fib n = memoized_fib (n-2) + memoized_fib (n-1)
 ```
 
-```haskell
-memoized_fib' :: Int -> Integer
-memoized_fib' = \i -> (map fib [0 ..] !!) i
-        where fib 0 = 0
-              fib 1 = 1
-              fib n = memoized_fib (n-2) + memoized_fib (n-1)
-```
+### Laziness
 
-The hard part is knowing where the lambda expressions are.
+it is directly implemented by normal order reduction
 
 # Further Reading
-
-- [The Haskell 2010 Report (PDF)](https://www.haskell.org/definition/haskell2010.pdf)
-- 
-
-https://bor0.wordpress.com/2020/12/11/haskell-memoization-and-evaluation-model/
-
-[3.1 Errors](https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-230003.1)
-
- Errors during expression evaluation, denoted by ⊥ (“bottom”), are indistinguishable by a Haskell program from non-termination. Since Haskell is a non-strict language, all Haskell types include ⊥. That is, a value of any type may be bound to a computation that, when demanded, results in an error. When evaluated, errors cause immediate program termination and cannot be caught by the user. The Prelude provides two functions to directly cause such errors:
-error     :: String -> a  
-undefined :: a
-
-A call to error terminates execution of the program and returns an appropriate error indication to the operating system. It should also display the string in some system-dependent manner. When undefined is used, the error message is created by the compiler.
-
-Translations of Haskell expressions use error and undefined to explicitly indicate where execution time errors may occur. The actual program behavior when an error occurs is up to the implementation. The messages passed to the error function in these translations are only suggestions; implementations may choose to display more or less information when an error occurs.
-
-TODO: Look for this papers:
-
-Hughes 1984 argues for lazy evaluation as a mechanism for improving program modularity through separation of concerns, by easing independent implementation of producers and consumers of data streams. Launchbury 1993 describes some difficulties that lazy evaluation introduces, particularly in analyzing a program's storage requirements, and proposes an operational semantics to aid in such analysis. Harper 2009 proposes including both strict and lazy evaluation in the same language, using the language's type system to distinguish them.
 
 - [Alonzo Church and J. B. Rosser. Some properties of conversion. Transactions of the American Mathematical Society, vol. 39 (1936), pp. 472–482.](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/)
   - [PDF](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/S0002-9947-1936-1501858-0.pdf)
@@ -228,3 +199,23 @@ Hughes 1984 argues for lazy evaluation as a mechanism for improving program modu
 - [Differences Between Parameters and Arguments](https://developer.mozilla.org/en-US/docs/Glossary/Parameter)
 - [How does non-strict and lazy differ?](https://exchangetuts.com/how-does-non-strict-and-lazy-differ-1639549927834114)
 - [Design Concepts in Programming Languages By Franklyn Turbak and David Gifford](https://mitpress.mit.edu/books/design-concepts-programming-languages)
+
+- [The Haskell 2010 Report (PDF)](https://www.haskell.org/definition/haskell2010.pdf)
+
+<!--
+https://bor0.wordpress.com/2020/12/11/haskell-memoization-and-evaluation-model/
+
+[3.1 Errors](https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-230003.1)
+
+ Errors during expression evaluation, denoted by ⊥ (“bottom”), are indistinguishable by a Haskell program from non-termination. Since Haskell is a non-strict language, all Haskell types include ⊥. That is, a value of any type may be bound to a computation that, when demanded, results in an error. When evaluated, errors cause immediate program termination and cannot be caught by the user. The Prelude provides two functions to directly cause such errors:
+error     :: String -> a  
+undefined :: a
+
+A call to error terminates execution of the program and returns an appropriate error indication to the operating system. It should also display the string in some system-dependent manner. When undefined is used, the error message is created by the compiler.
+
+Translations of Haskell expressions use error and undefined to explicitly indicate where execution time errors may occur. The actual program behavior when an error occurs is up to the implementation. The messages passed to the error function in these translations are only suggestions; implementations may choose to display more or less information when an error occurs.
+
+TODO: Look for this papers:
+
+Hughes 1984 argues for lazy evaluation as a mechanism for improving program modularity through separation of concerns, by easing independent implementation of producers and consumers of data streams. Launchbury 1993 describes some difficulties that lazy evaluation introduces, particularly in analyzing a program's storage requirements, and proposes an operational semantics to aid in such analysis. Harper 2009 proposes including both strict and lazy evaluation in the same language, using the language's type system to distinguish them.
+-->
