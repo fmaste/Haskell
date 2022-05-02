@@ -144,7 +144,7 @@ A Haskell implementation using call-by-name would be technically conforming.
 > which implements non-strict semantics. However, ‘lazy’ is such an evocative
 > term that it is often used where ‘non-strict’ would be more correct.
 >
-> [The Implementation of Functional Programming Languages, Simon Peyton Jones, Published by Prentice Hall | January 1987](https://www.microsoft.com/en-us/research/publication/the-implementation-of-functional-programming-languages/)
+> [The Implementation of Functional Programming Languages, Simon Peyton Jones, Published by Prentice Hall \| January 1987](https://www.microsoft.com/en-us/research/publication/the-implementation-of-functional-programming-languages/)
 
 The term lazy is informally interchangeable with non-strict because it's the
 prevalent implementation technique for non-strict languages, but laziness is not
