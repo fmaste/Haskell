@@ -25,12 +25,12 @@ Not to be confused with [λ-Calculus](Lambda.md) reduction strategies, the
 process by which a more complex expression is reduced to a simpler expression.
 
 Also notice that we are not talking about the evaluation order when not
-constrained by operator precedence or associativity, that in languages like C
-is unspecified. We are talking about how the expressions that need further
+constrained by operator precedence or associativity, that also in languages like
+C is unspecified. We are talking about how the expressions that need further
 evaluation and are used as function arguments are treated.
 
-By parameters we mean ```a``` and ```b``` and the arguments are ```1``` and
-```2*3``` in the example below:
+By parameters we mean ```a``` and ```b``` and by arguments ```1``` and ```2*3```
+in the example below:
 ```haskell
 add :: Int -> Int -> Int
 add a b = a + b
@@ -215,7 +215,7 @@ Hughes 1984 argues for lazy evaluation as a mechanism for improving program modu
   - [PDF](https://dl.acm.org/doi/pdf/10.1145/99583.99616)
 - [A. M. R. SABRY, “What is a purely functional language?”, Journal of Functional Programming, vol. 8, no. 1, pp. 1–22, 1998.](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.27.7800)
   - [PDF](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/3A39D50DA48F628D17D9A768A1FA39C3/S0956796897002943a.pdf/what-is-a-purely-functional-language.pdf)
-- [The Implementation of Functional Programming Languages, Simon Peyton Jones, Published by Prentice Hall | January 1987](https://www.microsoft.com/en-us/research/publication/the-implementation-of-functional-programming-languages/)
+- [The Implementation of Functional Programming Languages, Simon Peyton Jones, Published by Prentice Hall \| January 1987](https://www.microsoft.com/en-us/research/publication/the-implementation-of-functional-programming-languages/)
   - [PDF - Single-page portrait](https://www.microsoft.com/en-us/research/uploads/prod/1987/01/slpj-book-1987.pdf)
   - [PDF - Double-page landscape](https://www.microsoft.com/en-us/research/uploads/prod/1987/01/slpj-book-2up.pdf)
 - [Evaluation Strategy - Wikipedia](https://en.wikipedia.org/w/index.php?title=Evaluation_strategy&oldid=681333382)
