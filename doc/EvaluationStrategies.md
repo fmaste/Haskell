@@ -136,7 +136,7 @@ The term lazy is informally interchangeable with non-strict because it's the
 prevalent implementation technique for non-strict languages, but laziness is not
 the only way to implement non-strictness.
 
-## Haskell's definition
+### Haskell's definition
 
 Haskell is often described as a lazy language. However, the language
 specification simply states that Haskell is
@@ -175,7 +175,15 @@ memoized_fib i = map fib [0 ..] !! i
 
 ### Laziness
 
-it is directly implemented by normal order reduction
+Lazy refers to operational behavior and its implementation details are only
+summarized here.
+
+The first ingredient of call-by-need, that a function argument is evaluated only
+when required, is directly implemented by using a normal order reduction. The
+second ingredient, that once evaluated should never be re-evaluated, is
+implemented with:
+- Pointer substitution.
+- Updating the root of the redex tree with the results.
 
 # Further Reading
 
