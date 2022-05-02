@@ -46,7 +46,7 @@ We use the classification described by Erik Crank and Matthias Felleisen in
 where ***evaluation strategies*** are combined with the more specific notion of
 ***binding strategies*** that determines how values are passed to the function.
 
-### Strictness
+### By Strictness
 
 [λ-Calculus](Lambda.md) has two prevailing semantics:
 
@@ -69,7 +69,7 @@ strict semantics.
 
 <!-- A function ```f``` is strict if and only if ```f ⊥ = ⊥```. -->
 
-### Binding Strategies
+### By Binding Strategy
 
 We defined if argument expressions are evaluated before function application or
 not, but how is the function receiving those arguments as parameters?
