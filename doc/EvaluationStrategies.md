@@ -117,8 +117,8 @@ We need a proper definition of ***purely functional language***:
 In a purely functional language the function return values are identical for
 identical arguments. Obviously call-by-reference introduces side effects.
 
-No wonder why Haskell and GHC try to stay true to theory by extending lambda
-calculus. See
+No wonder why Haskell and GHC do everything possible to stay true to the theory
+when extending lambda calculus. See
 [Type checker and type inference in action](doc/TypeCheckingAndInference.md)
 to get an idea of what it means for the usability of the language to be pure (no
 side-effects), non-strict and statically typed.
