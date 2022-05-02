@@ -51,11 +51,11 @@ where ***evaluation strategies*** are combined with the more specific notion of
 [λ-Calculus](Lambda.md) has two prevailing semantics:
 
 - ***Strict*** or eager (also greedy) evaluation:
-  - All argument expressions to a function are evaluated before binding the parameters.
   - ***Semantics***: If any subexpression fails to have a value, the whole expression fails.
+  - All argument expressions to a function are evaluated before binding the parameters.
 - ***Non-strict*** evaluation:
-  - All argument expressions are passed unevaluated to the body of the function.
   - ***Semantics***: Expressions can have a value even if some of their subexpressions do not.
+  - All argument expressions are passed unevaluated to the body of the function.
 
 If we have this example function shown below:
 
