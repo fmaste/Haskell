@@ -24,7 +24,7 @@ Prelude> take 5 [1,2..]
 Not to be confused with [λ-Calculus](Lambda.md) reduction strategies, the
 process by which a more complex expression is reduced to a simpler expression.
 
-Also notice that we are still not talking about the evaluation order when not
+Notice that we are still not talking about the evaluation order when not
 constrained by operator precedence or associativity, that also in languages like
 C is unspecified. We are talking about how the expressions that need further
 evaluation and are used as function arguments are treated.
@@ -151,13 +151,26 @@ quite the same thing as ***[lazy](https://wiki.haskell.org/Lazy_evaluation)***:
 
 A Haskell implementation using call-by-name would be technically conforming.
 
+### Implementation Details
+
+GHC laziness refers to the operational semantics used to perform a reduction,
+its implementation details are only summarized here but allow to 
+
+The first ingredient of call-by-need, that a function argument is evaluated only
+when required, is directly implemented by using a normal order reduction. The
+second ingredient, that once evaluated should never be re-evaluated, is
+implemented with:
+- Pointer substitution.
+- Updating the root of the redex tree with the results.
+
 ### Memoization
 
-Technically, lazy evaluation means call-by-name with [memoization](https://wiki.haskell.org/Memoization).
+Lazy evaluation sorta means call-by-name with
+[sharing](https://wiki.haskell.org/Sharing).
 
 Now that we know that Haskell computes any given expression at most once every
-time the lambda expression is entered, we can use the memoization optimization
-technique:
+time the lambda expression is entered, we can use the
+[memoization](https://wiki.haskell.org/Memoization) optimization technique:
 
 ```haskell
 slow_fib :: Int -> Integer
@@ -173,18 +186,6 @@ memoized_fib i = map fib [0 ..] !! i
               fib 1 = 1
               fib n = memoized_fib (n-2) + memoized_fib (n-1)
 ```
-
-### Laziness
-
-Lazy refers to operational behavior and its implementation details are only
-summarized here.
-
-The first ingredient of call-by-need, that a function argument is evaluated only
-when required, is directly implemented by using a normal order reduction. The
-second ingredient, that once evaluated should never be re-evaluated, is
-implemented with:
-- Pointer substitution.
-- Updating the root of the redex tree with the results.
 
 # Further Reading
 
