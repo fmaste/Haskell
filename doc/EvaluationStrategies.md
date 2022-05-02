@@ -94,13 +94,12 @@ calculus strategy.
 
 ## [Confluence](https://en.wikipedia.org/wiki/Confluence_(abstract_rewriting))
 
-Based on the works of
+With the works of
 [Church and Rosser](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/)
-about the ordering of reduction rules and
-[Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) who was the first to
-consider equational theories for the analysis of parameter-passing techniques,
-we know that for any two reduction and evaluation paths taken, both will
-evaluate to the same expression (minus non-termination).
+about reduction sequences and
+[Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) about parameter-passing
+techniques as foundation, we know that two different reduction sequence or
+evaluation strategy cannot lead to different expression (minus non-termination).
 
 Non-termination is key. In most imperative languages different evaluation
 strategies can produce different results for the same program, whereas in
@@ -153,6 +152,8 @@ prevalent implementation technique for non-strict languages, but laziness is not
 the only way to implement non-strictness.
 
 Call-by-name with [memoization](https://en.wikipedia.org/wiki/Memoization).
+
+it is directly implemented by normal order reduction
 
 ## Memoization
 
