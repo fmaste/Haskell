@@ -84,7 +84,7 @@ not, but what is passed as value to the function in those parameters?
   - Call-by-name:
     - Argument expressions are substituted directly into the function body.
   - Call-by-need:
-    - Argument expressions are evaluated at most once and, if possible, not at all.
+    - [Memoized](https://wiki.haskell.org/Memoization) variant of call-by-name, where argument expressions are evaluated at most once and, if possible, not at all.
 
 Most authors refer to strict evaluation as call-by-value due to the
 call-by-value binding strategy requiring strict evaluation and to call-by-name
