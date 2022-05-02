@@ -1,6 +1,6 @@
 # Evaluation Strategies
 
-Functional programming languages extend Church's [Lambda Calculus]((Lambda.md))
+Functional programming languages extend Church's [Lambda Calculus]((Lambda.md)
 with a variety of constructs (AKA tons of syntactic sugar) that make it useful
 for programmers.
 
