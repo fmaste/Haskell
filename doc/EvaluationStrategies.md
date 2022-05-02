@@ -125,7 +125,7 @@ when extending lambda calculus. See
 to get an idea of what it means for the usability of the language to be pure (no
 side-effects), non-strict and statically typed in pursuit of safety.
 
-## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
+## Lazy vs. non-strict
 
 > If a function is non-strict, we say that it is lazy. Technically, this is an
 > abuse of terminology, since lazy evaluation is an implementation technique
