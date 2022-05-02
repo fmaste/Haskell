@@ -24,7 +24,7 @@ Prelude> take 5 [1,2..]
 Not to be confused with [λ-Calculus](Lambda.md) reduction strategies, the
 process by which a more complex expression is reduced to a simpler expression.
 
-Also notice that we are not talking about the evaluation order when not
+Also notice that we are still not talking about the evaluation order when not
 constrained by operator precedence or associativity, that also in languages like
 C is unspecified. We are talking about how the expressions that need further
 evaluation and are used as function arguments are treated.
