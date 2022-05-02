@@ -210,10 +210,7 @@ memoized_fib i = map fib [0 ..] !! i
 - [Evaluation Strategy - Wikipedia](https://en.wikipedia.org/w/index.php?title=Evaluation_strategy&oldid=681333382)
 - [Reduction Strategy - Wikipedia](https://en.wikipedia.org/w/index.php?title=Reduction_strategy_%28lambda_calculus%29&oldid=639577658)
 - [What's the difference between reduction strategies and evaluation strategies? - StackExchange](https://cstheory.stackexchange.com/questions/32551/whats-the-difference-between-reduction-strategies-and-evaluation-strategies)
-- [Differences Between Parameters and Arguments](https://developer.mozilla.org/en-US/docs/Glossary/Parameter)
-- [How does non-strict and lazy differ?](https://exchangetuts.com/how-does-non-strict-and-lazy-differ-1639549927834114)
 - [Design Concepts in Programming Languages By Franklyn Turbak and David Gifford](https://mitpress.mit.edu/books/design-concepts-programming-languages)
-
 - [The Haskell 2010 Report (PDF)](https://www.haskell.org/definition/haskell2010.pdf)
 
 <!--
