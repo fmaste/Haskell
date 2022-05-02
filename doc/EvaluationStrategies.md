@@ -5,7 +5,7 @@ with a variety of constructs (AKA tons of syntactic sugar) that make it useful
 for programmers.
 
 The evaluation strategy determines when to evaluate argument expressions during
-function application. Although sometimes it look closer to
+function application. Although sometimes it looks closer to
 [operational semantics](https://en.wikipedia.org/wiki/Operational_semantics)
 than
 [denotational semantics](https://en.wikibooks.org/wiki/Haskell/Denotational_semantics),
@@ -57,6 +57,8 @@ function.
 - ***Non-strict*** (or normal order but not lazy) evaluation:
   - All argument expressions are passed unevaluated to the body of the function.
   - ***Semantics***: Expressions can have a value even if some of their subexpressions do not.
+
+A function f is strict if ```f ⊥ = ⊥```.
 
 If we have this example function shown below:
 
@@ -137,8 +139,16 @@ A Haskell implementation using call-by-name would be technically conforming.
 
 ## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
 
-Non-strictness is often confused with lazy evaluation but laziness is not the
-only way to implement non-strictness.
+> If a function is non-strict, we say that it is lazy. Technically, this is an
+> abuse of terminology, since lazy evaluation is an implementation technique
+> which implements non-strict semantics. However, ‘lazy’ is such an evocative
+> term that it is often used where ‘non-strict’ would be more correct.
+>
+> [The Implementation of Functional Programming Languages, Simon Peyton Jones, Published by Prentice Hall | January 1987](https://www.microsoft.com/en-us/research/publication/the-implementation-of-functional-programming-languages/)
+
+The term lazy is informally interchangeable with non-strict because it's the
+prevalent implementation technique for non-strict languages, but laziness is not
+the only way to implement non-strictness.
 
 ## Memoization
 
@@ -205,6 +215,9 @@ Hughes 1984 argues for lazy evaluation as a mechanism for improving program modu
   - [PDF](https://dl.acm.org/doi/pdf/10.1145/99583.99616)
 - [A. M. R. SABRY, “What is a purely functional language?”, Journal of Functional Programming, vol. 8, no. 1, pp. 1–22, 1998.](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.27.7800)
   - [PDF](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/3A39D50DA48F628D17D9A768A1FA39C3/S0956796897002943a.pdf/what-is-a-purely-functional-language.pdf)
+- [The Implementation of Functional Programming Languages, Simon Peyton Jones, Published by Prentice Hall | January 1987](https://www.microsoft.com/en-us/research/publication/the-implementation-of-functional-programming-languages/)
+  - [PDF - Single-page portrait](https://www.microsoft.com/en-us/research/uploads/prod/1987/01/slpj-book-1987.pdf)
+  - [PDF - Double-page landscape](https://www.microsoft.com/en-us/research/uploads/prod/1987/01/slpj-book-2up.pdf)
 - [Evaluation Strategy - Wikipedia](https://en.wikipedia.org/w/index.php?title=Evaluation_strategy&oldid=681333382)
 - [Reduction Strategy - Wikipedia](https://en.wikipedia.org/w/index.php?title=Reduction_strategy_%28lambda_calculus%29&oldid=639577658)
 - [What's the difference between reduction strategies and evaluation strategies? - StackExchange](https://cstheory.stackexchange.com/questions/32551/whats-the-difference-between-reduction-strategies-and-evaluation-strategies)
