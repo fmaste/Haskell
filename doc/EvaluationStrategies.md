@@ -122,7 +122,7 @@ No wonder why Haskell and GHC do everything possible to stay true to the theory
 when extending lambda calculus. See
 [Type checker and type inference in action](doc/TypeCheckingAndInference.md)
 to get an idea of what it means for the usability of the language to be pure (no
-side-effects), non-strict and statically typed.
+side-effects), non-strict and statically typed in pursuit of safety.
 
 ## [Lazy vs. non-strict](https://wiki.haskell.org/Lazy_vs._non-strict)
 
