@@ -26,8 +26,8 @@ process by which a more complex expression is reduced to a simpler expression.
 
 Notice that we are still not talking about the evaluation order when not
 constrained by operator precedence or associativity, that in languages like C is
-also unspecified. We are talking about how the expressions that need further
-evaluation and are used as function arguments are treated.
+also unspecified. We are talking about how to treat expressions that need
+further evaluation and are used as function arguments.
 
 By parameters we mean ```a``` and ```b``` and by arguments ```1``` and ```2*3```
 in the example below:
