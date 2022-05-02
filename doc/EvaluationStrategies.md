@@ -78,13 +78,13 @@ not, but what is passed as value to the function in those parameters?
 - [Strict:](https://en.wikipedia.org/wiki/Evaluation_strategy#Strict_binding_strategies)
   - Call-by-value:
     - The evaluated values of the argument expressions are bound to the corresponding parameters in the function.
-  - Call-by-reference (or pass-by-reference):
+  - Call-by-reference:
     - Parameters are bound to a reference to the variable used as argument, rather than a copy of its value.
 - [Non-strict:](https://en.wikipedia.org/wiki/Evaluation_strategy#Non-strict_binding_strategies)
   - Call-by-name:
     - Argument expressions are substituted directly into the function body.
   - Call-by-need:
-    - Call-by-name with [memoization](https://en.wikipedia.org/wiki/Memoization), if the function argument is evaluated its value is stored for subsequent uses. So the expression is evaluated no more than once.
+    - Argument expressions should be evaluated at most once and, if possible, not at all.
 
 Most authors refer to strict evaluation as call-by-value due to the
 call-by-value binding strategy requiring strict evaluation and to call-by-name
@@ -151,6 +151,8 @@ A Haskell implementation using call-by-name would be technically conforming.
 The term lazy is informally interchangeable with non-strict because it's the
 prevalent implementation technique for non-strict languages, but laziness is not
 the only way to implement non-strictness.
+
+Call-by-name with [memoization](https://en.wikipedia.org/wiki/Memoization).
 
 ## Memoization
 
