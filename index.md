@@ -1,12 +1,10 @@
 # An advanced, purely functional programming language
 
-A ***mixture of quick reference guide and Haskell tutorial*** full of external references [^1] [^2].
+This is a WORK IN PROGRESS! [^1] [^2]
 
 [^1]: Based on [GHC](https://www.haskell.org/ghc/) (The Glasgow Haskell Compiler), a state-of-the-art, open source, compiler and interactive environment for the functional language Haskell
 
 [^2]: Using [version 9.2.2](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/index.html) of GHC
-
-This is a WORK IN PROGRESS!
 
 ## Preface
 
@@ -62,7 +60,7 @@ A [+10 years old funny video](https://www.youtube.com/watch?v=iSmkqocn0oQ) of wh
 
 - Purely functional
   - Every function in Haskell is a function in the mathematical sense (i.e., "pure"). Even side-effecting IO operations are but a description of what to do, produced by pure code. There are no statements or instructions, only expressions which cannot mutate variables (local or global) nor access state like time or random numbers.
-  - See [Lambda calculus](doc/Lambda.md).
+  - See [Lambda calculus](doc/Lambda.md) and [Evaluation Strategies](doc/EvaluationStrategies.md).
 - Statically typed
   - Every expression in Haskell has a type which is determined at compile time. All the types composed together by function application have to match up. If they don't, the program will be rejected by the compiler. Types become not only a form of guarantee, but a language for expressing the construction of programs.
     - See [Type checker and type inference in action](doc/TypeCheckingAndInference.md).
