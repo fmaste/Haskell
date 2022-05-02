@@ -51,10 +51,10 @@ function.
 
 [λ-Calculus](Lambda.md) has two prevailing semantics:
 
-- ***Strict*** or eager (also greedy/applicative order) evaluation:
+- ***Strict*** or eager (also greedy) evaluation:
   - All argument expressions to a function are evaluated before binding the parameters.
   - ***Semantics***: If any subexpression fails to have a value, the whole expression fails.
-- ***Non-strict*** (or normal order but not lazy) evaluation:
+- ***Non-strict*** evaluation:
   - All argument expressions are passed unevaluated to the body of the function.
   - ***Semantics***: Expressions can have a value even if some of their subexpressions do not.
 
