@@ -114,7 +114,7 @@ We need a proper definition of ***purely functional language***:
 >
 > [A. M. R. SABRY, “What is a purely functional language?”, Journal of Functional Programming, vol. 8, no. 1, pp. 1–22, 1998.](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.27.7800)
 
-The definition implies that functions return values are identical for identical
+The definition implies that a function's return value is identical for identical
 arguments and the operational decision of how to pass the arguments is
 irrelevant. Obviously call-by-reference introduces side effects.
 
