@@ -91,15 +91,16 @@ as non-strict evaluation because it means that arguments are passed unevaluated
 to the function body, which by popular folklore is the usual Church's lambda
 calculus strategy.
 
-## [Confluence](https://en.wikipedia.org/wiki/Confluence_(abstract_rewriting))
+## Confluence
 
 With the works of
 [Church and Rosser](https://www.ams.org/journals/tran/1936-039-03/S0002-9947-1936-1501858-0/)
 about reduction sequences and
 [Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) about parameter-passing
 techniques as foundation, we know that two different reduction sequences or
-evaluation strategies cannot lead to different computation results (minus
-non-termination).
+evaluation strategies
+[cannot lead to different computation results](https://en.wikipedia.org/wiki/Confluence_(abstract_rewriting))
+(minus non-termination).
 
 Non-termination is key. In most imperative languages different evaluation
 strategies can produce different results for the same program, whereas in
