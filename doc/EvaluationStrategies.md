@@ -29,8 +29,8 @@ constrained by operator precedence or associativity, that in languages like C is
 also unspecified. We are talking about how to treat expressions that need
 further evaluation and are used as function arguments.
 
-By parameters we mean ```a``` and ```b``` and by arguments ```1``` and ```2*3```
-in the example below:
+In the example below by parameters we mean ```a``` and ```b``` and by arguments
+we mean ```1``` and ```2*3```:
 ```haskell
 add :: Int -> Int -> Int
 add a b = a + b
