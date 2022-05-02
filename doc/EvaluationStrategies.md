@@ -44,8 +44,7 @@ main = print $ add 1 (2*3)
 We use the classification described by Erik Crank and Matthias Felleisen in
 [Parameter-passing and the lambda calculus](https://doi.org/10.1145/99583.99616)
 where ***evaluation strategies*** are combined with the more specific notion of
-***binding strategies*** that determines what kind of value to pass to the
-function.
+***binding strategies*** that determines how values are passed to the function.
 
 ### Strictness
 
@@ -73,7 +72,7 @@ strict semantics.
 ### Binding Strategies
 
 We defined if argument expressions are evaluated before function application or
-not, but what is passed as value to the function in those parameters?
+not, but how is the function receiving those arguments as parameters?
 
 - [Strict:](https://en.wikipedia.org/wiki/Evaluation_strategy#Strict_binding_strategies)
   - Call-by-value:
