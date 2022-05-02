@@ -99,7 +99,8 @@ With the works of
 about reduction sequences and
 [Plotkin](https://doi.org/10.1016/0304-3975(75)90017-1) about parameter-passing
 techniques as foundation, we know that two different reduction sequence or
-evaluation strategy cannot lead to different expressions (minus non-termination).
+evaluation strategy cannot lead to different computation results (minus
+non-termination).
 
 Non-termination is key. In most imperative languages different evaluation
 strategies can produce different results for the same program, whereas in
