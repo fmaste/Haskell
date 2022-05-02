@@ -169,9 +169,6 @@ combination of two things:
 
 ### Memoization
 
-Lazy evaluation sorta means call-by-name with
-[sharing](https://wiki.haskell.org/Sharing).
-
 Now that we know that Haskell computes any given expression at most once every
 time the lambda expression is entered, we can use the
 [memoization](https://wiki.haskell.org/Memoization) optimization technique:
