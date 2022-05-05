@@ -92,12 +92,14 @@ ghci> :t ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
 ... :: ListF Char (ListF Char (ListF Char (ListF a f)))
 ```
 
-We went from ```List Char``` to
+For our example list we went from type ```List Char``` to
 ```ListF Char (ListF Char (ListF Char (ListF a f)))```.
 We don't know you but we don't want to write that recursive type to infinity 
-whenever a value of type ```ListF``` is used, because ```f``` in ```ListF a f```
-is a type parameter and it can be anything, like a list of ```Char``` and one
-```Int``` at the end:
+whenever a value of type ```ListF``` is used. Because ```f``` in ```ListF a f```
+is a type parameter and it can be anything whenever you use ```ConsF```, like a
+list of ```Char``` and one ```Int``` at the end, the
+[type inference system](TypeCheckingAndInference.md) can't read your mind to
+know what you are unambiguously trying to do:
 ```haskell
 ConsF 'a' (ConsF 'b' (ConsF (1::Int) NilF))
   :: ListF Char (ListF Char (ListF Int (ListF a f)))
