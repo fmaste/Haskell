@@ -95,41 +95,50 @@ ConsF 'a' (ConsF 'b' (ConsF (1::Int) NilF))
 
 ### Fix It
 
-The solution is to use the list type using ```Fix```:
+The proposed solution is to use a type ```Recursive``` defined as follows:
 ```haskell
-data Fix f = Fix (f (Fix f))
+data Recursive f = Fix (f (Recursive f))
 ```
+
+\* The common style is naming it ```data Fix f = Fix (f (Fix f))```, but using
+the same name for different things (type and constructor) even thou it's valid
+Haskell syntax it may be easy for the compiler but not for the untrained eye (I
+consider this not-appropriate coding style).
 
 Its kind and types are:
 ```haskell
-Prelude> :k Fix
-Fix :: (* -> *) -> *
+Prelude> :k Recursive
+Recursive :: (* -> *) -> *
 Prelude> :t Fix
 Fix :: f (Fix f) -> Fix f
 ```
 
-```Fix``` is a type function that receives only one type variable ```f```,
-```f``` is another type function that receives a type and returns another type):
+```Recursive``` is a type function that receives only one type variable ```f```,
+with ```f``` being another type function that receives a type and returns
+another type.
 
-For example if you apply the type ```Maybe``` to ```Fix``` you get a new type:
+For example if you apply the type ```Maybe``` to ```Recursive``` you get a new
+type:
 ```haskell
-Prelude> :k Fix
-Fix :: (* -> *) -> *
+Prelude> :k Recursive
+Recursive :: (* -> *) -> *
 Prelude> :k Maybe
 Maybe :: * -> *
-Prelude> :k Fix Maybe
-Fix Maybe :: *
+Prelude> :k Recursive Maybe
+Recursive Maybe :: *
+Prelude> :t Fix Nothing
+Fix Nothing :: Recursive Maybe
 ```
 
 Writing the list gets more tiresome but the type of the list is easier now:
 ```haskell
-Prelude> :t Fix (ConsF 'a' (Fix (ConsF 'b' (Fix (ConsF 'c' (Fix NilF)))))) :: Fix (ListF Char)
-... :: Fix (ListF Char)
+Prelude> :t Fix (ConsF 'a' (Fix (ConsF 'b' (Fix (ConsF 'c' (Fix NilF))))))
+... :: Recursive (ListF Char)
 ```
 
 And write the list type using ```Fix``` with helper functions:
 ```haskell
-type List a = Fix (ListF a)
+type List a = Recursive (ListF a)
 
 nil :: List a
 nil = Fix NilF
@@ -141,7 +150,7 @@ cons a xs = Fix (ConsF a xs)
 Now our example list and its type is:
 ```haskell
 Prelude> :t cons 'a' (cons 'b' (cons 'c' nil))
-... :: Fix (ListF Char)
+... :: Recursive (ListF Char)
 ```
 
 And the list of ```Char``` and one ```Int``` is a type error:
@@ -150,8 +159,8 @@ Prelude> :t cons 'a' (cons 'b' (cons (1::Int) nil))
 
 <interactive>:1:21: error:
     • Couldn't match type ‘Int’ with ‘Char’
-      Expected type: Fix (ListF Char)
-        Actual type: Fix (ListF Int)
+      Expected type: Recursive (ListF Char)
+        Actual type: Recursive (ListF Int)
     • In the second argument of ‘cons’, namely ‘(cons (1 :: Int) nil)’
       In the second argument of ‘cons’, namely
         ‘(cons 'b' (cons (1 :: Int) nil))’
