@@ -2,6 +2,15 @@
 
 ## Recursive schemes
 
+```haskell
+fix :: (a -> a) -> a
+fix f = let {x = f x} in x
+```
+
+To the infinity and beyond ```x = f x = f (f x) = f (f (f ( ... )))```
+
+Thank you [lazy evaluation](EvaluationStrategies.md)!
+
 ### Classic Recursive List
 
 Let's remember the [classic Haskell recursive ```List```](MonadExample.md) data 
@@ -136,7 +145,7 @@ with ```f``` being another type function that receives a type and returns
 another type.
 
 For example if you apply the type ```Maybe``` to ```Recursive``` you get a new
-type. See this useless example to use as values just to get an idea of how to
+type. See this useless example to be use as values just to get an idea of how to
 "code" at the type level:
 ```haskell
 ghci> :k Recursive
@@ -152,6 +161,11 @@ Fix Nothing :: Recursive Maybe
 ***What we are saying with ```f (Recursive f)``` is that ```f``` is a type
 function that receives a ```Recursive f``` as its only parameter. So the value
 inside ```Fix``` has to be of the type returned by ```f (Recursive f)```.***
+
+And what type is ```Recursive f```? the type we are defining now. The type that
+only has values ```Fix (f (Recursive f))```
+
+#### Using Fix
 
 How do we create our example value with our new list type:
 ```haskell
@@ -197,6 +211,7 @@ ghci> :t cons 'a' (cons 'b' (cons (1::Int) nil))
 
 # Further Reading
 
+- https://en.wikibooks.org/wiki/Haskell/Fix_and_recursion
 - Recursion Schemes
 - - https://hackage.haskell.org/package/recursion-schemes
 - - https://hackage.haskell.org/package/data-fix
