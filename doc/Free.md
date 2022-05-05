@@ -46,7 +46,7 @@ Someone found a way to factor out the recursion from data types
 > [recursion-schemes](https://hackage.haskell.org/package/recursion-schemes):
 > Representing common recursion patterns as higher-order functions
 
-I don't who the author(s) of the original idea is(are), just follow the steps
+I don't who the author(s) of the original idea is(are), we just follow the steps
 of factoring out the recursive part of a data type to know how it works and
 later explain how it can be useful.
 
@@ -55,7 +55,8 @@ Let's take out the recursive part with a new type variable ```f```:
 data ListF a f = NilF | ConsF a f
 ```
 
-We abstracted the recursive part, taking out ```(List a)``` from ```Cons```.
+We abstracted the recursive part, taking out the repeated ```(List a)``` from 
+```Cons```.
 
 And its kind and type are now:
 ```haskell
@@ -67,7 +68,10 @@ Prelude> :t ConsF
 ConsF :: a -> f -> ListF a f
 ```
 
-But what is the data type of a list using ```ListF```:
+Now ```ListF``` receives one more type ```f``` and ```ConsF``` instead of 
+receiving a ```List a``` receives and ```f```.
+
+But what is the data type of an example list using ```ListF```:
 ```haskell
 Prelude> :t ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
 ... :: ListF Char (ListF Char (ListF Char (ListF a f)))
