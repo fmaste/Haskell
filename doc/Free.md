@@ -22,9 +22,10 @@ Cons :: a -> List a -> List a
 ```
 
 Remember ```List``` is a ***type function*** that returns a type to be used by
-the compiler's [type checking and inference system](TypeCheckingAndInference.md)
-and the ```Nil``` and ```Cons``` constructors are ***value functions*** that
-return a value to be combined with other expressions of your codebase.
+the compiler's
+[type checking and type inference system](TypeCheckingAndInference.md) and the
+```Nil``` and ```Cons``` constructors are ***value functions*** that return a
+value to be combined with other expressions of your codebase.
 
 ```List```, the type, is a type function that has only one type variable,
 ```a```. This makes ```List``` a function over types that receives a type and
@@ -59,7 +60,7 @@ Let's take out the recursive part with a new type variable ```f```:
 data ListF a f = NilF | ConsF a f
 ```
 
-We abstracted the recursive part, taking out the repeated ```(List a)``` from 
+We abstracted the recursive part, taking out the repeated ```(List a)``` from
 ```Cons```.
 
 And its kind and types are now:
