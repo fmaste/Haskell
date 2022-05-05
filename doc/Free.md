@@ -81,6 +81,10 @@ And ```ConsF``` instead of receiving a ```List a``` receives a generic ```f```, 
 - ```Cons  :: a -> List a -> List a```
 - ```ConsF :: a -> f      -> ListF a f```
 
+This new ```ListF``` type makes no sense at all used alone to represent a list,
+I can make an instance of type ```ListF``` like ```ListF Int Char```, a list
+that holds either one ```Int``` or two ```Char```.
+
 But what is the data type of an example list using ```ListF```:
 ```haskell
 ghci> :t ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
