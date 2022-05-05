@@ -136,7 +136,8 @@ with ```f``` being another type function that receives a type and returns
 another type.
 
 For example if you apply the type ```Maybe``` to ```Recursive``` you get a new
-type:
+type. See this useless example to use as values just to get an idea of how to
+"code" at the type level:
 ```haskell
 ghci> :k Recursive
 Recursive :: (* -> *) -> *
@@ -146,6 +147,15 @@ ghci> :k Recursive Maybe
 Recursive Maybe :: *
 ghci> :t Fix Nothing
 Fix Nothing :: Recursive Maybe
+```
+
+***What we are saying with ```f (Recursive f)``` is that ```f``` is a type
+function that receives a ```Recursive f``` as its only parameter. So the value
+inside ```Fix``` has to be of the type returned by ```f (Recursive f)```.***
+
+How do we create our example value with our new list type:
+```haskell
+Fix (ConsF 'a' (Fix (ConsF 'b' (Fix (ConsF 'c' (Fix NilF))))))
 ```
 
 Writing the list gets more tiresome but the type of the list is easier now:
