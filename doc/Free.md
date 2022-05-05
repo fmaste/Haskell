@@ -27,8 +27,8 @@ Cons 'a' ((Cons 'b') (Cons 'c' Nil)) :: List Char
 returns a type, hence kind ```* -> *```.
 
 The other two are value functions, ```Nil``` with no parameters and ```Cons``` 
-receives two parameters of type ```a``` and ```List a``` and return a value of
-type ```List a```.
+that receives two parameters of type ```a``` and ```List a``` and return a
+value of type ```List a```.
 
 Someone found a way to factor out the recursion from data types
 
