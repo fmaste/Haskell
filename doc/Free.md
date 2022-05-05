@@ -74,12 +74,14 @@ ghci> :t ConsF
 ConsF :: a -> f -> ListF a f
 ```
 
-```ListF``` receives one more type as parameter ```f``` than ```List``` above. Kinds have changed like this:
+```ListF``` receives one more type as parameter ```f``` than ```List``` above.
+Kinds have changed like this:
 - ```List  :: * -> *```
 - ```ListF :: * -> * -> *```
 
 And ```ConsF``` instead of receiving a ```List a``` now receives any type as
-defined by type variable ```f```. Types have changed like this:
+defined by type variable ```f```.
+Types have changed like this:
 - ```Cons  :: a -> List a -> List a```
 - ```ConsF :: a -> f      -> ListF a f```
 
