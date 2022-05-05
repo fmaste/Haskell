@@ -68,11 +68,11 @@ Prelude> :t ConsF
 ConsF :: a -> f -> ListF a f
 ```
 
-Now ```ListF``` receives one more type ```f```:
+Now ```ListF``` receives one more type ```f``` and its kinds are:
 - ```List  :: * -> *```
 - ```ListF :: * -> * -> *```
 
-And ```ConsF``` instead of receiving a ```List a``` receives and ```f```:
+And ```ConsF``` instead of receiving a ```List a``` receives an ```f``` and its types are:
 - ```Cons  :: a -> List a -> List a```
 - ```ConsF :: a -> f      -> ListF a f```
 
@@ -102,8 +102,8 @@ data Recursive f = Fix (f (Recursive f))
 
 \* The common style is naming it ```data Fix f = Fix (f (Fix f))```, but using
 the same name for different things (type and constructor) even thou it's valid
-Haskell syntax it may be easy for the compiler but not for the untrained eye (I
-consider this not-appropriate coding style).
+Haskell syntax and it may be easy for the compiler, it's not easy for the 
+untrained eye (I consider this not-appropriate coding style).
 
 Its kind and types are:
 ```haskell
@@ -135,6 +135,8 @@ Writing the list gets more tiresome but the type of the list is easier now:
 Prelude> :t Fix (ConsF 'a' (Fix (ConsF 'b' (Fix (ConsF 'c' (Fix NilF))))))
 ... :: Recursive (ListF Char)
 ```
+
+Saying ```Recursive (ListF a)``` is equivalent to ```List a```
 
 And write the list type using ```Fix``` with helper functions:
 ```haskell
