@@ -60,7 +60,7 @@ Let's ***take out the recursive part with a new type variable ```f```***:
 data ListF a f = NilF | ConsF a f
 ```
 
-We have abstracted the recursive part, taking out the repeated ```(List a)```
+We have abstracted the recursive part, taking out the "repeated" ```(List a)```
 from ```Cons```.
 <!-- If ```Cons``` goes here in a newline it's not rendered. -->
 
@@ -89,7 +89,7 @@ Types have changed like this:
 
 Now this new ```ListF``` type makes no sense at all used alone to represent a
 list, I can make an instance of type ```ListF``` like ```ListF Int Char```, a
-list that holds either one ```Int``` or two ```Char```.
+list that holds either one ```Int``` or one ```Int``` plus one ```Char```.
 
 The idea is to create list like value using ```ListF``` as shown below:
 ```haskell
