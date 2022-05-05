@@ -12,11 +12,11 @@ data List a = Nil | Cons a (List a)
 
 Where its kind and the types of the constructors are:
 ```haskell
-Prelude> :k List
+ghci> :k List
 List :: * -> *
-Prelude> :t Nil
+ghci> :t Nil
 Nil :: List a
-Prelude> :t Cons
+ghci> :t Cons
 Cons :: a -> List a -> List a
 ```
 
@@ -34,7 +34,7 @@ parameters of type ```a``` and ```List a``` and returns also a value of type
 
 And the type of an example list using ```List``` is:
 ```haskell
-Prelude> :t Cons 'a' ((Cons 'b') (Cons 'c' Nil))
+ghci> :t Cons 'a' ((Cons 'b') (Cons 'c' Nil))
 ... :: List Char
 ```
 
@@ -62,11 +62,11 @@ We abstracted the recursive part, taking out the repeated ```(List a)``` from
 
 And its kind and types are now:
 ```haskell
-Prelude> :k ListF
+ghci> :k ListF
 ListF :: * -> * -> *
-Prelude> :t NilF
+ghci> :t NilF
 NilF :: ListF a f
-Prelude> :t ConsF
+ghci> :t ConsF
 ConsF :: a -> f -> ListF a f
 ```
 
@@ -80,7 +80,7 @@ And ```ConsF``` instead of receiving a ```List a``` receives an ```f``` and its 
 
 But what is the data type of an example list using ```ListF```:
 ```haskell
-Prelude> :t ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
+ghci> :t ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
 ... :: ListF Char (ListF Char (ListF Char (ListF a f)))
 ```
 
@@ -109,9 +109,9 @@ untrained eye (I consider this not-appropriate coding style).
 
 Its kind and types are:
 ```haskell
-Prelude> :k Recursive
+ghci> :k Recursive
 Recursive :: (* -> *) -> *
-Prelude> :t Fix
+ghci> :t Fix
 Fix :: f (Fix f) -> Fix f
 ```
 
@@ -122,19 +122,19 @@ another type.
 For example if you apply the type ```Maybe``` to ```Recursive``` you get a new
 type:
 ```haskell
-Prelude> :k Recursive
+ghci> :k Recursive
 Recursive :: (* -> *) -> *
-Prelude> :k Maybe
+ghci> :k Maybe
 Maybe :: * -> *
-Prelude> :k Recursive Maybe
+ghci> :k Recursive Maybe
 Recursive Maybe :: *
-Prelude> :t Fix Nothing
+ghci> :t Fix Nothing
 Fix Nothing :: Recursive Maybe
 ```
 
 Writing the list gets more tiresome but the type of the list is easier now:
 ```haskell
-Prelude> :t Fix (ConsF 'a' (Fix (ConsF 'b' (Fix (ConsF 'c' (Fix NilF))))))
+ghci> :t Fix (ConsF 'a' (Fix (ConsF 'b' (Fix (ConsF 'c' (Fix NilF))))))
 ... :: Recursive (ListF Char)
 ```
 
@@ -153,22 +153,20 @@ cons a xs = Fix (ConsF a xs)
 
 Now our example list and its type is:
 ```haskell
-Prelude> :t cons 'a' (cons 'b' (cons 'c' nil))
+ghci> :t cons 'a' (cons 'b' (cons 'c' nil))
 ... :: Recursive (ListF Char)
 ```
 
 And the list of ```Char``` and one ```Int``` is a type error:
 ```haskell
-Prelude> :t cons 'a' (cons 'b' (cons (1::Int) nil))
+ghci> :t cons 'a' (cons 'b' (cons (1::Int) nil))
 
-<interactive>:1:21: error:
-    • Couldn't match type ‘Int’ with ‘Char’
-      Expected type: Recursive (ListF Char)
-        Actual type: Recursive (ListF Int)
-    • In the second argument of ‘cons’, namely ‘(cons (1 :: Int) nil)’
+<interactive>:1:27: error:
+    • Couldn't match expected type ‘Char’ with actual type ‘Int’
+    • In the first argument of ‘cons’, namely ‘(1 :: Int)’
+      In the second argument of ‘cons’, namely ‘(cons (1 :: Int) nil)’
       In the second argument of ‘cons’, namely
         ‘(cons 'b' (cons (1 :: Int) nil))’
-      In the expression: cons 'a' (cons 'b' (cons (1 :: Int) nil))
 ```
 
 # Further Reading
