@@ -10,7 +10,8 @@ type:
 data List a = Nil | Cons a (List a)
 ```
 
-Where its kind and the types of the constructors are:
+Where the kind of ```List``` and the types of the ```Nil``` and ```Cons```
+constructors are:
 ```haskell
 ghci> :k List
 List :: * -> *
