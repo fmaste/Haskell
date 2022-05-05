@@ -2,6 +2,8 @@
 
 ## Recursive schemes
 
+### Classic Recursive List
+
 Let's remember the [classic Haskell recursive ```List```](MonadExample.md) data 
 type:
 ```haskell
@@ -18,8 +20,6 @@ Prelude> :t Nil
 Nil :: List a
 Prelude> :t Cons
 Cons :: a -> List a -> List a
-Prelude> :t Cons 'a' ((Cons 'b') (Cons 'c' Nil))
-Cons 'a' ((Cons 'b') (Cons 'c' Nil)) :: List Char
 ```
 
 ```List```, the type, is a type function that has only one type  variable,
@@ -29,6 +29,14 @@ returns a type, hence kind ```* -> *```.
 The other two are value functions, ```Nil``` with no parameters and ```Cons``` 
 that receives two parameters of type ```a``` and ```List a``` and return a
 value of type ```List a```.
+
+And the type of an example list using ```List``` is:
+```haskell
+Prelude> :t Cons 'a' ((Cons 'b') (Cons 'c' Nil))
+Cons 'a' ((Cons 'b') (Cons 'c' Nil)) :: List Char
+```
+
+### Recursion Out
 
 Someone found a way to factor out the recursion from data types
 
@@ -49,7 +57,7 @@ data ListF a f = NilF | ConsF a f
 
 We abstracted the recursive part, taking out ```(List a)``` from ```Cons```.
 
-And its kind and type are know:
+And its kind and type are now:
 ```haskell
 Prelude> :k ListF
 ListF :: * -> * -> *
