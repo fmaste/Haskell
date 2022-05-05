@@ -10,9 +10,7 @@ type:
 data List a = Nil | Cons a (List a)
 ```
 
-Where its kind and the types of the constructors are (remember the former is a
-type function that returns a type and the latter are value functions that return
- a value):
+Where its kind and the types of the constructors are:
 ```haskell
 Prelude> :k List
 List :: * -> *
@@ -22,13 +20,17 @@ Prelude> :t Cons
 Cons :: a -> List a -> List a
 ```
 
-```List```, the type, is a type function that has only one type  variable,
-```a```. This makes ```List``` a function over types that receives a type and 
+Remember ```List``` is a type function that returns a type and the ```Nil``` and
+```Cons``` constructors are value functions that return a value.
+
+```List```, the type, is a type function that has only one type variable,
+```a```. This makes ```List``` a function over types that receives a type and
 returns a type, hence kind ```* -> *```.
 
-The other two are value functions, ```Nil``` with no parameters and ```Cons``` 
-that receives two parameters of type ```a``` and ```List a``` and returns a
-value of type ```List a```.
+The other two are value functions, ```Nil``` with no parameters so it just 
+returns a value of type ```List a``` and ```Cons```  that receives two
+parameters of type ```a``` and ```List a``` and returns also a value of type
+```List a```.
 
 And the type of an example list using ```List``` is:
 ```haskell
