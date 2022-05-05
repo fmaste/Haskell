@@ -21,8 +21,10 @@ ghci> :t Cons
 Cons :: a -> List a -> List a
 ```
 
-Remember ```List``` is a type function that returns a type and the ```Nil``` and
-```Cons``` constructors are value functions that return a value.
+Remember ```List``` is a ***type function*** that returns a type to be used by
+the compiler's [type checking and inference system](TypeCheckingAndInference.md)
+and the ```Nil``` and ```Cons``` constructors are ***value functions*** that
+return a value to be combined with other expressions of your codebase.
 
 ```List```, the type, is a type function that has only one type variable,
 ```a```. This makes ```List``` a function over types that receives a type and
