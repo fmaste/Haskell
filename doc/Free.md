@@ -9,7 +9,8 @@ data List a = Nil | Cons a (List a)
 ```
 
 Where its kind and the types of the constructors are (remember the former is a
-type function and the latter are expressions functions that return a value):
+type function that returns a type and the latter are value functions that return
+ a value):
 ```haskell
 Prelude> :k List
 List :: * -> *
@@ -21,11 +22,11 @@ Prelude> :t Cons 'a' ((Cons 'b') (Cons 'c' Nil))
 Cons 'a' ((Cons 'b') (Cons 'c' Nil)) :: List Char
 ```
 
-```List```, the type, is a type that has only one type  variable, ```a```. This
-makes ```List``` a function over types that receives a type and returns a type,
-hence kind ```* -> *```.
+```List```, the type, is a type function that has only one type  variable,
+```a```. This makes ```List``` a function over types that receives a type and 
+returns a type, hence kind ```* -> *```.
 
-The other two are functions, ```Nil``` with no parameters and ```Cons``` 
+The other two are value functions, ```Nil``` with no parameters and ```Cons``` 
 receives two parameters of type ```a``` and ```List a``` and return a value of
 type ```List a```.
 
@@ -37,9 +38,11 @@ Someone found a way to factor out the recursion from data types
 > [recursion-schemes](https://hackage.haskell.org/package/recursion-schemes):
 > Representing common recursion patterns as higher-order functions
 
-I don't who the author(s) of the original idea is(are), we are just explaining
-how it works and how it can be useful.
+I don't who the author(s) of the original idea is(are), just follow the steps
+of factoring out the recursive part of a data type to know how it works and
+later explain how it can be useful.
 
+Let's take out the recursive part with a new type variable ```f```:
 ```haskell
 data ListF a f = NilF | ConsF a f
 ```
