@@ -71,6 +71,7 @@ ConsF :: a -> f -> ListF a f
 Now ```ListF``` receives one more type ```f```:
 - ```List  :: * -> *```
 - ```ListF :: * -> * -> *```
+
 And ```ConsF``` instead of receiving a ```List a``` receives and ```f```:
 - ```Cons  :: a -> List a -> List a```
 - ```ConsF :: a -> f      -> ListF a f```
