@@ -144,6 +144,20 @@ Prelude> :t cons 'a' (cons 'b' (cons 'c' nil))
 ... :: Fix (ListF Char)
 ```
 
+And the list of ```Char``` and one ```Int``` is a type error:
+```haskell
+Prelude> :t cons 'a' (cons 'b' (cons (1::Int) nil))
+
+<interactive>:1:21: error:
+    • Couldn't match type ‘Int’ with ‘Char’
+      Expected type: Fix (ListF Char)
+        Actual type: Fix (ListF Int)
+    • In the second argument of ‘cons’, namely ‘(cons (1 :: Int) nil)’
+      In the second argument of ‘cons’, namely
+        ‘(cons 'b' (cons (1 :: Int) nil))’
+      In the expression: cons 'a' (cons 'b' (cons (1 :: Int) nil))
+```
+
 # Further Reading
 
 - Recursion Schemes
