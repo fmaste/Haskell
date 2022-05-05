@@ -121,8 +121,28 @@ Prelude> :k Fix Maybe
 Fix Maybe :: *
 ```
 
-And write the list type using ```Fix```:
+Writing the list gets more tiresome but the type of the list is easier now:
+```haskell
+Prelude> :t Fix (ConsF 'a' (Fix (ConsF 'b' (Fix (ConsF 'c' (Fix NilF)))))) :: Fix (ListF Char)
+... :: Fix (ListF Char)
+```
 
+And write the list type using ```Fix``` with helper functions:
+```haskell
+type List a = Fix (ListF a)
+
+nil :: List a
+nil = Fix NilF
+
+cons :: a -> List a -> List a
+cons a xs = Fix (ConsF a xs)
+```
+
+Now our example list and its type is:
+```haskell
+Prelude> :t cons 'a' (cons 'b' (cons 'c' nil))
+... :: Fix (ListF Char)
+```
 
 # Further Reading
 
