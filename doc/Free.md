@@ -85,18 +85,19 @@ Types have changed like this:
 - ```Cons  :: a -> List a -> List a```
 - ```ConsF :: a -> f      -> ListF a f```
 
-This new ```ListF``` type makes no sense at all used alone to represent a list,
-I can make an instance of type ```ListF``` like ```ListF Int Char```, a list
-that holds either one ```Int``` or two ```Char```.
+Now this new ```ListF``` type makes no sense at all used alone to represent a
+list, I can make an instance of type ```ListF``` like ```ListF Int Char```, a
+list that holds either one ```Int``` or two ```Char```.
 
-The idea is to create list like values using ```ListF``` as shown below:
+The idea is to create list like value using ```ListF``` as shown below:
 ```haskell
 ghci> :t ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
 ... :: ListF Char (ListF Char (ListF Char (ListF a f)))
 ```
 
-For our example list we went from type ```List Char``` to
+But for our example list we went from type ```List Char``` to
 ```ListF Char (ListF Char (ListF Char (ListF a f)))```.
+
 We don't know you but we don't want to write that recursive type to infinity 
 whenever a value of type ```ListF``` is used. Because ```f``` in ```ListF a f```
 is a type parameter and it can be anything whenever you use ```ConsF```, like a
