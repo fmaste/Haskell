@@ -64,6 +64,7 @@ We abstracted the recursive part, taking out the repeated ```(List a)``` from
 ```Cons```.
 
 And its kind and types are now:
+
 ```haskell
 ghci> :k ListF
 ListF :: * -> * -> *
