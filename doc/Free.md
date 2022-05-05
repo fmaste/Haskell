@@ -55,7 +55,7 @@ I don't who the author(s) of the original idea is(are), we just follow the steps
 of factoring out the recursive part of a data type to know how it works and
 later explain how it can be useful.
 
-Let's take out the recursive part with a new type variable ```f```:
+Let's ***take out the recursive part with a new type variable ```f```***:
 ```haskell
 data ListF a f = NilF | ConsF a f
 ```
@@ -63,7 +63,7 @@ data ListF a f = NilF | ConsF a f
 We abstracted the recursive part, taking out the repeated ```(List a)``` from ```Cons```.
 <!-- If ```Cons``` goes here in a newline it's not rendered. -->
 
-And its kind and types are now:
+Its kind and types are as follows:
 ```haskell
 ghci> :k ListF
 ListF :: * -> * -> *
@@ -73,12 +73,12 @@ ghci> :t ConsF
 ConsF :: a -> f -> ListF a f
 ```
 
-Now ```ListF``` receives one more type as parameter ```f```. Kinds have changed like this:
+```ListF``` receives one more type as parameter ```f``` than ```List``` above. Kinds have changed like this:
 - ```List  :: * -> *```
 - ```ListF :: * -> * -> *```
 
-And ```ConsF``` instead of receiving a ```List a``` now receives any type passed
-to it inside type variable ```f```. Types have changed like this:
+And ```ConsF``` instead of receiving a ```List a``` now receives any type as
+defined by type variable ```f```. Types have changed like this:
 - ```Cons  :: a -> List a -> List a```
 - ```ConsF :: a -> f      -> ListF a f```
 
@@ -86,7 +86,7 @@ This new ```ListF``` type makes no sense at all used alone to represent a list,
 I can make an instance of type ```ListF``` like ```ListF Int Char```, a list
 that holds either one ```Int``` or two ```Char```.
 
-But what is the data type of an example list using ```ListF```:
+The idea is to create list like values using ```ListF``` as shown below:
 ```haskell
 ghci> :t ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
 ... :: ListF Char (ListF Char (ListF Char (ListF a f)))
