@@ -27,7 +27,7 @@ Cons :: a -> List a -> List a
 returns a type, hence kind ```* -> *```.
 
 The other two are value functions, ```Nil``` with no parameters and ```Cons``` 
-that receives two parameters of type ```a``` and ```List a``` and return a
+that receives two parameters of type ```a``` and ```List a``` and returns a
 value of type ```List a```.
 
 And the type of an example list using ```List``` is:
@@ -58,7 +58,7 @@ data ListF a f = NilF | ConsF a f
 We abstracted the recursive part, taking out the repeated ```(List a)``` from 
 ```Cons```.
 
-And its kind and type are now:
+And its kind and types are now:
 ```haskell
 Prelude> :k ListF
 ListF :: * -> * -> *
@@ -85,13 +85,15 @@ Prelude> :t ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
 We went from to ```List Char``` to
 ```ListF Char (ListF Char (ListF Char (ListF a f)))```.
 We don't know you but we don't want to write that recursive type to infinity 
-whenever a value of type ```ListF``` is used, because ```f``` in ```ListF a f``` 
-is a type parameter it can be anything, like a list of ```Char``` and one
+whenever a value of type ```ListF``` is used, because ```f``` in ```ListF a f```
+is a type parameter and it can be anything, like a list of ```Char``` and one
 ```Int``` at the end:
 ```haskell
 ConsF 'a' (ConsF 'b' (ConsF (1::Int) NilF))
   :: ListF Char (ListF Char (ListF Int (ListF a f)))
 ```
+
+### Fix It
 
 The solution is to write the list type using ```Fix```:
 ```haskell
