@@ -33,7 +33,7 @@ value of type ```List a```.
 And the type of an example list using ```List``` is:
 ```haskell
 Prelude> :t Cons 'a' ((Cons 'b') (Cons 'c' Nil))
-Cons 'a' ((Cons 'b') (Cons 'c' Nil)) :: List Char
+... :: List Char
 ```
 
 ### Recursion Out
@@ -70,8 +70,7 @@ ConsF :: a -> f -> ListF a f
 But what is the data type of a list using ```ListF```:
 ```haskell
 Prelude> :t ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
-ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
-  :: ListF Char (ListF Char (ListF Char (ListF a f)))
+... :: ListF Char (ListF Char (ListF Char (ListF a f)))
 ```
 
 We went from to ```List Char``` to
