@@ -95,19 +95,34 @@ ConsF 'a' (ConsF 'b' (ConsF (1::Int) NilF))
 
 ### Fix It
 
-The solution is to write the list type using ```Fix```:
+The solution is to use the list type using ```Fix```:
 ```haskell
 data Fix f = Fix (f (Fix f))
 ```
 
-```Fix``` is a type that receives only one type variable (parameter), a type
-function (a function over types that receives a type and returns another type):
+Its kind and types are:
 ```haskell
 Prelude> :k Fix
 Fix :: (* -> *) -> *
 Prelude> :t Fix
 Fix :: f (Fix f) -> Fix f
 ```
+
+```Fix``` is a type function that receives only one type variable ```f```,
+```f``` is another type function that receives a type and returns another type):
+
+For example if you apply the type ```Maybe``` to ```Fix``` you get a new type:
+```haskell
+Prelude> :k Fix
+Fix :: (* -> *) -> *
+Prelude> :k Maybe
+Maybe :: * -> *
+Prelude> :k Fix Maybe
+Fix Maybe :: *
+```
+
+And write the list type using ```Fix```:
+
 
 # Further Reading
 
