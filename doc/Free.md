@@ -38,7 +38,7 @@ Prelude> :t Cons 'a' ((Cons 'b') (Cons 'c' Nil))
 
 ### Recursion Out
 
-Someone found a way to factor out the recursion from data types
+Someone found a way to factor out the recursion from data types.
 
 > Using higher-order functions to implement those recursion schemes makes your
 > code clearer, faster, and safer.
@@ -82,7 +82,7 @@ Prelude> :t ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
 ... :: ListF Char (ListF Char (ListF Char (ListF a f)))
 ```
 
-We went from to ```List Char``` to
+We went from ```List Char``` to
 ```ListF Char (ListF Char (ListF Char (ListF a f)))```.
 We don't know you but we don't want to write that recursive type to infinity 
 whenever a value of type ```ListF``` is used, because ```f``` in ```ListF a f```
