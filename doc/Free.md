@@ -2,14 +2,14 @@
 
 ## Recursive schemes
 
-Let's remember the classic Haskell recursive [```List```](MonadExample.md) data 
+Let's remember the [classic Haskell recursive ```List```](MonadExample.md) data 
 type:
 ```haskell
 data List a = Nil | Cons a (List a)
 ```
 
-Where its kind and the types of the constructors are (remember the former is a 
-type and the latter are expressions/functions that return a value):
+Where its kind and the types of the constructors are (remember the former is a
+type and the latter are expressions that return a value):
 ```haskell
 Prelude> :k List
 List :: * -> *
@@ -20,6 +20,14 @@ Cons :: a -> List a -> List a
 Prelude> :t Cons 'a' ((Cons 'b') (Cons 'c' Nil))
 Cons 'a' ((Cons 'b') (Cons 'c' Nil)) :: List Char
 ```
+
+```List```, the type, is a type that has only one type  variable, ```a```. This
+makes ```List``` a function over types that receives a type and returns a type,
+hence kind ```* -> *```.
+
+the other two are functions, ```Nil``` with no parameters and ```Cons``` 
+receives two parameters of type ```a``` and ```List a``` and return a value of
+type ```List a```.
 
 Someone found a way to factor out the recursion from data types
 
@@ -46,6 +54,38 @@ Prelude> :t NilF
 NilF :: ListF a f
 Prelude> :t ConsF
 ConsF :: a -> f -> ListF a f
+```
+
+But what is the data type of a list using ```ListF```:
+```haskell
+Prelude> :t ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
+ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
+  :: ListF Char (ListF Char (ListF Char (ListF a f)))
+```
+
+We went from to ```List Char``` to
+```ListF Char (ListF Char (ListF Char (ListF a f)))```.
+We don't know you but we don't want to write that recursive type to infinity 
+whenever a value of type ```ListF``` is used, because ```f``` in ```ListF a f``` 
+is a type parameter it can be anything, like a list of ```Char``` and one
+```Int``` at the end:
+```haskell
+ConsF 'a' (ConsF 'b' (ConsF (1::Int) NilF))
+  :: ListF Char (ListF Char (ListF Int (ListF a f)))
+```
+
+The solution is to write the list type using ```Fix```:
+```haskell
+data Fix f = Fix (f (Fix f))
+```
+
+```Fix``` is a type that receives only one type variable (parameter), a type
+function (a function over types that receives a type and returns another type):
+```haskell
+Prelude> :k Fix
+Fix :: (* -> *) -> *
+Prelude> :t Fix
+Fix :: f (Fix f) -> Fix f
 ```
 
 # Further Reading
