@@ -30,10 +30,9 @@ return a value to be combined with other expressions of your codebase.
 ```a```. This makes ```List``` a function over types that receives a type and
 returns a type, hence kind ```* -> *```.
 
-The other two are value functions, ```Nil``` with no parameters so it just 
-returns a value of type ```List a``` and ```Cons```  that receives two
-parameters of type ```a``` and ```List a``` and returns also a value of type
-```List a```.
+The other two are value functions. ```Nil``` has no parameters so it just 
+returns a value of type ```List a``` while ```Cons```  receives two parameters
+of type ```a``` and ```List a``` and returns also a value of type ```List a```.
 
 And the type of an example list using ```List``` is:
 ```haskell
