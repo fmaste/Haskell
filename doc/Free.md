@@ -60,11 +60,9 @@ Let's take out the recursive part with a new type variable ```f```:
 data ListF a f = NilF | ConsF a f
 ```
 
-We abstracted the recursive part, taking out the repeated ```(List a)``` from
-```Cons```.
+We abstracted the recursive part, taking out the repeated ```(List a)``` from ```Cons```.
 
 And its kind and types are now:
-
 ```haskell
 ghci> :k ListF
 ListF :: * -> * -> *
@@ -74,11 +72,12 @@ ghci> :t ConsF
 ConsF :: a -> f -> ListF a f
 ```
 
-Now ```ListF``` receives one more type ```f```, kinds have changed like this:
+Now ```ListF``` receives one more type as parameter ```f```. Kinds have changed like this:
 - ```List  :: * -> *```
 - ```ListF :: * -> * -> *```
 
-And ```ConsF``` instead of receiving a ```List a``` receives a generic ```f```, types have changed like this:
+And ```ConsF``` instead of receiving a ```List a``` now receives any type passed
+to it inside type variable ```f```. Types have changed like this:
 - ```Cons  :: a -> List a -> List a```
 - ```ConsF :: a -> f      -> ListF a f```
 
