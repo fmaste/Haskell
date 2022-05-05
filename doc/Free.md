@@ -68,8 +68,12 @@ Prelude> :t ConsF
 ConsF :: a -> f -> ListF a f
 ```
 
-Now ```ListF``` receives one more type ```f``` and ```ConsF``` instead of 
-receiving a ```List a``` receives and ```f```.
+Now ```ListF``` receives one more type ```f```:
+- ```List  :: * -> *```
+- ```ListF :: * -> * -> *```
+And ```ConsF``` instead of receiving a ```List a``` receives and ```f```:
+- ```Cons  :: a -> List a -> List a```
+- ```ConsF :: a -> f      -> ListF a f```
 
 But what is the data type of an example list using ```ListF```:
 ```haskell
