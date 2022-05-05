@@ -60,7 +60,8 @@ Let's ***take out the recursive part with a new type variable ```f```***:
 data ListF a f = NilF | ConsF a f
 ```
 
-We abstracted the recursive part, taking out the repeated ```(List a)``` from ```Cons```.
+We have abstracted the recursive part, taking out the repeated ```(List a)```
+from ```Cons```.
 <!-- If ```Cons``` goes here in a newline it's not rendered. -->
 
 Its kind and types are as follows:
