@@ -137,7 +137,7 @@ Its kind and types are:
 ghci> :k Recursive
 Recursive :: (* -> *) -> *
 ghci> :t Fix
-Fix :: f (Fix f) -> Fix f
+Fix :: f (Recursive f) -> Recursive f
 ```
 
 ```Recursive``` is a type function that receives only one type variable ```f```,
@@ -163,7 +163,7 @@ function that receives a ```Recursive f``` as its only parameter. So the value
 inside ```Fix``` has to be of the type returned by ```f (Recursive f)```.***
 
 And what type is ```Recursive f```? the type we are defining now. The type that
-only has values ```Fix (f (Recursive f))```
+only has values returned by function ```Fix :: (f (Recursive f)) -> Recursive f```
 
 #### Using Fix
 
