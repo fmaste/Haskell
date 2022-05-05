@@ -9,7 +9,7 @@ data List a = Nil | Cons a (List a)
 ```
 
 Where its kind and the types of the constructors are (remember the former is a
-type and the latter are expressions that return a value):
+type function and the latter are expressions functions that return a value):
 ```haskell
 Prelude> :k List
 List :: * -> *
@@ -25,7 +25,7 @@ Cons 'a' ((Cons 'b') (Cons 'c' Nil)) :: List Char
 makes ```List``` a function over types that receives a type and returns a type,
 hence kind ```* -> *```.
 
-the other two are functions, ```Nil``` with no parameters and ```Cons``` 
+The other two are functions, ```Nil``` with no parameters and ```Cons``` 
 receives two parameters of type ```a``` and ```List a``` and return a value of
 type ```List a```.
 
