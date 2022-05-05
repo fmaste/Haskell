@@ -61,6 +61,7 @@ data ListF a f = NilF | ConsF a f
 ```
 
 We abstracted the recursive part, taking out the repeated ```(List a)``` from ```Cons```.
+<!-- If ```Cons``` goes here in a newline it's not rendered. -->
 
 And its kind and types are now:
 ```haskell
