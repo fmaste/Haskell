@@ -343,3 +343,11 @@ The purpose of abstraction is not to be vague, but to create a new semantic
 level in which one can be absolutely precise.
 - Edsger Dijkstra
 --}
+
+myFoldl :: (b -> a -> b) -> b -> [a] -> b
+myFoldl f i [] = i
+myFoldl f i (x:xs) = myFoldl f (f i x) xs
+
+myFoldr :: (a -> b -> b) -> b -> [a] -> b
+myFoldr f i [] = i
+myFoldr f i (x:xs) = f x (myFoldr f i xs)
