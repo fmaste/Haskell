@@ -260,3 +260,7 @@ universe are defined as followed.
 - https://dl.acm.org/doi/pdf/10.1145/2633628.2633634
 - https://thinkingwithtypes.com/
 - [Fun with type functions](https://www.microsoft.com/en-us/research/publication/fun-type-functions/).
+- https://www.parsonsmatt.org/2017/04/26/basic_type_level_programming_in_haskell.html
+- https://diogocastro.com/blog/2018/10/17/haskells-kind-system-a-primer/
+- https://hengchu.github.io/posts/2018-05-09-type-lists-and-type-classes.lhs.html
+- https://kseo.github.io/posts/2017-01-16-type-level-functions-using-closed-type-families.html

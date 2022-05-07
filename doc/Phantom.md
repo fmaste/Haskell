@@ -130,7 +130,7 @@ The type a is refined to ```Int```. That’s the whole point! A precise specific
 - https://wiki.haskell.org/Generalised_algebraic_datatype
 - https://www.microsoft.com/en-us/research/publication/simple-unification-based-type-inference-for-gadts/
 - https://github.com/goldfirere/glambda
-
+- [LambdaConf 2015 - A Practical Introduction to Haskell GADTs Richard Eisenberg](https://www.youtube.com/watch?v=6snteFntvjM)
 
 TODO: [Visible type application](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/type_applications.html#visible-type-application)
 
