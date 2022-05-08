@@ -8,8 +8,8 @@
 > cdecl       → gendecl
 >             | (funlhs | var) rhs
 > ```
->  A class declaration introduces a new class and the operations (class methods)
-> on it. A class declaration has the general form:
+> A ```class``` declaration introduces a new class and the operations (class
+> methods) on it. A class declaration has the general form:
 >
 > ```class cx => C u where cdecls```
 >
@@ -21,11 +21,11 @@
 > The superclass relation must not be cyclic; i.e. it must form a directed
 > acyclic graph.
 >
-> The ```cdecls``` part of a class declaration contains three kinds of
+> The ```cdecls``` part of a ```class``` declaration contains three kinds of
 > declarations:
 >
 > 1. The class declaration introduces new class methods ```vi```, whose scope
->    extends outside the class declaration. The class methods of a class
+>    extends outside the ```class``` declaration. The class methods of a class
 >    declaration are precisely the ```vi``` for which there is an explicit type
 >    signature ```vi :: cxi => ti``` in ```cdecls```. Class methods share the
 >    top level namespace with variable bindings and field names; they must not
@@ -44,16 +44,16 @@
 >    ```
 >    Here the type of ```op``` is
 >    ```∀ a, b. (Foo a, Num b)   ⇒  a  →  b  →  a```.
-> 2. The ```cdecls``` may also contain a fixity declaration for any of the
->    class methods (but for no other values). However, since class methods
+> 2. The ```cdecls``` may also contain a ```fixity``` declaration for any of 
+>    the class methods (but for no other values). However, since class methods
 >    declare top-level values, the fixity declaration for a class method may
      alternatively appear at top level, outside the class declaration.
 > 3. Lastly, the ```cdecls``` may contain a default class method for any of
 >    the ```vi```. The default class method for ```vi``` is used if no binding
->    for it is given in a particular instance declaration (see Section 4.3.2).
->    The default method declaration is a normal value definition, except that
->    the left hand side may only be a variable or function definition. For
->    example:
+>    for it is given in a particular ```instance``` declaration (see Section
+>    4.3.2). The default method declaration is a normal value definition,
+>    except that the left hand side may only be a variable or function 
+>    definition. For example:
 >    ```haskell
 >    class Foo a where
 >            op1, op2 :: a -> a
@@ -64,13 +64,16 @@
 >
 > Other than these cases, no other declarations are permitted in ```cdecls```.
 > 
-> A class declaration with no ```where``` part may be useful for combining a
-> collection of classes into a larger one that inherits all of the class 
-> methods in the original ones. For example:
+> A ```class``` declaration with no ```where``` part may be useful for
+> combining a collection of classes into a larger one that inherits all of the
+> class methods in the original ones. For example:
 >
 > ```class  (Read a, Show a) => Textual a```
 >
-> Other than these cases, no other declarations are permitted in ```cdecls```.
+> In such a case, if a type is an instance of all superclasses, it is not
+> automatically an instance of the subclass, even though the subclass has no
+> immediate class methods. The ```instance``` declaration must be given 
+> explicitly with no where part.
 >
 > [Haskell 2010 Report - 4.3.1 Class Declarations](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-750004.3)
 
