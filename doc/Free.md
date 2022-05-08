@@ -19,8 +19,8 @@ type:
 data List a = Nil | Cons a (List a)
 ```
 
-Where the kind of ```List``` and the types of the ```Nil``` and ```Cons```
-constructors are:
+Where the kind of the type constructor ```List``` and the types of the ```Nil```
+and ```Cons``` data constructors are:
 ```haskell
 ghci> :k List
 List :: * -> *
@@ -30,19 +30,22 @@ ghci> :t Cons
 Cons :: a -> List a -> List a
 ```
 
-Remember ```List``` is a ***type function*** that returns a type to be used by
-the compiler's
-[type checking and type inference system](TypeCheckingAndInference.md) and the
-```Nil``` and ```Cons``` constructors are ***value functions*** that return a
-value to be combined with other expressions of your codebase.
+Remember ```List``` is a ***type constructor***, a function at the type level
+that receives types and returns a newly created type to be used by the
+compiler's
+[type checking and type inference system](TypeCheckingAndInference.md) and
+```Nil``` and ```Cons``` are ***data constructors***, functions at the
+term level that receive values and return a value to be combined with other
+term/value expressions of your codebase.
 
-```List```, the type, is a type function that has only one type variable,
+```List```, the type, is a type constructor that has only one type variable,
 ```a```. This makes ```List``` a function over types that receives a type and
 returns a type, hence kind ```* -> *```.
 
-The other two are value functions. ```Nil``` has no parameters so it just 
+The other two are data constructors. ```Nil``` has no parameters so it just
 returns a value of type ```List a``` while ```Cons```  receives two parameters
-of type ```a``` and ```List a``` and returns also a value of type ```List a```.
+of type ```a``` and ```List a``` receptively and returns also a value of type
+```List a```.
 
 And the type of an example list using ```List``` is:
 ```haskell
@@ -109,7 +112,7 @@ ghci> :t ConsF 'a' (ConsF 'b' (ConsF 'c' NilF))
 But for our example list we went from type ```List Char``` to
 ```ListF Char (ListF Char (ListF Char (ListF a f)))```.
 
-We don't know you but we don't want to write that recursive type to infinity 
+We don't know you but we don't want to write that recursive type to infinity
 whenever a value of type ```ListF``` is used. Because ```f``` in ```ListF a f```
 is a type parameter and it can be anything whenever you use ```ConsF```, like a
 list of ```Char``` and one ```Int``` at the end. The
@@ -128,9 +131,9 @@ data Recursive f = Fix (f (Recursive f))
 ```
 
 \* The common style is naming it ```data Fix f = Fix (f (Fix f))```, but using
-the same name for different things (type and constructor) even thou it's valid
-Haskell syntax and it may be easy for the compiler, it's not easy for the 
-untrained eye (I consider this not-appropriate coding style).
+the same name for different things (type constructor and data constructor) even
+thou it's valid Haskell syntax and it may be easy for the compiler, it's not
+easy for the  untrained eye (I consider this not-appropriate coding style).
 
 Its kind and types are:
 ```haskell
