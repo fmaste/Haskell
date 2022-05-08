@@ -24,13 +24,15 @@ the definition of generic functions in a compositional and concise style.
 ### Kind Signatures With Kind Polymorphism
 
 What we will be doing here is type-level programming. Programming at the type
-level is possible as you do at the value level. If you are not familiar with the
-concept imagine type constructors as functions at the type level, functions that
-return a type. ```Maybe``` is a function of kind ```* -> *```, and
-```Maybe Int``` is a type of kind ```*```.
+level is possible as you do at the term/value level. If you are not familiar
+with the concept imagine type constructors as functions at the type level,
+functions that return a type. ```Maybe``` is a function of kind ```* -> *```,
+and ```Maybe Int``` is a type of kind ```*```.
 
 Let's define ```I``` as the type equivalent of ```id :: a -> a``` and ```K```
 as the type equivalent of ```const :: a -> b -> a```. As in the paper:
+
+#### ```I``` - Kind Signatures
 
 ```haskell
 newtype I (a::*) = I {unI :: a}
@@ -48,12 +50,37 @@ src/research/TrueSumsOfProducts.hs:9:16: error:
 9 | newtype I (a::*) = I {unI :: a}
 ```
 
-GHC parser doesn't know if ```::*``` means ```::*``` altogether is a type
+GHC parser doesn't know if ```::*``` means that ```::*``` altogether is a type
 operator or we meant ```:: *``` with a space in between. If we add at least one
 space character it compiles correctly.
 
+> Treat the unqualified uses of the ```*``` type operator as nullary and desugar
+> to ```Data.Kind.Type```.
+>
+> The kind ```Type``` (imported from ```Data.Kind```) classifies ordinary types.
+> With ```StarIsType``` (currently enabled by default), ```*``` is desugared to
+> ```Type```, but using this legacy syntax is not recommended due to conflicts
+> with ```TypeOperators```. This also applies to ```★```, the Unicode variant of
+> ```*```.
+>
+> (6.4.11.16. The kind ```Type``` - StarIsType)[https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/poly_kinds.html#extension-StarIsType]
+
 We can also use kinds or kind variables like we use type and type variable when
 defining types. The usual style with kinds is to use ```k``` for variables:
+
+```haskell
+{-# LANGUAGE KindSignatures #-}
+
+import Data.Kind(Type)
+
+newtype I (a::Type) = I {unI :: a}
+```
+
+Now it compiles, let's add a ```const``` like function but at the type level:
+
+#### ```Const``` - Kind Polymorphism
+
+# TODO: To clean!
 
 ```haskell
 newtype I (a::k) = I {unI :: a}
@@ -115,16 +142,6 @@ from
 The ```Type``` kind is the kind of types, like ```*```, says that it doesn't
 need any type parameter to return a type. ```*``` or ```Type``` are the default
 kind when kind-signature expressions are omitted.
-
-```haskell
-{-# LANGUAGE KindSignatures #-}
-
-import Data.Kind(Type)
-
-newtype I (a::Type) = I {unI :: a}
-```
-
-Now it compiles, let's add a ```const``` like function but at the type level:
 
 ```haskell
 newtype K (a::Type) (b::k) = K {unK :: a}
