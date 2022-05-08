@@ -1,19 +1,13 @@
 > 4.3.1 Class Declarations
-> 
+> ```
 > topdecl     → class [scontext =>] tycls tyvar [where cdecls]
->
 > scontext    → simpleclass
->
 >             | ( simpleclass1 , … , simpleclassn )             (n ≥ 0)
->
 > simpleclass → qtycls tyvar
->
 > cdecls      → { cdecl1 ; … ; cdecln }                         (n ≥ 0)
->
 > cdecl       → gendecl
->
 >             | (funlhs | var) rhs
->
+> ```
 >  A class declaration introduces a new class and the operations (class methods)
 > on it. A class declaration has the general form:
 >
