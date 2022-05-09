@@ -32,3 +32,42 @@ The ```TypeFamilies``` extension was first introduced in
 Type Families come in different flavors but let's explain the first and most
 simple one first.
 
+Imagine you want to build a generic array library for that depends on its
+element type.
+
+"Imagine there's no countries" and imagine you have discovered a super fast map
+implementation for when you are using ```Int``` as key:
+```haskell
+data SuperFastIntMap v = ConsSuperFastIntMap [v]
+
+emptyInt :: SuperFastIntMap v
+emptyInt = ConsSuperFastIntMap []
+
+lookupInt :: Int -> SuperFastIntMap v -> Maybe v
+lookupInt _ (ConsSuperFastIntMap []) = Nothing
+lookupInt _ (ConsSuperFastIntMap (a:_)) = Just a
+```
+
+And "Imagine no possessions" and a super space efficient map but only for
+```Char``` keys:
+```haskell
+data SuperEfficientCharMap v = ConsSuperEfficientCharMap [v]
+
+emptyChar :: SuperEfficientCharMap v
+emptyChar = ConsSuperEfficientCharMap []
+
+lookupChar :: Char -> SuperEfficientCharMap v -> Maybe v
+lookupChar _ (ConsSuperEfficientCharMap []) = Nothing
+lookupChar _ (ConsSuperEfficientCharMap (a:_)) = Just a
+
+```
+
+```haskell
+class MapKey k where
+        data Map k v
+        empty :: Map k v
+        lookup :: k -> Map k v -> Maybe v
+```
+
+```haskell
+```
