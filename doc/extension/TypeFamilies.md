@@ -27,16 +27,17 @@ The ```TypeFamilies``` extension was first introduced in
 >
 > [Associated types with class](https://www.microsoft.com/en-us/research/publication/associated-types-with-class/)
 
-## Associated Data Families
-
 Type Families come in different flavors but let's explain the first and most
 simple one first.
+
+## Associated Data Families
 
 Imagine you want to build a generic array library for that depends on its
 element type.
 
-"Imagine there's no countries" and imagine you have discovered a super fast map
-implementation for when you are using ```Int``` as key:
+Now like John Lennon "Imagine there's no countries" and imagine you have
+discovered a super fast map implementation for when you are using ```Int``` as
+key:
 ```haskell
 data SuperFastIntMap v = ConsSuperFastIntMap [v]
 

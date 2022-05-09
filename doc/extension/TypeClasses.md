@@ -1,3 +1,5 @@
+# Type Classes
+
 > 4.3.1 Class Declarations
 > ```
 > topdecl     → class [scontext =>] tycls tyvar [where cdecls]
