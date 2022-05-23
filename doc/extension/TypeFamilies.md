@@ -28,16 +28,16 @@ The ```TypeFamilies``` extension was first introduced in
 > [Associated types with class](https://www.microsoft.com/en-us/research/publication/associated-types-with-class/)
 
 Type Families come in different flavors but let's explain the first and most
-simple one first.
+intuitive one first.
 
 ## Associated Data Families
 
-Imagine you want to build a generic array library for that depends on its
-element type.
+Imagine you want to build a generic map library where its representation
+depends on the key type used. An specialized map of integer values can be made
+more efficient in terms of space and time than a type-invariant parametric
+representation.
 
-Now like John Lennon "Imagine there's no countries" and imagine you have
-discovered a super fast map implementation for when you are using ```Int``` as
-key:
+Dummy example using only ```Int``` as keys:
 ```haskell
 data SuperFastIntMap v = ConsSuperFastIntMap [v]
 
@@ -49,8 +49,7 @@ lookupInt _ (ConsSuperFastIntMap []) = Nothing
 lookupInt _ (ConsSuperFastIntMap (a:_)) = Just a
 ```
 
-And "Imagine no possessions" and a super space efficient map but only for
-```Char``` keys:
+Second dummy example but now using ```Char``` as keys:
 ```haskell
 data SuperEfficientCharMap v = ConsSuperEfficientCharMap [v]
 
@@ -63,6 +62,18 @@ lookupChar _ (ConsSuperEfficientCharMap (a:_)) = Just a
 
 ```
 
+Now like type classes allow ad-hoc overloading or type-indexed functions, that
+is to obtain data type specific functionality or functions that can be
+instantiated on many data types like ```show```, ```read``` and ```==```, it
+will be nice to also have type-indexed data type: A data type that is
+constructed from an argument data type in a generic way.
+
+Imagine you want to build a generic map library where its representation
+depends on its element type.
+
+How do you create an abstract interface that allows you write code independent
+of the array implementation used?
+
 ```haskell
 class MapKey k where
         data Map k v
@@ -70,5 +81,27 @@ class MapKey k where
         lookup :: k -> Map k v -> Maybe v
 ```
 
+Data types whose concrete representation depends on one or more type parameters
+are called type analysing[15] or type indexed[18]
+
 ```haskell
+instance MapKey Int where
+        data Map Int v = IntMap (SuperFastIntMap v)
+        empty = IntMap emptyInt
+        lookup k (IntMap intMap) = lookupInt k intMap
 ```
+
+```haskell
+instance MapKey Char where
+        data Map Char v = CharMap (SuperEfficientCharMap v)
+        empty = CharMap $ ConsSuperEfficientCharMap []
+        lookup _ (CharMap (ConsSuperEfficientCharMap [])) = Nothing
+        lookup _ (CharMap (ConsSuperEfficientCharMap (a:as))) = Just a
+
+```
+
+## Associated Type Families
+
+# Further Reading
+
+- https://serokell.io/blog/type-families-haskell
