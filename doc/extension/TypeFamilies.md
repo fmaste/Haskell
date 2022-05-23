@@ -32,6 +32,10 @@ intuitive one first.
 
 ## Associated Data Families
 
+Type families come in different flavors but ***associated data families*** are a
+rather natural generalization of Haskell’s existing type classes so we are
+explaining them first.
+
 Imagine you want to build a generic map library where its representation
 depends on the key type used. An specialized map of integer values can be made
 more efficient in terms of space and time than a type-invariant parametric
@@ -67,6 +71,9 @@ is to obtain data type specific functionality or functions that can be
 instantiated on many data types like ```show```, ```read``` and ```==```, it
 will be nice to also have type-indexed data type: A data type that is
 constructed from an argument data type in a generic way.
+
+TYPE_INDEXED PERMITS AN AD-HOC OVERLOADING OF TYPES LIKE TYPE CLASSES AND VALUES
+Type-indexed data types permit an ad-hoc overloading of types
 
 Imagine you want to build a generic map library where its representation
 depends on its element type.
@@ -104,4 +111,5 @@ instance MapKey Char where
 
 # Further Reading
 
+- https://downloads.haskell.org/ghc/latest/docs/html/users_guide/exts/type_families.html
 - https://serokell.io/blog/type-families-haskell

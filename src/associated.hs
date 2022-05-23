@@ -44,7 +44,7 @@ instance MapKey Char where
         lookup _ (CharMap (ConsSuperEfficientCharMap (a:as))) = Just a
 
 -- Can't use it outside. I mean I can buy it's not very useful!
--- Whenever MapKey eappears in a type there must be an appropriatecontext or instances in order to deduce (Map k v)
+-- Whenever MapKey appears in a type there must be an appropriate context or instances in order to deduce (Map k v)
 -- I can even take out the constraint!
 outside :: MapKey k => Map k a -> Int
 -- This two below are ilegal:
@@ -73,7 +73,7 @@ Failed, no modules loaded.
 --outside (IntMap (a:as)) = 1
 outside _ = 0
 
--- Also ilegal: "'MapKey Char’ has kind ‘Constraint’"
+-- Also illegal: "'MapKey Char’ has kind ‘Constraint’"
 --outside' :: MapKey Char -> Int
 --outside' (CharMap (a:as)) = 1
 
