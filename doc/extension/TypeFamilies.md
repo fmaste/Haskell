@@ -7,7 +7,7 @@
 > functional dependencies, but provide a more functional style of type-level
 > programming than the relational style of functional dependencies.
 >
-> [Glasgow Haskell Compiler - 6.4.9. Type families](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/type_families.html)
+> [Glasgow Haskell Compiler - 6.4.9. Type families](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/exts/type_families.html)
 
 ## Motivation
 
@@ -16,21 +16,15 @@ After
 that compares support for different generic programming abstractions in
 different programming languages in which Haskell is rated favorably except for
 access to the so-called associated types, a group of researchers decided to
-tackle this problem.
+tackle this problem in [Associated types with class](https://www.microsoft.com/en-us/research/publication/associated-types-with-class/)
 
-The ```TypeFamilies``` extension was first introduced in
-[Associated types with class](https://www.microsoft.com/en-us/research/publication/associated-types-with-class/)
+## Associated Data Families
 
 > Haskell’s type classes allow ad-hoc overloading, or type-indexing, of
 > functions. A natural generalization is to allow type-indexing of data types as
 > well.
 >
 > [Associated types with class](https://www.microsoft.com/en-us/research/publication/associated-types-with-class/)
-
-Type Families come in different flavors but let's explain the first and most
-intuitive one first.
-
-## Associated Data Families
 
 Type families come in different flavors but ***associated data families*** are a
 rather natural generalization of Haskell’s existing type classes so we are
@@ -83,10 +77,14 @@ of the array implementation used?
 
 ```haskell
 class MapKey k where
-        data Map k v
+        data family Map k v
         empty :: Map k v
         lookup :: k -> Map k v -> Maybe v
 ```
+
+The family keyword is optional but we wanted to be verbose.
+
+We propose that a type class may define, in addition to a set of methods, a set of associated data types
 
 Data types whose concrete representation depends on one or more type parameters
 are called type analysing[15] or type indexed[18]
