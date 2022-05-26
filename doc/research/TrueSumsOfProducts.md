@@ -32,7 +32,7 @@ and ```Maybe Int``` is a type of kind ```*```.
 Let's define ```I``` as the type equivalent of ```id :: a -> a``` and ```K```
 as the type equivalent of ```const :: a -> b -> a```. As in the paper:
 
-#### ```I``` - Kind Signatures
+#### ```id``` - Kind Signatures
 
 ```haskell
 newtype I (a::*) = I {unI :: a}
@@ -41,18 +41,20 @@ newtype I (a::*) = I {unI :: a}
 Result?
 
 ```haskell
-> ghc -XHaskell2010 src/research/TrueSumsOfProducts.hs 
+> ghc -XHaskell2010 src/research/TrueSumsOfProducts.hs
 [1 of 1] Compiling Main             ( src/research/TrueSumsOfProducts.hs, src/research/TrueSumsOfProducts.o )
 
-src/research/TrueSumsOfProducts.hs:9:16: error:
-    parse error on input ‘)’
-  |
-9 | newtype I (a::*) = I {unI :: a}
+src/research/TrueSumsOfProducts.hs:237:13: error:
+    Operator applied to too few arguments: ::*
+    |
+237 | newtype I (a::*) = I {unI :: a}
+    |
 ```
 
 GHC parser doesn't know if ```::*``` means that ```::*``` altogether is a type
 operator or we meant ```:: *``` with a space in between. If we add at least one
-space character it compiles correctly.
+space character it compiles correctly. But for these cases if better to use
+```Type```.
 
 > Treat the unqualified uses of the ```*``` type operator as nullary and desugar
 > to ```Data.Kind.Type```.
@@ -65,8 +67,33 @@ space character it compiles correctly.
 >
 > (6.4.11.16. The kind ```Type``` - StarIsType)[https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/poly_kinds.html#extension-StarIsType]
 
-We can also use kinds or kind variables like we use type and type variable when
-defining types. The usual style with kinds is to use ```k``` for variables:
+The ```Type``` kind is the kind of types, like ```*```, says that it doesn't
+need any type parameter to return a type. ```*``` or ```Type``` are the default
+kind when kind-signature expressions are omitted.
+
+```haskell
+import Data.Kind(Type)
+
+newtype I (a::Type) = I {unI :: a}
+```
+
+Results again?
+
+```haskell
+> ghc -XHaskell2010 src/research/TrueSumsOfProducts.hs
+[1 of 1] Compiling Main             ( src/research/TrueSumsOfProducts.hs, src/research/TrueSumsOfProducts.o )
+
+src/research/TrueSumsOfProducts.hs:237:15: error:
+    Illegal kind signature: ‘Type’
+      Perhaps you intended to use KindSignatures
+    In the data type declaration for ‘I’
+    |
+237 | newtype I (a::Type) = I {unI :: a}
+    |
+```
+
+Kind signatures are not part of the Haskell 2010 standard, we need to use the
+```KindSignatures``` extension.
 
 ```haskell
 {-# LANGUAGE KindSignatures #-}
@@ -76,9 +103,12 @@ import Data.Kind(Type)
 newtype I (a::Type) = I {unI :: a}
 ```
 
-Now it compiles, let's add a ```const``` like function but at the type level:
+Now it compiles, let's add a ```const``` like function but at the type level.
 
-#### ```Const``` - Kind Polymorphism
+#### ```const``` - Kind Polymorphism
+
+We can also use kinds or kind variables like we use type and type variable when
+defining types. The usual style with kinds is to use ```k``` for variables:
 
 # TODO: To clean!
 
