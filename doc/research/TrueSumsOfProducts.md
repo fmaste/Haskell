@@ -95,7 +95,7 @@ src/research/TrueSumsOfProducts.hs:237:15: error:
 ```
 
 Kind signatures are not part of the Haskell 2010 standard, we need to use the
-```KindSignatures``` extension.
+[```KindSignatures``` extension](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/kind_signatures.html#extension-KindSignatures).
 
 ```haskell
 {-# LANGUAGE KindSignatures #-}
@@ -109,89 +109,53 @@ Now it compiles, let's add a ```const``` like function but at the type level.
 
 #### ```const``` - Kind Polymorphism
 
-We can also use kinds or kind variables like we use type and type variable when
-defining types. The usual style with kinds is to use ```k``` for variables:
+The paper states that it needs ```const``` / ```K``` to be kind polymorphic,
+that means that it can receive type ```Either```, ```Either String``` or
+```Either String Int``` with kinds ```* -> * -> *```, ```* -> *``` and ```*```
+respectively.
 
-# TODO: To clean!
-
-```haskell
-newtype I (a::k) = I {unI :: a}
-```
-
-Results now?:
+For this we use kind variables, like we use type and type variable when defining
+types. The usual style with kinds is to use ```k``` for variables:
 
 ```haskell
-$ ghc -XHaskell2010 src/research/TrueSumsOfProducts.hs 
-[1 of 1] Compiling Main             ( src/research/TrueSumsOfProducts.hs, src/research/TrueSumsOfProducts.o )
-
-src/research/TrueSumsOfProducts.hs:11:15: error:
-    Unexpected kind variable ‘k’
-    Perhaps you intended to use PolyKinds
-    In the data type declaration for ‘I’
-   |
-11 | newtype I (a::k) = I {unI :: a}
-   |               ^
-
-src/research/TrueSumsOfProducts.hs:11:15: error:
-    Illegal kind signature: ‘k’
-      Perhaps you intended to use KindSignatures
-    In the data type declaration for ‘I’
-   |
-11 | newtype I (a::k) = I {unI :: a}
-   |
-```
-
-We need the
-[```KindSignatures``` extension](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/kind_signatures.html#extension-KindSignatures)
-, kind-signature expressions are not part of standard Haskell:
-
-```haskell
-{-# LANGUAGE KindSignatures #-}
-
-newtype I (a::k) = I {unI :: a}
+newtype K (a::k) (b::i) = K {unK :: a}
 ```
 
 Let's see if you are an intellectual reader:
 
 ```haskell
-$ ghc -XHaskell2010 src/research/TrueSumsOfProducts.hs 
+$ ghc -XHaskell2010 src/research/TrueSumsOfProducts.hs
 [1 of 1] Compiling Main             ( src/research/TrueSumsOfProducts.hs, src/research/TrueSumsOfProducts.o )
 
-src/research/TrueSumsOfProducts.hs:11:15: error:
-    Unexpected kind variable ‘k’
-    Perhaps you intended to use PolyKinds
-    In the data type declaration for ‘I’
-   |
-11 | newtype I (a::k) = I {unI :: a}
-   | 
+src/research/TrueSumsOfProducts.hs:239:37: error:
+    • Expected a type, but ‘a’ has kind ‘k’
+    • In the type ‘a’
+      In the definition of data constructor ‘K’
+      In the newtype declaration for ‘K’
+    |
+239 | newtype K (a::k) (b::i) = K {unK :: a}
+    |
 ```
 
-```k``` is a kind variable and ```a``` inside ```{unI :: a}``` needs to be of
+```k``` is a kind variable and ```a``` inside ```{unK :: a}``` needs to be of
 some concrete type. We are "storing" a value inside our newtype, it needs a type
-on a statically typed language. We need to use ```*``` or import ```Type``` kind
-from
-[Data.Kind](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Kind.html).
-The ```Type``` kind is the kind of types, like ```*```, says that it doesn't
-need any type parameter to return a type. ```*``` or ```Type``` are the default
-kind when kind-signature expressions are omitted.
+on a statically typed language. We need to use ```*``` or ```Type```.
 
 ```haskell
 newtype K (a::Type) (b::k) = K {unK :: a}
 ```
 
-Enough. compile for once:
-
 ```haskell
-$ ghc -XHaskell2010 src/research/TrueSumsOfProducts.hs 
+$ ghc -XHaskell2010 src/research/TrueSumsOfProducts.hs
 [1 of 1] Compiling Main             ( src/research/TrueSumsOfProducts.hs, src/research/TrueSumsOfProducts.o )
 
-src/research/TrueSumsOfProducts.hs:13:25: error:
+src/research/TrueSumsOfProducts.hs:239:25: error:
     Unexpected kind variable ‘k’
     Perhaps you intended to use PolyKinds
     In the data type declaration for ‘K’
-   |
-13 | newtype K (a::Type) (b::k) = K {unK :: a}
-   |
+    |
+239 | newtype K (a::Type) (b::k) = K {unK :: a}
+    |
 ```
 
 What we are trying to say here is that ```b``` can be of any kind, like
