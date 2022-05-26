@@ -197,13 +197,22 @@ Great success!
 
 The fundamental idea of the paper and the
 [sop package](https://hackage.haskell.org/package/generics-sop) is create a
-friendlier representation of GHC Generics.
+friendlier representation of the builtin tool
+[GHC.Generics](https://hackage.haskell.org/package/base-4.16.1.0/docs/GHC-Generics.html).
+
+In dependently typed languages the "codes" serve as an abstract representation
+of the types. In Haskell we are going to use a kind (rather than a type) of
+codes because we cannot map values to types.
 
 ```haskell
 {-# LANGUAGE TypeFamilies #-}
 
 type family Code (a::Type) :: [[Type]]
 ```
+
+We are saying the the family of types ```Code``` receive a concrete type and
+return a type of kind list of lists (```[[]]```) of types. But ```[]``` is not a
+kind, is a type (or a type constructor)!!!. Let's try to compile:
 
 ```haskell
 $ ghc -XKindSignatures src/research/TrueSumsOfProducts.hs 
@@ -222,16 +231,15 @@ src/research/TrueSumsOfProducts.hs:18:32: error:
    |
 ```
 
-We are saying the the family of types ```Code``` receive a type and return a
-type of kind list of lists (```[[]]```). But a list is not a kind, is a type
-and a type constructor!!!
-
-We need to use
+We need to use the
 [Datatype promotion](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/data_kinds.html)
-that automatically promotes every datatype to be a kind and its (value
-constructors to be type constructors.
+extension that automatically promotes every datatype to be a kind and its
+(value) constructors to be type constructors.
 
 Now the kind ```[]``` is the kind of types ```[]```. Mindblowing!
+
+But a type of kind ```[[Type]]``` has no inhabitants, it is merely an abstract
+description that we can operate on.
 
 https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/data_kinds.html#promoted-list-and-tuple-types
 

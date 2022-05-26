@@ -28,7 +28,7 @@ lookupChar _ (ConsSuperEfficientCharMap (a:_)) = Just a
 --------------------------------------------------------------------------------
 
 class MapKey k where
-        data Map k v
+        data family Map k v
         empty :: Map k v
         lookup :: k -> Map k v -> Maybe v
 
