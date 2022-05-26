@@ -38,10 +38,13 @@ the definition of generic functions in a compositional and concise style.
 ### Kind Signatures With Kind Polymorphism
 
 What we will be doing here is type-level programming. Programming at the type
-level is possible as you do at the term/value level. If you are not familiar
-with the concept imagine type constructors as functions at the type level,
-functions that return a type. ```Maybe``` is a function of kind ```* -> *```,
-and ```Maybe Int``` is a type of kind ```*```.
+level as you do at the term/value level is possible but with it's own
+limitations.
+
+If you are not familiar with the concept imagine type constructors
+as functions at the type level, functions that return a type. ```Maybe``` is a
+function of kind ```* -> *```, and ```Maybe Int``` is a type of kind ```*```.
+Kinds are to types what types are to expressions.
 
 Let's define ```I``` as the type equivalent of ```id :: a -> a``` and ```K```
 as the type equivalent of ```const :: a -> b -> a```. As in the paper:
@@ -172,12 +175,12 @@ src/research/TrueSumsOfProducts.hs:239:25: error:
     |
 ```
 
-What we are trying to say here is that ```b``` can be of any kind, like
+What we are trying to say here is that ```b``` can be a type of any kind, like
 ```Either```, ```Either a``` or ```Either a b```. So we need the
 [```PolyKinds```
 extensions](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/poly_kinds.html#extension-PolyKinds)
-, if not ```b``` needs to be of kind ```*```, ```* -> *``` or ```* -> * -> *```
-(and so on).
+, if not ```b``` needs to be of an specific kind like ```*```, ```* -> *``` or
+```* -> * -> *``` and so on.
 
 ```haskell
 {-# LANGUAGE KindSignatures #-}
