@@ -162,7 +162,8 @@ What we are trying to say here is that ```b``` can be of any kind, like
 ```Either```, ```Either a``` or ```Either a b```. So we need the
 [```PolyKinds```
 extensions](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/poly_kinds.html#extension-PolyKinds)
-, if not ```b``` needs to be of kind ```*``` or ```Type``` that return a type.
+, if not ```b``` needs to be of kind ```*```, ```* -> *``` or ```* -> * -> *```
+(and so on).
 
 ```haskell
 {-# LANGUAGE KindSignatures #-}
