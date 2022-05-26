@@ -1,11 +1,9 @@
 # Explain the paper: True Sums of Products
 
-Edsko de Vries, Andres Löh
-
-WGP '14 Proceedings of the 10th ACM SIGPLAN workshop on Generic programming, 2014
+Authors: Edsko de Vries, Andres Löh
 
 - [Homepage](https://www.andres-loeh.de/TrueSumsOfProducts/)
-  - [paper](https://dl.acm.org/doi/pdf/10.1145/2633628.2633634)
+  - [Paper](https://dl.acm.org/doi/pdf/10.1145/2633628.2633634)
   - [Hackage](https://hackage.haskell.org/package/generics-sop)
   - [GitHub](https://github.com/well-typed/generics-sop)
 
