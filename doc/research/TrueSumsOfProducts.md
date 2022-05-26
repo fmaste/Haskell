@@ -53,8 +53,10 @@ src/research/TrueSumsOfProducts.hs:237:13: error:
 
 GHC parser doesn't know if ```::*``` means that ```::*``` altogether is a type
 operator or we meant ```:: *``` with a space in between. If we add at least one
-space character it compiles correctly. But for these cases if better to use
-```Type```.
+space character it compiles correctly. But for these cases it's better to use
+```Type``` imported from
+(Data.Kind)[https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Kind.html]
+.
 
 > Treat the unqualified uses of the ```*``` type operator as nullary and desugar
 > to ```Data.Kind.Type```.
