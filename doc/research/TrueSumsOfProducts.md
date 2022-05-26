@@ -1,19 +1,33 @@
-# True Sums of Products
+# Explain the paper: True Sums of Products
 
 Edsko de Vries, Andres Löh
 
 WGP '14 Proceedings of the 10th ACM SIGPLAN workshop on Generic programming, 2014
 
-[Homepage](https://www.andres-loeh.de/TrueSumsOfProducts/)
-, [paper](https://dl.acm.org/doi/pdf/10.1145/2633628.2633634)
-, [Hackage](https://hackage.haskell.org/package/generics-sop)
-, [GitHub](https://github.com/well-typed/generics-sop)
+- [Homepage](https://www.andres-loeh.de/TrueSumsOfProducts/)
+  - [paper](https://dl.acm.org/doi/pdf/10.1145/2633628.2633634)
+  - [Hackage](https://hackage.haskell.org/package/generics-sop)
+  - [GitHub](https://github.com/well-typed/generics-sop)
 
 ```haskell
 main :: IO ()
 main = do
         print "True Sums of Products!"
 ```
+
+## Motivation
+
+> Many of the libraries that are commonly in use today represent datatypes as
+> arbitrary combinations of binary sums and products, SOP reflects the structure
+> of datatypes more faithfully: each datatype is a single n-ary sum, where each
+> component of the sum is a single n-ary product.
+> ..
+> The resulting list-like structure of datatypes allows for the definition of
+> powerful high-level traversal combinators, which in turn encourage the
+> definition of generic functions in a compositional and concise style
+> ..
+> allows to separate function-specific metadata from the main structural
+> representation and recombining this information later.
 
 SOP list-like structure of datatypes is expressible accurate and allows for the
 definition of powerful high-level traversal combinators, which in turn encourage
@@ -180,7 +194,9 @@ Great success!
 
 ### Datatype promotion
 
-The fundamental idea of the paper and the [sop package](https://hackage.haskell.org/package/generics-sop) is create a friendlier representation of GHC Generics.
+The fundamental idea of the paper and the
+[sop package](https://hackage.haskell.org/package/generics-sop) is create a
+friendlier representation of GHC Generics.
 
 ```haskell
 {-# LANGUAGE TypeFamilies #-}
@@ -211,7 +227,8 @@ and a type constructor!!!
 
 We need to use
 [Datatype promotion](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/data_kinds.html)
-that automatically promotes every datatype to be a kind and its (value) constructors to be type constructors.
+that automatically promotes every datatype to be a kind and its (value
+constructors to be type constructors.
 
 Now the kind ```[]``` is the kind of types ```[]```. Mindblowing!
 
