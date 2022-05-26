@@ -53,10 +53,9 @@ src/research/TrueSumsOfProducts.hs:237:13: error:
 
 GHC parser doesn't know if ```::*``` means that ```::*``` altogether is a type
 operator or we meant ```:: *``` with a space in between. If we add at least one
-space character it compiles correctly. But for these cases it's better to use
+space character this error is fixed. But for these cases it's better to use
 ```Type``` imported from
-[Data.Kind](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Kind.html)
-.
+[Data.Kind](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Kind.html).
 
 > Treat the unqualified uses of the ```*``` type operator as nullary and desugar
 > to ```Data.Kind.Type```.
@@ -139,7 +138,8 @@ src/research/TrueSumsOfProducts.hs:239:37: error:
 
 ```k``` is a kind variable and ```a``` inside ```{unK :: a}``` needs to be of
 some concrete type. We are "storing" a value inside our newtype, it needs a type
-on a statically typed language. We need to use ```*``` or ```Type```.
+on a statically typed language. We need to use ```*``` or ```Type``` for the
+kind of ```a```.
 
 ```haskell
 newtype K (a::Type) (b::k) = K {unK :: a}
