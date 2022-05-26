@@ -55,7 +55,7 @@ GHC parser doesn't know if ```::*``` means that ```::*``` altogether is a type
 operator or we meant ```:: *``` with a space in between. If we add at least one
 space character it compiles correctly. But for these cases it's better to use
 ```Type``` imported from
-(Data.Kind)[https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Kind.html]
+[Data.Kind](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-Kind.html)
 .
 
 > Treat the unqualified uses of the ```*``` type operator as nullary and desugar
