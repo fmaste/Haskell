@@ -236,7 +236,17 @@ We need to use the
 extension that automatically promotes every datatype to be a kind and its
 (value) constructors to be type constructors.
 
-Now the kind ```[]``` is the kind of types ```[]```. Mindblowing!
+With the ```DataKinds``` extensions a suitable datatype declaration like this
+```haskell
+data T = C1 T1 | C2 T2 | ...
+```
+defines a type constructor ```T``` and data constructors ```C1```, ```C2```, ...
+and also a kind ```T```, a type constructor ```C1``` of kind ```T1 -> T```
+(using promoted kinds ```T``` and ```T1```), and similarly for the other
+constructors.
+
+Now with ```DataKinds``` the kind ```[]``` is the kind of types ```[]```.
+Mindblowing!
 
 But a type of kind ```[[Type]]``` has no inhabitants, it is merely an abstract
 description that we can operate on.
