@@ -67,7 +67,7 @@ space character it compiles correctly. But for these cases it's better to use
 > with ```TypeOperators```. This also applies to ```★```, the Unicode variant of
 > ```*```.
 >
-> (6.4.11.16. The kind ```Type``` - StarIsType)[https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/poly_kinds.html#extension-StarIsType]
+> [6.4.11.16. The kind ```Type``` - StarIsType](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/poly_kinds.html#extension-StarIsType)
 
 The ```Type``` kind is the kind of types, like ```*```, says that it doesn't
 need any type parameter to return a type. ```*``` or ```Type``` are the default
