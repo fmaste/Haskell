@@ -1,4 +1,6 @@
-# Explain the paper: True Sums of Products
+Explain the paper
+
+# True Sums of Products
 
 Authors: Edsko de Vries, Andres Löh
 
