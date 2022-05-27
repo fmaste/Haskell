@@ -32,6 +32,30 @@ main :: IO ()
 main = do
         print "True Sums of Products!"
 
+-------------------------------------------------------------------------------
+
+data Nat = Zero | Succ Nat
+
+data Vec :: * -> Nat -> * where
+        VNil :: Vec a 'Zero
+        VCons :: a -> Vec a n -> Vec a ('Succ n)
+
+{--
+
+*Main> :t VNil
+VNil :: Vec a 'Zero
+
+*Main> :t VCons
+VCons :: a -> Vec a n -> Vec a ('Succ n)
+
+*Main> :t VCons 'a' VNil
+VCons 'a' VNil :: Vec Char ('Succ 'Zero)
+
+*Main> :t VCons 'a' (VCons 'b' VNil)
+VCons 'a' (VCons 'b' VNil) :: Vec Char ('Succ ('Succ 'Zero))
+
+--}
+
 -- "Old" GArities example:
 -------------------------------------------------------------------------------
 
