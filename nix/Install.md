@@ -4,7 +4,7 @@
 
 ## Install
 
-```
+```console
 $ sh <(curl -L https://nixos.org/nix/install) --daemon
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -1267,57 +1267,4 @@ Or feel free to contact the team:
 [ 1 ]
 Nix won't work in active shell sessions until you restart them.
 S
-```
-
-## What was installed?
-
-```
-$ cat /etc/nix/nix.conf
-
-build-users-group = nixbld
-```
-
-```
-$ grep nix /etc/bash.bashrc
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-```
-
-```
-$ echo $PATH
-/home/fmaste/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-```
-
-```
-$ nix-build --dry-run '<nixpkgs>' -A google-chrome
-error: Package ‘google-chrome-102.0.5005.61’ in /nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs/nixpkgs/pkgs/applications/networking/browsers/google-chrome/default.nix:162 has an unfree license (‘unfree’), refusing to evaluate.
-
-       a) To temporarily allow unfree packages, you can use an environment variable
-          for a single invocation of the nix tools.
-
-            $ export NIXPKGS_ALLOW_UNFREE=1
-
-        Note: For `nix shell`, `nix build`, `nix develop` or any other Nix 2.4+
-        (Flake) command, `--impure` must be passed in order to read this
-        environment variable.
-
-       b) For `nixos-rebuild` you can set
-         { nixpkgs.config.allowUnfree = true; }
-       in configuration.nix to override this.
-
-       Alternatively you can configure a predicate to allow specific packages:
-         { nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-             "google-chrome"
-           ];
-         }
-
-       c) For `nix-env`, `nix-build`, `nix-shell` or any other Nix command you can add
-         { allowUnfree = true; }
-       to ~/.config/nixpkgs/config.nix.
-(use '--show-trace' to show detailed location information)
-```
-
-```
-$ mkdir -p ~/.config/nix/
-$ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```

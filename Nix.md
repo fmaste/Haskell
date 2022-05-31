@@ -63,3 +63,4 @@ https://serokell.io/blog/practical-nix-flakes
 Other
 https://nix.dev/recommended-reading
 https://nixos.org/guides/nix-pills/
+https://ianthehenry.com/posts/how-to-learn-nix/
