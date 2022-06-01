@@ -244,7 +244,9 @@ lrwxrwxrwx 1 root root    29 May 29 00:05 .nix-profile -> /nix/var/nix/profiles/
 As I read, everything Nix needs is on the top level ```/nix``` folder, but for
 obvious performance reasons it's also using a sqlite database as cache. ***An
 independent cache will also appear in non-root user's homes that interact with
-nix***:
+nix***, I guess mostly because different users can have different
+channels/repositories and applications/expressions installed/built
+(@##!! terminology):
 
 ```console
 $ sudo ls -la /root/.cache/nix/
