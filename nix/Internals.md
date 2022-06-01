@@ -287,27 +287,47 @@ $ cat /nix/var/nix/profiles/per-user/root/channels/manifest.nix
 
 ### Envs
 
+After restating my console/terminal I can see the updated ```$PATH```:
+
 ```console
-$ echo $NIX_PROFILES 
+$ echo $PATH
+/home/fmaste/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+```
+
+And the actual/active profiles on ```$NIX_PROFILES```:
+
+```console
+$ echo $NIX_PROFILES
 /nix/var/nix/profiles/default /home/fmaste/.nix-profile
 ```
+
+When a new profile is created this link is updated:
 
 ```console
 $ ls -la /nix/var/nix/profiles/default
 lrwxrwxrwx 1 root root 14 May 29 00:05 /nix/var/nix/profiles/default -> default-2-link
 ```
 
+### On the user home directory
+
+The user's ```.nix-profile``` is a link to the top level per-user profiles:
+
 ```console
 $ ls -la /home/fmaste/.nix-profile
 lrwxrwxrwx 1 fmaste fmaste 45 May 29 02:44 /home/fmaste/.nix-profile -> /nix/var/nix/profiles/per-user/fmaste/profile
 ```
 
-### On the user home directory
+This file didn't exist, I created it to enable ```flakes```. More on that later
+(if I manage to fully understand it and explain it):
 
 ```console
-$ echo $PATH
-/home/fmaste/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+$ mkdir -p ~/.config/nix/
+$ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
+
+# TODO
+
+Unfree? WTF?:
 
 ```console
 $ nix-build --dry-run '<nixpkgs>' -A google-chrome
