@@ -264,7 +264,7 @@ The two channel related files and folders (respectively) are:
 
 #### The .nix-channels file
 
-Here you can find the actual channels, that can be managed with the
+Here you can find the actual channels that can be managed with the
 ```nix-channel``` command. Channels are like repositories, is a mechanism that
 allows you to automatically stay up-to-date with a set of pre-built Nix
 expressions. A Nix channel is just a URL that points to a place containing a set
