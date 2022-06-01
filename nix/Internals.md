@@ -4,6 +4,8 @@ Remember I installed the multi-user mode!
 
 ## On the /etc directory
 
+### Config
+
 The main configuration (if there exists something like a main config in Nix) is
 located on ```/etc/nix/nix.conf``` and only has one parameter with the prefix
 used for the newly created unix user names and groups names. How are this users
@@ -15,80 +17,24 @@ $ cat /etc/nix/nix.conf
 build-users-group = nixbld
 ```
 
-If file ```nix-daemon.sh``` exists on ```/nix/var/nix/profiles/default/etc/profile.d/``` call the script for both interactive and non-interactive shells:
+By default Nix reads settings from the following places:
+- The  system-wide  configuration  file  sysconfdir/nix/nix.conf
+  (i.e.  /etc/nix/nix.conf on most systems), or $NIX_CONF_DIR/nix.conf if
+  NIX_CONF_DIR is set. Values loaded in this file are not forwarded to the Nix
+  daemon. The client assumes that the daemon has already loaded them.
+- If NIX_USER_CONF_FILES is set, then each path separated by : will be loaded in
+  reverse order. Otherwise it will look for nix/nix.conf files in
+  XDG_CONFIG_DIRS and XDG_CONFIG_HOME. If unset, XDG_CONFIG_DIRS defaults to
+  /etc/xdg, and XDG_CONFIG_HOME defaults to $HOME/.config as per
+  [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
+- If NIX_CONFIG is set, its contents is treated as the contents of a
+  configuration file.
 
-```console
-$ grep nix /etc/bash.bashrc
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-```
-
-Does the same thing on ```/etc/profile.d/*``` and ```zshrc```:
-
-```console
-$ cat /etc/profile.d/nix.sh
-
-# Nix
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
-# End Nix
-
-```
-
-```console
-$ cat /etc/zshrc
-
-# Nix
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
-# End Nix
-```
-
-The scripts mostly sets the ```NIX_PROFILES``` and ```NIX_SSL_CERT_FILE```
-environment variables:
-
-```console
-$ cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-# Only execute this file once per shell.
-if [ -n "${__ETC_PROFILE_NIX_SOURCED:-}" ]; then return; fi
-__ETC_PROFILE_NIX_SOURCED=1
-
-export NIX_PROFILES="/nix/var/nix/profiles/default $HOME/.nix-profile"
-
-# Set $NIX_SSL_CERT_FILE so that Nixpkgs applications like curl work.
-if [ -n "${NIX_SSL_CERT_FILE:-}" ]; then
-    : # Allow users to override the NIX_SSL_CERT_FILE
-elif [ -e /etc/ssl/certs/ca-certificates.crt ]; then # NixOS, Ubuntu, Debian, Gentoo, Arch
-    export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
-elif [ -e /etc/ssl/ca-bundle.pem ]; then # openSUSE Tumbleweed
-    export NIX_SSL_CERT_FILE=/etc/ssl/ca-bundle.pem
-elif [ -e /etc/ssl/certs/ca-bundle.crt ]; then # Old NixOS
-    export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt
-elif [ -e /etc/pki/tls/certs/ca-bundle.crt ]; then # Fedora, CentOS
-    export NIX_SSL_CERT_FILE=/etc/pki/tls/certs/ca-bundle.crt
-else
-  # Fall back to what is in the nix profiles, favouring whatever is defined last.
-  check_nix_profiles() {
-    if [ -n "$ZSH_VERSION" ]; then
-      # Zsh by default doesn't split words in unquoted parameter expansion.
-      # Set local_options for these options to be reverted at the end of the function
-      # and shwordsplit to force splitting words in $NIX_PROFILES below.
-      setopt local_options shwordsplit
-    fi
-    for i in $NIX_PROFILES; do
-      if [ -e "$i/etc/ssl/certs/ca-bundle.crt" ]; then
-        export NIX_SSL_CERT_FILE=$i/etc/ssl/certs/ca-bundle.crt
-      fi
-    done
-  }
-  check_nix_profiles
-  unset -f check_nix_profiles
-fi
-
-export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
-```
+You can override settings on the command line using the ```--option``` flag,
+e.g. ```--option keep-outputs false```. Every configuration setting also has a
+corresponding command line flag, e.g. ```--max-jobs  16```; for Boolean
+settings, there are two flags to enable or disable the setting (e.g.
+```--keep-failed``` and ```--no-keep-failed```)
 
 ### Users and groups
 
@@ -137,7 +83,12 @@ $ grep nix /etc/group
 nixbld:x:30000:nixbld1,nixbld2,nixbld3,nixbld4,nixbld5,nixbld6,nixbld7,nixbld8,nixbld9,nixbld10,nixbld11,nixbld12,nixbld13,nixbld14,nixbld15,nixbld16,nixbld17,nixbld18,nixbld19,nixbld20,nixbld21,nixbld22,nixbld23,nixbld24,nixbld25,nixbld26,nixbld27,nixbld28,nixbld29,nixbld30,nixbld31,nixbld32
 ```
 
-### Systemd
+### Daemon with systemd
+
+The Nix daemon is a required component in multi-user Nix installations. It
+performs build actions and other operations on the Nix store on behalf of
+non-root users. Usually you don’t run the daemon directly; instead it’s managed
+by a service management framework such as systemd (see below).
 
 Let's look for the systemd services enabled during the installation:
 
@@ -189,10 +140,90 @@ KillMode=process
 WantedBy=multi-user.target
 ```
 
+### Environment variables
+
+Why this file is called ```nix-daemon.sh``` is a mystery to me. It's not how the
+daemon is started.
+
+If file ```nix-daemon.sh``` exists on ```/nix/var/nix/profiles/default/etc/profile.d/``` call the script for both interactive and non-interactive shells:
+
+```console
+$ grep nix /etc/bash.bashrc
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+```
+
+Does the same thing on ```/etc/profile.d/*``` and ```zshrc```:
+
+```console
+$ cat /etc/profile.d/nix.sh
+
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix
+
+```
+
+```console
+$ cat /etc/zshrc
+
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix
+```
+
+The script mostly sets the ```NIX_PROFILES``` and ```NIX_SSL_CERT_FILE```
+environment variables:
+
+```console
+$ cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+# Only execute this file once per shell.
+if [ -n "${__ETC_PROFILE_NIX_SOURCED:-}" ]; then return; fi
+__ETC_PROFILE_NIX_SOURCED=1
+
+export NIX_PROFILES="/nix/var/nix/profiles/default $HOME/.nix-profile"
+
+# Set $NIX_SSL_CERT_FILE so that Nixpkgs applications like curl work.
+if [ -n "${NIX_SSL_CERT_FILE:-}" ]; then
+    : # Allow users to override the NIX_SSL_CERT_FILE
+elif [ -e /etc/ssl/certs/ca-certificates.crt ]; then # NixOS, Ubuntu, Debian, Gentoo, Arch
+    export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+elif [ -e /etc/ssl/ca-bundle.pem ]; then # openSUSE Tumbleweed
+    export NIX_SSL_CERT_FILE=/etc/ssl/ca-bundle.pem
+elif [ -e /etc/ssl/certs/ca-bundle.crt ]; then # Old NixOS
+    export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt
+elif [ -e /etc/pki/tls/certs/ca-bundle.crt ]; then # Fedora, CentOS
+    export NIX_SSL_CERT_FILE=/etc/pki/tls/certs/ca-bundle.crt
+else
+  # Fall back to what is in the nix profiles, favouring whatever is defined last.
+  check_nix_profiles() {
+    if [ -n "$ZSH_VERSION" ]; then
+      # Zsh by default doesn't split words in unquoted parameter expansion.
+      # Set local_options for these options to be reverted at the end of the function
+      # and shwordsplit to force splitting words in $NIX_PROFILES below.
+      setopt local_options shwordsplit
+    fi
+    for i in $NIX_PROFILES; do
+      if [ -e "$i/etc/ssl/certs/ca-bundle.crt" ]; then
+        export NIX_SSL_CERT_FILE=$i/etc/ssl/certs/ca-bundle.crt
+      fi
+    done
+  }
+  check_nix_profiles
+  unset -f check_nix_profiles
+fi
+
+export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
+```
+
 ## On the /root directory
 
-Looks like the most interesting configuration files are located on the /root
-directory:
+Looks like the most interesting internal files are located on the /root
+directory. Same files that must appear on every user's home that use Nix:
 
 ```console
 $ sudo ls -la /root/
@@ -207,8 +238,11 @@ lrwxrwxrwx 1 root root    29 May 29 00:05 .nix-profile -> /nix/var/nix/profiles/
 ...
 ```
 
+### Cache
+
 As I read, everything Nix needs is on the top level ```/nix``` folder, but for
-obvious performance reasons it's also using a sqlite database as cache:
+obvious performance reasons it's also using a sqlite database as cache. This
+cache will also appear in non-root users homes that interact with nix:
 
 ```console
 $ sudo ls -la /root/.cache/nix/
@@ -221,16 +255,27 @@ drwxr-xr-x 1 root root      6 May 29 00:05 ..
 -rw-r--r-- 1 root root      0 May 29 00:05 fetcher-cache-v1.sqlite-journal
 ```
 
-Here you can find the actual channels, that can be managed with the
-```nix-channel``` command. Channels are like repositories, so you don't have to
-download and update package's expressions one by one. The default channel is
-```nixpkgs``` and you are going to see it a lot as a prefix (or maybe suffix?)
-when running nix commands:
+### Channels
 
-```console
-$ sudo cat /root/.nix-channels
-https://nixos.org/channels/nixpkgs-unstable nixpkgs
-```
+Here you can find the actual channels, that can be managed with the
+```nix-channel``` command. Channels are like repositories, is a mechanism that
+allows you to automatically stay up-to-date with a set of pre-built Nix
+expressions. A Nix channel is just a URL that points to a place containing a set
+of Nix expressions.
+
+- /nix/var/nix/profiles/per-user/username/channels
+```nix-channel``` uses a nix-env profile to keep track of previous versions of the subscribed channels. Every time you run ```nix-channel --update```, a new channel generation (that is, a symlink to the channel Nix expressions in the Nix store) is created. This enables ```nix-channel --rollback``` to revert to previous versions.
+
+#### The .nix-defexpr/ folder
+
+```root/.nix-defexpr/``` or ```~/.nix-defexpr/``` contains
+```.nix-defexpr/channels``` symlink to
+```/nix/var/nix/profiles/per-user/username/channels```. It ensures that
+```nix-env``` can find your channels. In a multi-user installation, you also
+have  ```.nix-defexpr/channels_root``` on the non-root home, which links to the
+channels of the root user.
+
+The non-root user, can see/use the channels of the root user?
 
 Who knows what this is? I don't:
 
@@ -240,6 +285,15 @@ total 4
 drwxr-xr-x 1 root root  16 May 29 00:05 .
 drwx------ 1 root root 222 May 29 00:05 ..
 lrwxrwxrwx 1 root root  44 May 29 00:05 channels -> /nix/var/nix/profiles/per-user/root/channels
+```
+
+The "default" channel is
+```nixpkgs``` and you are going to see it a lot as a prefix (or maybe suffix?)
+when running nix commands:
+
+```console
+$ sudo cat /root/.nix-channels
+https://nixos.org/channels/nixpkgs-unstable nixpkgs
 ```
 
 ```console
