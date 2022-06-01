@@ -1,13 +1,13 @@
 # What was installed?
 
-Remember I installed multi-user!
+Remember I installed the multi-user mode!
 
 ## On /etc
 
 The main configuration (if there exists something like a main config in Nix) is
 located on ```/etc/nix/nix.conf``` and only has one parameter with the prefix
 used for the newly created unix user names and groups names. How are this users
-and groups used? I guess we will find it later.
+and groups used? I guess we will find it later:
 
 ```console
 $ cat /etc/nix/nix.conf
@@ -15,7 +15,7 @@ $ cat /etc/nix/nix.conf
 build-users-group = nixbld
 ```
 
-If file ```nix-daemon.sh``` exists on ```/nix/var/nix/profiles/default/etc/profile.d/``` call the script:
+If file ```nix-daemon.sh``` exists on ```/nix/var/nix/profiles/default/etc/profile.d/``` call the script for both interactive and non-interactive shells:
 
 ```console
 $ grep nix /etc/bash.bashrc
@@ -23,7 +23,7 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 ```
 
-Does the same thing for ```/etc/profile.d/*``` and ```zshrc```:
+Does the same thing on ```/etc/profile.d/*``` and ```zshrc```:
 
 ```console
 $ cat /etc/profile.d/nix.sh
@@ -92,7 +92,7 @@ export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
 
 ### Users and groups
 
-The newly created users:
+The newly created 32 users:
 
 ```console
 $ sudo grep nix /etc/shadow
@@ -130,7 +130,7 @@ nixbld31:!:19141::::::
 nixbld32:!:19141::::::
 ```
 
-The newly created groups:
+The newly created 32 groups:
 
 ```console
 $ grep nix /etc/group
@@ -166,9 +166,10 @@ WantedBy=sockets.target
 ```
 
 The other one starts the ```nix-daemon```, remember I installed with
-```--daemon```. Nice to see that the nix-daemon appears to be part of a recently
-build/installed nix package, where the installer may be using a binary "old"
-version as part of a bootstrapping process, to compile the newest version:
+```--daemon``` (multi-user). Nice to see that the nix-daemon appears to be part
+of a recently build/installed nix package, where the installer may be using a
+binary "old" version as part of a bootstrapping process, to compile the newest
+version:
 
 ```console
 $ cat /etc/systemd/system/nix-daemon.service
@@ -206,7 +207,7 @@ lrwxrwxrwx 1 root root    29 May 29 00:05 .nix-profile -> /nix/var/nix/profiles/
 ...
 ```
 
-As I read everything Nix needs is on the top level ```/nix``` folder, but for
+As I read, everything Nix needs is on the top level ```/nix``` folder, but for
 obvious performance reasons it's also using a sqlite database as cache:
 
 ```console
@@ -231,7 +232,7 @@ $ sudo cat /root/.nix-channels
 https://nixos.org/channels/nixpkgs-unstable nixpkgs
 ```
 
-Who know what this is? I don't:
+Who knows what this is? I don't:
 
 ```console
 $ sudo ls -la /root/.nix-defexpr
