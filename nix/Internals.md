@@ -254,6 +254,10 @@ $ sudo ls -la /root/.cache/nix/
 
 ### Channels
 
+The two file channel related are:
+- ```.nix-channels```: The Nix channels managed by ```nix-channel```.
+- ```.nix-defexpr```: For ```nix-env``` to manage and use multiple channels.
+
 Here you can find the actual channels, that can be managed with the
 ```nix-channel``` command. Channels are like repositories, is a mechanism that
 allows you to automatically stay up-to-date with a set of pre-built Nix
@@ -379,11 +383,12 @@ unpacking channels...
 ```
 
 ```console
+$ ls -la /nix/var/nix/profiles/per-user/fmaste/channels/
 lrwxrwxrwx 1 root root        60 Jan  1  1970 manifest.nix -> /nix/store/zzfpx72f3w2h377drbzr3fjpkg2214l5-env-manifest.nix
 lrwxrwxrwx 1 root root        59 Jan  1  1970 nixpkgs -> /nix/store/x1w5yls3p126bk9bj4j8lb6mf9qzm9qn-nixpkgs/nixpkgs
 ```
 
-Now you can see that the content of
+Now you can see that some content fetched from
 ```https://nixos.org/channels/nixpkgs-unstable``` was dumped:
 
 ```console
