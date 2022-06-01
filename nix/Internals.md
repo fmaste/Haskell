@@ -147,7 +147,8 @@ WantedBy=multi-user.target
 Why this file is called ```nix-daemon.sh``` is a mystery to me. It's not how the
 daemon is started.
 
-If file ```nix-daemon.sh``` exists on ```/nix/var/nix/profiles/default/etc/profile.d/``` call the script for both interactive and non-interactive shells:
+If file ```nix-daemon.sh``` exists on ```/nix/var/nix/profiles/default/etc/profile.d/``` the script is called for both interactive and non-interactive
+shells:
 
 ```console
 $ grep nix /etc/bash.bashrc
