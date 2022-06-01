@@ -290,8 +290,11 @@ channels  channels_root
 Let's add a channel:
 
 ```console
-$ nix-channel --add https://nixos.org/channels/nixpkgs-stable
+$ nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
 ```
+
+See [The official channels](https://nixos.wiki/wiki/Nix_channels#The_official_channels) for a short description of the available
+channels. But I still couldn't add a channel different to "unstable".
 
 ```console
 $ ls ~/.nix-*
@@ -305,7 +308,55 @@ channels  channels_root
 
 ```console
 $ cat ~/.nix-channels
-https://nixos.org/channels/nixpkgs-stable nixpkgs
+https://nixos.org/channels/nixpkgs-unstable nixpkgs
+```
+
+```console
+$ nix-channel --list
+nixpkgs https://nixos.org/channels/nixpkgs-unstable
+```
+
+Channel was added but nothing was downloaded:
+
+```console
+$ ls -la /nix/var/nix/profiles/per-user/fmaste/channels/
+lrwxrwxrwx 1 root root        60 Jan  1  1970 manifest.nix -> /nix/store/w213fg5zb7df8h1wsldqpqi7yk9d80rk-env-manifest.nix
+```
+
+```console
+$ nix-channel --update
+unpacking channels...
+```
+
+```console
+lrwxrwxrwx 1 root root        60 Jan  1  1970 manifest.nix -> /nix/store/zzfpx72f3w2h377drbzr3fjpkg2214l5-env-manifest.nix
+lrwxrwxrwx 1 root root        59 Jan  1  1970 nixpkgs -> /nix/store/x1w5yls3p126bk9bj4j8lb6mf9qzm9qn-nixpkgs/nixpkgs
+```
+
+Now you can see that the content of
+```https://nixos.org/channels/nixpkgs-unstable``` was dumped:
+
+```console
+$ ls -la /nix/var/nix/profiles/per-user/fmaste/channels/nixpkgs/
+-r--r--r-- 1 root root 7199 Jan  1  1970 CONTRIBUTING.md
+-r--r--r-- 1 root root 1097 Jan  1  1970 COPYING
+-r--r--r-- 1 root root  971 Jan  1  1970 default.nix
+dr-xr-xr-x 1 root root  430 Jan  1  1970 doc
+-r--r--r-- 1 root root 2122 Jan  1  1970 .editorconfig
+-r--r--r-- 1 root root 1359 Jan  1  1970 flake.nix
+-r--r--r-- 1 root root  598 Jan  1  1970 .gitattributes
+-r--r--r-- 1 root root 1108 Jan  1  1970 .git-blame-ignore-revs
+dr-xr-xr-x 1 root root  212 Jan  1  1970 .github
+-r--r--r-- 1 root root  425 Jan  1  1970 .gitignore
+-r--r--r-- 1 root root   40 Jan  1  1970 .git-revision
+dr-xr-xr-x 1 root root  672 Jan  1  1970 lib
+dr-xr-xr-x 1 root root   78 Jan  1  1970 maintainers
+dr-xr-xr-x 1 root root  202 Jan  1  1970 nixos
+dr-xr-xr-x 1 root root  254 Jan  1  1970 pkgs
+-r--r--r-- 1 root root 6189 Jan  1  1970 README.md
+-r--r--r-- 1 root root   19 Jan  1  1970 svn-revision
+-r--r--r-- 1 root root    5 Jan  1  1970 .version
+-r--r--r-- 1 root root   21 Jan  1  1970 .version-suffix
 ```
 
 ##### Default root channel
