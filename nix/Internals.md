@@ -225,14 +225,12 @@ export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
 ## On the /root directory
 
 Looks like the most interesting internal files are located on the /root
-directory. Same files that must appear on every user's home that use Nix:
+directory. Mostly the same files that must appear on every user's home that use
+Nix:
 
 ```console
 $ sudo ls -la /root/
-total 36
 ...
-drwx------ 1 root root   222 May 29 00:05 .
-drwxr-xr-x 1 root root   198 May 29 00:05 ..
 drwxr-xr-x 1 root root     6 May 29 00:05 .cache
 -rw-rw-r-- 1 root root    52 May 29 00:05 .nix-channels
 drwxr-xr-x 1 root root    16 May 29 00:05 .nix-defexpr
@@ -248,9 +246,6 @@ cache will also appear in non-root users homes that interact with nix:
 
 ```console
 $ sudo ls -la /root/.cache/nix/
-total 788
-drwxr-xr-x 1 root root    212 May 29 00:05 .
-drwxr-xr-x 1 root root      6 May 29 00:05 ..
 -rw-r--r-- 1 root root 794624 May 29 08:45 binary-cache-v6.sqlite
 -rw-r--r-- 1 root root      0 May 29 08:45 binary-cache-v6.sqlite-journal
 -rw-r--r-- 1 root root  12288 May 29 00:05 fetcher-cache-v1.sqlite
@@ -265,33 +260,43 @@ allows you to automatically stay up-to-date with a set of pre-built Nix
 expressions. A Nix channel is just a URL that points to a place containing a set
 of Nix expressions.
 
-- /nix/var/nix/profiles/per-user/username/channels
-```nix-channel``` uses a nix-env profile to keep track of previous versions of the subscribed channels. Every time you run ```nix-channel --update```, a new channel generation (that is, a symlink to the channel Nix expressions in the Nix store) is created. This enables ```nix-channel --rollback``` to revert to previous versions.
-
 #### The .nix-defexpr/ folder
 
 ```root/.nix-defexpr/``` or ```~/.nix-defexpr/``` contains
-```.nix-defexpr/channels``` symlink to
-```/nix/var/nix/profiles/per-user/username/channels```. It ensures that
+```.nix-defexpr/channels``` as a symlink to
+```/nix/var/nix/profiles/per-user/{username}/channels```. It ensures that
 ```nix-env``` can find your channels. In a multi-user installation, you also
 have  ```.nix-defexpr/channels_root``` on the non-root home, which links to the
 channels of the root user.
 
-The non-root user, can see/use the channels of the root user?
-
-Who knows what this is? I don't:
+***The non-root user, can see/use the channels of the root user? It looks like
+yes!***
 
 ```console
 $ sudo ls -la /root/.nix-defexpr
-total 4
-drwxr-xr-x 1 root root  16 May 29 00:05 .
-drwx------ 1 root root 222 May 29 00:05 ..
 lrwxrwxrwx 1 root root  44 May 29 00:05 channels -> /nix/var/nix/profiles/per-user/root/channels
 ```
 
-The "default" channel is
-```nixpkgs``` and you are going to see it a lot as a prefix (or maybe suffix?)
-when running nix commands:
+```console
+$ ls -la ~/.nix-defexpr/
+lrwxrwxrwx 1 fmaste fmaste   46 May 29 00:40 channels -> /nix/var/nix/profiles/per-user/fmaste/channels
+lrwxrwxrwx 1 fmaste fmaste   44 May 29 00:40 channels_root -> /nix/var/nix/profiles/per-user/root/channels
+```
+
+```nix-channel``` uses a nix-env profile to keep track of previous versions of
+the subscribed channels. Every time you run ```nix-channel --update```, a new
+channel generation (that is, a symlink to the channel Nix expressions in the Nix
+store) is created. This enables ```nix-channel --rollback``` to revert to
+previous versions.
+
+What does this means? That ```nix-channel``` is using the same "magic sauce" it
+uses to build applications and maintain different versions to keep track of
+the channels different versions.
+
+#### Default channel
+
+The "default" channel is ```nixpkgs``` and you are going to see it a lot as a
+prefix (or maybe suffix?) when running nix commands:
 
 ```console
 $ sudo cat /root/.nix-channels
@@ -339,6 +344,17 @@ dr-xr-xr-x 1 root root  254 Jan  1  1970 pkgs
 $ cat /nix/var/nix/profiles/per-user/root/channels/manifest.nix
 [ { meta = { }; name = "nixpkgs"; out = { outPath = "/nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs"; }; outPath = "/nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs"; outputs = [ "out" ]; system = "builtin"; type = "derivation"; } ]
 ```
+
+#### Profiles
+
+[Profile](https://nixos.org/manual/nix/stable/glossary.html#gloss-profile):
+> A symlink to the current user environment of a user, e.g.,
+> ```/nix/var/nix/profiles/default```.
+
+[User environment](https://nixos.org/manual/nix/stable/glossary.html#gloss-user-env)
+> An automatically generated store object that consists of a set of symlinks to
+> “active” applications, i.e., other store paths. These are generated
+> automatically by ```nix-env```.
 
 ## For my user only
 
