@@ -18,16 +18,18 @@ build-users-group = nixbld
 ```
 
 By default Nix reads settings from the following places:
-- The  system-wide  configuration  file  sysconfdir/nix/nix.conf
-  (i.e.  /etc/nix/nix.conf on most systems), or $NIX_CONF_DIR/nix.conf if
-  NIX_CONF_DIR is set. Values loaded in this file are not forwarded to the Nix
-  daemon. The client assumes that the daemon has already loaded them.
-- If NIX_USER_CONF_FILES is set, then each path separated by : will be loaded in
-  reverse order. Otherwise it will look for nix/nix.conf files in
-  XDG_CONFIG_DIRS and XDG_CONFIG_HOME. If unset, XDG_CONFIG_DIRS defaults to
-  /etc/xdg, and XDG_CONFIG_HOME defaults to $HOME/.config as per
+- The system-wide configuration file ```/nix/nix.conf```, or
+  ```$NIX_CONF_DIR/nix.conf``` if ```NIX_CONF_DIR``` is set. ***Values loaded in
+  this file are not forwarded to the Nix daemon. The client assumes that the
+  daemon has already loaded them*** (What does this means? I should reload the
+  daemon or not?).
+- If ```NIX_USER_CONF_FILES``` is set, then each path separated by ```:``` will
+  be loaded in reverse order. Otherwise it will look for ```nix/nix.conf```
+  files in ```XDG_CONFIG_DIRS``` and ```XDG_CONFIG_HOME```. If unset,
+  ```XDG_CONFIG_DIRS``` defaults to ```/etc/xdg```, and ```XDG_CONFIG_HOME```
+  defaults to ```$HOME/.config``` as per
   [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
-- If NIX_CONFIG is set, its contents is treated as the contents of a
+- If ```NIX_CONFIG``` is set, its contents is treated as the contents of a
   configuration file.
 
 You can override settings on the command line using the ```--option``` flag,
@@ -118,9 +120,9 @@ WantedBy=sockets.target
 
 The other one starts the ```nix-daemon```, remember I installed with
 ```--daemon``` (multi-user). Nice to see that the nix-daemon appears to be part
-of a recently build/installed nix package, where the installer may be using a
-binary "old" version as part of a bootstrapping process, to compile the newest
-version:
+of a recently build/installed nix package (the correct terminology is package or
+expression?), where the installer may be using a binary "old" version as part of
+a bootstrapping process, to compile the newest version:
 
 ```console
 $ cat /etc/systemd/system/nix-daemon.service
