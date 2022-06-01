@@ -456,8 +456,8 @@ lrwxrwxrwx 1 fmaste fmaste   46 May 29 00:40 channels -> /nix/var/nix/profiles/p
 lrwxrwxrwx 1 fmaste fmaste   44 May 29 00:40 channels_root -> /nix/var/nix/profiles/per-user/root/channels
 ```
 
-```nix-channel``` uses a nix-env profile to keep track of previous versions of
-the subscribed channels. Every time you run ```nix-channel --update```, a new
+Nix channels use a nix-env profile to keep track of previous versions of the
+subscribed channels. Every time you run ```nix-channel --update```, a new
 channel generation (that is, a symlink to the channel Nix expressions in the Nix
 store) is created. This enables ```nix-channel --rollback``` to revert to
 previous versions.
