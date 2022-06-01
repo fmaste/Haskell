@@ -430,15 +430,20 @@ dr-xr-xr-x 1 root root  254 Jan  1  1970 pkgs
 
 #### The .nix-defexpr/ folder
 
-```root/.nix-defexpr/``` or ```~/.nix-defexpr/``` contains
+This is how the symlinks inside
+```/nix/var/nix/profiles/per-user/root/channels/``` and
+```/nix/var/nix/profiles/per-user/fmaste/channels/``` (and possibly many more
+non-root users) are managed internally.
+
+```root/.nix-defexpr/``` or ```~/.nix-defexpr/``` contain
 ```.nix-defexpr/channels``` as a symlink to
-```/nix/var/nix/profiles/per-user/{username}/channels```. It ensures that
+```/nix/var/nix/profiles/per-user/{root|fmaste}/channels```. It ensures that
 ```nix-env``` can find your channels. In a multi-user installation, you also
 have  ```.nix-defexpr/channels_root``` on the non-root home, which links to the
 channels of the root user.
 
-***The non-root user, can see/use the channels of the root user? It looks like
-yes!***
+***The non-root user, can see/use the channels of the root user until it is
+overridden? It looks like yes!***
 
 ```console
 $ sudo ls -la /root/.nix-defexpr
@@ -463,6 +468,8 @@ the different channel versions.
 
 ### Profiles
 
+TODO/WIP
+
 [Profile](https://nixos.org/manual/nix/stable/glossary.html#gloss-profile):
 > A symlink to the current user environment of a user, e.g.,
 > ```/nix/var/nix/profiles/default```.
@@ -472,11 +479,11 @@ the different channel versions.
 > “active” applications, i.e., other store paths. These are generated
 > automatically by ```nix-env```.
 
-## For my user only
+## Non-root user specifics
 
 ### Environment variables
 
-After restating my console/terminal I can see the updated ```$PATH```:
+After reloading my console/terminal I can see the updated ```$PATH```:
 
 ```console
 $ echo $PATH
@@ -512,37 +519,4 @@ This file didn't exist, I created it to enable ```flakes```. More on that later
 ```console
 $ mkdir -p ~/.config/nix/
 $ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-```
-
-# TODO
-
-Unfree? WTF?:
-
-```console
-$ nix-build --dry-run '<nixpkgs>' -A google-chrome
-error: Package ‘google-chrome-102.0.5005.61’ in /nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs/nixpkgs/pkgs/applications/networking/browsers/google-chrome/default.nix:162 has an unfree license (‘unfree’), refusing to evaluate.
-
-       a) To temporarily allow unfree packages, you can use an environment variable
-          for a single invocation of the nix tools.
-
-            $ export NIXPKGS_ALLOW_UNFREE=1
-
-        Note: For `nix shell`, `nix build`, `nix develop` or any other Nix 2.4+
-        (Flake) command, `--impure` must be passed in order to read this
-        environment variable.
-
-       b) For `nixos-rebuild` you can set
-         { nixpkgs.config.allowUnfree = true; }
-       in configuration.nix to override this.
-
-       Alternatively you can configure a predicate to allow specific packages:
-         { nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-             "google-chrome"
-           ];
-         }
-
-       c) For `nix-env`, `nix-build`, `nix-shell` or any other Nix command you can add
-         { allowUnfree = true; }
-       to ~/.config/nixpkgs/config.nix.
-(use '--show-trace' to show detailed location information)
 ```
