@@ -7,9 +7,9 @@ Remember I installed Nix in multi-user mode!
 ### Settings
 
 The main configuration (if there exists something like a main config in Nix) is
-located on ```/etc/nix/nix.conf``` and only has one parameter with the prefix
-used for the newly created unix user names and groups names. How are this users
-and groups used? I guess we will find it later:
+located on ```/etc/nix/nix.conf``` and by default only has one parameter with
+the prefix used for the newly created unix user names and groups names. How are
+this users and groups used? I guess we will find it later:
 
 ```console
 $ cat /etc/nix/nix.conf
@@ -242,8 +242,9 @@ lrwxrwxrwx 1 root root    29 May 29 00:05 .nix-profile -> /nix/var/nix/profiles/
 ### Cache
 
 As I read, everything Nix needs is on the top level ```/nix``` folder, but for
-obvious performance reasons it's also using a sqlite database as cache. ***This
-cache will also appear in non-root user's homes that interact with nix***:
+obvious performance reasons it's also using a sqlite database as cache. ***An
+independent cache will also appear in non-root user's homes that interact with
+nix***:
 
 ```console
 $ sudo ls -la /root/.cache/nix/
