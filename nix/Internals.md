@@ -260,6 +260,100 @@ allows you to automatically stay up-to-date with a set of pre-built Nix
 expressions. A Nix channel is just a URL that points to a place containing a set
 of Nix expressions.
 
+#### Channel sources
+
+The "default" channel is named ```nixpkgs``` and you are going to see it a lot
+as a prefix (or maybe suffix?) when running nix commands:
+
+##### Channel format
+
+A channel URL should point to a directory containing the following files:
+- nixexprs.tar.xz
+  - A tarball containing Nix expressions and files referenced by them (such as
+  build scripts and patches). At the top level, the tarball should contain a
+  single directory. That directory must contain a file default.nix that serves
+  as the channel’s “entry point”
+
+##### Adding a channel
+
+The user starts with no channels, the ```.nix-channels``` file does not even
+exists:
+
+```console
+$ ls ~/.nix-*
+/home/fmaste/.nix-defexpr:
+channels  channels_root
+
+/home/fmaste/.nix-profile:
+```
+
+Let's add a channel:
+
+```console
+$ nix-channel --add https://nixos.org/channels/nixpkgs-stable
+```
+
+```console
+$ ls ~/.nix-*
+/home/fmaste/.nix-channels
+
+/home/fmaste/.nix-defexpr:
+channels  channels_root
+
+/home/fmaste/.nix-profile:
+```
+
+```console
+$ cat ~/.nix-channels
+https://nixos.org/channels/nixpkgs-stable nixpkgs
+```
+
+##### Default root channel
+
+```console
+$ sudo cat /root/.nix-channels
+https://nixos.org/channels/nixpkgs-unstable nixpkgs
+```
+
+```console
+$ ls -la /nix/var/nix/profiles/per-user/root/channels/
+lrwxrwxrwx 1 root root        60 Jan  1  1970 manifest.nix -> /nix/store/yx3y97fmx221jqr3nlxl6is388zy8l0b-env-manifest.nix
+lrwxrwxrwx 1 root root        59 Jan  1  1970 nixpkgs -> /nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs/nixpkgs
+```
+
+```console
+$ cat /nix/var/nix/profiles/per-user/root/channels/manifest.nix
+[ { meta = { }; name = "nixpkgs"; out = { outPath = "/nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs"; }; outPath = "/nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs"; outputs = [ "out" ]; system = "builtin"; type = "derivation"; } ]
+```
+
+Looks like a ```git clone``` of the nix packages/expressions repository:
+
+```console
+$ ls -la /nix/var/nix/profiles/per-user/root/channels/nixpkgs/
+total 60
+dr-xr-xr-x 1 root root  382 Jan  1  1970 .
+dr-xr-xr-x 1 root root   14 Jan  1  1970 ..
+-r--r--r-- 1 root root 6977 Jan  1  1970 CONTRIBUTING.md
+-r--r--r-- 1 root root 1097 Jan  1  1970 COPYING
+-r--r--r-- 1 root root  971 Jan  1  1970 default.nix
+dr-xr-xr-x 1 root root  430 Jan  1  1970 doc
+-r--r--r-- 1 root root 2122 Jan  1  1970 .editorconfig
+-r--r--r-- 1 root root 1359 Jan  1  1970 flake.nix
+-r--r--r-- 1 root root  598 Jan  1  1970 .gitattributes
+-r--r--r-- 1 root root 1108 Jan  1  1970 .git-blame-ignore-revs
+dr-xr-xr-x 1 root root  212 Jan  1  1970 .github
+-r--r--r-- 1 root root  425 Jan  1  1970 .gitignore
+-r--r--r-- 1 root root   40 Jan  1  1970 .git-revision
+dr-xr-xr-x 1 root root  640 Jan  1  1970 lib
+dr-xr-xr-x 1 root root   78 Jan  1  1970 maintainers
+dr-xr-xr-x 1 root root  202 Jan  1  1970 nixos
+dr-xr-xr-x 1 root root  254 Jan  1  1970 pkgs
+-r--r--r-- 1 root root 6189 Jan  1  1970 README.md
+-r--r--r-- 1 root root   19 Jan  1  1970 svn-revision
+-r--r--r-- 1 root root    5 Jan  1  1970 .version
+-r--r--r-- 1 root root   21 Jan  1  1970 .version-suffix
+```
+
 #### The .nix-defexpr/ folder
 
 ```root/.nix-defexpr/``` or ```~/.nix-defexpr/``` contains
@@ -291,59 +385,7 @@ previous versions.
 
 What does this means? That ```nix-channel``` is using the same "magic sauce" it
 uses to build applications and maintain different versions to keep track of
-the channels different versions.
-
-#### Default channel
-
-The "default" channel is ```nixpkgs``` and you are going to see it a lot as a
-prefix (or maybe suffix?) when running nix commands:
-
-```console
-$ sudo cat /root/.nix-channels
-https://nixos.org/channels/nixpkgs-unstable nixpkgs
-```
-
-```console
-$ ls -la /nix/var/nix/profiles/per-user/root/channels/
-total 8
-dr-xr-xr-x 1 root root        38 Jan  1  1970 .
-drwxrwxr-t 1 root nixbld 1186080 May 29 10:09 ..
-lrwxrwxrwx 1 root root        60 Jan  1  1970 manifest.nix -> /nix/store/yx3y97fmx221jqr3nlxl6is388zy8l0b-env-manifest.nix
-lrwxrwxrwx 1 root root        59 Jan  1  1970 nixpkgs -> /nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs/nixpkgs
-```
-
-Looks like a ```git clone``` of the nix packages/expressions repository:
-
-```console
-$ ls -la /nix/var/nix/profiles/per-user/root/channels/nixpkgs/
-total 60
-dr-xr-xr-x 1 root root  382 Jan  1  1970 .
-dr-xr-xr-x 1 root root   14 Jan  1  1970 ..
--r--r--r-- 1 root root 6977 Jan  1  1970 CONTRIBUTING.md
--r--r--r-- 1 root root 1097 Jan  1  1970 COPYING
--r--r--r-- 1 root root  971 Jan  1  1970 default.nix
-dr-xr-xr-x 1 root root  430 Jan  1  1970 doc
--r--r--r-- 1 root root 2122 Jan  1  1970 .editorconfig
--r--r--r-- 1 root root 1359 Jan  1  1970 flake.nix
--r--r--r-- 1 root root  598 Jan  1  1970 .gitattributes
--r--r--r-- 1 root root 1108 Jan  1  1970 .git-blame-ignore-revs
-dr-xr-xr-x 1 root root  212 Jan  1  1970 .github
--r--r--r-- 1 root root  425 Jan  1  1970 .gitignore
--r--r--r-- 1 root root   40 Jan  1  1970 .git-revision
-dr-xr-xr-x 1 root root  640 Jan  1  1970 lib
-dr-xr-xr-x 1 root root   78 Jan  1  1970 maintainers
-dr-xr-xr-x 1 root root  202 Jan  1  1970 nixos
-dr-xr-xr-x 1 root root  254 Jan  1  1970 pkgs
--r--r--r-- 1 root root 6189 Jan  1  1970 README.md
--r--r--r-- 1 root root   19 Jan  1  1970 svn-revision
--r--r--r-- 1 root root    5 Jan  1  1970 .version
--r--r--r-- 1 root root   21 Jan  1  1970 .version-suffix
-```
-
-```console
-$ cat /nix/var/nix/profiles/per-user/root/channels/manifest.nix
-[ { meta = { }; name = "nixpkgs"; out = { outPath = "/nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs"; }; outPath = "/nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs"; outputs = [ "out" ]; system = "builtin"; type = "derivation"; } ]
-```
+the different channel versions.
 
 #### Profiles
 
