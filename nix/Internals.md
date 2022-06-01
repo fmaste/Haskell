@@ -179,7 +179,7 @@ fi
 # End Nix
 ```
 
-The script mostly sets the ```NIX_PROFILES``` and ```NIX_SSL_CERT_FILE```
+The script mainly sets the ```NIX_PROFILES``` and ```NIX_SSL_CERT_FILE```
 environment variables:
 
 ```console
