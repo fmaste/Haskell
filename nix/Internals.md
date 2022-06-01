@@ -1,6 +1,6 @@
 # What was installed?
 
-Remember I installed the multi-user mode!
+Remember I installed Nix in multi-user mode!
 
 ## On the /etc directory
 
