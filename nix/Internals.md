@@ -284,9 +284,9 @@ channels. ***But I still couldn't add a channel different than "unstable"***.
 
 ##### Default root channel
 
-***I did not find an specific mentions in the documentation, but this installed
-channel even thou it appears to be for the root user only, it is used by
-non-root users until the users add channels and overrides it!***
+***I did not find an specific mentions in the documentation, but this
+pre-installed channel even thou it appears to be for the root user only, it is
+used by non-root users until the users add channels and overrides it!***
 
 The default/pre-installed channel is usually named ```nixpkgs```, this is
 because channels are added with an alias. You are going to see this alias a lot
