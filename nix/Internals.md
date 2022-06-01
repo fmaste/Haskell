@@ -4,7 +4,7 @@ Remember I installed Nix in multi-user mode!
 
 ## On the /etc directory
 
-### Config
+### Settings
 
 The main configuration (if there exists something like a main config in Nix) is
 located on ```/etc/nix/nix.conf``` and only has one parameter with the prefix
@@ -85,7 +85,7 @@ $ grep nix /etc/group
 nixbld:x:30000:nixbld1,nixbld2,nixbld3,nixbld4,nixbld5,nixbld6,nixbld7,nixbld8,nixbld9,nixbld10,nixbld11,nixbld12,nixbld13,nixbld14,nixbld15,nixbld16,nixbld17,nixbld18,nixbld19,nixbld20,nixbld21,nixbld22,nixbld23,nixbld24,nixbld25,nixbld26,nixbld27,nixbld28,nixbld29,nixbld30,nixbld31,nixbld32
 ```
 
-### Daemon with systemd
+### The Daemon managed with systemd
 
 The Nix daemon is a required component in multi-user Nix installations. It
 performs build actions and other operations on the Nix store on behalf of
@@ -142,7 +142,7 @@ KillMode=process
 WantedBy=multi-user.target
 ```
 
-### Environment variables
+### Definition of environment variables
 
 Why this file is called ```nix-daemon.sh``` is a mystery to me. It's not how the
 daemon is started.
@@ -241,8 +241,8 @@ lrwxrwxrwx 1 root root    29 May 29 00:05 .nix-profile -> /nix/var/nix/profiles/
 ### Cache
 
 As I read, everything Nix needs is on the top level ```/nix``` folder, but for
-obvious performance reasons it's also using a sqlite database as cache. This
-cache will also appear in non-root users homes that interact with nix:
+obvious performance reasons it's also using a sqlite database as cache. ***This
+cache will also appear in non-root user's homes that interact with nix***:
 
 ```console
 $ sudo ls -la /root/.cache/nix/
@@ -254,8 +254,8 @@ $ sudo ls -la /root/.cache/nix/
 
 ### Channels
 
-The two file channel related are:
-- ```.nix-channels```: The Nix channels managed by ```nix-channel```.
+The two channel related files and folders (respectively) are:
+- ```.nix-channels```: The Nix channel sources managed by ```nix-channel```.
 - ```.nix-defexpr```: For ```nix-env``` to manage and use multiple channels.
 
 #### The .nix-channels file
@@ -268,22 +268,34 @@ of Nix expressions.
 
 ##### Channel format
 
-A channel URL should point to a directory containing the following files:
-- nixexprs.tar.xz
+A channel is an URL that should point to a directory containing the following:
+- A ```nixexprs.tar.xz``` file:
   - A tarball containing Nix expressions and files referenced by them (such as
   build scripts and patches). At the top level, the tarball should contain a
   single directory. That directory must contain a file default.nix that serves
   as the channel’s “entry point”
 
+See [The official channels](https://nixos.wiki/wiki/Nix_channels#The_official_channels) for a short description of the available
+channels. ***But I still couldn't add a channel different than "unstable"***.
+
 ##### Default root channel
 
-The "default" channel is usually named ```nixpkgs``` and you are going to see it
-a lot used as a prefix (or maybe suffix?) when running nix commands:
+***I did not find an specific mentions in the documentation, but this installed
+channel even thou it appears to be for the root user only, it is used by
+non-root users until the users add channels and overrides it!***
+
+The default/pre-installed channel is usually named ```nixpkgs```, this is
+because channels are added with an alias. You are going to see this alias a lot
+used as a prefix (or it was a suffix?) when running nix commands to signal which
+channel we are trying to use:
 
 ```console
 $ sudo cat /root/.nix-channels
 https://nixos.org/channels/nixpkgs-unstable nixpkgs
 ```
+
+As we will see later, channel versions are managed in ```.nix-defexpr/``` 
+internally using ```nix-env```, let's only look at the symlinks created:
 
 ```console
 $ ls -la /nix/var/nix/profiles/per-user/root/channels/
@@ -291,12 +303,15 @@ lrwxrwxrwx 1 root root        60 Jan  1  1970 manifest.nix -> /nix/store/yx3y97f
 lrwxrwxrwx 1 root root        59 Jan  1  1970 nixpkgs -> /nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs/nixpkgs
 ```
 
+The manifest is a list containing only one element named ```nixpkgs```:
+
 ```console
 $ cat /nix/var/nix/profiles/per-user/root/channels/manifest.nix
 [ { meta = { }; name = "nixpkgs"; out = { outPath = "/nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs"; }; outPath = "/nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs"; outputs = [ "out" ]; system = "builtin"; type = "derivation"; } ]
 ```
 
-Looks like a ```git clone``` of the nix packages/expressions repository:
+Looks like a ```git clone``` of the nix packages/expressions repository. We will
+add a new channel next to see how it works:
 
 ```console
 $ ls -la /nix/var/nix/profiles/per-user/root/channels/nixpkgs/
@@ -324,10 +339,6 @@ dr-xr-xr-x 1 root root  254 Jan  1  1970 pkgs
 -r--r--r-- 1 root root   21 Jan  1  1970 .version-suffix
 ```
 
-I did not find an specific mentions in the documentation, but this installed
-channel even thou it appears to be for the root user only, it is used by
-non-root users until the users add channels and overrides it!
-
 ##### Adding a channel
 
 The user starts with no channels, the ```.nix-channels``` file does not even
@@ -346,9 +357,6 @@ Let's add a channel:
 ```console
 $ nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
 ```
-
-See [The official channels](https://nixos.wiki/wiki/Nix_channels#The_official_channels) for a short description of the available
-channels. ***But I still couldn't add a channel different to "unstable"***.
 
 ```console
 $ ls ~/.nix-*
