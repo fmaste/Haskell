@@ -258,13 +258,15 @@ The two file channel related are:
 - ```.nix-channels```: The Nix channels managed by ```nix-channel```.
 - ```.nix-defexpr```: For ```nix-env``` to manage and use multiple channels.
 
+#### The .nix-channels file
+
 Here you can find the actual channels, that can be managed with the
 ```nix-channel``` command. Channels are like repositories, is a mechanism that
 allows you to automatically stay up-to-date with a set of pre-built Nix
 expressions. A Nix channel is just a URL that points to a place containing a set
 of Nix expressions.
 
-#### Channel format
+##### Channel format
 
 A channel URL should point to a directory containing the following files:
 - nixexprs.tar.xz
@@ -273,7 +275,7 @@ A channel URL should point to a directory containing the following files:
   single directory. That directory must contain a file default.nix that serves
   as the channel’s “entry point”
 
-#### Default root channel
+##### Default root channel
 
 The "default" channel is usually named ```nixpkgs``` and you are going to see it
 a lot used as a prefix (or maybe suffix?) when running nix commands:
@@ -447,7 +449,7 @@ What does this means? That ```nix-channel``` is using the same "magic sauce" it
 uses to build applications and maintain different versions to keep track of
 the different channel versions.
 
-#### Profiles
+### Profiles
 
 [Profile](https://nixos.org/manual/nix/stable/glossary.html#gloss-profile):
 > A symlink to the current user environment of a user, e.g.,
