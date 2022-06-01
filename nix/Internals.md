@@ -2,7 +2,7 @@
 
 Remember I installed the multi-user mode!
 
-## On /etc
+## On the /etc directory
 
 The main configuration (if there exists something like a main config in Nix) is
 located on ```/etc/nix/nix.conf``` and only has one parameter with the prefix
@@ -189,7 +189,7 @@ KillMode=process
 WantedBy=multi-user.target
 ```
 
-## On /root directory
+## On the /root directory
 
 Looks like the most interesting configuration files are located on the /root
 directory:
@@ -284,9 +284,9 @@ $ cat /nix/var/nix/profiles/per-user/root/channels/manifest.nix
 [ { meta = { }; name = "nixpkgs"; out = { outPath = "/nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs"; }; outPath = "/nix/store/vrkp5raqkgiaa3xs62i8pm53hc8qrg5s-nixpkgs"; outputs = [ "out" ]; system = "builtin"; type = "derivation"; } ]
 ```
 
-## On my user
+## For my user only
 
-### Envs
+### Environment variables
 
 After restating my console/terminal I can see the updated ```$PATH```:
 
