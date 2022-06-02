@@ -30,11 +30,11 @@ Hydra.
 > packages***. It allows you to ***roll back to previous versions***, and
 > ensures that ***no package is in an inconsistent state*** during an upgrade.
 
-### Packages
+### Packages and NixOS
 
-> [Nixpkgs](https://github.com/nixos/nixpkgs) is a collection of over 80,000
-> software packages that can be installed with the Nix package manager. It also
-> implements NixOS, a purely-functional Linux distribution.
+> [Nixpkgs](https://github.com/nixos/nixpkgs) is a ***collection of over 80,000
+> software packages*** that can be installed with the Nix package manager. It
+> also implements ***NixOS, a purely-functional Linux distribution***.
 
 ## 10,000 ft view
 
