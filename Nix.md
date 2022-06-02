@@ -42,9 +42,18 @@ describe how to build ***packages***. Nix expressions are written using the
 ***Nix expression language***.
 
 This high-level description of software packages are evaluated into what Nix
-calls a ***derivation***. These derivations are like a JSON file that is stored
-in the ***Nix store*** and describes how to properly built the package in a
+calls a ***derivation***. In this step Nix evaluates code to resolve the
+***closures*** of a derivation, the list of all its dependencies including
+absolutely everything necessary to use that derivation.
+
+The results of derivations are stored in the ***Nix store*** (typically
+```/nix/store```) and describes how to properly built the package in a
 reproducible way.
+
+<!--
+Nix with all the knowledge it obtained about a package creates a sandbox to
+build software that only has the dependencies 
+-->
 
 ## Others
 
