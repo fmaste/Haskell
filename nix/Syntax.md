@@ -8,7 +8,7 @@ IS A COMMENT!
 */
 ```
 
-We have null (there's not escape from it mfer!):
+We have null (there's no escape from it mfer!):
 
 ```nix
 null
@@ -114,3 +114,44 @@ Load code:
 import ./more.nix
 ```
 
+Lambdas / Functions
+
+```nix
+double = x: x*2
+nix-repl> double
+«lambda»
+nix-repl> double 3
+6
+
+mul = a: (b: a*b)
+nix-repl> mul
+«lambda»
+nix-repl> mul 3
+«lambda»
+nix-repl> (mul 3) 4
+12
+
+nix-repl> mul = s: s.a*s.b
+nix-repl> mul { a = 3; b = 4; }
+12
+nix-repl> mul = { a, b }: a*b
+nix-repl> mul { a = 3; b = 4; }
+12
+nix-repl> mul { a = 3; b = 4; c = 6; }
+error: anonymous function at (string):1:2 called with unexpected argument `c', at (string):1:1
+nix-repl> mul { a = 3; }
+error: anonymous function at (string):1:2 called without required argument `b', at (string):1:1
+
+nix-repl> mul = { a, b ? 2 }: a*b
+nix-repl> mul { a = 3; }
+6
+nix-repl> mul { a = 3; b = 4; }
+12
+
+nix-repl> mul = { a, b, ... }: a*b
+nix-repl> mul { a = 3; b = 4; c = 2; }
+
+nix-repl> mul = s@{ a, b, ... }: a*b*s.c
+nix-repl> mul { a = 3; b = 4; c = 2; }
+24
+```
