@@ -1,4 +1,12 @@
-Comments:
+# Nix language syntax
+
+The [Nix language](https://nixos.org/manual/nix/stable/expressions/expression-language.html)
+is used to write expressions that produce derivations.
+
+Inherited from its functional programming roots, in Nix, everything is an
+expression, there are no statements, and values are immutable.
+
+## Comments:
 
 ```nix
 # This is a comment
@@ -8,27 +16,22 @@ IS A COMMENT!
 */
 ```
 
-We have null (there's no escape from it mfer!):
+## Simple types
 
-```nix
-null
-```
+Nix has integer, floating point, string, path, boolean and null
+[simple](https://nixos.org/manual/nix/stable/expressions/language-values.html)
+types.
 
-Boolean values:
+### Numbers:
 
-```nix
-true
-false
-```
-
-Numbers. Integers and Floats:
+Integers and floats:
 
 ```nix
 0
 0.22
 ```
 
-Strings:
+### Strings:
 
 ```nix
 "a boring single line string"
@@ -38,16 +41,72 @@ multi line
 string''
 ```
 
-Lists are space-separated element inside ```[``` and ```]``` which types are
+### Paths
+
+This is a path, not a division:
+
+```nix
+nix repl> 4/2
+/home/nix/4/2
+```
+
+Nix is not a general purpose language, it's a domain-specific language for
+writing packages.
+
+## Boolean values
+
+```nix
+true
+false
+```
+
+### We have null
+
+There's no escape from it mfer:
+
+```nix
+null
+```
+
+## Operators
+
+```nix
+nix repl> 1+2
+3
+nix repl> 2-1
+1
+nix repl> 2*2
+4
+```
+
+***Watch out when using division***:
+
+```nix
+nix repl> 4/2
+/home/nix/4/2
+nix repl> 4/ 2
+2
+nix repl> builtins.div 4 2
+2
+```
+
+Other operators are ```||```, ```&&``` and ```!``` for booleans, and relational
+operators such as ```!=```, ```==```, ```<```, ```>```, ```<=```, ```>=```.
+
+## Lists
+
+Are space-separated element inside ```[``` and ```]``` which types are
 heterogeneous:
 
 ```nix
 [ true 0 0.22 "string" ]
 ```
 
-Atribute set. Or also called object, dictionary or record in other places.
-The syntax is multiple ```"key name"``` = ```value``` elements separated by
-```;```. Never forget the ending ```;``` or it won't "compile":
+## Attribute sets
+
+Or also called object, dictionary or record in other places. The syntax is
+multiple ```"key name"``` = ```value``` elements separated by ```;```. Never
+forget the ending ```;``` or it won't "compile":
 
 ```nix
 { A = 0; B = "string"; }
@@ -57,9 +116,11 @@ The syntax is multiple ```"key name"``` = ```value``` elements separated by
 { A.B = 0; }
 ```
 
-Recursive attribute set allows the attributes we are defining to be re-used in
-the scope of the attribute set. So we can refer recursively other elements of
-the set when defining attributes:
+## Recursive attribute set
+
+Allows the attributes we are defining to be re-used in the scope of the
+attribute set. So we can refer recursively other elements of the set when
+defining attributes:
 
 ```nix
 rec { A = 0; B = A; }
@@ -67,8 +128,9 @@ rec { A = 0; B = A; }
 { A = 0; B = 0; }
 ```
 
-Local variable definition. The variable defined after ```let``` are avaibale in
-the scope after ```in```:
+## Local variable definition
+
+The variable defined after ```let``` are avaibale in the scope after ```in```:
 
 ```nix
 myAtrSet = let
@@ -80,19 +142,13 @@ in { A = numberA; B = numberB; }
 refer to variables in the let expression when assigning variables, like with
 recursive attribute sets.
 
-Shortcut for ```A = B.A```:
+## Shortcut for ```A = B.A```
 
 ```nix
 inherit (B) A;
 ```
 
-Builtin functions:
-
-```nix
-builtins.getEnv "PATH"
-```
-
-Function definition and calling:
+## Function definition and calling:
 
 ```nix
 # a and b are the parameters and the return expression is a + b
@@ -118,40 +174,65 @@ Lambdas / Functions
 
 ```nix
 double = x: x*2
-nix-repl> double
+nix repl> double
 «lambda»
-nix-repl> double 3
+nix repl> double 3
 6
 
 mul = a: (b: a*b)
-nix-repl> mul
+nix repl> mul
 «lambda»
-nix-repl> mul 3
+nix repl> mul 3
 «lambda»
-nix-repl> (mul 3) 4
+nix repl> (mul 3) 4
 12
 
-nix-repl> mul = s: s.a*s.b
-nix-repl> mul { a = 3; b = 4; }
+nix repl> mul = s: s.a*s.b
+nix repl> mul { a = 3; b = 4; }
 12
-nix-repl> mul = { a, b }: a*b
-nix-repl> mul { a = 3; b = 4; }
+nix repl> mul = { a, b }: a*b
+nix repl> mul { a = 3; b = 4; }
 12
-nix-repl> mul { a = 3; b = 4; c = 6; }
+nix repl> mul { a = 3; b = 4; c = 6; }
 error: anonymous function at (string):1:2 called with unexpected argument `c', at (string):1:1
-nix-repl> mul { a = 3; }
+nix repl> mul { a = 3; }
 error: anonymous function at (string):1:2 called without required argument `b', at (string):1:1
 
-nix-repl> mul = { a, b ? 2 }: a*b
-nix-repl> mul { a = 3; }
+nix repl> mul = { a, b ? 2 }: a*b
+nix repl> mul { a = 3; }
 6
-nix-repl> mul { a = 3; b = 4; }
+nix repl> mul { a = 3; b = 4; }
 12
 
-nix-repl> mul = { a, b, ... }: a*b
-nix-repl> mul { a = 3; b = 4; c = 2; }
+nix repl> mul = { a, b, ... }: a*b
+nix repl> mul { a = 3; b = 4; c = 2; }
 
-nix-repl> mul = s@{ a, b, ... }: a*b*s.c
-nix-repl> mul { a = 3; b = 4; c = 2; }
+nix repl> mul = s@{ a, b, ... }: a*b*s.c
+nix repl> mul { a = 3; b = 4; c = 2; }
 24
+```
+
+## Builtin functions
+
+```nix
+builtins.getEnv "PATH"
+```
+
+## Imports
+
+File a.nix:
+> 1
+
+File b.nix:
+> 2
+
+File add.nix:
+> a: b: a+b
+
+```nix
+nix repl> a = import ./a.nix
+nix repl> b = import ./b.nix
+nix repl> add = import ./add.nix
+nix repl> add a b
+3
 ```
