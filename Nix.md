@@ -6,9 +6,32 @@ Nix is a purely functional package manager
 
 ## It's much more than that
 
-Nixpkgs, NixOS, NixOps, Hydra.
-https://nixos.wiki/wiki/Nix_Ecosystem
-https://nixos.wiki/images/4/44/Nixos-stack2.png
+[The ecosystem: Nixpkgs, NixOS, NixOps, Hydra](https://nixos.wiki/wiki/Nix_Ecosystem).
+![Nix stack](https://nixos.wiki/images/4/44/Nixos-stack2.png)
+
+## Main Features
+
+### Reproducible
+
+> Nix builds packages in isolation from each other. This ensures that they are
+> reproducible and don't have undeclared dependencies, so if a package works on
+> one machine, it will also work on another.
+
+### Declarative
+
+> Nix makes it trivial to share development and build environments for your
+> projects, regardless of what programming languages and tools you’re using.
+
+### Reliable
+
+> Nix ensures that installing or upgrading one package cannot break other
+> packages. It allows you to roll back to previous versions, and ensures that no
+> package is in an inconsistent state during an upgrade.
+
+## Terminology
+
+
+## Others
 
 ### The best of functional programming
 
@@ -18,6 +41,14 @@ https://nixos.org/manual/nix/stable/expressions/expression-language.html
 ### Multiple versions
 
 Multiple versions
+
+### No dependency resolution
+
+> There isn't anything like apt which solves a SAT problem in order to satisfy
+> dependencies with lower and upper bounds on versions. There's no need for this
+> because all the dependencies are static: if a derivation X depends on a
+> derivation Y, then it always depends on it. A version of X which depended on Z
+> would be a different derivation.
 
 ### Complete dependencies
 
@@ -48,6 +79,22 @@ Managing build environments
 NixOS
 
 # Minimum Concepts
+
+The core of a Nix system is the Nix store, usually installed under
+```/nix/store```, and some tools to manipulate the store. In Nix there is the
+notion of a derivation rather than a package. The difference can be subtle at
+the beginning, so I will often use the words interchangeably.
+
+From an administrator's point of view: if you want an old PHP version for one
+application, but want to upgrade the rest of the system, that's not painful any
+more.
+
+There are no upgrade/downgrade scripts for your data. It doesn't make sense with
+this approach, because there's no real derivation to be upgraded. With Nix you
+switch to using other software with its own stack of dependencies, but there's
+no formal notion of upgrade or downgrade when doing so.
+* If there is a data format change, then migrating to the new data format
+remains your own responsibility.
 
 A package/expression
 
@@ -93,23 +140,39 @@ A channel
 
 # Further Reading
 
-Wikipedia
-https://en.wikipedia.org/wiki/Nix_(package_manager)
-Manual
-https://nixos.org/manual/nix/stable/
-https://nixos.org/manual/nix/stable/introduction.html
-Wiki
-https://nixos.wiki/wiki/Main_Page
-https://nix.dev/
-Blog posts
-https://serokell.io/blog/what-is-nix
-https://serokell.io/blog/practical-nix-flakes
-Other
-https://nix.dev/recommended-reading
-https://nixos.org/guides/nix-pills/
-https://ianthehenry.com/posts/how-to-learn-nix/
-Flakes
-https://nixos.wiki/wiki/Flakes
-- Part 1: https://www.tweag.io/blog/2020-05-25-flakes/
-- Part 2: https://www.tweag.io/blog/2020-06-25-eval-cache/
-- Part 3: https://www.tweag.io/blog/2020-07-31-nixos-flakes/
+- [Home](https://nixos.org/)
+- [Wikipedia](https://en.wikipedia.org/wiki/Nix_(package_manager))
+- Learn
+  - [Install Nix](https://nixos.org/download.html#download-nix)
+  - [First steps with Nix](https://nixos.org/guides/ad-hoc-developer-environments.html)
+  - [How Nix works](https://nixos.org/guides/how-nix-works.html)
+- [Manuals](https://nixos.org/learn.html):
+  - [Nix Manual](https://nixos.org/manual/nix/stable/)
+    - Nix is a package manager which comes in a form of many command line tools.
+      Packages that Nix can build are defined with the Nix Expression Language.
+  - [Nixpkgs Manual](https://nixos.org/manual/nixpkgs/stable)
+    - The Nix Packages collection (Nixpkgs) is a set of thousands of packages
+      for the Nix package manager and NixOS Linux distribution.
+  - [NixOS Manual](https://nixos.org/manual/nixos/stable)
+    - NixOS is a Linux distribution based on Nix package manager.
+- Tutorials
+  - [Nix Pills](https://nixos.org/guides/nix-pills)
+    - A low-level tutorial on building software packages with Nix, showing in
+      detail how nixpkgs is constructed.
+- Others
+  - [Unofficial Wiki](https://nixos.wiki/)
+    - A user-maintained wiki for Nix and NixOS.
+  - [nix.dev](https://nix.dev/)
+    - An unofficial and opinionated guide for developers getting things done
+      using the Nix ecosystem.
+- Blog posts
+  - https://serokell.io/blog/what-is-nix
+  - https://serokell.io/blog/practical-nix-flakes
+  - https://nix.dev/recommended-reading
+  - https://nixos.org/guides/nix-pills/
+  - https://ianthehenry.com/posts/how-to-learn-nix/
+  - Flakes
+    - https://nixos.wiki/wiki/Flakes
+    - Part 1: https://www.tweag.io/blog/2020-05-25-flakes/
+    - Part 2: https://www.tweag.io/blog/2020-06-25-eval-cache/
+    - Part 3: https://www.tweag.io/blog/2020-07-31-nixos-flakes/
