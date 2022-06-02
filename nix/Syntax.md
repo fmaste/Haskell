@@ -27,15 +27,15 @@ Numbers. Integers and Floats:
 Strings:
 
 ```nix
-"string"
+"a boring single line string"
 
 ''a nice
 multi line
 string''
 ```
 
-Lists are space separated element inside ```[``` and ```]``` a have heterogeneous
-types inside:
+Lists are space-separated element inside ```[``` and ```]``` which types are
+heterogeneous:
 
 ```nix
 [ true 0 0.22 "string" ]
@@ -43,13 +43,13 @@ types inside:
 
 Atribute set. Or also called object, dictionary or record in other places.
 The syntax is multiple ```"key name"``` = ```value``` elements separated by
-```;```:
+```;```. Never forget the ending ```;``` or it won't "compile":
 
 ```nix
 { A = 0; B = "string"; }
-# Can be nested:
+# Attribute sets can be nested:
 { A = { B = 0; }; }
-# And it the same as:
+# The line above is the same as:
 { A.B = 0; }
 ```
 
@@ -58,16 +58,19 @@ the scope of the attribute set. So we can refer recursively other elements of
 the set when defining attributes:
 
 ```nix
-rec { A = 1; B = A; }
+rec { A = 0; B = A; }
+# Results in the same record as:
+{ A = 0; B = 0; }
 ```
 
 Local variable definition. The variable defined after ```let``` are avaibale in
 the scope after ```in```:
 
 ```nix
-A = let
-        number = 0;
-    in { B = number; }
+myAtrSet = let
+        numberA = 0;
+        numberB = 1;
+in { A = numberA; B = numberB; }
 ```
 
 Shortcut for ```A = B.A```:
@@ -82,11 +85,25 @@ Builtin functions:
 builtins.getEnv "PATH"
 ```
 
-Function definition:
+Function definition and calling:
 
 ```nix
 # a and b are the parameters and the return expression is a + b
 add = a: b: a + b
+add 1 1
 ```
 
+Function definition with attribute sets as parameters:
+
+```nix
+# Here b has a default value
+add = { a, b ? 1 }: a + b
+add { a = 1; }
+```
+
+Load code:
+
+```nix
+import ./more.nix
+```
 
