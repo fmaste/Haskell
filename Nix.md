@@ -1,8 +1,8 @@
-# Nix
+# [Nix](https://nixos.org/)
 
 ## TL;DR;
 
-Nix is a purely functional package manager.
+Nix is a purely functional software package manager.
 
 ## But it's much more than that
 
@@ -14,20 +14,21 @@ Hydra.
 
 ### Reproducible
 
-> Nix builds packages in isolation from each other. This ensures that they are
-> reproducible and don't have undeclared dependencies, so if a package works on
-> one machine, it will also work on another.
+> ***Nix builds packages in isolation from each other***. This ensures that they
+> ***are reproducible and don't have undeclared dependencies***, so if a package
+> works on one machine, it will also work on another.
 
 ### Declarative
 
-> Nix makes it trivial to share development and build environments for your
-> projects, regardless of what programming languages and tools you’re using.
+> Nix makes it trivial to ***share development and build environments*** for
+> your projects, regardless of what programming languages and tools you're
+> using.
 
 ### Reliable
 
-> Nix ensures that installing or upgrading one package cannot break other
-> packages. It allows you to roll back to previous versions, and ensures that no
-> package is in an inconsistent state during an upgrade.
+> Nix ensures that ***installing or upgrading one package cannot break other
+> packages***. It allows you to ***roll back to previous versions***, and
+> ensures that ***no package is in an inconsistent state*** during an upgrade.
 
 ### Packages
 
@@ -78,7 +79,28 @@ Nix with all the knowledge it obtained about a package creates a sandbox to
 build software that only has the dependencies 
 -->
 
-## Others
+### ELIGR (Explain like I'm a golden Retriever)
+
+
+## Background
+
+Abstract
+> Existing package and system configuration management tools suffer from an
+> imperative model, where system administration actions such as upgrading
+> packages or changes to system configuration files are stateful: they
+> destructively update the state of the system. This leads to many problems,
+> such as the inability to roll back changes easily, to deploy multiple versions
+> of a package side-by-side, to reproduce a configuration deterministically on
+> another machine, or to reliably upgrade a system. In this article we show that
+> we can overcome these problems by moving to a purely functional system
+> configuration model. This means that all static parts of a system (such as
+> software packages, configuration files and system startup scripts) are built
+> by pure functions and are immutable, stored in a way analogously to a heap in
+> a purely functional language. We have implemented this model in NixOS, a
+> non-trivial Linux distribution that uses the Nix package manager to build the
+> entire system configuration from a modular, purely functional specification
+
+## Other features
 
 ### The best of functional programming
 
