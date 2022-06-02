@@ -2,9 +2,13 @@ Comments:
 
 ```nix
 # This is a comment
+
+/* THIS
+IS A COMMENT!
+*/
 ```
 
-We have null (there's not scape from it mfer!):
+We have null (there's not escape from it mfer!):
 
 ```nix
 null
@@ -72,6 +76,9 @@ myAtrSet = let
         numberB = 1;
 in { A = numberA; B = numberB; }
 ```
+* You cannot refer to variables in a let expression outside of it but you can
+refer to variables in the let expression when assigning variables, like with
+recursive attribute sets.
 
 Shortcut for ```A = B.A```:
 
