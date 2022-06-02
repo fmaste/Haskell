@@ -29,7 +29,7 @@ Hydra.
 > packages. It allows you to roll back to previous versions, and ensures that no
 > package is in an inconsistent state during an upgrade.
 
-### Choose from thousands of packages
+### Packages
 
 > [Nixpkgs](https://github.com/nixos/nixpkgs) is a collection of over 80,000
 > software packages that can be installed with the Nix package manager. It also
