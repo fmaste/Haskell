@@ -2,9 +2,9 @@
 
 ## TL;DR;
 
-Nix is a purely functional package manager
+Nix is a purely functional package manager.
 
-## It's much more than that
+## But it's much more than that
 
 [The ecosystem](https://nixos.wiki/wiki/Nix_Ecosystem): Nixpkgs, NixOS, NixOps,
 Hydra.
@@ -29,8 +29,22 @@ Hydra.
 > packages. It allows you to roll back to previous versions, and ensures that no
 > package is in an inconsistent state during an upgrade.
 
+### Choose from thousands of packages
+
+> [Nixpkgs](https://github.com/nixos/nixpkgs) is a collection of over 80,000
+> software packages that can be installed with the Nix package manager. It also
+> implements NixOS, a purely-functional Linux distribution.
+
 ## Terminology
 
+To deploy software using Nix you must write ***Nix expressions*** that
+describe how to build ***packages***. Nix expressions are written using the
+***Nix expression language***.
+
+This high-level description of software packages are evaluated into what Nix
+calls a ***derivation***. These derivations are like a JSON file that is stored
+in the ***Nix store*** and describes how to properly built the package in a
+reproducible way.
 
 ## Others
 
