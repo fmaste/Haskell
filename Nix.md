@@ -6,7 +6,8 @@ Nix is a purely functional package manager
 
 ## It's much more than that
 
-[The ecosystem: Nixpkgs, NixOS, NixOps, Hydra](https://nixos.wiki/wiki/Nix_Ecosystem).
+[The ecosystem](https://nixos.wiki/wiki/Nix_Ecosystem): Nixpkgs, NixOS, NixOps,
+Hydra.
 ![Nix stack](https://nixos.wiki/images/4/44/Nixos-stack2.png)
 
 ## Main Features
