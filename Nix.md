@@ -35,7 +35,30 @@ Hydra.
 > software packages that can be installed with the Nix package manager. It also
 > implements NixOS, a purely-functional Linux distribution.
 
-## Terminology
+## 10,000 ft view
+
+A software package (a bunch of different things to build and run) is described
+in a special language that defines a function from inputs to outputs. Nix runs
+or evaluates it and obtains a precise description of everything it needs to
+build this software (or to do some other Nix stuff besides building software,
+more on this later). With this description Nix creates something akin to a
+sandbox description file with specific dependencies and the build process to run
+inside it.
+
+The magic is that this sandbox is linked with specific version of its
+dependencies that are always the same dependencies each time the build is run.
+From an administrator's point of view: if you want an old PHP version for one
+application, but want to upgrade the rest of the system, that's not painful any
+more.
+
+There are no upgrade/downgrade scripts for your data. It doesn't make sense with
+this approach, because there's no real derivation to be upgraded. With Nix you
+switch to using other software with its own stack of dependencies, but there's
+no formal notion of upgrade or downgrade when doing so.
+* If there is a data format change, then migrating to the new data format
+remains your own responsibility.
+
+### In Nix's terminology
 
 To deploy software using Nix you must write ***Nix expressions*** that
 describe how to build ***packages***. Nix expressions are written using the
@@ -108,17 +131,6 @@ The core of a Nix system is the Nix store, usually installed under
 ```/nix/store```, and some tools to manipulate the store. In Nix there is the
 notion of a derivation rather than a package. The difference can be subtle at
 the beginning, so I will often use the words interchangeably.
-
-From an administrator's point of view: if you want an old PHP version for one
-application, but want to upgrade the rest of the system, that's not painful any
-more.
-
-There are no upgrade/downgrade scripts for your data. It doesn't make sense with
-this approach, because there's no real derivation to be upgraded. With Nix you
-switch to using other software with its own stack of dependencies, but there's
-no formal notion of upgrade or downgrade when doing so.
-* If there is a data format change, then migrating to the new data format
-remains your own responsibility.
 
 A package/expression
 
