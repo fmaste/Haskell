@@ -46,7 +46,7 @@ string''
 This is a path, not a division:
 
 ```nix
-nix repl> 4/2
+nix-repl> 4/2
 /home/nix/4/2
 ```
 
@@ -71,22 +71,22 @@ null
 ## Operators
 
 ```nix
-nix repl> 1+2
+nix-repl> 1+2
 3
-nix repl> 2-1
+nix-repl> 2-1
 1
-nix repl> 2*2
+nix-repl> 2*2
 4
 ```
 
 ***Watch out when using division***:
 
 ```nix
-nix repl> 4/2
+nix-repl> 4/2
 /home/nix/4/2
-nix repl> 4/ 2
+nix-repl> 4/ 2
 2
-nix repl> builtins.div 4 2
+nix-repl> builtins.div 4 2
 2
 ```
 
@@ -174,41 +174,41 @@ Lambdas / Functions
 
 ```nix
 double = x: x*2
-nix repl> double
+nix-repl> double
 «lambda»
-nix repl> double 3
+nix-repl> double 3
 6
 
 mul = a: (b: a*b)
-nix repl> mul
+nix-repl> mul
 «lambda»
-nix repl> mul 3
+nix-repl> mul 3
 «lambda»
-nix repl> (mul 3) 4
+nix-repl> (mul 3) 4
 12
 
-nix repl> mul = s: s.a*s.b
-nix repl> mul { a = 3; b = 4; }
+nix-repl> mul = s: s.a*s.b
+nix-repl> mul { a = 3; b = 4; }
 12
-nix repl> mul = { a, b }: a*b
-nix repl> mul { a = 3; b = 4; }
+nix-repl> mul = { a, b }: a*b
+nix-repl> mul { a = 3; b = 4; }
 12
-nix repl> mul { a = 3; b = 4; c = 6; }
+nix-repl> mul { a = 3; b = 4; c = 6; }
 error: anonymous function at (string):1:2 called with unexpected argument `c', at (string):1:1
-nix repl> mul { a = 3; }
+nix-repl> mul { a = 3; }
 error: anonymous function at (string):1:2 called without required argument `b', at (string):1:1
 
-nix repl> mul = { a, b ? 2 }: a*b
-nix repl> mul { a = 3; }
+nix-repl> mul = { a, b ? 2 }: a*b
+nix-repl> mul { a = 3; }
 6
-nix repl> mul { a = 3; b = 4; }
+nix-repl> mul { a = 3; b = 4; }
 12
 
-nix repl> mul = { a, b, ... }: a*b
-nix repl> mul { a = 3; b = 4; c = 2; }
+nix-repl> mul = { a, b, ... }: a*b
+nix-repl> mul { a = 3; b = 4; c = 2; }
 
-nix repl> mul = s@{ a, b, ... }: a*b*s.c
-nix repl> mul { a = 3; b = 4; c = 2; }
+nix-repl> mul = s@{ a, b, ... }: a*b*s.c
+nix-repl> mul { a = 3; b = 4; c = 2; }
 24
 ```
 
@@ -230,9 +230,15 @@ File add.nix:
 > a: b: a+b
 
 ```nix
-nix repl> a = import ./a.nix
-nix repl> b = import ./b.nix
-nix repl> add = import ./add.nix
-nix repl> add a b
+nix-repl> a = import ./a.nix
+nix-repl> b = import ./b.nix
+nix-repl> add = import ./add.nix
+nix-repl> add a b
 3
 ```
+
+nix-repl> builtins.all (a: a > 0) [1 2 3]       
+true
+
+nix-repl> builtins.all (a: a > 2) [1 2 3] 
+false
