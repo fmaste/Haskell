@@ -74,7 +74,7 @@ remains your own responsibility.
 
 it’s easy to support building variants of a package: turn the Nix expression into a function and call it any number of times with the appropriate arguments. Due to the hashing scheme, variants don’t conflict with each other in the Nix store.
 
-### In Nix's terminology
+### Again but using Nix's terminology
 
 <!-- The Nix language is used to describe such derivations. -->
 
