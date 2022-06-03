@@ -48,20 +48,22 @@ package description, like a library to fetch code with git.
 The outputs are other packages, sources, the build script, environment variables
 for the build script, etc. Nix tries very hard to ensure that Nix expressions
 are deterministic: building a Nix expression twice should yield the same result.
-\* If you are curious reader, the big ***if*** in this last sentence is solved
-with was Nix calls Flakes.
 
-When Nix runs, or evaluates, this description programs it obtains a precise
+\* If you are curious reader, the big ***if*** in this last sentence is solved
+with what Nix calls Flakes.
+
+When Nix runs, or evaluates, this description program(s) it obtains a precise
 description of everything it needs to build the package's software (it can also
 be used for other Nix stuff besides building software, more on this later). With
-the output of this description Nix creates something akin to a sandbox description file with specific dependencies and the build process to run inside
+the output of this description Nix creates something akin to a sandbox
+description file with specific dependencies and the build process to run inside
 it.
 
-The magic is that this sandbox is linked with specific version of its
-dependencies that are always the same dependencies each time the build is run.
-From an administrator's point of view: if you want an old PHP version for one
-application, but want to upgrade the rest of the system, that's not painful any
-more.
+The magic is that this sandbox is linked with an specific version of each
+dependency and are always the same dependencies each time the software is build
+or run. From an administrator's point of view: if you want an old PHP version
+for one application, but want to upgrade the rest of the system, that's not
+painful any more.
 
 There are no upgrade/downgrade scripts for your data. It doesn't make sense with
 this approach, because there's no real derivation to be upgraded. With Nix you
