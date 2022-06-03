@@ -38,13 +38,24 @@ Hydra.
 
 ## 10,000 ft view
 
-A software package (a bunch of different things to build and run) is described
-in a special language that defines a function from inputs to outputs. Nix runs
-or evaluates it and obtains a precise description of everything it needs to
-build this software (or to do some other Nix stuff besides building software,
-more on this later). With this description Nix creates something akin to a
-sandbox description file with specific dependencies and the build process to run
-inside it.
+A Nix software package (a bunch of different things to build, install and later
+run) contains a description, written in a special language created for this
+specific purpose, that defines a function from inputs to outputs.
+
+The inputs are other Nix expressions, Nix libraries involved in building the
+package description, like a library to fetch code with git.
+
+The outputs are other packages, sources, the build script, environment variables
+for the build script, etc. Nix tries very hard to ensure that Nix expressions
+are deterministic: building a Nix expression twice should yield the same result.
+\* If you are curious reader, the big ***if*** in this last sentence is solved
+with was Nix calls Flakes.
+
+When Nix runs, or evaluates, this description programs it obtains a precise
+description of everything it needs to build the package's software (it can also
+be used for other Nix stuff besides building software, more on this later). With
+the output of this description Nix creates something akin to a sandbox description file with specific dependencies and the build process to run inside
+it.
 
 The magic is that this sandbox is linked with specific version of its
 dependencies that are always the same dependencies each time the build is run.
@@ -56,10 +67,14 @@ There are no upgrade/downgrade scripts for your data. It doesn't make sense with
 this approach, because there's no real derivation to be upgraded. With Nix you
 switch to using other software with its own stack of dependencies, but there's
 no formal notion of upgrade or downgrade when doing so.
-* If there is a data format change, then migrating to the new data format
+\* If there is a data format change, then migrating to the new data format
 remains your own responsibility.
 
+it’s easy to support building variants of a package: turn the Nix expression into a function and call it any number of times with the appropriate arguments. Due to the hashing scheme, variants don’t conflict with each other in the Nix store.
+
 ### In Nix's terminology
+
+<!-- The Nix language is used to describe such derivations. -->
 
 To deploy software using Nix you must write ***Nix expressions*** that
 describe how to build ***packages***. Nix expressions are written using the
@@ -79,7 +94,21 @@ Nix with all the knowledge it obtained about a package creates a sandbox to
 build software that only has the dependencies 
 -->
 
-### ELIGR (Explain like I'm a golden Retriever)
+### Explained in tools used
+
+The [Nix language](https://nixos.org/manual/nix/stable/expressions/expression-language.html)
+is used to write expressions that when evaluated produce derivations.
+
+The [nix-build](https://nixos.org/manual/nix/stable/command-ref/nix-build.html)
+tool is used to build derivations.
+
+Behind the scenes Nix does:
+- ```nix-instantiate```: parse and evaluate the .nix file and return the .drv
+  file corresponding to the parsed derivation set.
+- ```nix-store -r```: realize the .drv file, which actually builds it.
+
+### ELIGR (Explain me Like I'm a Golden Retriever)
+
 
 
 ## Background
@@ -99,6 +128,8 @@ Abstract
 > a purely functional language. We have implemented this model in NixOS, a
 > non-trivial Linux distribution that uses the Nix package manager to build the
 > entire system configuration from a modular, purely functional specification
+>
+> [NixOS: A Purely Functional Linux Distribution](https://raw.githubusercontent.com/edolstra/edolstra.github.io/master/pubs/nixos-icfp2008-final.pdf)
 
 ## Other features
 
