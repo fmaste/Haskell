@@ -48,6 +48,7 @@ package description, like a library to fetch code with git.
 The outputs are other packages, sources, the build script, environment variables
 for the build script, etc. Nix tries very hard to ensure that Nix expressions
 are deterministic: building a Nix expression twice should yield the same result.
+
 \* If you are curious reader, the big ***if*** in this last sentence is solved
 with what Nix calls Flakes.
 
