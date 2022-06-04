@@ -110,8 +110,9 @@ stdenv.mkDerivation {
 }
 ```
 
-[nix-instantiate](https://nixos.org/manual/nix/stable/command-ref/nix-instantiate.html)
-stores derivations from Nix expressions:
+[```nix-instantiate```](https://nixos.org/manual/nix/stable/command-ref/nix-instantiate.html)
+parses and evaluates the ```.nix``` files and returns .drv files corresponding
+to the parsed derivation set:
 
 ```console
 $ nix-instantiate hello-world.nix
@@ -119,8 +120,68 @@ warning: you did not specify '--add-root'; the result might be removed by the ga
 /nix/store/q6h8xmwk2wmdn7fcsj4llcsi6xnzhn7d-hello.drv
 ```
 
-[nix-store](https://nixos.org/manual/nix/stable/command-ref/nix-store.html)
-manipulates or queries the Nix store:
+[```nix show-derivation```](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-show-derivation.html)
+shows the contents of a store derivation:
+
+```console
+$ nix show-derivation /nix/store/q6h8xmwk2wmdn7fcsj4llcsi6xnzhn7d-hello.drv
+{
+  "/nix/store/q6h8xmwk2wmdn7fcsj4llcsi6xnzhn7d-hello.drv": {
+    "outputs": {
+      "out": {
+        "path": "/nix/store/2h3znnvdncxyc6pwslr2dsi6c4hg601b-hello"
+      }
+    },
+    "inputSrcs": [
+      "/nix/store/9krlzvny65gdc8s7kpb6lkx8cd02c25b-default-builder.sh"
+    ],
+    "inputDrvs": {
+      "/nix/store/42pr7zqjf0y29v19q1wxn6hs5gdl5car-bash-5.1-p16.drv": [
+        "out"
+      ],
+      "/nix/store/ddmyhp06jqy8bxj715zwsmbcnzvx8iax-stdenv-linux.drv": [
+        "out"
+      ]
+    },
+    "system": "x86_64-linux",
+    "builder": "/nix/store/0d3wgx8x6dxdb2cpnq105z23hah07z7l-bash-5.1-p16/bin/bash",
+    "args": [
+      "-e",
+      "/nix/store/9krlzvny65gdc8s7kpb6lkx8cd02c25b-default-builder.sh"
+    ],
+    "env": {
+      "buildCommand": "echo 'Hello world!' > $out",
+      "buildInputs": "",
+      "builder": "/nix/store/0d3wgx8x6dxdb2cpnq105z23hah07z7l-bash-5.1-p16/bin/bash",
+      "configureFlags": "",
+      "depsBuildBuild": "",
+      "depsBuildBuildPropagated": "",
+      "depsBuildTarget": "",
+      "depsBuildTargetPropagated": "",
+      "depsHostHost": "",
+      "depsHostHostPropagated": "",
+      "depsTargetTarget": "",
+      "depsTargetTargetPropagated": "",
+      "doCheck": "",
+      "doInstallCheck": "",
+      "name": "hello",
+      "nativeBuildInputs": "",
+      "out": "/nix/store/2h3znnvdncxyc6pwslr2dsi6c4hg601b-hello",
+      "outputs": "out",
+      "patches": "",
+      "propagatedBuildInputs": "",
+      "propagatedNativeBuildInputs": "",
+      "stdenv": "/nix/store/28hqpbwpzvpff7ldbhxdhzcpdc34lgsa-stdenv-linux",
+      "strictDeps": "",
+      "system": "x86_64-linux"
+    }
+  }
+}
+```
+
+[```nix-store```](https://nixos.org/manual/nix/stable/command-ref/nix-store.html)
+realizes the ```.drv``` file, which actually builds it. Manipulates or queries
+the Nix store:
 
 ```console
 $ nix-store --realise /nix/store/q6h8xmwk2wmdn7fcsj4llcsi6xnzhn7d-hello.drv
@@ -136,11 +197,6 @@ Hello world!
 This was a little more detailed process, you can use the
 [nix-build](https://nixos.org/manual/nix/stable/command-ref/nix-build.html)
 command to build derivations.
-
-Behind the scenes Nix does:
-- ```nix-instantiate```: parse and evaluate the .nix file and return the .drv
-  file corresponding to the parsed derivation set.
-- ```nix-store -r```: realize the .drv file, which actually builds it.
 
 ### ELIGR (Explain me Like I'm a Golden Retriever)
 
