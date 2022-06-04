@@ -81,27 +81,61 @@ To deploy software using Nix you must write ***Nix expressions*** that
 describe how to build ***packages***. Nix expressions are written using the
 ***Nix expression language***.
 
-This high-level description of software packages are evaluated into what Nix
-calls a ***derivation***. In this step Nix evaluates code to resolve the
-***closures*** of a derivation, the list of all its dependencies including
+This high-level description of software packages are ***instantiated*** into
+what Nix calls a ***derivation***. In this step Nix evaluates code to resolve
+the ***closures*** of a derivation, the list of all its dependencies including
 absolutely everything necessary to use that derivation.
 
-The results of derivations are stored in the ***Nix store*** (typically
-```/nix/store```) and describes how to properly built the package in a
-reproducible way.
+The results of derivations are stored in a ```.drv``` file in the
+***Nix store*** (typically ```/nix/store```) and describes how to properly built
+the package in a reproducible way.
 
 <!--
 Nix with all the knowledge it obtained about a package creates a sandbox to
 build software that only has the dependencies 
 -->
 
-### Explained in tools used
+### Now explain it with examples using nix commands
 
 The [Nix language](https://nixos.org/manual/nix/stable/expressions/expression-language.html)
-is used to write expressions that when evaluated produce derivations.
+is used to write expressions that when evaluated produce derivations:
 
-The [nix-build](https://nixos.org/manual/nix/stable/command-ref/nix-build.html)
-tool is used to build derivations.
+```console
+$ cat hello-world.nix
+with import <nixpkgs> {};
+
+stdenv.mkDerivation {
+        name = "hello";
+        buildCommand = "'Hello world!' > $out";
+}
+```
+
+[nix-instantiate](https://nixos.org/manual/nix/stable/command-ref/nix-instantiate.html)
+stores derivations from Nix expressions:
+
+```console
+$ nix-instantiate hello-world.nix
+warning: you did not specify '--add-root'; the result might be removed by the garbage collector
+/nix/store/q6h8xmwk2wmdn7fcsj4llcsi6xnzhn7d-hello.drv
+```
+
+[nix-store](https://nixos.org/manual/nix/stable/command-ref/nix-store.html)
+manipulates or queries the Nix store:
+
+```console
+$ nix-store --realise /nix/store/q6h8xmwk2wmdn7fcsj4llcsi6xnzhn7d-hello.drv
+this derivation will be built:
+  /nix/store/q6h8xmwk2wmdn7fcsj4llcsi6xnzhn7d-hello.drv
+building '/nix/store/q6h8xmwk2wmdn7fcsj4llcsi6xnzhn7d-hello.drv'...
+warning: you did not specify '--add-root'; the result might be removed by the garbage collector
+/nix/store/2h3znnvdncxyc6pwslr2dsi6c4hg601b-hello
+$ cat /nix/store/2h3znnvdncxyc6pwslr2dsi6c4hg601b-hello
+Hello world!
+```
+
+This was a little more detailed process, you can use the
+[nix-build](https://nixos.org/manual/nix/stable/command-ref/nix-build.html)
+command to build derivations.
 
 Behind the scenes Nix does:
 - ```nix-instantiate```: parse and evaluate the .nix file and return the .drv
@@ -110,11 +144,24 @@ Behind the scenes Nix does:
 
 ### ELIGR (Explain me Like I'm a Golden Retriever)
 
-
+TODO
 
 ## Background
 
-Abstract
+> Existing systems for software deployment are neither safe nor sufficiently
+> flexible. Primary safety issues are the inability to enforce reliable
+> specification of component dependencies, and the lack of support for multiple
+> versions or variants of a component. This renders deployment operations such
+> as upgrading or deleting components dangerous and unpredictable. A deployment
+> system must also be flexible (i.e., policy-free) enough to support both
+> centralised and local package management, and to allow a variety of mechanisms
+> for transferring components. In this paper we present Nix, a deployment system
+> that addresses these issues through a simple technique of using cryptographic
+> hashes to compute unique paths for component instances.
+>
+> [Nix: A Safe and Policy-Free System for Software Deployment]
+(https://raw.githubusercontent.com/edolstra/edolstra.github.io/master/pubs/nspfssd-lisa2004-final.pdf)
+
 > Existing package and system configuration management tools suffer from an
 > imperative model, where system administration actions such as upgrading
 > packages or changes to system configuration files are stateful: they
