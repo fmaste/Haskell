@@ -190,6 +190,11 @@ this derivation will be built:
 building '/nix/store/q6h8xmwk2wmdn7fcsj4llcsi6xnzhn7d-hello.drv'...
 warning: you did not specify '--add-root'; the result might be removed by the garbage collector
 /nix/store/2h3znnvdncxyc6pwslr2dsi6c4hg601b-hello
+```
+
+Excellent:
+
+```console
 $ cat /nix/store/2h3znnvdncxyc6pwslr2dsi6c4hg601b-hello
 Hello world!
 ```
