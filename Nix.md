@@ -377,5 +377,9 @@ A channel
     - Part 1: https://www.tweag.io/blog/2020-05-25-flakes/
     - Part 2: https://www.tweag.io/blog/2020-06-25-eval-cache/
     - Part 3: https://www.tweag.io/blog/2020-07-31-nixos-flakes/
+  - [Nix package scopes](https://andreas.rammhold.de/posts/nix-package-scopes/)
+    - > overlays are used to add internal packages into pkgs. IMHO this is an
+      > anti-pattern as long as you are not trying to modify packages that are
+      > part of nixpkgs
 - YouTube
   - [Nix Fundamentals](https://www.youtube.com/watch?v=m4sv2M9jRLg)
