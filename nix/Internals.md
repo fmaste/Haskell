@@ -520,3 +520,8 @@ This file didn't exist, I created it to enable ```flakes```. More on that later
 $ mkdir -p ~/.config/nix/
 $ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
+
+## The /nix directory
+
+Yes, Nix also has a database. It's stored under /nix/var/nix/db. It is a sqlite
+database that keeps track of the dependencies between derivations.

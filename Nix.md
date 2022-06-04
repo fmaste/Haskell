@@ -42,8 +42,12 @@ A Nix software package (a bunch of different things to build, install and later
 run) contains ***a description written in a language created for this specific
 purpose that defines a function from inputs to outputs***.
 
-The ***inputs are other Nix expressions***, Nix libraries involved in building
-the package description, like a library to fetch code with git.
+The ***inputs are other expressions written in Nix ***, mostly Nix libraries
+involved in building the package description like a library to fetch code using
+git.
+
+\* A Nix file contains an expression that can have no inputs, just a value, but
+you know that we are told that everything is a function.
 
 The ***outputs are other Nix packages, the build script, environment variables
 for the build script, etc***. Nix tries very hard to ensure that Nix expressions
@@ -102,11 +106,10 @@ is used to write expressions that when evaluated produce derivations:
 
 ```console
 $ cat hello-world.nix
-with import <nixpkgs> {};
-
-stdenv.mkDerivation {
+{ pkgs ? import <nixpkgs> {} }:
+pkgs.stdenv.mkDerivation {
         name = "hello";
-        buildCommand = "'Hello world!' > $out";
+        buildCommand = "echo 'Hello world!' > $out";
 }
 ```
 
@@ -374,3 +377,5 @@ A channel
     - Part 1: https://www.tweag.io/blog/2020-05-25-flakes/
     - Part 2: https://www.tweag.io/blog/2020-06-25-eval-cache/
     - Part 3: https://www.tweag.io/blog/2020-07-31-nixos-flakes/
+- YouTube
+  - [Nix Fundamentals](https://www.youtube.com/watch?v=m4sv2M9jRLg)

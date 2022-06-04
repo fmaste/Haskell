@@ -1268,3 +1268,10 @@ Or feel free to contact the team:
 Nix won't work in active shell sessions until you restart them.
 S
 ```
+
+### Fixing
+
+```console
+$ mkdir -p ~/.config/nix/
+$ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+```

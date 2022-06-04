@@ -29,6 +29,7 @@ Integers and floats:
 ```nix
 0
 0.22
+.22e10
 ```
 
 ### Strings:
@@ -48,12 +49,17 @@ This is a path, not a division:
 ```nix
 nix-repl> 4/2
 /home/nix/4/2
+nix-repl> <nixpkgs>
+/home/fmaste/.nix-defexpr/channels/nixpkgs
 ```
+
+Square braces as in ```<nixpkgs>``` resolve from ```NIX_PATH``` environment
+variable.
 
 Nix is not a general purpose language, it's a domain-specific language for
 writing packages.
 
-## Boolean values
+### Boolean values
 
 ```nix
 true
@@ -66,6 +72,41 @@ There's no escape from it mfer:
 
 ```nix
 null
+```
+
+### Lists
+
+Are space-separated element inside ```[``` and ```]``` which types are
+heterogeneous:
+
+```nix
+[ true 0 0.22 "string" ]
+```
+
+### Attribute sets
+
+Or also called object, dictionary or record in other places. The syntax is
+multiple ```"key name"``` = ```value``` elements separated by ```;```. Never
+forget the ending ```;``` or it won't "compile":
+
+```nix
+{ A = 0; B = "string"; }
+# Attribute sets can be nested:
+{ A = { B = 0; }; }
+# The line above is the same as:
+{ A.B = 0; }
+```
+
+### Recursive attribute set
+
+Allows the attributes we are defining to be re-used in the scope of the
+attribute set. So we can refer recursively other elements of the set when
+defining attributes:
+
+```nix
+rec { A = 0; B = A; }
+# Results in the same record as:
+{ A = 0; B = 0; }
 ```
 
 ## Operators
@@ -92,41 +133,6 @@ nix-repl> builtins.div 4 2
 
 Other operators are ```||```, ```&&``` and ```!``` for booleans, and relational
 operators such as ```!=```, ```==```, ```<```, ```>```, ```<=```, ```>=```.
-
-## Lists
-
-Are space-separated element inside ```[``` and ```]``` which types are
-heterogeneous:
-
-```nix
-[ true 0 0.22 "string" ]
-```
-
-## Attribute sets
-
-Or also called object, dictionary or record in other places. The syntax is
-multiple ```"key name"``` = ```value``` elements separated by ```;```. Never
-forget the ending ```;``` or it won't "compile":
-
-```nix
-{ A = 0; B = "string"; }
-# Attribute sets can be nested:
-{ A = { B = 0; }; }
-# The line above is the same as:
-{ A.B = 0; }
-```
-
-## Recursive attribute set
-
-Allows the attributes we are defining to be re-used in the scope of the
-attribute set. So we can refer recursively other elements of the set when
-defining attributes:
-
-```nix
-rec { A = 0; B = A; }
-# Results in the same record as:
-{ A = 0; B = 0; }
-```
 
 ## Local variable definition
 
