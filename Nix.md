@@ -227,8 +227,7 @@ You install Nix, do ...
 > that addresses these issues through a simple technique of using cryptographic
 > hashes to compute unique paths for component instances.
 >
-> [Nix: A Safe and Policy-Free System for Software Deployment]
-(https://raw.githubusercontent.com/edolstra/edolstra.github.io/master/pubs/nspfssd-lisa2004-final.pdf)
+> [Nix: A Safe and Policy-Free System for Software Deployment](https://raw.githubusercontent.com/edolstra/edolstra.github.io/master/pubs/nspfssd-lisa2004-final.pdf)
 
 > Existing package and system configuration management tools suffer from an
 > imperative model, where system administration actions such as upgrading
