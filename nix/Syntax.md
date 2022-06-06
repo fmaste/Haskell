@@ -16,7 +16,7 @@ IS A COMMENT!
 */
 ```
 
-## Simple types
+## Simple values
 
 Nix has integer, floating point, string, path, boolean and null
 [simple](https://nixos.org/manual/nix/stable/expressions/language-values.html)
@@ -74,7 +74,7 @@ There's no escape from it mfer:
 null
 ```
 
-### Lists
+## Lists
 
 Are space-separated element inside ```[``` and ```]``` which types are
 heterogeneous:
@@ -83,7 +83,7 @@ heterogeneous:
 [ true 0 0.22 "string" ]
 ```
 
-### Attribute sets
+## Attribute sets
 
 Or also called object, dictionary or record in other places. The syntax is
 multiple ```"key name"``` = ```value``` elements separated by ```;```. Never
@@ -97,7 +97,9 @@ forget the ending ```;``` or it won't "compile":
 { A.B = 0; }
 ```
 
-### Recursive attribute set
+## Language constructs
+
+### Recursive attribute sets
 
 Allows the attributes we are defining to be re-used in the scope of the
 attribute set. So we can refer recursively other elements of the set when
@@ -109,34 +111,11 @@ rec { A = 0; B = A; }
 { A = 0; B = 0; }
 ```
 
-## Operators
+### Let
 
-```nix
-nix-repl> 1+2
-3
-nix-repl> 2-1
-1
-nix-repl> 2*2
-4
-```
+Local variable definition
 
-***Watch out when using division***:
-
-```nix
-nix-repl> 4/2
-/home/nix/4/2
-nix-repl> 4/ 2
-2
-nix-repl> builtins.div 4 2
-2
-```
-
-Other operators are ```||```, ```&&``` and ```!``` for booleans, and relational
-operators such as ```!=```, ```==```, ```<```, ```>```, ```<=```, ```>=```.
-
-## Local variable definition
-
-The variable defined after ```let``` are avaibale in the scope after ```in```:
+The variable defined after ```let``` are available in the scope after ```in```:
 
 ```nix
 myAtrSet = let
@@ -148,13 +127,20 @@ in { A = numberA; B = numberB; }
 refer to variables in the let expression when assigning variables, like with
 recursive attribute sets.
 
-## Shortcut for ```A = B.A```
+### Inherit
+
+Shortcut for ```A = B.A```:
 
 ```nix
 inherit (B) A;
 ```
 
-## Function definition and calling:
+ The inherit keyword causes the specified attributes to be bound to whatever
+ variables with the same name happen to be in scope.
+
+### Functions
+
+#### Functions definition and calling:
 
 ```nix
 # a and b are the parameters and the return expression is a + b
@@ -217,6 +203,31 @@ nix-repl> mul = s@{ a, b, ... }: a*b*s.c
 nix-repl> mul { a = 3; b = 4; c = 2; }
 24
 ```
+
+## Operators
+
+```nix
+nix-repl> 1+2
+3
+nix-repl> 2-1
+1
+nix-repl> 2*2
+4
+```
+
+***Watch out when using division***:
+
+```nix
+nix-repl> 4/2
+/home/nix/4/2
+nix-repl> 4/ 2
+2
+nix-repl> builtins.div 4 2
+2
+```
+
+Other operators are ```||```, ```&&``` and ```!``` for booleans, and relational
+operators such as ```!=```, ```==```, ```<```, ```>```, ```<=```, ```>=```.
 
 ## Builtin functions
 
