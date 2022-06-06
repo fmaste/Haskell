@@ -179,8 +179,9 @@ fi
 # End Nix
 ```
 
-The script mainly sets the ```NIX_PROFILES``` and ```NIX_SSL_CERT_FILE```
-environment variables:
+The script mainly sets the ```NIX_PROFILES```, ```NIX_SSL_CERT_FILE```
+environment variables and adds ```$HOME/.nix-profile/bin``` and
+```/nix/var/nix/profiles/default/bin``` to ```$PATH```:
 
 ```console
 $ cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
@@ -222,6 +223,8 @@ fi
 
 export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
 ```
+
+See [Environment Variables](https://nixos.org/manual/nix/stable/installation/env-variables.html)
 
 ## On the /root directory
 
