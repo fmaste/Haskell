@@ -1,21 +1,24 @@
 # Nix language syntax
 
 The [Nix language](https://nixos.org/manual/nix/stable/expressions/expression-language.html)
-is used mainly write expressions that produce derivations.
+is used write expressions that produce derivations.
+
+> The Nix expression language is a ***pure, lazy, functional language***. Purity
+> means that ***operations in the language don't have side-effects*** (for
+> instance, there is no variable assignment). Laziness means that arguments to
+> functions are ***evaluated only when they are needed***. Functional means that
+> ***functions are “normal” values that can be passed around*** and manipulated
+> in interesting ways. The language is not a full-featured, general purpose
+> language. ***Its main job is to describe packages, compositions of packages,
+> and the variability within packages***.
+>
+> [Nix Expression Language](https://nixos.org/manual/nix/stable/expressions/expression-language.html)
 
 Inherited from its functional programming roots, in Nix, everything is an
 expression, there are no statements, and values are immutable.
 
-> The Nix expression language is a pure, lazy, functional language. Purity means
-> that operations in the language don't have side-effects (for instance, there
-> is no variable assignment). Laziness means that arguments to functions are
-> evaluated only when they are needed. Functional means that functions are
-> “normal” values that can be passed around and manipulated in interesting ways.
-> The language is not a full-featured, general purpose language. Its main job is
-> to describe packages, compositions of packages, and the variability within
-> packages.
->
-> [Nix Expression Language](https://nixos.org/manual/nix/stable/expressions/expression-language.html)
+A ```.nix``` contains one and only one of the values or language constructs that
+are explained below.
 
 ## Comments:
 
@@ -52,9 +55,24 @@ involving at least one floating point number.
 "a boring single line string"
 
 ''a nice
-multi line
+indented
 string''
 ```
+
+The special characters ```"``` and ```\``` and the character sequence ```${```
+must be escaped by prefixing them with a backslash (```\```). Newlines, carriage
+returns and tabs can be written as ```\n```, ```\r``` and ```\t```,
+respectively.
+
+#### Antiquotation
+
+You can include the result of an expression into a string by enclosing it in
+```${...}```, a feature known as antiquotation.
+
+Instead of writing this
+```"--with-freetype2-library=" + freetype + "/lib"```
+you do this on nix
+```"--with-freetype2-library=${freetype}/lib"```.
 
 ### Paths
 
