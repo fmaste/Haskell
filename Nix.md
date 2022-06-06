@@ -38,30 +38,34 @@ Hydra.
 
 ## 10,000 ft view
 
-A Nix software package (a bunch of different things to build, install and later
-run) contains ***a description written in a language created for this specific
-purpose that defines a function from inputs to outputs***.
+A Nix software package (a bunch of different things to build, install to later
+be able to run) contains ***a description written in a language created for this
+specific purpose that defines a function from inputs to outputs***.
 
 The ***inputs are other expressions written in Nix ***, mostly Nix libraries
-involved in building the package description like a library to fetch code using
-git.
+passed as arguments that are involved in building the package description like a
+library to fetch code using ```git```.
 
-\* A Nix file contains an expression that can have no inputs, just a value, but
-you know that we are told that everything is a function.
+\* A Nix file contains a Nix language expression that can have no inputs, just a
+value, but you know that we are told how everything is a function.
 
-The ***outputs are other Nix packages, the build script, environment variables
-for the build script, etc***. Nix tries very hard to ensure that Nix expressions
-are deterministic: building a Nix expression twice should yield the same result.
+Per Nix's interface the ***output is a well-known list of key/value pairs that
+contains other Nix packages, the build script and command line, environment
+variables for the build script, destination directory, etc***. Nix tries very
+hard to ensure that Nix expressions are deterministic: evaluating a Nix
+expression twice should yield the same result.
 
 \* If you are curious reader, the big ***if*** in this last sentence is solved
 with what Nix calls Flakes.
 
-When Nix runs, or evaluates, this description program(s) it ***obtains a precise
-description of everything it needs to build the package's software*** (it can
-also be used for other Nix stuff besides building software, more on this later).
+After running, or evaluating, this "description program(s)" Nix ***obtains a
+precise description of everything it needs to build the package's software***.
 With the output of this description Nix creates something akin to a sandbox
 description file with specific dependencies and the build process to run inside
-it.
+it. Almost like [Flatpak](https://flatpak.org/) or
+[snaps](https://snapcraft.io/). The big difference is that Nix's expression
+language is very expressive and powerful and is also used for other Nix stuff
+besides building software, more on this later.
 
 The secret sauce is that this sandbox is linked with an specific version of each
 dependency and are ***always the same dependencies each time the software is
@@ -208,7 +212,7 @@ command to build derivations.
 
 ### ELIGR (Explain me Like I'm a Golden Retriever)
 
-TODO
+You install Nix, do ...
 
 ## Background
 
