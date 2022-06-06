@@ -1,10 +1,21 @@
 # Nix language syntax
 
 The [Nix language](https://nixos.org/manual/nix/stable/expressions/expression-language.html)
-is used to write expressions that produce derivations.
+is used mainly write expressions that produce derivations.
 
 Inherited from its functional programming roots, in Nix, everything is an
 expression, there are no statements, and values are immutable.
+
+> The Nix expression language is a pure, lazy, functional language. Purity means
+> that operations in the language don't have side-effects (for instance, there
+> is no variable assignment). Laziness means that arguments to functions are
+> evaluated only when they are needed. Functional means that functions are
+> “normal” values that can be passed around and manipulated in interesting ways.
+> The language is not a full-featured, general purpose language. Its main job is
+> to describe packages, compositions of packages, and the variability within
+> packages.
+>
+> [Nix Expression Language](https://nixos.org/manual/nix/stable/expressions/expression-language.html)
 
 ## Comments:
 
@@ -32,6 +43,9 @@ Integers and floats:
 .22e10
 ```
 
+Pure integer operations will always return integers, whereas any operation
+involving at least one floating point number.
+
 ### Strings:
 
 ```nix
@@ -44,20 +58,22 @@ string''
 
 ### Paths
 
-This is a path, not a division:
+A path must contain at least one slash to be recognized as such.
 
-```nix
+```console
 nix-repl> 4/2
 /home/nix/4/2
+nix-repl> ~/foo
+/home/fmaste/foo
 nix-repl> <nixpkgs>
 /home/fmaste/.nix-defexpr/channels/nixpkgs
 ```
 
 Square braces as in ```<nixpkgs>``` resolve from ```NIX_PATH``` environment
-variable.
+variable (that's what the docs say, I have no ```NIX_PATH```).
 
 Nix is not a general purpose language, it's a domain-specific language for
-writing packages.
+writing packages. That's why ```4/2``` is a path, not a division.
 
 ### Boolean values
 
@@ -76,12 +92,14 @@ null
 
 ## Lists
 
-Are space-separated element inside ```[``` and ```]``` which types are
+Are whitespace-separated elements between ```[``` and ```]``` which types are
 heterogeneous:
 
 ```nix
 [ true 0 0.22 "string" ]
 ```
+
+Note that lists are only lazy in values, and they are strict in length.
 
 ## Attribute sets
 
@@ -95,7 +113,13 @@ forget the ending ```;``` or it won't "compile":
 { A = { B = 0; }; }
 # The line above is the same as:
 { A.B = 0; }
+# Also double-quoted strings:
+{ "foo ${bar}" = 1; }
 ```
+
+In the special case where an attribute name inside of a set declaration
+evaluates to null (which is normally an error, as null is not antiquotable),
+that attribute is simply not added to the set.
 
 ## Language constructs
 
@@ -160,7 +184,11 @@ Load code:
 
 ```nix
 import ./more.nix
+pkgs = import <nixpkgs> {};
+lib = import <nixpkgs/lib>;
 ```
+
+It's equivalent in other languages is ```eval``` function.
 
 Lambdas / Functions
 
