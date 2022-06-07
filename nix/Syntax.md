@@ -171,10 +171,23 @@ recursive attribute sets.
 
 ### Inherit
 
-Shortcut for ```A = B.A```:
+Or a nice way of saying ```A = A```:
 
 ```nix
-inherit (B) A;
+let
+  A = 0;
+in
+  {
+    inherit A;
+    B = 1;
+  }
+```
+
+Or a nice way of saying ```myFunction = myLibrary.myFunction``` that is mostly
+used to get a function from another package (an attribute set) into scope:
+
+```nix
+inherit (myLibrary) myFunction;
 ```
 
  The inherit keyword causes the specified attributes to be bound to whatever
