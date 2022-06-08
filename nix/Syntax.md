@@ -17,6 +17,19 @@ is used write expressions that produce derivations.
 Inherited from its functional programming roots, in Nix, everything is an
 expression, there are no statements, and values are immutable.
 
+Even scope analysis in Nix is lazy. This undefined `d` does not complain at all:
+```nixs
+let
+        a = { a = 0; };
+        b = { b = 1; };
+        c = with a; with b; [ a b c d ];
+in pkgs.stdenv.mkDerivation {
+        name = "hello";
+        buildCommand = "echo 'Hello world!' > $out";
+
+}
+```
+
 A ```.nix``` contains one and only one of the values or language constructs that
 are explained below.
 
@@ -169,6 +182,11 @@ in { A = numberA; B = numberB; }
 refer to variables in the let expression when assigning variables, like with
 recursive attribute sets.
 
+```console
+nix-repl> let a = 0; in let a = 1; in let a = 2; in a
+2
+```
+
 ### Inherit
 
 Or a nice way of saying ```A = A```:
@@ -288,11 +306,13 @@ nix-repl> builtins.div 4 2
 Other operators are ```||```, ```&&``` and ```!``` for booleans, and relational
 operators such as ```!=```, ```==```, ```<```, ```>```, ```<=```, ```>=```.
 
-## Builtin functions
+## Built-in functions
 
-```nix
-builtins.getEnv "PATH"
-```
+The only [built-in constant](https://nixos.org/manual/nix/stable/expressions/builtin-constants.html)
+is ```builtins```. This attributes set contains a lot of
+[useful functions](https://nixos.org/manual/nix/stable/expressions/builtins.html)
+like ```isFloat```, ```typeOf``` to be able to introspect expressions or
+```trace``` and ```abort``` to debug.
 
 ## Imports
 
@@ -318,3 +338,10 @@ true
 
 nix-repl> builtins.all (a: a > 2) [1 2 3] 
 false
+
+## With
+
+```console
+nix-repl> let a = 0; with {a = 1;}; with {a = 2;}; a
+0
+```
