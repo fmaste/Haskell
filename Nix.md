@@ -386,3 +386,5 @@ A channel
       > part of nixpkgs
 - YouTube
   - [Nix Fundamentals](https://www.youtube.com/watch?v=m4sv2M9jRLg)
+- Std
+  - https://divnix.github.io/std/
