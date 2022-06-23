@@ -42,7 +42,7 @@ A Nix software package (a bunch of different things to build, install to later
 be able to run) contains ***a description written in a language created for this
 specific purpose that defines a function from inputs to outputs***.
 
-The ***inputs are other expressions written in Nix ***, mostly Nix libraries
+The ***inputs are other expressions written in Nix***, mostly Nix libraries
 passed as arguments that are involved in building the package description like a
 library to fetch code using ```git```.
 
