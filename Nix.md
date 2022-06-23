@@ -38,13 +38,16 @@ Hydra.
 
 ## 10,000 ft view
 
-A Nix software package (a bunch of different things to build, install to later
-be able to run) contains ***a description written in a language created for this
-specific purpose that defines a function from inputs to outputs***.
+A software package is a bunch of different things to build and install in a way
+that allows to later be able to use it.
 
-The ***inputs are other expressions written in Nix***, mostly Nix libraries
-passed as arguments that are involved in building the package description like a
-library to fetch code using ```git```.
+A Nix software package contains ***a description of the build and install
+process in a function from inputs to outputs written in a language created for
+this specific purpose***, the Nix expression language.
+
+The ***inputs are other expressions also written in Nix***, mostly Nix libraries
+passed as arguments that are involved in building the package like a library
+to fetch code using ```git``` or dependencies needed at runtime.
 
 \* A Nix file contains a Nix language expression that can have no inputs, just a
 value, but you know that we are told how everything is a function.
@@ -73,10 +76,10 @@ build or run***. From an administrator's point of view: if you want an old PHP
 version for one application, but want to upgrade the rest of the system, that's
 not painful any more.
 
-There are no upgrade/downgrade scripts for your data. It doesn't make sense with
-this approach, because there's nothing to be upgraded. With Nix you switch to
-using other software with its own of dependencies, but there's no formal notion
-of upgrade or downgrade when doing so.
+There are no upgrade/downgrade scripts for your packages. It doesn't make sense
+with this approach, because there's nothing to be upgraded. With Nix you switch
+to using other software with its own of dependencies, but there's no formal
+notion of upgrade or downgrade when doing so.
 
 \* If there is a data format change, then migrating to the new data format
 remains your own responsibility. Of course!
