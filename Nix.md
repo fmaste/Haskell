@@ -99,7 +99,7 @@ to fetch code using ```git``` or dependencies needed at runtime.
 value, but you know how we are told that everything is a function.
 
 Per Nix's interface the ***output is a well-known list of key/value pairs that
-contains other Nix packages, the build script and command line, environment
+contains other Nix packages, the build script and command lines, environment
 variables for the build script, destination directory, etc***. Nix tries very
 hard to ensure that Nix expressions are deterministic: evaluating a Nix
 expression with the same inputs twice should yield the same result.
@@ -118,9 +118,9 @@ besides building software, more on this later.
 
 The secret sauce is that this sandbox is linked with an specific version of each
 dependency and are ***always the same dependencies each time the software is
-build or run***. From an administrator's point of view: if you want an old PHP
-version for one application, but want to upgrade the rest of the system, that's
-not painful any more.
+run***. From an administrator's point of view: if you want an old PHP version
+for one application, but want to upgrade the rest of the system, that's not
+painful any more.
 
 There are no upgrade/downgrade scripts for your packages. It doesn't make sense
 with this approach, because there's nothing to be upgraded. With Nix you switch
