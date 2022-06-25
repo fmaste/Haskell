@@ -18,10 +18,10 @@ combination of packages can be installed identically in different hosts creating
 reproducible environments.
 
 If you have never experienced ["DLL hell"](https://en.wikipedia.org/wiki/DLL_Hell)
-or needed to share a common environment between setups or colleagues then this
-"guide" is not for you, go watch one random Netflix series only to realize
-after 160 days watching TV non-stop that it was not good like the other 20 you
-have already watched.
+, needed to share a common environment with testing (continuous integration)
+or between setups or colleagues then this "guide" is not for you, go watch one
+random Netflix series only to realize after 160 days watching TV non-stop that
+it was not good like the other 20 you have already watched.
 
 ## How?
 
@@ -32,8 +32,8 @@ language.
 Nix takes care of following the necessary steps in a way that the output is
 reproducible (a kind of ```make install``` sandbox that even sets the date to
 ```Jan  1  1970```). Every package is installed in the Nix store using an unique
-path of the form ```/nix/store/$HASH-$NAME``` so all dependencies can be
-"linked" using absolute paths.
+path of the form ```/nix/store/<hash>-<name>-<version>``` so all dependencies
+can be "linked" using absolute paths.
 
 For example, here is the location of an installed version of ```sqlite```:
 ```console
