@@ -10,6 +10,18 @@ Nix is a purely functional software package manager.
 Hydra.
 ![Nix stack](https://nixos.wiki/images/4/44/Nixos-stack2.png)
 
+## Why?
+
+Unlike most package managers Nix installs packages independently of the global
+state of the system, this means that an specific combination of packages can be
+installed identically in different hosts creating reproducible environments.
+
+If you have never experienced ["DLL hell"](https://en.wikipedia.org/wiki/DLL_Hell)
+or needed to share a common environment between setups or colleagues then this
+"guide" is not for you, go watch one random Netflix series only to realize
+after 160 days watching TV non-stop that it was not good like the other 20 you
+have already watched.
+
 ## Main Features
 
 ### Reproducible
