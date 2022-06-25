@@ -13,8 +13,9 @@ Hydra.
 ## Why?
 
 Unlike most package managers Nix installs packages independently of the global
-state of the system, this means that an specific combination of packages can be
-installed identically in different hosts creating reproducible environments.
+state of the system in which Nix is being used, this means that an specific
+combination of packages can be installed identically in different hosts creating
+reproducible environments.
 
 If you have never experienced ["DLL hell"](https://en.wikipedia.org/wiki/DLL_Hell)
 or needed to share a common environment between setups or colleagues then this
@@ -24,14 +25,15 @@ have already watched.
 
 ## How?
 
-Nix packages are descriptions on how to build and install software components
+Nix packages are descriptions of how to build and install software components
 that are written following an specification in a very powerful special purpose
 language.
 
 Nix takes care of following the necessary steps in a way that the output is
-reproducible (a kind of ```make install``` sandbox). Every package is installed
-in the Nix store using an unique path of the form ```/nix/store/$HASH-$NAME```
-so all dependencies can use an absolute path.
+reproducible (a kind of ```make install``` sandbox that even sets the date to
+```Jan  1  1970```). Every package is installed in the Nix store using an unique
+path of the form ```/nix/store/$HASH-$NAME``` so all dependencies can be
+"linked" using absolute paths.
 
 For example, here is the location of an installed version of ```sqlite```:
 ```console
@@ -39,7 +41,7 @@ $ ls -la /nix/store/p3d1pgw1kwd328zn1vgsqac01b6q11ya-sqlite-3.38.5-bin/bin/
 -r-xr-xr-x 1 root root 1649464 Jan  1  1970 sqlite3
 ```
 
-And Nix takes care of relating dependencies together or managing user profiles:
+And Nix takes care of relating dependencies or managing user profiles:
 
 ```console
 $ env | grep nix
@@ -98,8 +100,8 @@ to fetch code using ```git``` or dependencies needed at runtime.
 \* A Nix file contains a Nix language expression that can have no inputs, just a
 value, but you know how we are told that everything is a function.
 
-Per Nix's interface the ***output is a well-known list of key/value pairs that
-contains other Nix packages, the build script and command lines, environment
+Per Nix's interface the ***output is a well-known list of key/value pairs
+containing other Nix packages, the build script and command lines, environment
 variables for the build script, destination directory, etc***. Nix tries very
 hard to ensure that Nix expressions are deterministic: evaluating a Nix
 expression with the same inputs twice should yield the same result.
@@ -113,7 +115,7 @@ With the output of this description Nix creates something akin to a sandbox
 description file with specific dependencies and the build process to run inside
 it. Almost like [Flatpak](https://flatpak.org/) or
 [snaps](https://snapcraft.io/). The big difference is that Nix's expression
-language is very expressive and powerful and is also used for other Nix stuff
+language is very expressive and powerful and is also used for other stuff
 besides building software, more on this later.
 
 The secret sauce is that this sandbox is linked with an specific version of each
@@ -236,8 +238,8 @@ $ nix show-derivation /nix/store/q6h8xmwk2wmdn7fcsj4llcsi6xnzhn7d-hello.drv
 ```
 
 [```nix-store```](https://nixos.org/manual/nix/stable/command-ref/nix-store.html)
-realizes the ```.drv``` file, which actually builds it. Manipulates or queries
-the Nix store:
+realizes the ```.drv``` file, which actually builds it (also manipulates or
+queries the Nix store):
 
 ```console
 $ nix-store --realise /nix/store/q6h8xmwk2wmdn7fcsj4llcsi6xnzhn7d-hello.drv
@@ -261,7 +263,8 @@ command to build derivations.
 
 ### ELIGR (Explain me Like I'm a Golden Retriever)
 
-You install Nix, do ...
+Just buy a hard drive with plenty of capacity and copy and paste terminal
+commands from Reddit that look for your MetaMask recovery phrase.
 
 ## Background
 
