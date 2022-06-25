@@ -22,6 +22,39 @@ or needed to share a common environment between setups or colleagues then this
 after 160 days watching TV non-stop that it was not good like the other 20 you
 have already watched.
 
+## How?
+
+Nix packages are descriptions on how to build and install software components
+that written following an interface in a very powerful special purpose language.
+
+Nix takes care of following the necessary steps in a way that the output is
+reproducible (a kind of ```make install``` sandbox). Every package is installed
+in the Nix store using an unique path of the form ```/nix/store/$HASH-$NAME```
+so all dependencies can use an absolute path.
+
+For example, here is the location of an installed version of ```sqlite```:
+```console
+$ ls -la /nix/store/p3d1pgw1kwd328zn1vgsqac01b6q11ya-sqlite-3.38.5-bin/bin/
+-r-xr-xr-x 1 root root 1649464 Jan  1  1970 sqlite3
+```
+
+And Nix takes care of relating dependencies together or managing user profiles:
+
+```console
+$ env | grep nix
+PATH=...:/home/fmaste/.nix-profile/bin:...
+```
+
+```console
+$ which sqlite3
+/home/fmaste/.nix-profile/bin/sqlite3
+```
+
+```console
+$ ls -la /home/fmaste/.nix-profile/bin/
+lrwxrwxrwx 1 root root 73 Jan  1  1970 sqlite3 -> /nix/store/p3d1pgw1kwd328zn1vgsqac01b6q11ya-sqlite-3.38.5-bin/bin/sqlite3
+```
+
 ## Main Features
 
 ### Reproducible
