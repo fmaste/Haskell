@@ -268,6 +268,8 @@ commands from Reddit that look for your MetaMask recovery phrase.
 
 ## Background
 
+Eelco Dolstra [@n1ksnut](https://twitter.com/n1ksnut) papers:
+
 > Existing systems for software deployment are neither safe nor sufficiently
 > flexible. Primary safety issues are the inability to enforce reliable
 > specification of component dependencies, and the lack of support for multiple
