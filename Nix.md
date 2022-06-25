@@ -96,7 +96,7 @@ passed as arguments that are involved in building the package like a library
 to fetch code using ```git``` or dependencies needed at runtime.
 
 \* A Nix file contains a Nix language expression that can have no inputs, just a
-value, but you know that we are told how everything is a function.
+value, but you know how we are told that everything is a function.
 
 Per Nix's interface the ***output is a well-known list of key/value pairs that
 contains other Nix packages, the build script and command line, environment
