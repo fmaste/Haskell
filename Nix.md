@@ -102,7 +102,7 @@ Per Nix's interface the ***output is a well-known list of key/value pairs that
 contains other Nix packages, the build script and command line, environment
 variables for the build script, destination directory, etc***. Nix tries very
 hard to ensure that Nix expressions are deterministic: evaluating a Nix
-expression twice should yield the same result.
+expression with the same inputs twice should yield the same result.
 
 \* If you are curious reader, the big ***if*** in this last sentence is solved
 with what Nix calls Flakes.
