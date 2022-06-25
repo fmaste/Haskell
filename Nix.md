@@ -25,7 +25,8 @@ have already watched.
 ## How?
 
 Nix packages are descriptions on how to build and install software components
-that written following an interface in a very powerful special purpose language.
+that are written following an specification in a very powerful special purpose
+language.
 
 Nix takes care of following the necessary steps in a way that the output is
 reproducible (a kind of ```make install``` sandbox). Every package is installed
